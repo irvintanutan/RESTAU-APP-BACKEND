@@ -222,7 +222,7 @@ class Items_controller extends CI_Controller {
         
 
 
-        //sample
+        //sample gi update nako ni
         //output to json format
         echo json_encode($data);
     }

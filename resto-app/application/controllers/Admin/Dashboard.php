@@ -11,4 +11,7 @@ class Dashboard extends CI_Controller {
       $this->load->view('template/dashboard_footer');
    }
 
+
+
+   	///////nag update ko diri
 }

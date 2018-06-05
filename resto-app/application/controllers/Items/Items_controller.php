@@ -219,7 +219,10 @@ class Items_controller extends CI_Controller {
 
             $data[] = $row;
         }
- 
+        
+
+
+        //sample
         //output to json format
         echo json_encode($data);
     }

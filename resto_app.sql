@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 05, 2018 at 11:24 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: localhost
+-- Generation Time: Jun 06, 2018 at 06:06 PM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -525,7 +523,21 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000424, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-05-31 14:35:21'),
 (1000425, 'TORRES, JIK', 'Delete', 'Product%20deleted%20P12:%20test%20insert%202', '2018-05-31 14:35:42'),
 (1000426, 'TORRES, JIK', 'Delete', 'Product%20deleted%20P11:%20test%20insert%201', '2018-05-31 14:35:46'),
-(1000427, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-04 09:52:56');
+(1000427, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-04 09:52:56'),
+(1000428, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-04 17:53:52'),
+(1000429, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-05 09:15:48'),
+(1000430, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-05 11:06:05'),
+(1000431, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-05 15:06:48'),
+(1000432, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-06 09:27:05'),
+(1000433, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-06 14:30:52'),
+(1000434, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-06 17:43:09'),
+(1000435, 'TORRES, JIK', 'Add', 'New%20table%20added:%20Square%20Table%202', '2018-06-06 18:01:18'),
+(1000436, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:01:24'),
+(1000437, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:01:33'),
+(1000438, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:01:40'),
+(1000439, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:04:52'),
+(1000440, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:05:44'),
+(1000441, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:05:49');
 
 -- --------------------------------------------------------
 
@@ -604,7 +616,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coca Cola', '', 1, '50.00', '1.jpg', 0, 0, '2018-05-24 18:22:34', 0),
+(1, 'Coca Cola', 'JUSTIN AND MICO', 1, '50.00', '', 0, 0, '2018-05-24 18:22:34', 0),
 (2, 'Iced Tea Pitcher', 'Soda', 1, '45.00', '2.jpg', 0, 0, '2018-05-28 14:37:40', 0),
 (3, 'Cheese Burger', 'Regular size cheese burger', 3, '100.00', '3.jpg', 0, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'Green can soda in can', 1, '50.00', '4.jpg', 0, 0, '2018-05-29 13:55:32', 0),
@@ -671,8 +683,17 @@ CREATE TABLE `tables` (
   `tbl_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `status` int(1) NOT NULL,
-  `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tables`
+--
+
+INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
+(1, 'Square Table 1', 0, '2018-06-06 17:57:24', 0),
+(2, 'Square Table 2', 3, '2018-06-06 18:01:17', 0);
 
 -- --------------------------------------------------------
 
@@ -831,7 +852,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000428;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000442;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -846,7 +867,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
@@ -856,8 +877,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;COMMIT;
-
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

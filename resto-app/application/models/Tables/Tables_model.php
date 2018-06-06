@@ -141,7 +141,7 @@ class Tables_model extends CI_Model {
 
         $row = $query->row();
 
-        return $row->cat_id;
+        return $row->status;
     }
  
     function count_filtered()

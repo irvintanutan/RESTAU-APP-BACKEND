@@ -96,6 +96,26 @@ $route['delete-category/(:num)'] = 'Categories/Categories_controller/ajax_delete
 $route['showlist-categories-api'] = 'Categories/Categories_controller/ajax_api_list';
 
 
+//************************************ TABLES ROUTES ***************************************************************
+//******************************************************************************************************************
+
+$route['tables-page'] = 'Tables/Tables_controller';
+
+$route['showlist-tables'] = 'Tables/Tables_controller/ajax_list';
+
+$route['add-table'] = 'Tables/Tables_controller/ajax_add';
+
+$route['edit-table/(:num)'] = 'Tables/Tables_controller/ajax_edit/$1';
+
+$route['update-table'] = 'Tables/Tables_controller/ajax_update';
+
+$route['delete-table/(:num)'] = 'Tables/Tables_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-tables-api'] = 'Tables/Tables_controller/ajax_api_list';
+
+
 //************************************ PROD DETAIL ROUTES **************************************************************
 //******************************************************************************************************************
 
@@ -184,7 +204,15 @@ $route['notifications-page/notifications-severe-page'] = 'notifications/notifica
 
 $route['logs-page'] = 'logs/logs_controller';
 
-$route['showlist-cis'] = 'logs/logs_controller/ajax_list';
+$route['showlist-logs'] = 'Logs/Logs_controller/ajax_list';
+
+
+//************************************** SCHEDULES ROUTES
+//**************************************
+
+$route['schedules-page'] = 'Schedules/Schedules_controller';
+
+$route['showlist-schedules'] = 'Schedules/Schedules_controller/ajax_list';
 
 
 
@@ -233,21 +261,21 @@ $route['profiles-page/dec-tree-page/(:num)'] = 'dec_tree/dec_tree_controller/ind
 //************************************** USERS
 //**************************************
 
-$route['users-page'] = 'users/users_controller/index';
+$route['users-page'] = 'Users/Users_controller/index';
 
-$route['showlist-users'] = 'users/users_controller/ajax_list';
+$route['showlist-users'] = 'Users/Users_controller/ajax_list';
 
-$route['edit-user/(:num)'] = 'users/users_controller/ajax_edit/$1';
+$route['edit-user/(:num)'] = 'Users/Users_controller/ajax_edit/$1';
 
-$route['add-user/(:num)'] = 'users/users_controller/ajax_add/$1';
+$route['add-user/(:num)'] = 'Users/Users_controller/ajax_add/$1';
 
-$route['update-user/(:num)'] = 'users/users_controller/ajax_update/$1';
+$route['update-user/(:num)'] = 'Users/Users_controller/ajax_update/$1';
 
-$route['edit-priveleges/(:num)'] = 'users/users_controller/ajax_edit/$1';
+$route['edit-privileges/(:num)'] = 'Users/Users_controller/ajax_edit/$1';
 
-$route['update-priveleges/(:num)'] = 'users/users_controller/ajax_priveleges_update/$1';
+$route['update-privileges/(:num)'] = 'Users/Users_controller/ajax_privileges_update/$1';
 
-$route['delete-user/(:num)'] = 'users/users_controller/ajax_delete/$1';
+$route['delete-user/(:num)'] = 'Users/Users_controller/ajax_delete/$1';
 
 
 

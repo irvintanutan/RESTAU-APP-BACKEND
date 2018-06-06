@@ -216,12 +216,12 @@
                                     
                                     <?php if($this->session->userdata('administrator') == '1'): ?>
 
-                                    <?php if($this->uri->segment(1) == 'capital-page'){ ?>
+                                    <?php if($this->uri->segment(1) == 'tables-page'){ ?>
 
                                     <li class="active-link">
-                                        <a href="<?php echo base_url();?>capital-page">
+                                        <a href="<?php echo base_url();?>tables-page">
                                             <i class="fa fa-money"></i>
-                                            <strong><span class="menu-title">Capital</span></strong>
+                                            <strong><span class="menu-title">Tables</span></strong>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
                                     </li>
@@ -229,9 +229,9 @@
                                     <?php }else{ ?>
 
                                     <li>
-                                        <a href="<?php echo base_url();?>capital-page">
+                                        <a href="<?php echo base_url();?>tables-page">
                                             <i class="fa fa-money"></i>
-                                            <span class="menu-title">Capital</span>
+                                            <span class="menu-title">Tables</span>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
                                     </li>

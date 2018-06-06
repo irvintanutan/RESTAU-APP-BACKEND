@@ -38,16 +38,32 @@ class Tables_controller extends CI_Controller {
         foreach ($list as $tables) {
             $no++;
             $row = array();
-            $row[] = 'P' . $tables->tbl_id;
+            $row[] = 'T' . $tables->tbl_id;
             $row[] = $tables->name;
-            $row[] = $tables->status;
+
+            if ($tables->status == 1)
+            {
+                $status = "Occupied";
+            }
+            else if ($tables->status == 2)
+            {
+                $status = "Reserved";
+            }
+            else if ($tables->status == 3)
+            {
+                $status = "Unavailable";
+            }
+            else
+            {
+                $status = "Vacant";
+            }
+
+            $row[] = $status;
 
             $row[] = $tables->encoded;
 
             //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="View" onclick="view_table('."'".$tables->tbl_id."'".')"><i class="fa fa-eye"></i> </a>
-
-            <a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_table('."'".$tables->tbl_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
+            $row[] = '<a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_table('."'".$tables->tbl_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
                       
                       <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_table('."'".$tables->tbl_id."'".', '."'".$tables->name."'".')"><i class="fa fa-trash"></i></a>';
  
@@ -75,7 +91,8 @@ class Tables_controller extends CI_Controller {
         $this->_validate();
         $data = array(
                 'name' => $this->input->post('name'),
-                'status', => 0 // 0 = available
+                'status' => 0, // 0 = available/vacant, 1 = occupied, 2 = reserved, 3 = unavailable
+
                 'removed' => 0
             );
         $insert = $this->tables->save($data);
@@ -87,7 +104,7 @@ class Tables_controller extends CI_Controller {
         $this->_validate();
         $data = array(
                 'name' => $this->input->post('name'),
-                'status' => 0, // 0 = available
+                'status' => $this->input->post('status'), // 0 = available/vacant, 1 = occupied, 2 = reserved, 3 = unavailable
             );
         $this->tables->update(array('tbl_id' => $this->input->post('tbl_id')), $data);
         echo json_encode(array("status" => TRUE));

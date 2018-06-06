@@ -38,13 +38,13 @@
                             <h3 class="panel-title">Tables Information Table</h3>
                         </div>
                         <div class="panel-body">
-                            <button class="btn btn-success" onclick="add_table()"><i class="fa fa-plus-square"></i> &nbsp;Add New Product</button>
+                            <button class="btn btn-success" onclick="add_table()"><i class="fa fa-plus-square"></i> &nbsp;Add New Table</button>
                             <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
                             <br><br>
-                            <table id="products-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="tables-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width:60px;">Table ID</th>
+                                        <th style="width:60px;">Tbl ID</th>
                                         <th>Name</th>
                                         <th>Status</th>
                                         <th class="min-desktop">Encoded</th>
@@ -58,7 +58,7 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ffcc66;" class="fa fa-square"></i> - Occupied &nbsp; | &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i> - Unavailable &nbsp; ]</span>
+                    <span>Legend: [ &nbsp; <i style = "color: #ffcc66;" class="fa fa-square"></i> - Occupied &nbsp; | &nbsp; <i style = "color: #cccc99;" class="fa fa-square"></i> - Reserved &nbsp; | &nbsp; <i style = "color: #999999;" class="fa fa-square"></i> - Unavailable &nbsp; ]</span>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->
@@ -93,10 +93,11 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Status :</label>
                                         <div class="col-md-9">
-                                            <select name="cat_id" class="form-control">
-                                                <option value="0">Available</option>
+                                            <select name="status" class="form-control">
+                                                <option value="0">Vacant</option>
                                                 <option value="1">Occupied</option>
-                                                <option value="2">Unavailable</option>
+                                                <option value="2">Reserved</option>
+                                                <option value="3">Unavailable</option>
                                             </select>
                                             <span class="help-block"></span>
                                         </div>

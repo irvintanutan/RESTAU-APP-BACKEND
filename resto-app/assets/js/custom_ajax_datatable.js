@@ -204,8 +204,31 @@ $(document).ready(function()
                       "targets": 3,
                       "className": "text-right",
                 },
+                {
+                      "targets": 4,
+                      "className": "text-center",
+                },
                 ],
-                "scrollX": true
+                "scrollX": true,
+
+                "rowCallback": function( row, data, index )
+                {
+                  var status = data[2],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (status == 'Occupied') 
+                  {
+                    $node.css('background-color', '#ffcc66');
+                  }
+                  else if (status == 'Reserved') 
+                  {
+                    $node.css('background-color', '#cccc99');
+                  }
+                  else if (status == 'Unavailable') 
+                  {
+                    $node.css('background-color', '#999999');
+                  }
+                }
             });
     }
     else if(tableID == "prod-details-table")
@@ -627,7 +650,7 @@ $(document).ready(function()
          
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "logs/logs_controller/ajax_list",
+                    "url": "showlist-logs",
                     "type": "POST",
                 },
          
@@ -673,7 +696,7 @@ $(document).ready(function()
          
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "schedules/schedules_controller/ajax_list",
+                    "url": "showlist-schedules",
                     "type": "POST",
                 },
          
@@ -711,7 +734,7 @@ $(document).ready(function()
          
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "users/users_controller/ajax_list",
+                    "url": "showlist-users",
                     "type": "POST",
                 },
          
@@ -818,7 +841,7 @@ function edit_privileges(id) // for customer table
  
     //Ajax Load data from ajax
     $.ajax({
-        url : "users/users_controller/ajax_edit/" + id,
+        url : "edit-user/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
@@ -849,7 +872,7 @@ function view_edit_user(id) // for customer table
  
     //Ajax Load data from ajax
     $.ajax({
-        url : "users/users_controller/ajax_edit/" + id,
+        url : "edit-user/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
@@ -936,6 +959,9 @@ function add_table() // ---> calling for the Add Modal form
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
+
+    $('[name="status"]').prop('disabled', true);
+
     $('#modal_form').modal('show'); // show bootstrap modal
     $('.modal-title').text(text); // Set Title to Bootstrap modal title
 }
@@ -1232,7 +1258,7 @@ function edit_table(id)
         {
             $('[name="tbl_id"]').val(data.tbl_id);
             $('[name="name"]').val(data.name);
-            $('[name="status"]').val(data.status).prop('selected', true);
+            $('[name="status"]').val(data.status).prop('selected', true).prop('disabled', false);
 
             $('[name="current_name"]').val(data.name);
 
@@ -1489,7 +1515,7 @@ function edit_schedule(id)
  
     //Ajax Load data from ajax
     $.ajax({
-        url : "schedules/schedules_controller/ajax_edit/" + id,
+        url : "Schedules/Schedules_controller/ajax_edit/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
@@ -1663,26 +1689,26 @@ function save()
     
     else if(save_method == 'add-schedule') 
     {
-        url = "schedules/schedules_controller/ajax_add";
+        url = "Schedules/Schedules_controller/ajax_add";
     }
     else if(save_method == 'update-schedule') 
     {
-        url = "schedules/schedules_controller/ajax_update";
+        url = "Schedules/Schedules_controller/ajax_update";
     }
 
     else if(save_method == 'add-user') 
     {
-        url = "users/users_controller/ajax_add";
+        url = "Users/Users_controller/ajax_add";
     }
     else if(save_method == 'update-user') 
     {
-        url = "users/users_controller/ajax_update";
+        url = "Users/Users_controller/ajax_update";
     }
     else if(save_method == 'update-privileges') 
     {
         // change form for add stock to form_add_stock
         $form = '#form_privileges';
-        url = "users/users_controller/ajax_privileges_update";
+        url = "Users/Users_controller/ajax_privileges_update";
     }
  
     // ajax adding data to database
@@ -2024,7 +2050,7 @@ function set_system_log(log_type, details)
     var cleanString = details.replace(/[|&;$%@"<>()+,]/g, "");
 
     $.ajax({
-        url : "logs/logs_controller/ajax_add/" + log_type + '/' + cleanString,
+        url : "Logs/Logs_controller/ajax_add/" + log_type + '/' + cleanString,
         type: "POST",
         dataType: "JSON",
         success: function(data)
@@ -2045,7 +2071,7 @@ function set_system_log_one(log_type, details)
     var cleanString = details.replace(/[|&;$%@"<>()+,]/g, "");
 
     $.ajax({
-        url : "../logs/logs_controller/ajax_add/" + log_type + '/' + cleanString,
+        url : "../Logs/Logs_controller/ajax_add/" + log_type + '/' + cleanString,
         type: "POST",
         dataType: "JSON",
         success: function(data)
@@ -2066,7 +2092,7 @@ function set_system_log_two(log_type, details)
     var cleanString = details.replace(/[|&;$%@"<>()+,]/g, "");
 
     $.ajax({
-        url : "../../logs/logs_controller/ajax_add/" + log_type + '/' + cleanString,
+        url : "../../Logs/Logs_controller/ajax_add/" + log_type + '/' + cleanString,
         type: "POST",
         dataType: "JSON",
         success: function(data)
@@ -2087,7 +2113,7 @@ function set_system_log_three(log_type, details)
     var cleanString = details.replace(/[|&;$%@"<>()+,]/g, "");
 
     $.ajax({
-        url : "../../../logs/logs_controller/ajax_add/" + log_type + '/' + cleanString,
+        url : "../../../Logs/Logs_controller/ajax_add/" + log_type + '/' + cleanString,
         type: "POST",
         dataType: "JSON",
         success: function(data)
@@ -2212,6 +2238,36 @@ function delete_category(id, name)
                 var log_type = 'Delete';
 
                 var details = 'Category deleted C' + id 
+                + ': ' + name; 
+
+                set_system_log(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_table(id, name)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "delete-table/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Table deleted T' + id 
                 + ': ' + name; 
 
                 set_system_log(log_type, details);
@@ -2359,7 +2415,7 @@ function delete_schedule(id)
     {
         // ajax delete data to database
         $.ajax({
-            url : "schedules/schedules_controller/ajax_delete/"+id,
+            url : "Schedules/Schedules_controller/ajax_delete/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -2389,7 +2445,7 @@ function delete_user(id)
     {
         // ajax delete data to database
         $.ajax({
-            url : "users/users_controller/ajax_delete/"+id,
+            url : "delete-user/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)

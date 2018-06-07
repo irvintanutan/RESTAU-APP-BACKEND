@@ -240,7 +240,38 @@
 
                                     <?php endif ?>
 
-                                    <!--Menu list item-->                     
+                                    <!--Menu list item-->
+
+
+                                    <!--Menu list item-->
+                                    
+                                    <?php if($this->session->userdata('administrator') == '1'): ?>
+
+                                    <?php if($this->uri->segment(1) == 'transactions-page'){ ?>
+
+                                    <li class="active-link">
+                                        <a href="<?php echo base_url();?>transactions-page">
+                                            <i class="fa fa-money"></i>
+                                            <strong><span class="menu-title">Transactions</span></strong>
+                                            <span class="label label-danger pull-right">Admin</span>
+                                        </a>
+                                    </li>
+
+                                    <?php }else{ ?>
+
+                                    <li>
+                                        <a href="<?php echo base_url();?>transactions-page">
+                                            <i class="fa fa-money"></i>
+                                            <span class="menu-title">Transactions</span>
+                                            <span class="label label-danger pull-right">Admin</span>
+                                        </a>
+                                    </li>
+
+                                    <?php } ?>
+
+                                    <?php endif ?>
+
+                                    <!--Menu list item-->                 
 
 
 

@@ -156,6 +156,19 @@ class Products_model extends CI_Model {
 
         return $row->cat_id;
     }
+
+    function get_product_price($prod_id)
+    {
+        $this->db->select('price');
+        $this->db->from($this->table);
+        $this->db->where('prod_id',$prod_id);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->price;
+    }
  
     function count_filtered()
     {

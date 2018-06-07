@@ -231,6 +231,54 @@ $(document).ready(function()
                 }
             });
     }
+    else if(tableID == "transactions-table")
+    {
+    //datatables
+            table = $('#transactions-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-transactions",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 2,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 4,
+                      "className": "text-center",
+                },
+                ],
+                "scrollX": true,
+
+                "rowCallback": function( row, data, index )
+                {
+                  var status = data[6],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (status == 'Cleared') 
+                  {
+                    $node.css('background-color', '#999999');
+                  }
+                }
+            });
+    }
     else if(tableID == "prod-details-table")
     {
     //datatables

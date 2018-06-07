@@ -116,6 +116,26 @@ $route['delete-table/(:num)'] = 'Tables/Tables_controller/ajax_delete/$1';
 $route['showlist-tables-api'] = 'Tables/Tables_controller/ajax_api_list';
 
 
+//************************************ TRANSACTIONS ROUTES ***************************************************************
+//******************************************************************************************************************
+
+$route['transactions-page'] = 'Transactions/Transactions_controller';
+
+$route['showlist-transactions'] = 'Transactions/Transactions_controller/ajax_list';
+
+$route['add-transaction'] = 'Transactions/Transactions_controller/ajax_add';
+
+$route['edit-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax_edit/$1';
+
+$route['update-transaction'] = 'Transactions/Transactions_controller/ajax_update';
+
+$route['delete-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-tables-api'] = 'Transactions/Transactions_controller/ajax_api_list';
+
+
 //************************************ PROD DETAIL ROUTES **************************************************************
 //******************************************************************************************************************
 

@@ -164,39 +164,45 @@ class Tables_controller extends CI_Controller {
     // ================================================ API GET REQUEST METHOD ============================================
 
 
-    // public function ajax_api_list() // using associative array to set index names instead
-    // {
-    //     $list = $this->tables->get_api_datatables();
-    //     $data = array();
+    public function ajax_api_list() // using associative array to set index names instead
+    {
+        $list = $this->tables->get_api_datatables();
+        $data = array();
         
-    //     foreach ($list as $tables) {
+        foreach ($list as $tables) {
         
-    //         $row = array();
-    //         $row['tbl_id'] = $tables->tbl_id;
-    //         $row['name'] = $tables->name;
-    //         $row['descr'] = $tables->descr;
+            $row = array();
+            $row['tbl_id'] = $tables->tbl_id;
+            $row['name'] = $tables->name;
+            $row['status'] = $tables->status;
 
-    //         $row['cat_id'] = $tables->cat_id;
-    //         $row['cat_name'] = $this->categories->get_category_name($tables->cat_id); // get name instead of id
+            if ($tables->status == 1)
+            {
+                $status_name = "Occupied";
+            }
+            else if ($tables->status == 2)
+            {
+                $status_name = "Reserved";
+            }
+            else if ($tables->status == 3)
+            {
+                $status_name = "Unavailable";
+            }
+            else
+            {
+                $status_name = "Vacant";
+            }
 
-    //         $row['price'] = $tables->price;
-    //         // $row[] = $tables->img;
-    //         $row['sold'] = $tables->sold;
+            $row['status_name'] = $status_name;            
 
-    //         $row['encoded'] = $tables->encoded;
-
-    //         $row['img'] = $tables->img;            
-
-    //         // get number of rows found / check if it has details data
-    //         $row['item_count'] = $this->prod_details->check_if_found($tables->tbl_id)->num_rows();
-
+            $row['encoded'] = $tables->encoded;    
  
-    //         $data[] = $row;
-    //     }
+            $data[] = $row;
+        }
  
-    //     //output to json format
-    //     echo json_encode($data);
-    // }
+        //output to json format
+        echo json_encode($data);
+    }
 
 
     // // ================================================ API POST REQUEST METHOD ============================================

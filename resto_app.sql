@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 06, 2018 at 06:06 PM
+-- Generation Time: Jun 07, 2018 at 05:52 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -537,7 +537,12 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000438, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:01:40'),
 (1000439, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:04:52'),
 (1000440, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:05:44'),
-(1000441, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:05:49');
+(1000441, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-06 18:05:49'),
+(1000442, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 11:11:55'),
+(1000443, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 11:15:11'),
+(1000444, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 12:44:10'),
+(1000445, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-07 12:47:04'),
+(1000446, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 16:13:34');
 
 -- --------------------------------------------------------
 
@@ -616,7 +621,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coca Cola', 'JUSTIN AND MICO', 1, '50.00', '', 0, 0, '2018-05-24 18:22:34', 0),
+(1, 'Coco Loco', 'JUSTIN AND MICO', 1, '50.00', '', 0, 0, '2018-05-24 18:22:34', 0),
 (2, 'Iced Tea Pitcher', 'Soda', 1, '45.00', '2.jpg', 0, 0, '2018-05-28 14:37:40', 0),
 (3, 'Cheese Burger', 'Regular size cheese burger', 3, '100.00', '3.jpg', 0, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'Green can soda in can', 1, '50.00', '4.jpg', 0, 0, '2018-05-29 13:55:32', 0),
@@ -693,7 +698,7 @@ CREATE TABLE `tables` (
 
 INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
 (1, 'Square Table 1', 0, '2018-06-06 17:57:24', 0),
-(2, 'Square Table 2', 3, '2018-06-06 18:01:17', 0);
+(2, 'Square Table 2', 1, '2018-06-06 18:01:17', 0);
 
 -- --------------------------------------------------------
 
@@ -703,8 +708,8 @@ INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
 
 CREATE TABLE `table_groups` (
   `tbl_grp_id` int(11) NOT NULL,
-  `tbl_id` int(11) NOT NULL,
-  `trans_id` int(11) NOT NULL
+  `trans_id` int(11) NOT NULL,
+  `tbl_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -736,8 +741,10 @@ CREATE TABLE `trans_details` (
   `trans_id` int(11) NOT NULL,
   `prod_id` int(11) NOT NULL,
   `pack_id` int(11) NOT NULL,
-  `prod_type` int(1) NOT NULL,
-  `qty` int(11) NOT NULL
+  `prod_type` int(1) NOT NULL COMMENT '0-individual, 1-package, 2-prod-of-package',
+  `price` decimal(10,2) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -852,7 +859,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000442;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000447;
 --
 -- AUTO_INCREMENT for table `packages`
 --

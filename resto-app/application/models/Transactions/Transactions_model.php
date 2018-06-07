@@ -5,10 +5,10 @@ class Transactions_model extends CI_Model {
  
     var $table = 'transactions';
 
-    var $column_order = array('trans_id','date','type','amount','interest','total','remarks','encoded'); //set column field database for datatable orderable
-    var $column_search = array('trans_id','date','type','amount','interest','total','remarks','encoded'); //set column field database for datatable searchable
+    var $column_order = array('trans_id','datetime','gross','discrount','disc_type','total_due','status','order_type','cash_amt','change_amt',null); //set column field database for datatable orderable
+    var $column_search = array('trans_id','datetime','gross','discrount','disc_type','total_due','status','order_type','cash_amt','change_amt'); //set column field database for datatable searchable
 
-    var $order = array('trans_id' => 'asc'); // default order 
+    var $order = array('trans_id' => 'desc'); // default order 
  
     public function __construct()
     {
@@ -55,103 +55,50 @@ class Transactions_model extends CI_Model {
         }
     }
  
-    function get_datatables($loan_id)
+    function get_datatables()
     {        
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
 
-        // get only records of the assigned loan_id
-        $this->db->where('loan_id', $loan_id);
-
         $query = $this->db->get();
         return $query->result();
     }
 
-    // check for total transaction interests
-    function get_total_loan_interests()
-    {
-        $this->db->select('SUM(interest) AS interest');
+    function get_api_datatables()
+    {        
         $this->db->from($this->table);
 
-        $query = $this->db->get();
-
-        $data['interest'] = $query->row()->interest;
-
-        return $data;
-    }
-
-    // get number of children registered by month
-    // public function get_monthly_registrations($month, $year)
-    // {
-    //     $this->db->select('COUNT(child_id) AS child_count');    
-        
-    //     $this->db->from($this->table);
-
-    //     $date_from = $year . '-' . $month . '-01';
-    //     $date_to = $year . '-' . $month . '-31';
-
-    //     $this->db->where('date_registered >=', $date_from);
-    //     $this->db->where('date_registered <=', $date_to);
-    //     $this->db->where('removed', '0');
-        
-    //     $query = $this->db->get();
-
-    //     $data['child_count'] = $query->row()->child_count;
-
-    //     return $data;
-    // }
-
-    // get monthly loan interests by month
-    public function get_monthly_loan_interests($month, $year)
-    {
-        $this->db->select('SUM(interest) AS interest');    
-        
-        $this->db->from($this->table);
-
-        $date_from = $year . '-' . $month . '-01';
-        $date_to = $year . '-' . $month . '-31';
-
-        $this->db->where('date >=', $date_from);
-        $this->db->where('date <=', $date_to);
+        $this->db->order_by("trans_id", "desc");
         
         $query = $this->db->get();
-
-        $data['interest'] = $query->row()->interest;
-
-        return $data;
+        return $query->result();
     }
 
-    function get_loan_id($trans_id)
+    function get_trans_status($trans_id)
     {
-        $this->db->select('loan_id');
+        $this->db->select('status');
         $this->db->from($this->table);
         $this->db->where('trans_id',$trans_id);
-
+        
         $query = $this->db->get();
 
         $row = $query->row();
 
-        return $row->loan_id;
+        return $row->status;
     }
  
-    function count_filtered($loan_id)
+    function count_filtered()
     {
         $this->_get_datatables_query();
-
-        // get only records of the assigned loan_id
-        $this->db->where('loan_id', $loan_id);
 
         $query = $this->db->get();
         return $query->num_rows();
     }
  
-    public function count_all($loan_id)
+    public function count_all()
     {
         $this->db->from($this->table);
-
-        // get only records of the assigned loan_id
-        $this->db->where('loan_id', $loan_id);
 
         return $this->db->count_all_results();
     }
@@ -175,12 +122,5 @@ class Transactions_model extends CI_Model {
     {
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
-    }
-
-    // delete loans data
-    public function delete_by_id($loan_id)
-    {
-        $this->db->where('loan_id', $loan_id);
-        $this->db->delete($this->table);
     }
 }

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login page | e-Lending (Lending Manager App)</title>
+	<title>Login page | Restaurant App</title>
 	<!--STYLESHEET-->
 	<!--=================================================-->
 	<!--Open Sans Font [ OPTIONAL ] -->

@@ -128,6 +128,19 @@ class Packages_model extends CI_Model {
 
         return $row->name;
     }
+
+    function get_package_price($pack_id)
+    {
+        $this->db->select('price');
+        $this->db->from($this->table);
+        $this->db->where('pack_id',$pack_id);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->price;
+    }
  
     function count_filtered()
     {

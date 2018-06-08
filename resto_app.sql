@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 07, 2018 at 05:52 PM
+-- Generation Time: Jun 08, 2018 at 06:07 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -542,7 +542,11 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000443, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 11:15:11'),
 (1000444, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 12:44:10'),
 (1000445, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Square%20Table%202', '2018-06-07 12:47:04'),
-(1000446, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 16:13:34');
+(1000446, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-07 16:13:34'),
+(1000447, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-08 09:45:02'),
+(1000448, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-08 16:24:44'),
+(1000449, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20product%20voided%20T1:%20P1', '2018-06-08 17:55:00'),
+(1000450, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20package%20voided%20T1:%20G1', '2018-06-08 17:55:06');
 
 -- --------------------------------------------------------
 
@@ -697,7 +701,7 @@ CREATE TABLE `tables` (
 --
 
 INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
-(1, 'Square Table 1', 0, '2018-06-06 17:57:24', 0),
+(1, 'Square Table 1', 1, '2018-06-06 17:57:24', 0),
 (2, 'Square Table 2', 1, '2018-06-06 18:01:17', 0);
 
 -- --------------------------------------------------------
@@ -712,6 +716,19 @@ CREATE TABLE `table_groups` (
   `tbl_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `table_groups`
+--
+
+INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
+(1, 1, 1),
+(2, 1, 1),
+(3, 1, 2),
+(4, 1, 1),
+(5, 1, 2),
+(6, 1, 1),
+(7, 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -721,15 +738,20 @@ CREATE TABLE `table_groups` (
 CREATE TABLE `transactions` (
   `trans_id` int(11) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gross` decimal(10,2) NOT NULL,
   `discount` decimal(10,2) NOT NULL,
   `disc_type` varchar(45) NOT NULL,
-  `total_due` decimal(10,2) NOT NULL,
   `status` varchar(20) NOT NULL,
   `order_type` varchar(20) NOT NULL,
   `cash_amt` decimal(10,2) NOT NULL,
   `change_amt` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `status`, `order_type`, `cash_amt`, `change_amt`) VALUES
+(1, '2018-06-08 17:49:31', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -744,8 +766,16 @@ CREATE TABLE `trans_details` (
   `prod_type` int(1) NOT NULL COMMENT '0-individual, 1-package, 2-prod-of-package',
   `price` decimal(10,2) NOT NULL,
   `qty` int(11) NOT NULL,
-  `total` decimal(10,2) NOT NULL
+  `total` decimal(10,2) NOT NULL,
+  `part_of` int(11) NOT NULL COMMENT 'products associated with the pack_id'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `trans_details`
+--
+
+INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `price`, `qty`, `total`, `part_of`) VALUES
+(1, 3, 0, 0, '100.00', 4, '400.00', 0);
 
 -- --------------------------------------------------------
 
@@ -830,6 +860,12 @@ ALTER TABLE `tables`
   ADD PRIMARY KEY (`tbl_id`);
 
 --
+-- Indexes for table `table_groups`
+--
+ALTER TABLE `table_groups`
+  ADD PRIMARY KEY (`tbl_grp_id`);
+
+--
 -- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
@@ -859,7 +895,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000447;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000451;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -876,10 +912,15 @@ ALTER TABLE `products`
 ALTER TABLE `tables`
   MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `table_groups`
+--
+ALTER TABLE `table_groups`
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --

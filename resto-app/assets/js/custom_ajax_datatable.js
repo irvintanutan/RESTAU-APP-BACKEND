@@ -335,6 +335,50 @@ $(document).ready(function()
                 "scrollX": true
             });
     }
+    else if(tableID == "trans-details-table")
+    {
+    //datatables
+            // get id
+            var trans_id = $('[name="trans_id"]').val();
+
+            table = $('#trans-details-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "../showlist-trans-details/" + trans_id,
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 2,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 4,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-center",
+                },
+                ],
+                "scrollX": true
+            });
+    }
 
 
 
@@ -872,6 +916,11 @@ function view_package(pack_id)
 function view_table(tbl_id)
 {
      window.location.href='tbl-details-page/' + tbl_id;
+}
+
+function view_transaction(trans_id)
+{
+     window.location.href='trans-details-page/' + trans_id;
 }
 
 function view_loan(client_id, loan_id)
@@ -2375,8 +2424,68 @@ function delete_pack_detail(idone, idtwo)
             {
                 var log_type = 'Delete';
 
-                var details = 'Package product deleted P' + idone 
-                + ': I' + idtwo; 
+                var details = 'Package product deleted G' + idone 
+                + ': P' + idtwo; 
+
+                set_system_log_one(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_trans_detail_prod(idone, idtwo)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "../delete-trans-detail-prod/"+idone+"/"+idtwo,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Transaction detail product voided T' + idone 
+                + ': P' + idtwo; 
+
+                set_system_log_one(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_trans_detail_pack(idone, idtwo)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "../delete-trans-detail-pack/"+idone+"/"+idtwo,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Transaction detail package voided T' + idone 
+                + ': G' + idtwo; 
 
                 set_system_log_one(log_type, details);
 

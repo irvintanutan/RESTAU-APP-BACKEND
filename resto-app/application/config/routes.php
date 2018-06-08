@@ -133,7 +133,9 @@ $route['delete-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax
 
 //======================================== API SECTION =================================================================
 
-$route['showlist-tables-api'] = 'Transactions/Transactions_controller/ajax_api_list';
+$route['showlist-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_list';
+
+$route['add-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_add_trans';
 
 
 //************************************ PROD DETAIL ROUTES **************************************************************
@@ -176,7 +178,25 @@ $route['delete-pack-detail/(:num)/(:num)'] = 'Pack_details/Pack_details_controll
 $route['showlist-pack-details-api/(:num)'] = 'Pack_details/Pack_details_controller/ajax_api_list/$1';
 
 
+//************************************ TRANS DETAIL ROUTES **************************************************************
+//******************************************************************************************************************
 
+$route['trans-details-page/(:num)'] = 'Trans_details/Trans_details_controller/index/$1';
+
+$route['showlist-trans-details/(:num)'] = 'Trans_details/Trans_details_controller/ajax_list/$1';
+
+$route['add-trans-detail'] = 'Trans_details/Trans_details_controller/ajax_add';
+
+$route['edit-trans-detail/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/ajax_edit/$1/$2';
+
+$route['update-trans-detail'] = 'Trans_details/Trans_details_controller/ajax_update';
+
+$route['delete-trans-detail-prod/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/ajax_delete_prod/$1/$2';
+$route['delete-trans-detail-pack/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/ajax_delete_pack/$1/$2';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-trans-details-api/(:num)'] = 'Trans_details/Trans_details_controller/ajax_api_list/$1';
 
 
 

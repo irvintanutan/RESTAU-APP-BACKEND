@@ -376,7 +376,26 @@ $(document).ready(function()
                       "className": "text-center",
                 },
                 ],
-                "scrollX": true
+                "scrollX": true,
+
+                "rowCallback": function( row, data, index )
+                {
+                  var status = data[6],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (status == '1') 
+                  {
+                    $node.css('background-color', '#ffcc66');
+                  }
+                  else if (status == '2') 
+                  {
+                    $node.css('background-color', '#999999');
+                  }
+
+                  var item_count = data[8];
+
+                  $('[name="item_count"]').val(item_count);
+                }
             });
     }
 

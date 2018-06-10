@@ -43,6 +43,9 @@ class Trans_details_controller extends CI_Controller {
         $list = $this->trans_details->get_datatables($trans_id);
         $data = array();
         $no = $_POST['start'];
+
+        $item_count = 0; // initialize number of items counter
+
         foreach ($list as $trans_details) {
             $no++;
             $row = array();
@@ -72,8 +75,16 @@ class Trans_details_controller extends CI_Controller {
             //add html for action
             $row[] = $void_btn;
 
-            $row[] = $trans_details->prod_type;
+            $prod_type = $trans_details->prod_type;
+            
+            if ($prod_type == 0 || $prod_type == 2) // if prod_type is individual product or package product only
+            {
+                $item_count += $trans_details->qty;
+            }
+
+            $row[] = $prod_type;
             $row[] = $trans_details->part_of;
+            $row[] = $item_count;
  
             $data[] = $row;
         }

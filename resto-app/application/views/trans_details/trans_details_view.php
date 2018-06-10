@@ -36,10 +36,16 @@
                     <!--===================================================-->
                     <div class="panel" style="height: 1500px;">
 
-
-
                         <div class="panel-heading">
                             <h3 class="panel-title"><b>S<?php echo $transaction->trans_id . ': ' . $transaction->datetime; ?></b></h3>
+                        </div>
+
+                        <div class="form-body">
+                        <div class="form-group">
+                                              
+                            <input type="text" value="" name="item_count" readonly/> 
+                            
+                        </div>   
                         </div>
 
                         <div class="control-label col-md-12">

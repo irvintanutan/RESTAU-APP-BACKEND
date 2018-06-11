@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2018 at 06:07 PM
+-- Generation Time: Jun 11, 2018 at 06:07 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -546,7 +546,22 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000447, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-08 09:45:02'),
 (1000448, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-08 16:24:44'),
 (1000449, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20product%20voided%20T1:%20P1', '2018-06-08 17:55:00'),
-(1000450, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20package%20voided%20T1:%20G1', '2018-06-08 17:55:06');
+(1000450, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20package%20voided%20T1:%20G1', '2018-06-08 17:55:06'),
+(1000451, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-11 11:53:24'),
+(1000452, 'TORRES, JIK', 'Add', 'New%20table%20added:%20Circle%20Table%201', '2018-06-11 11:54:21');
+INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time`) VALUES
+(1000453, 'TORRES, JIK', 'Add', 'New%20table%20added:%20Circle%20Table%202', '2018-06-11 11:54:34'),
+(1000454, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:06:41'),
+(1000455, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:06:49'),
+(1000456, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:10:49'),
+(1000457, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:10:59'),
+(1000458, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:11:09'),
+(1000459, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:11:15'),
+(1000460, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:06'),
+(1000461, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:18'),
+(1000462, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:24'),
+(1000463, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:49'),
+(1000464, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:56');
 
 -- --------------------------------------------------------
 
@@ -702,7 +717,9 @@ CREATE TABLE `tables` (
 
 INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
 (1, 'Square Table 1', 1, '2018-06-06 17:57:24', 0),
-(2, 'Square Table 2', 1, '2018-06-06 18:01:17', 0);
+(2, 'Square Table 2', 1, '2018-06-06 18:01:17', 0),
+(3, 'Circle Table 1', 1, '2018-06-11 11:54:21', 0),
+(4, 'Circle Table 2', 1, '2018-06-11 11:54:34', 0);
 
 -- --------------------------------------------------------
 
@@ -727,7 +744,11 @@ INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
 (4, 1, 1),
 (5, 1, 2),
 (6, 1, 1),
-(7, 1, 2);
+(7, 1, 2),
+(8, 2, 3),
+(9, 2, 4),
+(10, 3, 3),
+(11, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -743,15 +764,20 @@ CREATE TABLE `transactions` (
   `status` varchar(20) NOT NULL,
   `order_type` varchar(20) NOT NULL,
   `cash_amt` decimal(10,2) NOT NULL,
-  `change_amt` decimal(10,2) NOT NULL
+  `change_amt` decimal(10,2) NOT NULL,
+  `method` varchar(20) NOT NULL DEFAULT 'n/a',
+  `card_number` varchar(45) NOT NULL DEFAULT 'n/a',
+  `cust_name` varchar(45) NOT NULL DEFAULT 'n/a'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `status`, `order_type`, `cash_amt`, `change_amt`) VALUES
-(1, '2018-06-08 17:49:31', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00');
+INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `status`, `order_type`, `cash_amt`, `change_amt`, `method`, `card_number`, `cust_name`) VALUES
+(1, '2018-06-08 17:49:31', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a'),
+(2, '2018-06-11 12:15:21', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a'),
+(3, '2018-06-11 18:05:20', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a');
 
 -- --------------------------------------------------------
 
@@ -775,7 +801,19 @@ CREATE TABLE `trans_details` (
 --
 
 INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `price`, `qty`, `total`, `part_of`) VALUES
-(1, 3, 0, 0, '100.00', 4, '400.00', 0);
+(1, 3, 0, 0, '100.00', 4, '400.00', 0),
+(2, 1, 0, 0, '50.00', 2, '100.00', 0),
+(2, 3, 0, 0, '100.00', 4, '400.00', 0),
+(2, 0, 1, 1, '500.00', 2, '1000.00', 0),
+(2, 2, 0, 2, '0.00', 2, '0.00', 1),
+(2, 9, 0, 2, '0.00', 2, '0.00', 1),
+(2, 10, 0, 2, '0.00', 8, '0.00', 1),
+(3, 1, 0, 0, '50.00', 2, '100.00', 0),
+(3, 3, 0, 0, '100.00', 4, '400.00', 0),
+(3, 0, 1, 1, '500.00', 2, '1000.00', 0),
+(3, 2, 0, 2, '0.00', 2, '0.00', 1),
+(3, 9, 0, 2, '0.00', 2, '0.00', 1),
+(3, 10, 0, 2, '0.00', 8, '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -895,7 +933,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000451;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000465;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -910,17 +948,17 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --

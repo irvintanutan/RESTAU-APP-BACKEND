@@ -105,7 +105,7 @@ class Transactions_controller extends CI_Controller {
         $data = array(
                 'discount' => $this->input->post('discount'),
                 'disc_type' => $this->input->post('disc_type'), 
-                'total_due' => $this->input->post('total_due'),
+                
                 'status' => $this->input->post('status'),
                 'cash_amt' => $this->input->post('cash_amt'),
                 'change_amt' => $this->input->post('change_amt'),
@@ -178,12 +178,14 @@ class Transactions_controller extends CI_Controller {
             $row = array();
             $row['trans_id'] = $transactions->trans_id;
             $row['datetime'] = $transactions->datetime;
-            $row['gross'] = $transactions->gross;
+
             $row['discount'] = $transactions->discount;
             $row['disc_type'] = $transactions->disc_type;
-            $row['total_due'] = $transactions->total_due;
+
             $row['status'] = $transactions->status;
+
             $row['order_type'] = $transactions->order_type;
+
             $row['cash_amt'] = $transactions->cash_amt;
             $row['change_amt'] = $transactions->change_amt;
  
@@ -224,21 +226,16 @@ class Transactions_controller extends CI_Controller {
         
         foreach ($array as $transaction) 
         {
-            // initialize values
-            $gross = 0;
-            $item_count = 0;
-
-
             foreach ($transaction['order_type'] as $order_type)
             {
                 // insert new transaction ------------------------------------------------
 
                 $data = array(
                         'datetime' => date("Y-m-d H:i:s"),
-                        'gross' => $gross,
+
                         'discount' => 0,
                         'disc_type' => 'n/a',
-                        'total_due' => 0,
+
                         'status' => 'ONGOING',
                         'order_type' => $order_type['order_type'],
                         'cash_amt' => 0,
@@ -261,10 +258,6 @@ class Transactions_controller extends CI_Controller {
                 $prod_qty = $products['qty'];
 
                 $prod_total = ($prod_price * $prod_qty);
-
-                $gross += $prod_total;
-
-                $item_count++;
 
                 // insert new product to trans_details ---------------------------------------------
 
@@ -292,8 +285,6 @@ class Transactions_controller extends CI_Controller {
 
                 $pack_total = ($pack_price * $pack_qty);
 
-                $gross += $pack_total;
-
                 // insert new package to trans_details ---------------------------------------------
 
                 $data_packages = array(
@@ -320,8 +311,6 @@ class Transactions_controller extends CI_Controller {
                     $pack_prod_id = $pack_products_list->prod_id;
                     $pack_prod_qty = ($pack_products_list->qty * $pack_qty); // multiply package product qty by pack_qty
 
-                    $item_count++;
-
                     // insert new product to trans_details (from package products) ------------------------
 
                     $data_pack_products = array(
@@ -339,14 +328,6 @@ class Transactions_controller extends CI_Controller {
                     $this->trans_details->save($data_pack_products);
                 }
             }
-
-            // update gross for the created transaction ---------------------------------------------------
-
-            $data_update_gross = array(
-                'gross' => $gross,
-            );
-        
-            $this->transactions->update(array('trans_id' => $trans_id), $data_update_gross);
 
             // get each table for table_groups -------------------------------------------------------------
 

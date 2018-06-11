@@ -58,7 +58,7 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ffcc66;" class="fa fa-square"></i> - Occupied &nbsp; | &nbsp; <i style = "color: #cccc99;" class="fa fa-square"></i> - Reserved &nbsp; | &nbsp; <i style = "color: #999999;" class="fa fa-square"></i> - Unavailable &nbsp; ]</span>
+                    <span>Legend: [ &nbsp; <i style = "color: #99cccc;" class="fa fa-square"></i> - Occupied &nbsp; | &nbsp; <i style = "color: #cccc99;" class="fa fa-square"></i> - Reserved &nbsp; | &nbsp; <i style = "color: #999999;" class="fa fa-square"></i> - Unavailable &nbsp; ]</span>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

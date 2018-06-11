@@ -27,8 +27,30 @@ class Trans_details_controller extends CI_Controller {
         $this->load->helper('url');
 
         $transactions_data = $this->transactions->get_by_id($trans_id);
+
+        $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+        $tables = $this->table_groups->get_table_group_tables($trans_id);
+
+        if ($tables->num_rows() != 0)
+        {
+            $tables_data = array();
+
+            foreach ($tables->result() as $tables_list) 
+            {
+                $tables_data[] = $this->tables->get_table_name($tables_list->tbl_id);
+            }
+
+            $table_str = implode(', ', $tables_data);
+        }
+        else
+        {
+            $table_str = 'n/a';
+        }
         
         $data['transaction'] = $transactions_data;
+        $data['gross_total'] = $gross_total;
+        $data['table_str'] = $table_str;
 
         $data['title'] = 'Transaction Details';
         $this->load->view('template/dashboard_header',$data);
@@ -50,19 +72,26 @@ class Trans_details_controller extends CI_Controller {
             $no++;
             $row = array();
 
-            if ($trans_details->prod_id == 0)
+            if ($trans_details->prod_type == 1)
             {
                 $item_id = 'G' . $trans_details->pack_id;
                 $item_name = $this->packages->get_package_name($trans_details->pack_id);
 
                 $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')"><i class="fa fa-trash"></i></a>';
             }
-            else
+            else if ($trans_details->prod_type == 0)
             {
                 $item_id = 'P' . $trans_details->prod_id;
                 $item_name = $this->products->get_product_name($trans_details->prod_id);
 
                 $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')"><i class="fa fa-trash"></i></a>';
+            }
+            else
+            {   
+                $item_id = 'P' . $trans_details->prod_id;
+                $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
             }
 
             $row[] = $item_id;

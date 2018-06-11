@@ -85,7 +85,7 @@ class Table_groups_model extends CI_Model {
 
         $query = $this->db->get();
 
-        return $query->result();
+        return $query;
     }
 
     // check if the parent data has children in FK

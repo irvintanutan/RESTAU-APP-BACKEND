@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 11, 2018 at 06:07 PM
--- Server version: 5.7.22-0ubuntu0.16.04.1
--- PHP Version: 7.0.30-0ubuntu0.16.04.1
+-- Host: 127.0.0.1
+-- Generation Time: Jun 12, 2018 at 11:50 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -561,7 +563,9 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000461, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:18'),
 (1000462, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:24'),
 (1000463, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:49'),
-(1000464, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:56');
+(1000464, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:56'),
+(1000465, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-12 19:36:27'),
+(1000466, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-06-12 23:48:40');
 
 -- --------------------------------------------------------
 
@@ -760,24 +764,25 @@ CREATE TABLE `transactions` (
   `trans_id` int(11) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `discount` decimal(10,2) NOT NULL,
-  `disc_type` varchar(45) NOT NULL,
+  `disc_type` varchar(45) NOT NULL DEFAULT 'n/a',
   `status` varchar(20) NOT NULL,
   `order_type` varchar(20) NOT NULL,
   `cash_amt` decimal(10,2) NOT NULL,
   `change_amt` decimal(10,2) NOT NULL,
   `method` varchar(20) NOT NULL DEFAULT 'n/a',
   `card_number` varchar(45) NOT NULL DEFAULT 'n/a',
-  `cust_name` varchar(45) NOT NULL DEFAULT 'n/a'
+  `cust_name` varchar(45) NOT NULL DEFAULT 'n/a',
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `status`, `order_type`, `cash_amt`, `change_amt`, `method`, `card_number`, `cust_name`) VALUES
-(1, '2018-06-08 17:49:31', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a'),
-(2, '2018-06-11 12:15:21', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a'),
-(3, '2018-06-11 18:05:20', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a');
+INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `status`, `order_type`, `cash_amt`, `change_amt`, `method`, `card_number`, `cust_name`, `user_id`) VALUES
+(1, '2018-06-08 17:49:31', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 103),
+(2, '2018-06-11 12:15:21', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 103),
+(3, '2018-06-11 18:05:20', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 103);
 
 -- --------------------------------------------------------
 
@@ -933,7 +938,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000465;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000467;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -963,7 +968,8 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

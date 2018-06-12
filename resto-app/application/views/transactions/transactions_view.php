@@ -48,14 +48,13 @@
                                         <th>DateTime</th>
                                         <th>Gross</th>
                                         <th>Discount</th>
-                                        <th>DiscType</th>
+                                        
                                         <th>TotalDue</th>
                                         <th>Status</th>
                                         <th>OrderType</th>
-                                        <th>Cash</th>
-                                        <th>Change</th>
+                                        <th>Staff</th>
 
-                                        <th style="width:90px;">Action</th>
+                                        <th style="width:30px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,52 +72,4 @@
             <!--===================================================-->
             <!--END CONTENT CONTAINER-->
 
-        <!-- Bootstrap modal -->
-            <div class="modal fade" id="modal_form" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h3 class="modal-title">Table Form</h3>
-                        </div>
-                        <div class="modal-body form">
-                            <form action="#" id="form" class="form-horizontal">
-
-                                <input type="hidden" value="" name="tbl_id"/>
-                                <input type="hidden" value="" name="current_name"/>
-                                
-                                <div class="form-body">
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Name :</label>
-                                        <div class="col-md-9">
-                                            <input name="name" placeholder="Table Name" class="form-control" type="text">
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Status :</label>
-                                        <div class="col-md-9">
-                                            <select name="status" class="form-control">
-                                                <option value="0">Vacant</option>
-                                                <option value="1">Occupied</option>
-                                                <option value="2">Reserved</option>
-                                                <option value="3">Unavailable</option>
-                                            </select>
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="btnSave" onclick="save()" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp;Save</button>
-
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> &nbsp;Cancel</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            <!-- End Bootstrap modal -->
+        

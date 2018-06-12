@@ -254,7 +254,7 @@ $(document).ready(function()
                 },
                 {
                       "targets": 2,
-                      "className": "text-center",
+                      "className": "text-right",
                 },
                 {
                       "targets": 3,
@@ -262,6 +262,22 @@ $(document).ready(function()
                 },
                 {
                       "targets": 4,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 6,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 7,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 8,
                       "className": "text-center",
                 },
                 ],
@@ -802,6 +818,22 @@ $(document).ready(function()
     }
          
 });
+
+
+// ========================================================== TRANSACTION DETAILS FORM SECTION ====================================
+
+
+function set_payment() // ---> calling for the Add Modal form
+{
+    save_method = 'add-item';
+    text = 'Set Payment';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
 
 
 // ------------------------------------------------- 

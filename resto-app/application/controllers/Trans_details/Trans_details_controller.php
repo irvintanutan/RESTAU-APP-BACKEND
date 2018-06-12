@@ -15,6 +15,8 @@ class Trans_details_controller extends CI_Controller {
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
         $this->load->model('Table_groups/Table_groups_model','table_groups');
+
+        $this->load->model('Users/Users_model','users');
     }
 
     public function index($trans_id)						
@@ -38,7 +40,14 @@ class Trans_details_controller extends CI_Controller {
 
             foreach ($tables->result() as $tables_list) 
             {
-                $tables_data[] = $this->tables->get_table_name($tables_list->tbl_id);
+                if ($tables_list->tbl_id == 0)
+                {
+                    $tables_data[] = 'No Table';
+                }
+                else
+                {
+                    $tables_data[] = $this->tables->get_table_name($tables_list->tbl_id);
+                }
             }
 
             $table_str = implode(', ', $tables_data);

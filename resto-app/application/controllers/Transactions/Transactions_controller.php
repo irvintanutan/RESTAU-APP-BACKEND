@@ -15,6 +15,8 @@ class Transactions_controller extends CI_Controller {
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
         $this->load->model('Table_groups/Table_groups_model','table_groups');
+
+        $this->load->model('Users/Users_model','users');
     }
 
     public function index()						
@@ -55,17 +57,17 @@ class Transactions_controller extends CI_Controller {
 
             $row[] = $gross;
             $row[] = $discount;
-            $row[] = $transactions->disc_type;
-            $row[] = $total_due;
+            // $row[] = $transactions->disc_type;
+            $row[] = number_format($total_due, 2);
             $row[] = $transactions->status;
             $row[] = $transactions->order_type;
-            $row[] = $transactions->cash_amt;
-            $row[] = $transactions->change_amt;
+
+            $row[] = $this->users->get_username($transactions->user_id);
+            // $row[] = $transactions->cash_amt;
+            // $row[] = $transactions->change_amt;
 
             //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="View" onclick="view_transaction('."'".$transactions->trans_id."'".')"><i class="fa fa-eye"></i> </a>
-                      
-                      <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_table('."'".$transactions->trans_id."'".')"><i class="fa fa-trash"></i></a>';
+            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="View" onclick="view_transaction('."'".$transactions->trans_id."'".')"><i class="fa fa-eye"></i> </a>';
  
             $data[] = $row;
         }
@@ -226,7 +228,7 @@ class Transactions_controller extends CI_Controller {
         
         foreach ($array as $transaction) 
         {
-            foreach ($transaction['order_type'] as $order_type)
+            foreach ($transaction['details'] as $details)
             {
                 // insert new transaction ------------------------------------------------
 
@@ -234,12 +236,15 @@ class Transactions_controller extends CI_Controller {
                         'datetime' => date("Y-m-d H:i:s"),
 
                         'discount' => 0,
-                        'disc_type' => 'n/a',
 
                         'status' => 'ONGOING',
-                        'order_type' => $order_type['order_type'],
+
+                        'order_type' => $details['order_type'],
+
                         'cash_amt' => 0,
-                        'change_amt' => 0
+                        'change_amt' => 0,
+
+                        'user_id' => $details['user_id'],
                     );
                     
                 $insert = $this->transactions->save($data);

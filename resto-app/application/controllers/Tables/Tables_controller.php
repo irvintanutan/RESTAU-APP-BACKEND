@@ -7,6 +7,7 @@ class Tables_controller extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Tables/Tables_model','tables');
+        $this->load->model('Table_groups/Table_groups_model','table_groups');
     }
 
     public function index()						
@@ -41,21 +42,26 @@ class Tables_controller extends CI_Controller {
             $row[] = 'T' . $tables->tbl_id;
             $row[] = $tables->name;
 
-            if ($tables->status == 1)
+            $if_occupied = $this->table_groups->check_if_found($tables->tbl_id);
+
+            if ($if_occupied->num_rows() != 0)
             {
                 $status = "Occupied";
             }
-            else if ($tables->status == 2)
-            {
-                $status = "Reserved";
-            }
-            else if ($tables->status == 3)
-            {
-                $status = "Unavailable";
-            }
             else
             {
-                $status = "Vacant";
+                if ($tables->status == 0)
+                {
+                    $status = "Available";
+                }
+                else if ($tables->status == 1)
+                {
+                    $status = "Reserved";
+                }
+                else if ($tables->status == 2)
+                {
+                    $status = "Unavailable";
+                }
             }
 
             $row[] = $status;

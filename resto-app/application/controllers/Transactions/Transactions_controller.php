@@ -11,7 +11,6 @@ class Transactions_controller extends CI_Controller {
         $this->load->model('Products/Products_model','products');
         $this->load->model('Packages/Packages_model','packages');
         $this->load->model('Pack_details/Pack_details_model','pack_details');
-        $this->load->model('Tables/Tables_model','tables');
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
         $this->load->model('Table_groups/Table_groups_model','table_groups');
@@ -346,14 +345,6 @@ class Transactions_controller extends CI_Controller {
                     'tbl_id' => $tbl_id,
                 );
                 $this->table_groups->save($data_tables);
-
-                // update table status as occupied --------------------------------------------------------
-
-                $data_update_table_status = array(
-                    'status' => 1,
-                );
-                
-                $this->tables->update(array('tbl_id' => $tbl_id), $data_update_table_status);
             }
 
         }

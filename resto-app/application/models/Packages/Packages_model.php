@@ -181,4 +181,12 @@ class Packages_model extends CI_Model {
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
     }
+
+    public function update_sold_pack($pack_id, $qty)
+    {
+        $this->db->set('sold', 'sold + ' . (int) $qty, FALSE);
+        $this->db->where('pack_id',$pack_id);
+        $this->db->update($this->table);
+        return $this->db->affected_rows();
+    }
 }

@@ -81,21 +81,21 @@ class Trans_details_controller extends CI_Controller {
             $no++;
             $row = array();
 
-            if ($trans_details->prod_type == 1)
+            if ($trans_details->prod_type == 1) // if prod_type is package
             {
                 $item_id = 'G' . $trans_details->pack_id;
                 $item_name = $this->packages->get_package_name($trans_details->pack_id);
 
                 $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')"><i class="fa fa-trash"></i></a>';
             }
-            else if ($trans_details->prod_type == 0)
+            else if ($trans_details->prod_type == 0) // if prod_type is individual product
             {
                 $item_id = 'P' . $trans_details->prod_id;
                 $item_name = $this->products->get_product_name($trans_details->prod_id);
 
                 $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')"><i class="fa fa-trash"></i></a>';
             }
-            else
+            else if ($trans_details->prod_type == 2) // if prod_type is package product
             {   
                 $item_id = 'P' . $trans_details->prod_id;
                 $item_name = $this->products->get_product_name($trans_details->prod_id);
@@ -143,17 +143,61 @@ class Trans_details_controller extends CI_Controller {
     //     echo json_encode($data);
     // }
  
-    // public function ajax_add()
-    // {
-    //     $this->_validate();
-    //     $data = array(
-    //             'trans_id' => $this->input->post('trans_id'),
-    //             'prod_id' => $this->input->post('prod_id'),
-    //             'qty' => $this->input->post('qty'),
-    //         );
-    //     $insert = $this->trans_details->save($data);
-    //     echo json_encode(array("status" => TRUE));
-    // }
+    public function ajax_set_payment() // set payment function
+    {
+        $trans_id = $this->input->post('trans_id');
+
+        $card_number = $this->input->post('card_number');
+        if ($card_number == '') // set as n/a if empty
+        {
+            $card_number = 'n/a';
+        }
+
+        $cust_name = $this->input->post('cust_name');
+        if ($cust_name == '') // set as n/a if empty
+        {
+            $cust_name = 'n/a';
+        }
+
+        $this->_validate();
+
+        $data = array(
+                'status' => 'CLEARED',
+
+                'cash_amt' => $this->input->post('cash_amt'),
+                'change_amt' => ($this->input->post('cash_amt') - $this->input->post('cash_amt')),
+
+                'method' => $this->input->post('method'),
+                
+                'card_number' => $card_number,
+                'cust_name' => $cust_name,
+            );
+        $this->transactions->update(array('trans_id' => $trans_id), $data);
+        
+        $this->table_groups->delete_by_trans_id($trans_id);
+
+        $trans_details_items = $this->trans_details->get_trans_detail_items($trans_id); // get all trans_details items (products, packages, package products)
+
+        foreach ($trans_details_items as $items) // update sold of each items
+        {
+            $qty = $items->qty; // get qty to use as sold value to update
+
+            if ($items->prod_type == 0) // if prod_type is individual product
+            {
+                $this->products->update_sold_prod($items->prod_id, $qty);
+            }
+            else if ($items->prod_type == 1) // if prod_type is package
+            {
+                $this->packages->update_sold_pack($items->pack_id, $qty);
+            }
+            else if ($items->prod_type == 2) // if prod_type is package product
+            {
+                $this->products->update_sold_pack_prod($items->prod_id, $qty);
+            }
+        }
+
+        echo json_encode(array("status" => TRUE));
+    }
  
     // public function ajax_update()
     // {
@@ -161,8 +205,8 @@ class Trans_details_controller extends CI_Controller {
     //     $data = array(
     //             'qty' => $this->input->post('qty'),
     //         );
-    //     $this->trans_details->update(array('trans_id' => $this->input->post('trans_id'), 'prod_id' => $this->input->post('current_prod_id')), $data); // update record with multiple where clause
-    //     echo json_encode(array("status" => TRUE));
+        // $this->trans_details->update(array('trans_id' => $this->input->post('trans_id'), 'prod_id' => $this->input->post('current_prod_id')), $data); // update record with multiple where clause
+        // echo json_encode(array("status" => TRUE));
     // }
 
     // delete a record
@@ -178,59 +222,51 @@ class Trans_details_controller extends CI_Controller {
         echo json_encode(array("status" => TRUE));
     }
 
-    // private function _validate()
-    // {
-    //     $data = array();
-    //     $data['error_string'] = array();
-    //     $data['inputerror'] = array();
-    //     $data['status'] = TRUE;
+    private function _validate()
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
 
-    //     if($this->input->post('prod_id') == '')
-    //     {
-    //         $data['inputerror'][] = 'prod_id';
-    //         $data['error_string'][] = 'Package product is required';
-    //         $data['status'] = FALSE;
-    //     }
-    //     // validation for duplicates
-    //     else
-    //     {
-    //         $trans_id = $this->input->post('trans_id');
-    //         $new_prod_id = $this->input->post('prod_id');
-    //         // check if name has a new value or not
-    //         if ($this->input->post('current_prod_id') != $new_prod_id)
-    //         {
-    //             // validate if name already exist in the databaase table
-    //             $duplicates = $this->trans_details->get_duplicates($trans_id, $new_prod_id);
+        if($this->input->post('method') == 'Cash') // if payment method is cash
+        {
+            if($this->input->post('cash_amt') == '')
+            {
+                $data['inputerror'][] = 'cash_amt';
+                $data['error_string'][] = 'Cash amount is required';
+                $data['status'] = FALSE;
+            }
+            else if($this->input->post('cash_amt') <= 0)
+            {
+                $data['inputerror'][] = 'cash_amt';
+                $data['error_string'][] = 'Cash amount value should be greater than zero';
+                $data['status'] = FALSE;
+            }
+            else if($this->input->post('cash_amt') < $this->input->post('amount_due'))
+            {
+                $data['inputerror'][] = 'cash_amt';
+                $data['error_string'][] = 'Cash amount value should be equal or greater than amount due';
+                $data['status'] = FALSE;
+            }
+        }
+        // if payment method is credit card or cash card
+        else
+        {
+            if($this->input->post('card_number') == '')
+            {
+                $data['inputerror'][] = 'card_number';
+                $data['error_string'][] = 'Card number is required';
+                $data['status'] = FALSE;
+            }  
+        }
 
-    //             if ($duplicates->num_rows() != 0)
-    //             {
-    //                 $data['inputerror'][] = 'prod_id';
-    //                 $data['error_string'][] = 'Package product already registered';
-    //                 $data['status'] = FALSE;
-    //             }
-    //         }
-    //     }
-
-    //     if($this->input->post('qty') == '')
-    //     {
-    //         $data['inputerror'][] = 'qty';
-    //         $data['error_string'][] = 'Package product quantity is required';
-    //         $data['status'] = FALSE;
-    //     }
-    //     else if($this->input->post('qty') <= 0)
-    //     {
-    //         $data['inputerror'][] = 'qty';
-    //         $data['error_string'][] = 'Quantity value should be greater than zero';
-    //         $data['status'] = FALSE;
-    //     }
-
-
-    //     if($data['status'] === FALSE)
-    //     {
-    //         echo json_encode($data);
-    //         exit();
-    //     }
-    // }
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
 
     // private function _validate_qty_only()
     // {

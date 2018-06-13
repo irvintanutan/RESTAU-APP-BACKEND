@@ -89,15 +89,15 @@ class Table_groups_model extends CI_Model {
     }
 
     // check if the parent data has children in FK
-    // function check_if_found($trans_id)
-    // {      
-    //     $this->db->from($this->table);
-    //     $this->db->where('trans_id',$trans_id);
+    function check_if_found($tbl_id)
+    {      
+        $this->db->from($this->table);
+        $this->db->where('tbl_id',$tbl_id);
 
-    //     $query = $this->db->get();
+        $query = $this->db->get();
 
-    //     return $query;
-    // }
+        return $query;
+    }
  
     function count_filtered($trans_id)
     {
@@ -139,7 +139,7 @@ class Table_groups_model extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    public function delete_by_id($trans_id)
+    public function delete_by_trans_id($trans_id)
     {
         $this->db->where('trans_id', $trans_id);
         $this->db->delete($this->table);

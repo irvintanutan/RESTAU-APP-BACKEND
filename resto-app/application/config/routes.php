@@ -185,7 +185,7 @@ $route['trans-details-page/(:num)'] = 'Trans_details/Trans_details_controller/in
 
 $route['showlist-trans-details/(:num)'] = 'Trans_details/Trans_details_controller/ajax_list/$1';
 
-$route['add-trans-detail'] = 'Trans_details/Trans_details_controller/ajax_add';
+$route['set-payment'] = 'Trans_details/Trans_details_controller/ajax_set_payment';
 
 $route['edit-trans-detail/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/ajax_edit/$1/$2';
 

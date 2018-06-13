@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 12, 2018 at 11:50 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: localhost
+-- Generation Time: Jun 13, 2018 at 06:08 PM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -565,7 +563,23 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000463, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:49'),
 (1000464, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Circle%20Table%202', '2018-06-11 13:17:56'),
 (1000465, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-12 19:36:27'),
-(1000466, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-06-12 23:48:40');
+(1000466, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-06-12 23:48:40'),
+(1000467, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-13 09:11:08'),
+(1000468, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-13 13:10:15'),
+(1000469, 'TORRES, JIK', 'Add', 'New%20table%20added:%20Circle%20Table%203', '2018-06-13 15:54:11'),
+(1000470, 'TORRES, JIK', 'Update', 'Table%20updated%20T5:%20Circle%20Table%203%20to%20Circle%20Table%203', '2018-06-13 15:54:16'),
+(1000471, 'TORRES, JIK', 'Update', 'Table%20updated%20T5:%20Circle%20Table%203%20to%20Circle%20Table%203', '2018-06-13 15:54:20'),
+(1000472, 'TORRES, JIK', 'Update', 'Table%20updated%20T5:%20Circle%20Table%203%20to%20Circle%20Table%203', '2018-06-13 15:54:24'),
+(1000473, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:20:57'),
+(1000474, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:21:43'),
+(1000475, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:23:24'),
+(1000476, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:27:47'),
+(1000477, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:28:06'),
+(1000478, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:30:42'),
+(1000479, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:31:46'),
+(1000480, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:37:57'),
+(1000481, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 17:41:01'),
+(1000482, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S1', '2018-06-13 18:05:28');
 
 -- --------------------------------------------------------
 
@@ -644,9 +658,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coco Loco', 'JUSTIN AND MICO', 1, '50.00', '', 0, 0, '2018-05-24 18:22:34', 0),
+(1, 'Coco Loco', 'JUSTIN AND MICO', 1, '50.00', '1.jpg', 0, 0, '2018-05-24 18:22:34', 0),
 (2, 'Iced Tea Pitcher', 'Soda', 1, '45.00', '2.jpg', 0, 0, '2018-05-28 14:37:40', 0),
-(3, 'Cheese Burger', 'Regular size cheese burger', 3, '100.00', '3.jpg', 0, 0, '2018-05-29 13:51:47', 0),
+(3, 'Cheese Burger', 'Regular size cheese burger', 3, '100.00', '3.jpg', 4, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'Green can soda in can', 1, '50.00', '4.jpg', 0, 0, '2018-05-29 13:55:32', 0),
 (5, 'Cheesy Fries', 'French fries cheese flavor', 3, '80.00', '5.jpg', 0, 0, '2018-05-29 13:56:42', 0),
 (6, 'Barbecue Fries', 'French fries BBQ flavor', 3, '80.00', '6.jpg', 0, 0, '2018-05-29 13:57:27', 0),
@@ -720,10 +734,11 @@ CREATE TABLE `tables` (
 --
 
 INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
-(1, 'Square Table 1', 1, '2018-06-06 17:57:24', 0),
-(2, 'Square Table 2', 1, '2018-06-06 18:01:17', 0),
-(3, 'Circle Table 1', 1, '2018-06-11 11:54:21', 0),
-(4, 'Circle Table 2', 1, '2018-06-11 11:54:34', 0);
+(1, 'Square Table 1', 0, '2018-06-06 17:57:24', 0),
+(2, 'Square Table 2', 0, '2018-06-06 18:01:17', 0),
+(3, 'Circle Table 1', 0, '2018-06-11 11:54:21', 0),
+(4, 'Circle Table 2', 0, '2018-06-11 11:54:34', 0),
+(5, 'Circle Table 3', 0, '2018-06-13 15:54:11', 0);
 
 -- --------------------------------------------------------
 
@@ -742,13 +757,6 @@ CREATE TABLE `table_groups` (
 --
 
 INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
-(1, 1, 1),
-(2, 1, 1),
-(3, 1, 2),
-(4, 1, 1),
-(5, 1, 2),
-(6, 1, 1),
-(7, 1, 2),
 (8, 2, 3),
 (9, 2, 4),
 (10, 3, 3),
@@ -780,7 +788,7 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `status`, `order_type`, `cash_amt`, `change_amt`, `method`, `card_number`, `cust_name`, `user_id`) VALUES
-(1, '2018-06-08 17:49:31', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 103),
+(1, '2018-06-08 17:49:31', '0.00', 'n/a', 'CLEARED', 'DINE-IN', '400.00', '0.00', 'Cash', 'n/a', 'n/a', 103),
 (2, '2018-06-11 12:15:21', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 103),
 (3, '2018-06-11 18:05:20', '0.00', 'n/a', 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 103);
 
@@ -938,7 +946,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000467;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000483;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -953,7 +961,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `table_groups`
 --
@@ -968,8 +976,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;COMMIT;
-
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

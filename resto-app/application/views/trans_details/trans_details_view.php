@@ -63,12 +63,6 @@
                         </div>
 
                         
-                            
-                            
-                        
-
-                        <input type="hidden" value=<?php echo "'" . $transaction->trans_id . "'"; ?> name="trans_id"/> 
-                        
                         
 
 
@@ -102,8 +96,21 @@
                             <button class="btn btn-warning" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <button class="btn btn-danger" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
-                            <hr>
+                            <?php 
+                                if ($transaction->status == 'ONGOING'){
+                            ?>
+                                <button class="btn btn-danger" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
+                                <hr>
+                            <?php
+                                }
+                                else
+                                {
+                            ?>
+                                <button class="btn btn-danger" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
+                                <hr>
+                            <?php
+                                }
+                            ?>
 
                             <label class="control-label col-md-2">Payment Method: <h4><?php echo $transaction->method; ?></h4></label>
                             <label class="control-label col-md-3">Card Number: <h4><?php echo $transaction->card_number; ?></h4></label>
@@ -131,7 +138,7 @@
 
 
             <!-- Bootstrap modal -->
-            <div class="modal fade" id="modal_form" role="dialog">
+            <div class="modal fade" id="modal_form_set_payment" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -139,23 +146,24 @@
                             <h3 class="modal-title">Set Payment Form</h3>
                         </div>
                         <div class="modal-body form">
-                            <form action="#" id="form" class="form-horizontal">
+                            <form action="#" id="form_set_payment" class="form-horizontal">
 
-                                <input type="hidden" value="" name="trans_id"/>
+                                <input type="hidden" value=<?php echo "'" . $transaction->trans_id . "'"; ?> name="trans_id"/> 
+                                <input type="hidden" value=<?php echo "'" . $net_total . "'"; ?> name="amount_due"/>
                                 
                                 <div class="form-body">
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Amount Due :</label>
                                         <div class="col-md-9">
-                                            <h4><input type="text" value=<?php echo "'" . "₱ " . number_format($net_total, 2) . "'"; ?> name="amount_due" size="4" style="border: none; text-align: center; color: darkblue;" readonly/></h4>
+                                            <h3><input type="text" value=<?php echo "'" . "₱ " . number_format($net_total, 2) . "'"; ?> name="amount_due_str" size="15" style="border: none; text-align: right; color: darkblue;" readonly/></h3>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Payment Method :</label>
                                         <div class="col-md-9">
-                                            <select name="status" class="form-control">
+                                            <select id="method" name="method" class="form-control" style="font-size: 15px;" >
                                                 <option value="Cash">Cash</option>
                                                 <option value="Credit Card">Credit Card</option>
                                                 <option value="Cash Card">Cash Card</option>
@@ -167,7 +175,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Cash :</label>
                                         <div class="col-md-9">
-                                            <input name="cash_amt" placeholder="Cash Amount" class="form-control" type="number">
+                                            <input id="cash_amt" name="cash_amt" placeholder="Cash Amount" class="form-control" type="number" style="font-size: 15px;" >
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -175,15 +183,15 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Card Number :</label>
                                         <div class="col-md-9">
-                                            <input name="card_number" placeholder="Card Number" class="form-control" type="text">
+                                            <input id="card_number" name="card_number" placeholder="Card Number" class="form-control" type="text" style="font-size: 15px;" disabled>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">Customer Name :</label>
+                                        <label class="control-label col-md-3">Customer Name (Optional) :</label>
                                         <div class="col-md-9">
-                                            <input name="cust_name" placeholder="Customer Full Name" class="form-control" type="text">
+                                            <input id="cust_name" name="cust_name" placeholder="Customer Full Name" class="form-control" type="text" style="font-size: 15px;" disabled>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -192,7 +200,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btnSave" onclick="save()" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp;Save</button>
+                            <button type="button" id="btnSave" onclick="confirm_trans()" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp;Confirm</button>
 
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> &nbsp;Cancel</button>
                         </div>

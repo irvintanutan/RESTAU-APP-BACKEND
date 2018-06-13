@@ -209,4 +209,20 @@ class Products_model extends CI_Model {
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
     }
+
+    public function update_sold_prod($prod_id, $qty)
+    {
+        $this->db->set('sold', 'sold + ' . (int) $qty, FALSE);
+        $this->db->where('prod_id',$prod_id);
+        $this->db->update($this->table);
+        return $this->db->affected_rows();
+    }
+
+    public function update_sold_pack_prod($prod_id, $qty)
+    {
+        $this->db->set('sold_pack', 'sold_pack + ' . (int) $qty, FALSE);
+        $this->db->where('prod_id',$prod_id);
+        $this->db->update($this->table);
+        return $this->db->affected_rows();
+    }
 }

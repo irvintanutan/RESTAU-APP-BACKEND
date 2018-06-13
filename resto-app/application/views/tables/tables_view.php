@@ -94,10 +94,9 @@
                                         <label class="control-label col-md-3">Status :</label>
                                         <div class="col-md-9">
                                             <select name="status" class="form-control">
-                                                <option value="0">Vacant</option>
-                                                <option value="1">Occupied</option>
-                                                <option value="2">Reserved</option>
-                                                <option value="3">Unavailable</option>
+                                                <option value="0">Available</option>
+                                                <option value="1">Reserved</option>
+                                                <option value="2">Unavailable</option>
                                             </select>
                                             <span class="help-block"></span>
                                         </div>

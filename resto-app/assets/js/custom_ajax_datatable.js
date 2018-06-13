@@ -285,10 +285,10 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
-                  var status = data[6],
+                  var status = data[5],
                       $node = this.api().row(row).nodes().to$();
 
-                  if (status == 'Cleared') 
+                  if (status == 'CLEARED') 
                   {
                     $node.css('background-color', '#cccccc');
                   }
@@ -825,27 +825,134 @@ $(document).ready(function()
 
 function set_payment() // ---> calling for the Add Modal form
 {
-    save_method = 'add-item';
+    save_method = 'set-payment';
     text = 'Set Payment';
     
-    $('#form')[0].reset(); // reset form on modals
+    $('#form_set_payment')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
-    $('#modal_form').modal('show'); // show bootstrap modal
+    $('#modal_form_set_payment').modal('show'); // show bootstrap modal
     $('.modal-title').text(text); // Set Title to Bootstrap modal title
 }
 
-
 // ------------------------------------------------- 
+
+// enable / disable input fields when condition is met
+$("#method").change(function()
+{
+    var method = $('[name="method"]').val();
+
+    if (method == "Cash")
+    {
+        $('[name="card_number"]').val("");
+
+        document.getElementById("cash_amt").disabled = false;
+
+        document.getElementById("card_number").disabled = true;
+        document.getElementById("cust_name").disabled = true;
+    }
+    else if (method == "Credit Card")
+    {
+        $('[name="cash_amt"]').val("");
+
+        document.getElementById("cash_amt").disabled = true;
+        
+        document.getElementById("card_number").disabled = false;
+        document.getElementById("cust_name").disabled = false;
+    }
+    else if (method == "Cash Card")
+    {
+        $('[name="cash_amt"]').val("");
+
+        document.getElementById("cash_amt").disabled = true;
+        
+        document.getElementById("card_number").disabled = false;
+        document.getElementById("cust_name").disabled = false;
+    }
+});
+
+function confirm_trans()
+{
+    // resetting errors in form validations
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+
+    $('#btnSave').text('Processing...'); //change button text
+    $('#btnSave').attr('disabled',true); //set button disable 
+    var url;
+
+    if(save_method == 'set-payment') 
+    {
+        $form = '#form_set_payment';
+        url = "../set-payment";
+    }
+    // else if(save_method == 'update-loan-date-remarks') 
+    // {
+    //     $form = '#form_edit_date_remarks';
+    //     url = "../profiles/profiles_controller/ajax_update_date_remarks";
+    // }
+    
+ 
+    // ajax adding data to database
+    $.ajax({
+        url : url,
+        type: "POST",
+        data: $($form).serialize(),
+        dataType: "JSON",
+        success: function(data)
+        {
+ 
+            if(data.status) //if success close modal and reload ajax table
+            {
+                $('#modal_form_set_payment').modal('hide');
+                
+                reload_table();
+
+                // set logs -------------------------------------------------------------------
+
+                var log_type = "";
+                var details = "";
+
+                if(save_method == 'set-payment') 
+                {
+                    log_type = 'Add';
+
+                    details = 'New transaction payment added: S' + $('[name="trans_id"]').val();
+
+                    set_system_log_one(log_type, details);
+                }
+            }
+            else
+            {
+                for (var i = 0; i < data.inputerror.length; i++) 
+                {
+                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                }
+            }
+            $('#btnSave').text('Confirm'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable 
+ 
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#btnSave').text('Save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable 
+ 
+        }
+    });
+}
+
+
+// ================================================================== VIEW IMAGE SECTION ==========================================
+
 
 // reset file path everytime modal_form_view is closed - for image upload
 $('#modal_form_view').on('hidden.bs.modal', function(){
     $("#userfile").val("");
 });
-
-
-// ================================================================== VIEW IMAGE SECTION ==========================================
-
 
 function readURL(input,image) {
     if (input.files && input.files[0]) {

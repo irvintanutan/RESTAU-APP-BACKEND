@@ -128,7 +128,7 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ffcc66;" class="fa fa-square"></i> - Packages &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i> - Package-products &nbsp; ]</span>
+                    <span>Legend: [ &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i> - Regular Products &nbsp; | &nbsp; <i style = "color: #ffcc66;" class="fa fa-square"></i> - Packages &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i> - Package-products &nbsp; ]</span>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

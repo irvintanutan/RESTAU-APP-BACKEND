@@ -260,7 +260,7 @@ $route['showlist-schedules'] = 'Schedules/Schedules_controller/ajax_list';
 //**************************************
 
 
-$route['statistics-page'] = 'statistics/statistics_controller/index';
+$route['statistics-page'] = 'Statistics/Statistics_controller/index';
 
 
 

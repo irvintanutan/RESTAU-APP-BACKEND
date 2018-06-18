@@ -165,7 +165,7 @@ class Trans_details_controller extends CI_Controller {
                 'status' => 'CLEARED',
 
                 'cash_amt' => $this->input->post('cash_amt'),
-                'change_amt' => ($this->input->post('cash_amt') - $this->input->post('cash_amt')),
+                'change_amt' => ($this->input->post('cash_amt') - $this->input->post('amount_due')),
 
                 'method' => $this->input->post('method'),
                 

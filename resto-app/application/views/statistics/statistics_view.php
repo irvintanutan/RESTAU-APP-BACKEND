@@ -5,7 +5,7 @@
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div id="page-title">
-                    <h1 class="page-header text-overflow"><img src="assets/img/jikiapps.png" style="width: 12%; margin-top: 0%; margin-right: 1%;">e - L e n d i n g | Lending Manager App </h1>
+                    <!-- <h1 class="page-header text-overflow"><img src="assets/img/jikiapps.png" style="width: 12%; margin-top: 0%; margin-right: 1%;">e - L e n d i n g | Lending Manager App </h1> -->
 
 
                     <!--Searchbox-->
@@ -35,23 +35,23 @@
                 <div id="page-content" class="panel panel-light panel-colorful">
                 
                     <div class="panel-heading">
-                        <h3 class="panel-title">e-Lending Statistics / Charts</h3>
+                        <h3 class="panel-title">Statistics / Charts</h3>
                     </div>
                     <br>
 
                     
 
-                    <div id="container-interests-prev" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+                    <!-- <div id="container-interests-prev" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 
-                    <hr style="background-color: #ccccff; height: 5px;">
+                    <hr style="background-color: #ccccff; height: 5px;"> -->
 
-                    <div id="container-interests" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+                    <div id="container-current-net-sales" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 
                     <hr style="background-color: #ccccff; height: 40px;">
 
                     <!-- Basic Data Tables -->
                     <!--===================================================-->
-                    <div class="panel">
+                    <!-- <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">Top Clients - Total Loans Information Table</h3>
                         </div>
@@ -72,11 +72,11 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> -->
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ffff66;" class="fa fa-square"></i> - Has Current Balance &nbsp; | &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i> - No Current Balance &nbsp; ]</span>
-                    <hr style="background-color: #ccccff; height: 40px;">
+                    <!-- <span>Legend: [ &nbsp; <i style = "color: #ffff66;" class="fa fa-square"></i> - Has Current Balance &nbsp; | &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i> - No Current Balance &nbsp; ]</span>
+                    <hr style="background-color: #ccccff; height: 40px;"> -->
                 </div>
 
                         
@@ -106,24 +106,6 @@
 
 
 
-                    <input type="hidden" value=<?php echo "'" . $prev_year . "'"; ?> name="prev_year"/>
-
-                    <input type="hidden" value=<?php echo "'" . $prev_jan . "'"; ?> name="prev_jan"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_feb . "'"; ?> name="prev_feb"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_mar . "'"; ?> name="prev_mar"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_apr . "'"; ?> name="prev_apr"/>
-
-                    <input type="hidden" value=<?php echo "'" . $prev_may . "'"; ?> name="prev_may"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_jun . "'"; ?> name="prev_jun"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_jul . "'"; ?> name="prev_jul"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_aug . "'"; ?> name="prev_aug"/>
-
-                    <input type="hidden" value=<?php echo "'" . $prev_sep . "'"; ?> name="prev_sep"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_oct . "'"; ?> name="prev_oct"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_nov . "'"; ?> name="prev_nov"/>
-                    <input type="hidden" value=<?php echo "'" . $prev_dec . "'"; ?> name="prev_dec"/>
-
-                    <input type="hidden" value=<?php echo "'" . $prev_year_total . "'"; ?> name="prev_year_total"/>
 
 
 

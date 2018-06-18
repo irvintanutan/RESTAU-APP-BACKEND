@@ -3072,7 +3072,7 @@ function set_report_child()
 
 
 // check if div exist (execute if in dashboard page only) // chart for registration count
-if (document.getElementById("container-interests")) 
+if (document.getElementById("container-current-net-sales")) 
 {
     // fetch registrations data
     var current_year = $('[name="current_year"]').val();
@@ -3094,12 +3094,12 @@ if (document.getElementById("container-interests"))
 
     var year_total = $('[name="year_total"]').val();
 
-        Highcharts.chart('container-interests', {
+        Highcharts.chart('container-current-net-sales', {
         chart: {
             type: 'line'
         },
         title: {
-            text: 'Monthly Total Loan Interests / Net Profit for Year ( ' + current_year + ' ): ₱ ' + year_total
+            text: 'Monthly Total Net Sales for Year ( ' + current_year + ' ): ₱ ' + year_total
         },
         subtitle: {
             text: 'January to December ' + current_year
@@ -3109,7 +3109,7 @@ if (document.getElementById("container-interests"))
         },
         yAxis: {
             title: {
-                text: 'Interest Values in Php Amount'
+                text: 'Net Sales Value in Php Amount'
             }
         },
         plotOptions: {
@@ -3127,7 +3127,7 @@ if (document.getElementById("container-interests"))
             }
         },
         series: [{
-            name: 'Monthly Total Interest',
+            name: 'Monthly Total Net Sales',
             data: [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
         }]
     });

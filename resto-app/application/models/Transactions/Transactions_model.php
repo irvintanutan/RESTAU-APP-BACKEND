@@ -87,6 +87,27 @@ class Transactions_model extends CI_Model {
 
         return $row->status;
     }
+
+    // get monthly new sales specified by month and year
+    public function get_monthly_net_sales($month, $year)
+    {
+        $this->db->select('SUM(cash_amt) AS cash_amt');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 24:00:00';
+
+        $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        $data['cash_amt'] = $query->row()->cash_amt;
+
+        return $data;
+    }
  
     function count_filtered()
     {

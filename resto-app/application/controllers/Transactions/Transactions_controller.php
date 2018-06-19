@@ -244,6 +244,7 @@ class Transactions_controller extends CI_Controller {
                         'change_amt' => 0,
 
                         'user_id' => $details['user_id'],
+                        'cashier_id' => 0,
                     );
                     
                 $insert = $this->transactions->save($data);

@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Categories_controller extends CI_Controller {
+class Discounts_controller extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Categories/Categories_model','categories');
+        $this->load->model('Discounts/Discounts_model','discounts');
     }
 
     public function index()						
@@ -18,9 +18,9 @@ class Categories_controller extends CI_Controller {
 
         $this->load->helper('url');							
 
-        $data['title'] = 'Categories Information List';					
+        $data['title'] = 'Discounts Information List';					
         $this->load->view('template/dashboard_header',$data);
-        $this->load->view('categories/categories_view',$data);
+        $this->load->view('discounts/discounts_view',$data);
         $this->load->view('template/dashboard_navigation');
         $this->load->view('template/dashboard_footer');
 
@@ -28,39 +28,41 @@ class Categories_controller extends CI_Controller {
    
     public function ajax_list()
     {
-        $list = $this->categories->get_datatables();
+        $list = $this->discounts->get_datatables();
         $data = array();
         $no = $_POST['start'];
-        foreach ($list as $categories) {
+        foreach ($list as $discounts) {
             $no++;
             $row = array();
-            $row[] = 'C' . $categories->cat_id;
-            $row[] = $categories->name;
-            $row[] = $categories->descr;
+            $row[] = 'D' . $discounts->disc_id;
+            $row[] = $discounts->name;
+            $row[] = $discounts->descr;
+            $row[] = $discounts->less_c;
+            $row[] = $discounts->less_p;
 
-            $row[] = $categories->encoded;
+            $row[] = $discounts->encoded;
 
             //add html for action
-            $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_product('."'".$categories->cat_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
+            $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_discount('."'".$discounts->disc_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
                       
-                      <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_product('."'".$categories->cat_id."'".', '."'".$categories->name."'".')"><i class="fa fa-trash"></i></a>';
+                      <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_discount('."'".$discounts->disc_id."'".', '."'".$discounts->name."'".')"><i class="fa fa-trash"></i></a>';
  
             $data[] = $row;
         }
  
         $output = array(
                         "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->categories->count_all(),
-                        "recordsFiltered" => $this->categories->count_filtered(),
+                        "recordsTotal" => $this->discounts->count_all(),
+                        "recordsFiltered" => $this->discounts->count_filtered(),
                         "data" => $data,
                 );
         //output to json format
         echo json_encode($output);
     }
  
-    public function ajax_edit($cat_id)
+    public function ajax_edit($disc_id)
     {
-        $data = $this->categories->get_by_id($cat_id);
+        $data = $this->discounts->get_by_id($disc_id);
         echo json_encode($data);
     }
  
@@ -70,10 +72,13 @@ class Categories_controller extends CI_Controller {
         $data = array(
                 'name' => $this->input->post('name'),
                 'descr' => $this->input->post('descr'),
+
+                'less_c' => $this->input->post('less_c'),
+                'less_p' => $this->input->post('less_p'),
                 
                 'removed' => 0
             );
-        $insert = $this->categories->save($data);
+        $insert = $this->discounts->save($data);
         echo json_encode(array("status" => TRUE));
     }
  
@@ -83,18 +88,21 @@ class Categories_controller extends CI_Controller {
         $data = array(
                 'name' => $this->input->post('name'),
                 'descr' => $this->input->post('descr'),
+
+                'less_c' => $this->input->post('less_c'),
+                'less_p' => $this->input->post('less_p'),
             );
-        $this->categories->update(array('cat_id' => $this->input->post('cat_id')), $data);
+        $this->discounts->update(array('disc_id' => $this->input->post('disc_id')), $data);
         echo json_encode(array("status" => TRUE));
     }
 
-    // delete a categories
-    public function ajax_delete($cat_id)
+    // delete a discounts
+    public function ajax_delete($disc_id)
     {
         $data = array(
                 'removed' => 1
             );
-        $this->categories->update(array('cat_id' => $cat_id), $data);
+        $this->discounts->update(array('disc_id' => $disc_id), $data);
         echo json_encode(array("status" => TRUE));
     }
 
@@ -108,7 +116,7 @@ class Categories_controller extends CI_Controller {
         if($this->input->post('name') == '')
         {
             $data['inputerror'][] = 'name';
-            $data['error_string'][] = 'Category name is required';
+            $data['error_string'][] = 'Discount name is required';
             $data['status'] = FALSE;
         }
         // validation for duplicates
@@ -119,12 +127,12 @@ class Categories_controller extends CI_Controller {
             if ($this->input->post('current_name') != $new_name)
             {
                 // validate if name already exist in the databaase table
-                $duplicates = $this->categories->get_duplicates($this->input->post('name'));
+                $duplicates = $this->discounts->get_duplicates($this->input->post('name'));
 
                 if ($duplicates->num_rows() != 0)
                 {
                     $data['inputerror'][] = 'name';
-                    $data['error_string'][] = 'Category name already registered';
+                    $data['error_string'][] = 'Discount name already registered';
                     $data['status'] = FALSE;
                 }
             }
@@ -144,17 +152,17 @@ class Categories_controller extends CI_Controller {
 
     public function ajax_api_list()
     {
-        $list = $this->categories->get_api_datatables();
+        $list = $this->discounts->get_api_datatables();
         $data = array();
         
-        foreach ($list as $categories) {
+        foreach ($list as $discounts) {
             
             $row = array();
-            $row['cat_id'] = $categories->cat_id;
-            $row['name'] = $categories->name;
-            $row['descr'] = $categories->descr;
+            $row['disc_id'] = $discounts->disc_id;
+            $row['name'] = $discounts->name;
+            $row['descr'] = $discounts->descr;
 
-            $row['encoded'] = $categories->encoded;
+            $row['encoded'] = $discounts->encoded;
  
             $data[] = $row;
         }

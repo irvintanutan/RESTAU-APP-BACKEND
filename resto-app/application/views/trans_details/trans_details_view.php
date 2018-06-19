@@ -122,7 +122,8 @@
                             <label class="control-label col-md-2">Staff: <h4><?php echo $this->users->get_username($transaction->user_id); ?></h4></label>
                             <label class="control-label col-md-10">Customer Name: <h4><?php echo $transaction->cust_name; ?></h4></label>
 
-                            <label class="control-label col-md-9">Table(s): <h4><?php echo $table_str; ?></h4></label>
+                            <label class="control-label col-md-12">Table(s): <h4><?php echo $table_str; ?></h4></label>
+                            <label class="control-label col-md-2">Cashier: <h4><?php if ($transaction->cashier_id == 0){ echo "n/a"; }else{ echo $this->users->get_username($transaction->cashier_id); } ?></h4></label>
 
                         </div>
                     </div>

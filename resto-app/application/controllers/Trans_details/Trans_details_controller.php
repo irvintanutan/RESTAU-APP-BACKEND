@@ -171,6 +171,9 @@ class Trans_details_controller extends CI_Controller {
                 
                 'card_number' => $card_number,
                 'cust_name' => $cust_name,
+
+                'cashier_id' => $this->session->userdata('user_id')
+
             );
         $this->transactions->update(array('trans_id' => $trans_id), $data);
         

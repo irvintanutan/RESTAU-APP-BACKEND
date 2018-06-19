@@ -180,26 +180,30 @@ class Tables_controller extends CI_Controller {
             $row = array();
             $row['tbl_id'] = $tables->tbl_id;
             $row['name'] = $tables->name;
-            $row['status'] = $tables->status;
 
-            if ($tables->status == 1)
+            $if_occupied = $this->table_groups->check_if_found($tables->tbl_id);
+
+            if ($if_occupied->num_rows() != 0)
             {
-                $status_name = "Occupied";
-            }
-            else if ($tables->status == 2)
-            {
-                $status_name = "Reserved";
-            }
-            else if ($tables->status == 3)
-            {
-                $status_name = "Unavailable";
+                $status = "Occupied";
             }
             else
             {
-                $status_name = "Vacant";
+                if ($tables->status == 0)
+                {
+                    $status = "Available";
+                }
+                else if ($tables->status == 1)
+                {
+                    $status = "Reserved";
+                }
+                else if ($tables->status == 2)
+                {
+                    $status = "Unavailable";
+                }
             }
 
-            $row['status_name'] = $status_name;            
+            $row['status'] = $status;
 
             $row['encoded'] = $tables->encoded;    
  

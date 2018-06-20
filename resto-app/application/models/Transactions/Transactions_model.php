@@ -96,7 +96,7 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $date_from = $year . '-' . $month . '-01 00:00:00';
-        $date_to = $year . '-' . $month . '-31 24:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
         $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
         $this->db->where('datetime >=', $date_from);

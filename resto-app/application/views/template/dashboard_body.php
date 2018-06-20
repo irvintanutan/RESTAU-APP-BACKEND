@@ -50,7 +50,7 @@
                                             <p class="h1 text-thin">
                                             <?php echo '₱ 36,000.00'; ?>     
                                             </p>
-                                            <small><span class="text-semibold" style="font-size: 11px;">[ <?php echo ' 75 %'; ?> ] Higher than yesterday<br><br></small>
+                                            <small><span class="text-semibold" style="font-size: 11px;">[ <?php echo ' 75 %'; ?> ] Higher than yesterday<br><br><br></small>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                             <i class="fa fa-users fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo '14'; //echo number_format($total_balance, 2, '.', ','); ?> </p>
-                                            <small><span class="text-semibold" style="font-size: 11px;">Dine in: [ <?php echo '15'; //echo number_format($total_paid, 2, '.', ','); ?> ] | Take out: [ <?php echo '6'; //echo number_format($total_paid, 2, '.', ','); ?> ]<br><br></small>
+                                            <small><span class="text-semibold" style="font-size: 11px;">Dine in: [ <?php echo '15'; //echo number_format($total_paid, 2, '.', ','); ?> ] | Take out: [ <?php echo '6'; //echo number_format($total_paid, 2, '.', ','); ?> ]<br><br><br></small>
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                             <i class="fa fa-coffee fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo '57'; //echo number_format($total_interests, 2, '.', ','); ?> </p>
-                                            <small><span class="text-bold" style="font-size: 11px;">Individual Products: [ <?php echo '43'; //echo number_format($total_paid, 2, '.', ','); ?> ] | Packages: [ <?php echo '14'; //echo number_format($total_paid, 2, '.', ','); ?> ]<br><br></small>
+                                            <small><span class="text-bold" style="font-size: 11px;">Individual Products: [ <?php echo '43'; //echo number_format($total_paid, 2, '.', ','); ?> ] <br> Packages: [ <?php echo '14'; //echo number_format($total_paid, 2, '.', ','); ?> ]<br><br></small>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                             <i class="fa fa-percent fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo '₱ 2,200.00'; //echo $loans_count; ?></p>
-                                            <small><span class="text-semibold" style="font-size: 11px;">[ 6 % ] of the Total Gross Sales [ ₱ 42,000.00 ]<br><br></small>
+                                            <small><span class="text-semibold" style="font-size: 11px;">[ 6 % ] of the Total<br>Gross Sales [ ₱ 42,000.00 ]<br><br></small>
                                         </div>
                                     </div>
                                 </div>

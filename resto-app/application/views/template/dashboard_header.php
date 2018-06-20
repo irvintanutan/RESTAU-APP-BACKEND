@@ -80,7 +80,7 @@ Detailed information and more samples can be found in the document.
               <a href="<?php echo base_url();?>dashboard" class="navbar-brand">
                 <img src="<?php echo base_url();?>assets/img/logo.png" alt="ANC - DPS" class="brand-icon">
                 <div class="brand-title">
-                  <span class="brand-text" style="margin-left: 12px;">e - L e n d i n g
+                  <span class="brand-text" style="margin-left: 12px;">R e s t o A p p
                   </span>
 
                 </div>

@@ -235,6 +235,7 @@ class Transactions_controller extends CI_Controller {
                         'datetime' => date("Y-m-d H:i:s"),
 
                         'discount' => 0,
+                        'disc_type' => 0,
 
                         'status' => 'ONGOING',
 

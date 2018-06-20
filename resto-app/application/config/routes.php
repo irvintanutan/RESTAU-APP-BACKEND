@@ -138,6 +138,28 @@ $route['showlist-transactions-api'] = 'Transactions/Transactions_controller/ajax
 $route['add-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_add_trans';
 
 
+//************************************ TRANSACTIONS ROUTES ***************************************************************
+//******************************************************************************************************************
+
+$route['discounts-page'] = 'Discounts/Discounts_controller';
+
+$route['showlist-discounts'] = 'Discounts/Discounts_controller/ajax_list';
+
+$route['add-discount'] = 'Discounts/Discounts_controller/ajax_add';
+
+$route['edit-discount/(:num)'] = 'Discounts/Discounts_controller/ajax_edit/$1';
+
+$route['update-discount'] = 'Discounts/Discounts_controller/ajax_update';
+
+$route['delete-discount/(:num)'] = 'Discounts/Discounts_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_list';
+
+$route['add-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_add_trans';
+
+
 //************************************ PROD DETAIL ROUTES **************************************************************
 //******************************************************************************************************************
 

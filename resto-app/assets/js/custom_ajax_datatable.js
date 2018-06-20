@@ -295,6 +295,62 @@ $(document).ready(function()
                 }
             });
     }
+    else if(tableID == "discounts-table")
+    {
+    //datatables
+            table = $('#discounts-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-discounts",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 4,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 6,
+                      "className": "text-center",
+                },
+                ],
+                "scrollX": true,
+
+                "rowCallback": function( row, data, index )
+                {
+                  var disc_type = data[3],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (disc_type == 0) 
+                  {
+                    $node.css('background-color', '#ffffcc');
+                  }
+                  else
+                  {
+                    $node.css('background-color', '#ffffcc');
+                  }
+                }
+            });
+    }
     else if(tableID == "prod-details-table")
     {
     //datatables
@@ -1795,6 +1851,14 @@ function save()
     {
         url = "update-table";
     }
+    else if(save_method == 'add-discount') 
+    {
+        url = "add-discount";
+    }
+    else if(save_method == 'update-discount') 
+    {
+        url = "update-discount";
+    }
     else if(save_method == 'add-prod-detail') 
     {
         url = "../add-prod-detail";
@@ -2003,6 +2067,23 @@ function save()
                     log_type = 'Update';
 
                     details = 'Table updated T' + $('[name="tbl_id"]').val() 
+                    + ': ' + $('[name="current_name"]').val() + ' to ' + $('[name="name"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'add-discount')
+                {
+                    log_type = 'Add';
+
+                    details = 'New discount added: ' + $('[name="name"]').val(); 
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'update-discount') 
+                {
+                    log_type = 'Update';
+
+                    details = 'Discount updated D' + $('[name="tbl_id"]').val() 
                     + ': ' + $('[name="current_name"]').val() + ' to ' + $('[name="name"]').val();
 
                     set_system_log(log_type, details);
@@ -2450,6 +2531,36 @@ function delete_table(id, name)
                 var log_type = 'Delete';
 
                 var details = 'Table deleted T' + id 
+                + ': ' + name; 
+
+                set_system_log(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_discount(id, name)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "delete-discount/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Discount deleted D' + id 
                 + ': ' + name; 
 
                 set_system_log(log_type, details);

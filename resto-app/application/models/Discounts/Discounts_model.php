@@ -5,8 +5,8 @@ class Discounts_model extends CI_Model {
  
     var $table = 'discounts';
 
-    var $column_order = array('disc_id','name','descr','less_c','less_p','encoded',null); //set column field database for datatable orderable
-    var $column_search = array('disc_id','name','descr','less_c','less_p','encoded'); //set column field database for datatable searchable
+    var $column_order = array('disc_id','name','descr','less_p','less_c','encoded',null); //set column field database for datatable orderable
+    var $column_search = array('disc_id','name','descr','less_p','less_c','encoded'); //set column field database for datatable searchable
 
     var $order = array('disc_id' => 'desc'); // default order 
  

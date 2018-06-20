@@ -41,12 +41,14 @@
                             <button class="btn btn-success" onclick="add_discount()"><i class="fa fa-plus-square"></i> &nbsp;Add New Discount</button>
                             <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
                             <br><br>
-                            <table id="categories-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="discounts-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th style="width:60px;">Disc ID</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Percentage Discount</th>
+                                        <th>Cash Discount</th>
                                         <th class="min-desktop">Encoded</th>
                                         <th style="width:60px;">Action</th>
                                     </tr>
@@ -58,7 +60,7 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <!-- <span>Legend: [ &nbsp; <i style = "color: #99ff99;" class="fa fa-square"></i> - Today &nbsp; | &nbsp; <i style = "color: #cccccc;" class="fa fa-square"></i> - Ended &nbsp; | &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i> - Incoming &nbsp; ]</span> -->
+                    <span>Legend: [ &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i> - Percentage Discounts &nbsp; | &nbsp; <i style = "color: #ccffcc;" class="fa fa-square"></i> - Cash Discounts ]</span>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

@@ -42,7 +42,7 @@
 
                                 <label class="control-label col-md-1">Status: <?php if ($transaction->status == 'ONGOING'){ $status = '<h4 style="color: green;">ONGOING</h4>'; }else if ($transaction->status == 'CANCELLED'){ $status = '<h4 style="color: brown;">CANCELLED</h4>'; }else{ $status = '<h4 style="color: gray;">CLEARED</h4>'; } echo $status; ?></h4></label>
                                 <label class="control-label col-md-2">Order Type: <h4><?php echo $transaction->order_type; ?></h4></label>
-                                <label class="control-label col-md-2">Discount Type: <h4><?php echo $transaction->disc_type; ?></h4></label>
+                                <label class="control-label col-md-2">Discount Type: <h4><?php if ($transaction->disc_type == 0){ echo 'n/a'; }else{ echo $this->discounts->get_discount_name($transaction->disc_type); } ?></h4></label>
 
                                 <label class="control-label col-md-1" style="text-align: right;">Items: <h4><input type="text" value="" name="item_count" size="4" style="border: none; text-align: center;" readonly/></h4></label>
 

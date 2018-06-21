@@ -100,7 +100,18 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">Discount by Percentage Amt :</label>
+                                        <label class="control-label col-md-3">Discount Type :</label>
+                                        <div class="col-md-9">
+                                            <select name="type" class="form-control">
+                                                <option value="percentage">Discount by Percentage</option>
+                                                <option value="cash">Discount by Cash</option>
+                                            </select>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">by Percentage Amt :</label>
                                         <div class="col-md-9">
                                             <input name="less_p" placeholder="Category Name" class="form-control" type="number">
                                             <span class="help-block"></span>
@@ -108,7 +119,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">Discount by Cash Amt :</label>
+                                        <label class="control-label col-md-3">by Cash Amt :</label>
                                         <div class="col-md-9">
                                             <input name="less_c" placeholder="Category Name" class="form-control" type="number">
                                             <span class="help-block"></span>

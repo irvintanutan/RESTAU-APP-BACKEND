@@ -1204,6 +1204,21 @@ function add_table() // ---> calling for the Add Modal form
     $('.modal-title').text(text); // Set Title to Bootstrap modal title
 }
 
+function add_discount() // ---> calling for the Add Modal form
+{
+    save_method = 'add-discount';
+    text = 'Add Discount';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+
+    $('[name="status"]').prop('disabled', true);
+
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
 function add_prod_detail() // ---> calling for the Add Modal form
 {
     save_method = 'add-prod-detail';
@@ -1502,6 +1517,40 @@ function edit_table(id)
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Table'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_discount(id)
+{
+    save_method = 'update-discount';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-discount/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="disc_id"]').val(data.disc_id);
+            $('[name="name"]').val(data.name);
+            $('[name="descr"]').val(data.descr);
+
+            $('[name="less_p"]').val(data.less_p);
+            $('[name="less_c"]').val(data.less_c);
+
+            $('[name="current_name"]').val(data.name);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Discount'); // Set title to Bootstrap modal title
  
         },
         error: function (jqXHR, textStatus, errorThrown)

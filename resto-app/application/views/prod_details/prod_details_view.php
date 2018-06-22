@@ -59,7 +59,7 @@
 
                        
 
-                            <?php echo form_open_multipart('prod_details/prod_details_controller/do_upload');?> 
+                            <?php echo form_open_multipart('Prod_details/Prod_details_controller/do_upload');?> 
                               <form action = "" method = "">
                                 <input type="hidden" value=<?php echo "'" . $product->prod_id . "'"; ?> name="prod_id"/> 
                                  <br />  

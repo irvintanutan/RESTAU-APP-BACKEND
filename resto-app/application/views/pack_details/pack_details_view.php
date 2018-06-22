@@ -59,7 +59,7 @@
 
                        
 
-                            <?php echo form_open_multipart('pack_details/pack_details_controller/do_upload');?> 
+                            <?php echo form_open_multipart('Pack_details/Pack_details_controller/do_upload');?> 
                               <form action = "" method = "">
                                 <input type="hidden" value=<?php echo "'" . $package->pack_id . "'"; ?> name="pack_id"/> 
                                  <br />  

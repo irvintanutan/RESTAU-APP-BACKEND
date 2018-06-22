@@ -1002,6 +1002,34 @@ function confirm_trans()
 }
 
 
+// ========================================================== DISCOUNTS FORM LISTENER SECTION =====================================
+
+
+// enable / disable input fields when condition is met
+$("#disc_type").change(function()
+{
+    var disc_type = $('[name="disc_type"]').val();
+
+    if (disc_type == "percentage")
+    {
+        $('[name="less_c"]').val("");
+
+        document.getElementById("less_p").disabled = false;
+
+        document.getElementById("less_c").disabled = true;
+    }
+    else if (disc_type == "cash")
+    {
+        $('[name="less_p"]').val("");
+
+        document.getElementById("less_p").disabled = true;
+        
+        document.getElementById("less_c").disabled = false;
+    }
+    
+});
+
+
 // ================================================================== VIEW IMAGE SECTION ==========================================
 
 

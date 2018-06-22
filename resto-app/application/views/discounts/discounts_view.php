@@ -86,7 +86,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Name :</label>
                                         <div class="col-md-9">
-                                            <input name="name" placeholder="Category Name" class="form-control" type="text">
+                                            <input name="name" placeholder="Discount Name" class="form-control" type="text">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Description :</label>
                                         <div class="col-md-9">
-                                            <textarea name="descr" placeholder="Category Desctription" class="form-control"></textarea>
+                                            <textarea name="descr" placeholder="Discount Desctription" class="form-control"></textarea>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Discount Type :</label>
                                         <div class="col-md-9">
-                                            <select name="type" class="form-control">
+                                            <select id="disc_type" name="disc_type" class="form-control">
                                                 <option value="percentage">Discount by Percentage</option>
                                                 <option value="cash">Discount by Cash</option>
                                             </select>
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">by Percentage Amt :</label>
                                         <div class="col-md-9">
-                                            <input name="less_p" placeholder="Category Name" class="form-control" type="number">
+                                            <input id="less_p" name="less_p" placeholder="Percentage Value" class="form-control" type="number">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">by Cash Amt :</label>
                                         <div class="col-md-9">
-                                            <input name="less_c" placeholder="Category Name" class="form-control" type="number">
+                                            <input id="less_c" name="less_c" placeholder="Cash Value" class="form-control" type="number" disabled>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

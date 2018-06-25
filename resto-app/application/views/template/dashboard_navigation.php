@@ -244,27 +244,43 @@
 
 
                                     <!--Menu list item-->
-                                    
+
                                     <?php if($this->session->userdata('administrator') == '1'): ?>
 
-                                    <?php if($this->uri->segment(1) == 'discounts-page'){ ?>
+                                    <?php if($this->uri->segment(1) == 'discounts-page' || $this->uri->segment(1) == 'packages-page'){ ?>
 
                                     <li class="active-link">
-                                        <a href="<?php echo base_url();?>discounts-page">
-                                            <i class="fa fa-money"></i>
+                                        <a href="#">
+                                            <i class="fa fa-university"></i>
                                             <strong><span class="menu-title">Discounts</span></strong>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse">
+                                            <li><a href="<?php echo base_url();?>discounts-page">Trans. Discounts</a>
+                                            </li>                                            
+                                            <li><a href="<?php echo base_url();?>disc-prods-page">Product Discounts</a>
+                                            </li>
+                                        </ul>
                                     </li>
 
                                     <?php }else{ ?>
 
                                     <li>
-                                        <a href="<?php echo base_url();?>discounts-page">
-                                            <i class="fa fa-money"></i>
+                                        <a href="#">
+                                            <i class="fa fa-university"></i>
                                             <span class="menu-title">Discounts</span>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse">
+                                            <li><a href="<?php echo base_url();?>discounts-page">Trans. Discounts</a>
+                                            </li>                                            
+                                            <li><a href="<?php echo base_url();?>disc-prods-page">Product Discounts</a>
+                                            </li>
+                                        </ul>
                                     </li>
 
                                     <?php } ?>

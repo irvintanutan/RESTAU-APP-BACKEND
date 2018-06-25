@@ -79,7 +79,7 @@
                         <div class="modal-body form">
                             <form action="#" id="form" class="form-horizontal">
 
-                                <input type="hidden" value="" name="cat_id"/>
+                                <input type="hidden" value="" name="disc_id"/>
                                 
                                 <div class="form-body">
 

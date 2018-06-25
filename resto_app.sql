@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 20, 2018 at 02:37 PM
+-- Generation Time: Jun 25, 2018 at 05:54 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -59,6 +59,13 @@ CREATE TABLE `discounts` (
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `discounts`
+--
+
+INSERT INTO `discounts` (`disc_id`, `name`, `descr`, `less_p`, `less_c`, `encoded`, `removed`) VALUES
+(0, 'Senior Citizen (20%)', 'Senior Citizen Discount', 20, '0.00', '2018-06-25 17:39:03', 0);
 
 -- --------------------------------------------------------
 
@@ -623,7 +630,16 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000507, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S9', '2018-06-20 14:33:17'),
 (1000508, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S7', '2018-06-20 14:33:31'),
 (1000509, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S4', '2018-06-20 14:33:42'),
-(1000510, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S6', '2018-06-20 14:33:55');
+(1000510, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S6', '2018-06-20 14:33:55'),
+(1000511, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-20 15:18:29'),
+(1000512, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-21 13:28:02'),
+(1000513, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-22 11:24:38'),
+(1000514, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-22 13:41:52'),
+(1000515, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-22 14:30:35'),
+(1000516, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-22 17:57:49'),
+(1000517, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-25 14:09:44'),
+(1000518, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-06-25 16:48:59'),
+(1000519, 'TORRES, JIK', 'Add', 'New%20discount%20added:%20Senior%20Citizen%2020', '2018-06-25 17:39:03');
 
 -- --------------------------------------------------------
 
@@ -1039,7 +1055,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000511;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000520;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -1059,7 +1075,7 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `transactions`
 --

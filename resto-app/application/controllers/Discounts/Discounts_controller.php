@@ -37,8 +37,9 @@ class Discounts_controller extends CI_Controller {
             $row[] = 'D' . $discounts->disc_id;
             $row[] = $discounts->name;
             $row[] = $discounts->descr;
-            $row[] = $discounts->less_c;
-            $row[] = $discounts->less_p;
+            
+            $row[] = $discounts->less_p . ' %';
+            $row[] = '₱ ' . $discounts->less_c;
 
             $row[] = $discounts->encoded;
 
@@ -46,6 +47,8 @@ class Discounts_controller extends CI_Controller {
             $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_discount('."'".$discounts->disc_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
                       
                       <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_discount('."'".$discounts->disc_id."'".', '."'".$discounts->name."'".')"><i class="fa fa-trash"></i></a>';
+
+            $row[] = $discounts->less_p; // set condition if disc_type is percentage or cash (0 value if not)                      
  
             $data[] = $row;
         }
@@ -68,13 +71,24 @@ class Discounts_controller extends CI_Controller {
  
     public function ajax_add()
     {
+        if ($this->input->post('less_p') != null)
+        {
+            $less_p = $this->input->post('less_p');
+            $less_c = 0;
+        }
+        else
+        {
+            $less_p = 0;
+            $less_c = $this->input->post('less_c');   
+        }
+
         $this->_validate();
         $data = array(
                 'name' => $this->input->post('name'),
                 'descr' => $this->input->post('descr'),
 
-                'less_c' => $this->input->post('less_c'),
-                'less_p' => $this->input->post('less_p'),
+                'less_p' => $less_p,
+                'less_c' => $less_c,
                 
                 'removed' => 0
             );
@@ -137,6 +151,26 @@ class Discounts_controller extends CI_Controller {
                 }
             }
         }
+
+        if($this->input->post('disc_type') == 'percentage')
+        {
+            if($this->input->post('less_p') == '')
+            {
+                $data['inputerror'][] = 'less_p';
+                $data['error_string'][] = 'Percentage value is required';
+                $data['status'] = FALSE;
+            }
+        }
+        else
+        {
+            if($this->input->post('less_c') == '')
+            {
+                $data['inputerror'][] = 'less_c';
+                $data['error_string'][] = 'Cash value is required';
+                $data['status'] = FALSE;
+            }
+        }
+
         
 
         if($data['status'] === FALSE)

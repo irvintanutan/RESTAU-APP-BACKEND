@@ -337,16 +337,16 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
-                  var disc_type = data[3],
+                  var disc_type = data[7],
                       $node = this.api().row(row).nodes().to$();
 
-                  if (disc_type == 0) 
+                  if (disc_type != 0) 
                   {
                     $node.css('background-color', '#ffffcc');
                   }
                   else
                   {
-                    $node.css('background-color', '#ffffcc');
+                    $node.css('background-color', '#ccffcc');
                   }
                 }
             });

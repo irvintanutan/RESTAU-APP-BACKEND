@@ -138,7 +138,7 @@ $route['showlist-transactions-api'] = 'Transactions/Transactions_controller/ajax
 $route['add-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_add_trans';
 
 
-//************************************ TRANSACTIONS ROUTES ***************************************************************
+//************************************ DISCOUNTS ROUTES ***************************************************************
 //******************************************************************************************************************
 
 $route['discounts-page'] = 'Discounts/Discounts_controller';
@@ -264,7 +264,7 @@ $route['notifications-page/notifications-severe-page'] = 'notifications/notifica
 //************************************** LOGS ROUTES
 //**************************************
 
-$route['logs-page'] = 'logs/logs_controller';
+$route['logs-page'] = 'Logs/Logs_controller';
 
 $route['showlist-logs'] = 'Logs/Logs_controller/ajax_list';
 

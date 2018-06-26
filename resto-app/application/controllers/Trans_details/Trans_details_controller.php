@@ -17,6 +17,8 @@ class Trans_details_controller extends CI_Controller {
         $this->load->model('Table_groups/Table_groups_model','table_groups');
 
         $this->load->model('Users/Users_model','users');
+
+        $this->load->model('Discounts/Discounts_model','discounts');
     }
 
     public function index($trans_id)						
@@ -56,6 +58,10 @@ class Trans_details_controller extends CI_Controller {
         {
             $table_str = 'n/a';
         }
+
+        $discounts_data = $this->discounts->get_discounts();
+        
+        $data['discounts'] = $discounts_data;
         
         $data['transaction'] = $transactions_data;
         $data['gross_total'] = $gross_total;
@@ -306,37 +312,104 @@ class Trans_details_controller extends CI_Controller {
 
     public function ajax_api_list($trans_id) // get all that belongs to this ID via foreign key
     {
+        // ------------------------------------------- Details ----------------------------------------
+
+        $transactions_data = $this->transactions->get_by_id($trans_id);
+
+        $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+        $details_data = array();
+
+        $details_data['order_type'] = $transactions_data->order_type;
+        $details_data['user_id'] = $transactions_data->user_id;
+
+        $details_data['status'] = $transactions_data->status;
+
+        $discount = $transactions_data->discount;
+
+        $net_total = $gross_total - $discount;
+
+        $details_data['gross_total'] = $gross_total;
+        $details_data['discount'] = $discount;
+        $details_data['net_total'] = $net_total;
+
+
+        // ------------------------------------------- Products/Package ---------------------------------
+
         $list = $this->trans_details->get_api_datatables($trans_id);
-        $data = array();
+        $prod_data = array();
+        $pack_data = array();
         
         foreach ($list as $trans_details) {
-        
-            $row = array();
-            if ($trans_details->prod_id == 0)
+
+            if ($trans_details->prod_type == 1) // if prod_type is package
             {
+                $row = array();
+
+                $item_id = $trans_details->pack_id;
                 $item_name = $this->packages->get_package_name($trans_details->pack_id);
+
+                $row['pack_id'] = $item_id;
+                $row['name'] = $item_name;
+
+                $row['price'] = $trans_details->price;
+                $row['qty'] = $trans_details->qty;
+                $row['total'] = $trans_details->total;
+
+                $pack_data[] = $row;
             }
-            else
+            else if ($trans_details->prod_type == 0) // if prod_type is individual product
             {
+                $row = array();
+
+                $item_id = $trans_details->prod_id;
                 $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                $row['prod_id'] = $item_id;
+                $row['name'] = $item_name;
+
+                $row['price'] = $trans_details->price;
+                $row['qty'] = $trans_details->qty;
+                $row['total'] = $trans_details->total;
+
+                $prod_data[] = $row;
             }
+        }
 
-            $row['prod_id'] = $trans_details->$prod_id;
-            $row['pack_id'] = $trans_details->$pack_id;
-            $row['item_name'] = $item_name;
+        // ------------------------------------------- Tables ---------------------------------
 
-            $row['prod_type'] = $trans_details->prod_type;
+        $tables = $this->table_groups->get_table_group_tables($trans_id);
+        $tables_data = array();
 
-            $row['price'] = $trans_details->price;
-            $row['qty'] = $trans_details->qty;
-            $row['total'] = $trans_details->total;
-            $row['part_of'] = $trans_details->part_of;
+        if ($tables->num_rows() != 0)
+        {
+            foreach ($tables->result() as $tables_list) 
+            {
+                $row = array();
 
-            $data[] = $row;
+                $row['table_id'] = $tables_list->tbl_id;
+
+                if ($tables_list->tbl_id == 0)
+                {
+                    $row['name'] = 'No Table';
+                }
+                else
+                {
+                    $row['name'] = $this->tables->get_table_name($tables_list->tbl_id);
+                }
+
+                $tables_data[] = $row;
+            }
         }
  
+        $output = array(
+                        "details" => $details_data,
+                        "products" => $prod_data,
+                        "packages" => $pack_data,
+                        "tables" => $tables_data,
+                );
         //output to json format
-        echo json_encode($data);
+        echo json_encode($output);
     }
 
 

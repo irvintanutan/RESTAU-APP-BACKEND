@@ -88,17 +88,17 @@
                                 <tbody>
                                 </tbody>
                             </table>
-
-                            <button class="btn btn-success" onclick="set_payment()"><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
                             
                             <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
-
-                            <button class="btn btn-warning" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                             <?php 
                                 if ($transaction->status == 'ONGOING'){
                             ?>
+                                <button class="btn btn-success" onclick="set_payment()"><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
+
+                                <button class="btn btn-warning" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                                 <button class="btn btn-danger" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
                                 <hr>
                             <?php
@@ -106,6 +106,11 @@
                                 else
                                 {
                             ?>
+                                <button class="btn btn-success" onclick="set_payment()" disabled><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
+
+                                <button class="btn btn-warning" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                                 <button class="btn btn-danger" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
                                 <hr>
                             <?php
@@ -122,8 +127,11 @@
                             <label class="control-label col-md-2">Staff: <h4><?php echo $this->users->get_username($transaction->user_id); ?></h4></label>
                             <label class="control-label col-md-10">Customer Name: <h4><?php echo $transaction->cust_name; ?></h4></label>
 
-                            <label class="control-label col-md-12">Table(s): <h4><?php echo $table_str; ?></h4></label>
                             <label class="control-label col-md-2">Cashier: <h4><?php if ($transaction->cashier_id == 0){ echo "n/a"; }else{ echo $this->users->get_username($transaction->cashier_id); } ?></h4></label>
+                            <label class="control-label col-md-10">Discount ID#: <h4><?php echo $transaction->cust_disc_id; ?></h4></label>
+
+                            <label class="control-label col-md-12">Table(s): <h4><?php echo $table_str; ?></h4></label>
+                            
 
                         </div>
                     </div>
@@ -209,3 +217,88 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             <!-- End Bootstrap modal -->
+
+            <!-- Bootstrap modal -->
+            <div class="modal fade" id="modal_form_set_discount" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h3 class="modal-title">Set Payment Form</h3>
+                        </div>
+                        <div class="modal-body form">
+                            <form action="#" id="form_set_discount" class="form-horizontal">
+
+                                <input type="hidden" value=<?php echo "'" . $transaction->trans_id . "'"; ?> name="trans_id"/> 
+                                <input type="hidden" value=<?php echo "'" . $gross_total . "'"; ?> name="amount_due"/>
+                                
+                                <div class="form-body">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Gross Total :</label>
+                                        <div class="col-md-9">
+                                            <h3><input type="text" value=<?php echo "'" . "₱ " . number_format($gross_total, 2) . "'"; ?> name="gross_total_str" size="15" style="border: none; text-align: right; color: darkblue;" readonly/></h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Discount Type :</label>
+                                        <div class="col-md-9">
+                                            <select id="disc_type" name="disc_type" class="form-control" style="font-size: 15px;" >
+                                                <option value=""><-- Select Discount Type --></option>
+                                                <?php 
+                                                    foreach($discounts as $row)
+                                                    { 
+                                                      echo '<option value="'.$row->disc_id.'">'.$row->name.'</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Calculated Discount :</label>
+                                        <div class="col-md-9">
+                                            <input name="calc_disc" placeholder="Calculated Discount Amount" class="form-control" type="text" style="font-size: 15px;" readonly>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Actual Discount :</label>
+                                        <div class="col-md-9">
+                                            <input name="discount" placeholder="Actual Discount Amount" class="form-control" type="number" style="font-size: 15px;" >
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">ID Number :</label>
+                                        <div class="col-md-9">
+                                            <input name="cust_disc_id" placeholder="Customer Discount ID Number" class="form-control" type="text" style="font-size: 15px;">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Customer Name (Optional) :</label>
+                                        <div class="col-md-9">
+                                            <input name="cust_name" placeholder="Customer Full Name" class="form-control" type="text" style="font-size: 15px;" disabled>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnSave" onclick="confirm_disc()" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp;Confirm</button>
+
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> &nbsp;Cancel</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <!-- End Bootstrap modal -->
+

@@ -171,26 +171,36 @@ class Transactions_controller extends CI_Controller {
 
     public function ajax_api_list() // using associative array to set index names instead
     {
-        $list = $this->transactions->get_api_transactions();
+        $list = $this->transactions->get_api_datatables();
         $data = array();
         
         foreach ($list as $transactions) {
-        
-            $row = array();
-            $row['trans_id'] = $transactions->trans_id;
-            $row['datetime'] = $transactions->datetime;
 
-            $row['discount'] = $transactions->discount;
-            $row['disc_type'] = $transactions->disc_type;
+            if ($transactions->status == 'ONGOING')
+            {
+                $row = array();
+                $row['trans_id'] = $transactions->trans_id;
+                $row['datetime'] = $transactions->datetime;
 
-            $row['status'] = $transactions->status;
+                $gross_total = $this->trans_details->get_trans_gross($transactions->trans_id);
+                $discount = $transactions->discount;
+                $total_due = ($gross_total - $discount);
 
-            $row['order_type'] = $transactions->order_type;
+                $row['gross_total'] = $gross_total;
+                $row['discount'] = $discount;
+                $row['net_total'] = $total_due;
 
-            $row['cash_amt'] = $transactions->cash_amt;
-            $row['change_amt'] = $transactions->change_amt;
- 
-            $data[] = $row;
+                $row['status'] = $transactions->status;
+
+                $row['order_type'] = $transactions->order_type;
+
+                $row['cash_amt'] = $transactions->cash_amt;
+                $row['change_amt'] = $transactions->change_amt;
+
+                $row['user_id'] = $transactions->user_id;
+
+                $data[] = $row;
+            }
         }
  
         //output to json format

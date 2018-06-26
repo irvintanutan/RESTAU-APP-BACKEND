@@ -977,6 +977,9 @@ function confirm_trans()
 
                     set_system_log_one(log_type, details);
                 }
+
+                // refresh transaction page
+                window.location.href=$('[name="trans_id"]').val();
             }
             else
             {

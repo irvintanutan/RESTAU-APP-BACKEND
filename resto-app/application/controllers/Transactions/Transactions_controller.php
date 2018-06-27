@@ -11,6 +11,7 @@ class Transactions_controller extends CI_Controller {
         $this->load->model('Products/Products_model','products');
         $this->load->model('Packages/Packages_model','packages');
         $this->load->model('Pack_details/Pack_details_model','pack_details');
+        $this->load->model('Tables/Tables_model','tables');
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
         $this->load->model('Table_groups/Table_groups_model','table_groups');
@@ -198,6 +199,33 @@ class Transactions_controller extends CI_Controller {
                 $row['change_amt'] = $transactions->change_amt;
 
                 $row['user_id'] = $transactions->user_id;
+
+                $tables = $this->table_groups->get_table_group_tables($transactions->trans_id);
+
+                if ($tables->num_rows() != 0)
+                {
+                    $tables_data = array();
+
+                    foreach ($tables->result() as $tables_list) 
+                    {
+                        if ($tables_list->tbl_id == 0)
+                        {
+                            $tables_data[] = 'No Table';
+                        }
+                        else
+                        {
+                            $tables_data[] = $this->tables->get_table_name($tables_list->tbl_id);
+                        }
+                    }
+
+                    $table_str = implode(', ', $tables_data);
+                }
+                else
+                {
+                    $table_str = 'n/a';
+                }
+
+                $row['table_str'] = $table_str;
 
                 $data[] = $row;
             }

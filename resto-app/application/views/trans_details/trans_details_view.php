@@ -96,10 +96,10 @@
                             ?>
                                 <button class="btn btn-success" onclick="set_payment()"><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
 
-                                <button class="btn btn-warning" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
+                                <button class="btn btn-warning" onclick="set_discount()"><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                <button class="btn btn-danger" onclick=""><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
+                                <button class="btn btn-danger" onclick="set_cancel()"><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
                                 <hr>
                             <?php
                                 }
@@ -224,13 +224,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h3 class="modal-title">Set Payment Form</h3>
+                            <h3 class="modal-title">Set Discount Form</h3>
                         </div>
                         <div class="modal-body form">
                             <form action="#" id="form_set_discount" class="form-horizontal">
 
-                                <input type="hidden" value=<?php echo "'" . $transaction->trans_id . "'"; ?> name="trans_id"/> 
-                                <input type="hidden" value=<?php echo "'" . $gross_total . "'"; ?> name="amount_due"/>
+                                <input type="hidden" value=<?php echo "'" . $transaction->trans_id . "'"; ?> name="trans_id"/>
+                                <input type="hidden" value=<?php echo "'" . $gross_total . "'"; ?> name="gross_total"/>
                                 
                                 <div class="form-body">
 
@@ -244,8 +244,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Discount Type :</label>
                                         <div class="col-md-9">
-                                            <select id="disc_type" name="disc_type" class="form-control" style="font-size: 15px;" >
-                                                <option value=""><-- Select Discount Type --></option>
+                                            <select id="disc_type_trans_details" name="disc_type" class="form-control" style="font-size: 15px;" >
+                                                <option value="">-- Select Discount Type --</option>
                                                 <?php 
                                                     foreach($discounts as $row)
                                                     { 
@@ -284,7 +284,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Customer Name (Optional) :</label>
                                         <div class="col-md-9">
-                                            <input name="cust_name" placeholder="Customer Full Name" class="form-control" type="text" style="font-size: 15px;" disabled>
+                                            <input name="cust_name" placeholder="Customer Full Name" class="form-control" type="text" style="font-size: 15px;">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -293,7 +293,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btnSave" onclick="confirm_disc()" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp;Confirm</button>
+                            <button type="button" id="btnSave" onclick="confirm_trans()" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp;Confirm</button>
 
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> &nbsp;Cancel</button>
                         </div>

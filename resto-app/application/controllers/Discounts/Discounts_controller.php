@@ -160,6 +160,12 @@ class Discounts_controller extends CI_Controller {
                 $data['error_string'][] = 'Percentage value is required';
                 $data['status'] = FALSE;
             }
+            else if($this->input->post('less_p') <= 0)
+            {
+                $data['inputerror'][] = 'less_p';
+                $data['error_string'][] = 'Percentage value should be greater than zero';
+                $data['status'] = FALSE;
+            }
         }
         else
         {
@@ -167,6 +173,12 @@ class Discounts_controller extends CI_Controller {
             {
                 $data['inputerror'][] = 'less_c';
                 $data['error_string'][] = 'Cash value is required';
+                $data['status'] = FALSE;
+            }
+            else if($this->input->post('less_c') <= 0)
+            {
+                $data['inputerror'][] = 'less_c';
+                $data['error_string'][] = 'Percentage value should be greater than zero';
                 $data['status'] = FALSE;
             }
         }

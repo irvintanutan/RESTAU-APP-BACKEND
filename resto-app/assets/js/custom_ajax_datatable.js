@@ -891,6 +891,30 @@ function set_payment() // ---> calling for the Add Modal form
     $('.modal-title').text(text); // Set Title to Bootstrap modal title
 }
 
+function set_discount() // ---> calling for the Add Modal form
+{
+    save_method = 'set-discount';
+    text = 'Set Discount';
+    
+    $('#form_set_discount')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form_set_discount').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
+function set_cancel() // ---> calling for the Add Modal form
+{
+    save_method = 'set-cancel';
+    text = 'Set Cancel';
+    
+    $('#form_set_cancel')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form_set_cancel').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
 // ------------------------------------------------- 
 
 // enable / disable input fields when condition is met
@@ -927,6 +951,48 @@ $("#method").change(function()
     }
 });
 
+$("#disc_type_trans_details").change(function()
+{
+    var disc_type = $('[name="disc_type"]').val();
+    var gross_total = $('[name="gross_total"]').val();
+
+    if (disc_type == "")
+    {
+      $('[name="calc_disc"]').val("");
+    }
+    else
+    {
+      //Ajax Load data from ajax
+      $.ajax({
+          url : "../edit-discount/" + disc_type,
+          type: "GET",
+          dataType: "JSON",
+          success: function(data)
+          {
+              var less_p = data.less_p;
+              var less_c = data.less_c;
+
+              if (less_c == 0) // if disc_type is percentage
+              {
+                var calc_disc = (gross_total * (less_p / 100));
+
+                $('[name="calc_disc"]').val("₱ " + calc_disc + " ( " + less_p + "% ) ");
+              }
+              else
+              {
+                var calc_disc = less_c;
+
+                $('[name="calc_disc"]').val("₱ " + calc_disc + " ( cash ) ");  
+              }
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error get data from ajax');
+          }
+      });
+    }
+});
+
 function confirm_trans()
 {
     // resetting errors in form validations
@@ -941,6 +1007,11 @@ function confirm_trans()
     {
         $form = '#form_set_payment';
         url = "../set-payment";
+    }
+    if(save_method == 'set-discount') 
+    {
+        $form = '#form_set_discount';
+        url = "../set-discount";
     }
     // else if(save_method == 'update-loan-date-remarks') 
     // {
@@ -961,6 +1032,7 @@ function confirm_trans()
             if(data.status) //if success close modal and reload ajax table
             {
                 $('#modal_form_set_payment').modal('hide');
+                $('#modal_form_set_discount').modal('hide');
                 
                 reload_table();
 
@@ -974,6 +1046,14 @@ function confirm_trans()
                     log_type = 'Add';
 
                     details = 'New transaction payment added: S' + $('[name="trans_id"]').val();
+
+                    set_system_log_one(log_type, details);
+                }
+                if(save_method == 'set-discount') 
+                {
+                    log_type = 'Add';
+
+                    details = 'New transaction discount added: S' + $('[name="trans_id"]').val();
 
                     set_system_log_one(log_type, details);
                 }
@@ -1575,9 +1655,19 @@ function edit_discount(id)
             $('[name="name"]').val(data.name);
             $('[name="descr"]').val(data.descr);
 
-            $('[name="less_p"]').val(data.less_p);
-            $('[name="less_c"]').val(data.less_c);
-
+            if (data.less_c == 0)
+            {
+              $('[name="disc_type"]').val('percentage').prop('selected', true);
+              $('[name="less_p"]').val(data.less_p).prop('disabled', false);
+              $('[name="less_c"]').val(data.less_c).prop('disabled', true);  
+            }
+            else
+            {
+              $('[name="disc_type"]').val('cash').prop('selected', true);
+              $('[name="less_p"]').val(data.less_p).prop('disabled', true);
+              $('[name="less_c"]').val(data.less_c).prop('disabled', false);
+            }
+            
             $('[name="current_name"]').val(data.name);
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded

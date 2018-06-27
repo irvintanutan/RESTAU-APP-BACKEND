@@ -165,7 +165,7 @@ class Trans_details_controller extends CI_Controller {
             $cust_name = 'n/a';
         }
 
-        $this->_validate();
+        $this->_validate_payment();
 
         $data = array(
                 'status' => 'CLEARED',
@@ -207,6 +207,33 @@ class Trans_details_controller extends CI_Controller {
 
         echo json_encode(array("status" => TRUE));
     }
+
+    public function ajax_set_discount() // set payment function
+    {
+        $trans_id = $this->input->post('trans_id');
+
+        $cust_name = $this->input->post('cust_name');
+
+        if ($cust_name == '') // set as n/a if empty
+        {
+            $cust_name = 'n/a';
+        }
+
+        $this->_validate_discount();
+
+        $data = array(
+                'disc_type' => $this->input->post('disc_type'),
+
+                'discount' => $this->input->post('discount'),
+
+                'cust_disc_id' => $this->input->post('cust_disc_id'),
+                
+                'cust_name' => $cust_name
+            );
+        $this->transactions->update(array('trans_id' => $trans_id), $data);
+
+        echo json_encode(array("status" => TRUE));
+    }
  
     // public function ajax_update()
     // {
@@ -231,7 +258,7 @@ class Trans_details_controller extends CI_Controller {
         echo json_encode(array("status" => TRUE));
     }
 
-    private function _validate()
+    private function _validate_payment()
     {
         $data = array();
         $data['error_string'] = array();
@@ -277,34 +304,52 @@ class Trans_details_controller extends CI_Controller {
         }
     }
 
-    // private function _validate_qty_only()
-    // {
-    //     $data = array();
-    //     $data['error_string'] = array();
-    //     $data['inputerror'] = array();
-    //     $data['status'] = TRUE;
-        
+    private function _validate_discount()
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
 
-    //     if($this->input->post('qty') == '')
-    //     {
-    //         $data['inputerror'][] = 'qty';
-    //         $data['error_string'][] = 'Package product quantity is required';
-    //         $data['status'] = FALSE;
-    //     }
-    //     else if($this->input->post('qty') <= 0)
-    //     {
-    //         $data['inputerror'][] = 'qty';
-    //         $data['error_string'][] = 'Quantity value should be greater than zero';
-    //         $data['status'] = FALSE;
-    //     }
+        if($this->input->post('disc_type') == '')
+        {
+            $data['inputerror'][] = 'disc_type';
+            $data['error_string'][] = 'Discount type is required';
+            $data['status'] = FALSE;
+        }
 
+        if($this->input->post('discount') == '')
+        {
+            $data['inputerror'][] = 'discount';
+            $data['error_string'][] = 'Actual discount amount is required';
+            $data['status'] = FALSE;
+        }
+        else if($this->input->post('discount') <= 0)
+        {
+            $data['inputerror'][] = 'discount';
+            $data['error_string'][] = 'Actual discount amount should be greater than zero';
+            $data['status'] = FALSE;
+        }
+        else if($this->input->post('discount') > $this->input->post('gross_total'))
+        {
+            $data['inputerror'][] = 'discount';
+            $data['error_string'][] = 'Discount amount should be equal or less than gross_total';
+            $data['status'] = FALSE;
+        }
 
-    //     if($data['status'] === FALSE)
-    //     {
-    //         echo json_encode($data);
-    //         exit();
-    //     }
-    // }
+        if($this->input->post('cust_disc_id') == '')
+        {
+            $data['inputerror'][] = 'cust_disc_id';
+            $data['error_string'][] = 'Customer ID number is required';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
 
 
     // ================================================ API GET REQUEST METHOD ============================================

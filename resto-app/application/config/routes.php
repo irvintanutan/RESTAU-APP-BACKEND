@@ -209,6 +209,8 @@ $route['showlist-trans-details/(:num)'] = 'Trans_details/Trans_details_controlle
 
 $route['set-payment'] = 'Trans_details/Trans_details_controller/ajax_set_payment';
 
+$route['set-discount'] = 'Trans_details/Trans_details_controller/ajax_set_discount';
+
 $route['edit-trans-detail/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/ajax_edit/$1/$2';
 
 $route['update-trans-detail'] = 'Trans_details/Trans_details_controller/ajax_update';

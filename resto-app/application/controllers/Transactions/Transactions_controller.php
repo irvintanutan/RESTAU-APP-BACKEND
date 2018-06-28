@@ -19,7 +19,26 @@ class Transactions_controller extends CI_Controller {
         $this->load->model('Users/Users_model','users');
     }
 
-    public function index()						
+    public function index() // index of ongoing transactions
+    {
+        if($this->session->userdata('user_id') == '')
+        {
+            redirect('error500');
+        }
+
+        $this->load->helper('url');
+        
+        $data['trans_status'] = 'ONGOING';
+
+        $data['title'] = 'Transactions Information List - <b><span style="color: green;">ONGOING</span></b>';
+        $this->load->view('template/dashboard_header',$data);
+        $this->load->view('transactions/transactions_view',$data);
+        $this->load->view('template/dashboard_navigation');
+        $this->load->view('template/dashboard_footer');
+
+    }
+
+    public function index_cleared() // index of cleared transactions                     
     {
         if($this->session->userdata('user_id') == '')
         {
@@ -28,11 +47,28 @@ class Transactions_controller extends CI_Controller {
 
         $this->load->helper('url');
 
-        // $categories_data = $this->categories->get_categories();
-        
-        // $data['categories'] = $categories_data;
+        $data['trans_status'] = 'CLEARED';
 
-        $data['title'] = 'Transactions Information List';
+        $data['title'] = 'Transactions Information List - <b><span style="color: gray;">CLEARED</span></b>';
+        $this->load->view('template/dashboard_header',$data);
+        $this->load->view('transactions/transactions_view',$data);
+        $this->load->view('template/dashboard_navigation');
+        $this->load->view('template/dashboard_footer');
+
+    }
+
+    public function index_cancelled() // index of cancelled transactions
+    {
+        if($this->session->userdata('user_id') == '')
+        {
+            redirect('error500');
+        }
+
+        $this->load->helper('url');
+
+        $data['trans_status'] = 'CANCELLED';
+
+        $data['title'] = 'Transactions Information List - <b><span style="color: brown;">CANCELLED</span></b>';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -40,9 +76,9 @@ class Transactions_controller extends CI_Controller {
 
     }
    
-    public function ajax_list()
+    public function ajax_list($trans_status)
     {
-        $list = $this->transactions->get_datatables();
+        $list = $this->transactions->get_datatables($trans_status);
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $transactions) {
@@ -59,7 +95,7 @@ class Transactions_controller extends CI_Controller {
             $row[] = $discount;
             // $row[] = $transactions->disc_type;
             $row[] = number_format($total_due, 2);
-            $row[] = $transactions->status;
+            
             $row[] = $transactions->order_type;
 
             $row[] = $this->users->get_username($transactions->user_id);
@@ -68,14 +104,16 @@ class Transactions_controller extends CI_Controller {
 
             //add html for action
             $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="View" onclick="view_transaction('."'".$transactions->trans_id."'".')"><i class="fa fa-eye"></i> </a>';
+
+            $row[] = $transactions->status;
  
             $data[] = $row;
         }
  
         $output = array(
                         "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->transactions->count_all(),
-                        "recordsFiltered" => $this->transactions->count_filtered(),
+                        "recordsTotal" => $this->transactions->count_all($trans_status),
+                        "recordsFiltered" => $this->transactions->count_filtered($trans_status),
                         "data" => $data,
                 );
         //output to json format
@@ -372,6 +410,140 @@ class Transactions_controller extends CI_Controller {
                     $this->trans_details->save($data_pack_products);
                 }
             }
+
+            // get each table for table_groups -------------------------------------------------------------
+
+            foreach ($transaction['tables'] as $tables)
+            {
+                // insert new table to table_groups -------------------------------------------------------
+                $tbl_id = $tables['tbl_id'];
+
+                $data_tables = array(
+                    'trans_id' => $trans_id,
+                    'tbl_id' => $tbl_id,
+                );
+                $this->table_groups->save($data_tables);
+            }
+
+        }
+
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function ajax_api_reset_trans($trans_id) // reset trans_details of a checked out transaction (add, update qty, delete line items)
+    {
+        $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+        $request = json_decode($stream_clean);
+        // $ready = $request->ready;
+        $array = json_decode(json_encode($request), true);
+        
+        foreach ($array as $transaction) 
+        {
+            foreach ($transaction['details'] as $details)
+            {
+                // insert new transaction ------------------------------------------------
+
+                $data = array(
+
+                        'order_type' => $details['order_type'], // DINE-IN, TAKE-OUT
+
+                        'status' => $details['status'], // ONGOING, CANCELLED
+                    );
+
+                $this->transactions->update(array('trans_id' => $trans_id), $data);
+            }
+            
+            // end insert new transaction ------------------------------------------------
+
+            // delete trans_details items for the specified trans_id ------------------------------
+
+            $this->trans_details->delete_by_id_trans($trans_id);
+
+            // ------------------------------------------------------------------------------------
+
+            // get each product for trans_details  ------------------------------------------------
+
+            foreach ($transaction['products'] as $products)
+            {
+                $prod_id = $products['prod_id'];
+                $prod_price = $this->products->get_product_price($prod_id);
+                $prod_qty = $products['qty'];
+
+                $prod_total = ($prod_price * $prod_qty);
+
+                // insert new product to trans_details ---------------------------------------------
+
+                $data_products = array(
+                    'trans_id' => $trans_id,
+                    'prod_id' => $prod_id,
+
+                    'prod_type' => 0, // 0 - individual product
+
+                    'price' => $prod_price,
+                    'qty' => $prod_qty,
+
+                    'total' => $prod_total
+                );
+                $this->trans_details->save($data_products);
+            }
+
+            // get each package for trans_details  ------------------------------------------------
+
+            foreach ($transaction['packages'] as $packages)
+            {
+                $pack_id = $packages['pack_id'];
+                $pack_price = $this->packages->get_package_price($pack_id);
+                $pack_qty = $packages['qty'];
+
+                $pack_total = ($pack_price * $pack_qty);
+
+                // insert new package to trans_details ---------------------------------------------
+
+                $data_packages = array(
+                    'trans_id' => $trans_id,
+                    'pack_id' => $pack_id,
+
+                    'prod_type' => 1, // 1 - package
+
+                    'price' => $pack_price,
+                    'qty' => $pack_qty,
+
+                    'total' => $pack_total
+                );
+                $this->trans_details->save($data_packages);
+
+                // get package product list ---------------------------------------------------------
+
+                $pack_products = $this->pack_details->get_pack_detail_products($pack_id);
+
+                // get each product of the package -----------------------------------------------------              
+                
+                foreach ($pack_products as $pack_products_list)
+                {
+                    $pack_prod_id = $pack_products_list->prod_id;
+                    $pack_prod_qty = ($pack_products_list->qty * $pack_qty); // multiply package product qty by pack_qty
+
+                    // insert new product to trans_details (from package products) ------------------------
+
+                    $data_pack_products = array(
+                        'trans_id' => $trans_id,
+                        'prod_id' => $pack_prod_id,
+
+                        'prod_type' => 2, // 2 - package product
+
+                        'price' => 0,
+                        'qty' => $pack_prod_qty,
+
+                        'total' => 0,
+                        'part_of' => $pack_id 
+                    );
+                    $this->trans_details->save($data_pack_products);
+                }
+            }
+
+            // delete table_groups tables for the specified trans_id ------------------------------
+
+            $this->table_groups->delete_by_trans_id($trans_id);
 
             // get each table for table_groups -------------------------------------------------------------
 

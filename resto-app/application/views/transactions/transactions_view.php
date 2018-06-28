@@ -26,6 +26,8 @@
                     <li><a href="<?php echo base_url('dashboard');?>">Dashboard</a></li>
                     <li class="active">Transactions List</li>
                 </ol>
+
+                <input type="hidden" value=<?php echo "'" . $trans_status . "'"; ?> name="trans_status"/>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <!--End breadcrumb-->
                 <!--Page content-->
@@ -50,7 +52,6 @@
                                         <th>Discount</th>
                                         
                                         <th>TotalDue</th>
-                                        <th>Status</th>
                                         <th>OrderType</th>
                                         <th>Staff</th>
 
@@ -64,7 +65,7 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #999999;" class="fa fa-square"></i> - Cleared &nbsp; ]</span>
+                    <span>Legend: [ &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i> - Dine-In &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i> - Take-Out &nbsp; ]</span>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

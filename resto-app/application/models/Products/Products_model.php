@@ -169,6 +169,19 @@ class Products_model extends CI_Model {
 
         return $row->price;
     }
+
+    function get_product_img($prod_id)
+    {
+        $this->db->select('img');
+        $this->db->from($this->table);
+        $this->db->where('prod_id',$prod_id);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->img;
+    }
  
     function count_filtered()
     {

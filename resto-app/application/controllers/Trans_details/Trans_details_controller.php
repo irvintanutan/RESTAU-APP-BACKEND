@@ -153,6 +153,16 @@ class Trans_details_controller extends CI_Controller {
     {
         $trans_id = $this->input->post('trans_id');
 
+        $method = $this->input->post('method');
+        if ($method == 'Cash') // if method is Cash
+        {
+            $cash_amt = $this->input->post('cash_amt');
+        }
+        else // if Credit Card or Cash Card
+        {
+            $cash_amt = $this->input->post('amount_due'); // if method is not cash, set cash as amount due (result: no change amount)
+        }
+
         $card_number = $this->input->post('card_number');
         if ($card_number == '') // set as n/a if empty
         {
@@ -170,10 +180,10 @@ class Trans_details_controller extends CI_Controller {
         $data = array(
                 'status' => 'CLEARED',
 
-                'cash_amt' => $this->input->post('cash_amt'),
-                'change_amt' => ($this->input->post('cash_amt') - $this->input->post('amount_due')),
+                'cash_amt' => $cash_amt,
+                'change_amt' => ($cash_amt - $this->input->post('amount_due')),
 
-                'method' => $this->input->post('method'),
+                'method' => $method,
                 
                 'card_number' => $card_number,
                 'cust_name' => $cust_name,
@@ -393,9 +403,11 @@ class Trans_details_controller extends CI_Controller {
 
                 $item_id = $trans_details->pack_id;
                 $item_name = $this->packages->get_package_name($trans_details->pack_id);
+                $img = $this->packages->get_package_img($trans_details->pack_id);
 
                 $row['pack_id'] = $item_id;
                 $row['name'] = $item_name;
+                $row['img'] = $img;
 
                 $row['price'] = $trans_details->price;
                 $row['qty'] = $trans_details->qty;
@@ -409,9 +421,13 @@ class Trans_details_controller extends CI_Controller {
 
                 $item_id = $trans_details->prod_id;
                 $item_name = $this->products->get_product_name($trans_details->prod_id);
+                $cat_id = $this->products->get_product_cat_id($trans_details->prod_id);
+                $img = $this->products->get_product_img($trans_details->prod_id);
 
                 $row['prod_id'] = $item_id;
                 $row['name'] = $item_name;
+                $row['cat_id'] = $cat_id;
+                $row['img'] = $img;
 
                 $row['price'] = $trans_details->price;
                 $row['qty'] = $trans_details->qty;

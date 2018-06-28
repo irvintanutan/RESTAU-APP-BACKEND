@@ -5,8 +5,8 @@ class Transactions_model extends CI_Model {
  
     var $table = 'transactions';
 
-    var $column_order = array('trans_id','datetime','gross','discrount','disc_type','total_due','status','order_type','cash_amt','change_amt',null); //set column field database for datatable orderable
-    var $column_search = array('trans_id','datetime','gross','discrount','disc_type','total_due','status','order_type','cash_amt','change_amt'); //set column field database for datatable searchable
+    var $column_order = array('trans_id','datetime','gross','discrount','disc_type','total_due','order_type','cash_amt','change_amt',null); //set column field database for datatable orderable
+    var $column_search = array('trans_id','datetime','gross','discrount','disc_type','total_due','order_type','cash_amt','change_amt'); //set column field database for datatable searchable
 
     var $order = array('trans_id' => 'desc'); // default order 
  
@@ -55,12 +55,25 @@ class Transactions_model extends CI_Model {
         }
     }
  
-    function get_datatables()
+    function get_datatables($trans_status)
     {        
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
 
+        if ($trans_status == 0)
+        {
+            $this->db->where('status','ONGOING'); // if data is part of the object by ID    
+        }
+        else if ($trans_status == 1)
+        {
+            $this->db->where('status','CLEARED'); // if data is part of the object by ID       
+        }
+        else // cancelled - 2
+        {
+            $this->db->where('status','CANCELLED'); // if data is part of the object by ID       
+        }
+        
         $query = $this->db->get();
         return $query->result();
     }
@@ -109,17 +122,43 @@ class Transactions_model extends CI_Model {
         return $data;
     }
  
-    function count_filtered()
+    function count_filtered($trans_status)
     {
         $this->_get_datatables_query();
+
+        if ($trans_status == 0)
+        {
+            $this->db->where('status','ONGOING'); // if data is part of the object by ID    
+        }
+        else if ($trans_status == 1)
+        {
+            $this->db->where('status','CLEARED'); // if data is part of the object by ID       
+        }
+        else // cancelled - 2
+        {
+            $this->db->where('status','CANCELLED'); // if data is part of the object by ID       
+        }
 
         $query = $this->db->get();
         return $query->num_rows();
     }
  
-    public function count_all()
+    public function count_all($trans_status)
     {
         $this->db->from($this->table);
+
+        if ($trans_status == 0)
+        {
+            $this->db->where('status','ONGOING'); // if data is part of the object by ID    
+        }
+        else if ($trans_status == 1)
+        {
+            $this->db->where('status','CLEARED'); // if data is part of the object by ID       
+        }
+        else // cancelled - 2
+        {
+            $this->db->where('status','CANCELLED'); // if data is part of the object by ID       
+        }
 
         return $this->db->count_all_results();
     }

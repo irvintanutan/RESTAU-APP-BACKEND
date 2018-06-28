@@ -173,4 +173,10 @@ class Trans_details_model extends CI_Model {
         $this->db->where('prod_type', 2); // prod_type is product package
         $this->db->delete($this->table);        
     }
+
+    public function delete_by_id_trans($trans_id)
+    {
+        $this->db->where('trans_id', $trans_id);
+        $this->db->delete($this->table);
+    }
 }

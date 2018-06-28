@@ -296,22 +296,43 @@
 
                                     <?php if($this->uri->segment(1) == 'transactions-page'){ ?>
 
+            
                                     <li class="active-link">
-                                        <a href="<?php echo base_url();?>transactions-page">
+                                        <a href="#">
                                             <i class="fa fa-money"></i>
                                             <strong><span class="menu-title">Transactions</span></strong>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse">
+                                            <li><a href="<?php echo base_url();?>transactions-page">Ongoing</a>
+                                            </li>                                            
+                                            <li><a href="<?php echo base_url();?>transactions-page-cleared">Cleared</a>
+                                            </li>
+                                            <li><a href="<?php echo base_url();?>transactions-page-cancelled">Cancelled</a>
+                                            </li>
+                                        </ul>
                                     </li>
 
                                     <?php }else{ ?>
 
                                     <li>
-                                        <a href="<?php echo base_url();?>transactions-page">
+                                        <a href="#">
                                             <i class="fa fa-money"></i>
                                             <span class="menu-title">Transactions</span>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse">
+                                            <li><a href="<?php echo base_url();?>transactions-page">Ongoing</a>
+                                            </li>                                            
+                                            <li><a href="<?php echo base_url();?>transactions-page-cleared">Cleared</a>
+                                            </li>
+                                            <li><a href="<?php echo base_url();?>transactions-page-cancelled">Cancelled</a>
+                                            </li>
+                                        </ul>
                                     </li>
 
                                     <?php } ?>

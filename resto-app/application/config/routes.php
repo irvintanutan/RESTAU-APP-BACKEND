@@ -121,7 +121,11 @@ $route['showlist-tables-api'] = 'Tables/Tables_controller/ajax_api_list';
 
 $route['transactions-page'] = 'Transactions/Transactions_controller';
 
-$route['showlist-transactions'] = 'Transactions/Transactions_controller/ajax_list';
+$route['transactions-page-cleared'] = 'Transactions/Transactions_controller/index_cleared';
+
+$route['transactions-page-cancelled'] = 'Transactions/Transactions_controller/index_cancelled';
+
+$route['showlist-transactions/(:num)'] = 'Transactions/Transactions_controller/ajax_list/$1';
 
 $route['add-transaction'] = 'Transactions/Transactions_controller/ajax_add';
 
@@ -136,6 +140,8 @@ $route['delete-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax
 $route['showlist-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_list';
 
 $route['add-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_add_trans';
+
+$route['reset-transactions-api/(:num)'] = 'Transactions/Transactions_controller/ajax_api_reset_trans/$1';
 
 
 //************************************ DISCOUNTS ROUTES ***************************************************************

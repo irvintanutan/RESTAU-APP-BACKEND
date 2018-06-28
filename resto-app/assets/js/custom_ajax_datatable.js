@@ -234,6 +234,20 @@ $(document).ready(function()
     else if(tableID == "transactions-table")
     {
     //datatables
+            // get id
+            var trans_status = $('[name="trans_status"]').val();
+
+            var url = 'showlist-transactions/0'; // default is ONGOING - 0
+
+            if (trans_status == 'CLEARED') // - 1
+            {
+              url = 'showlist-transactions/1';
+            }
+            else if (trans_status == 'CANCELLED') // - 2
+            {
+              url = 'showlist-transactions/2';
+            }
+
             table = $('#transactions-table').DataTable({ 
          
                 "processing": true, //Feature control the processing indicator.
@@ -242,7 +256,7 @@ $(document).ready(function()
          
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "showlist-transactions",
+                    "url": url,
                     "type": "POST",
                 },
          
@@ -275,22 +289,18 @@ $(document).ready(function()
                 {
                       "targets": 7,
                       "className": "text-center",
-                },
-                {
-                      "targets": 8,
-                      "className": "text-center",
-                },
+                }
                 ],
                 "scrollX": true,
 
                 "rowCallback": function( row, data, index )
                 {
-                  var status = data[5],
+                  var order_type = data[5],
                       $node = this.api().row(row).nodes().to$();
 
-                  if (status == 'CLEARED') 
+                  if (order_type == 'TAKE-OUT') 
                   {
-                    $node.css('background-color', '#cccccc');
+                    $node.css('background-color', '#ffffcc');
                   }
                 }
             });
@@ -1058,7 +1068,7 @@ function confirm_trans()
                     set_system_log_one(log_type, details);
                 }
 
-                // refresh transaction page
+                // refresh transaction details page
                 window.location.href=$('[name="trans_id"]').val();
             }
             else
@@ -2825,6 +2835,9 @@ function delete_trans_detail_prod(idone, idtwo)
 
                 set_system_log_one(log_type, details);
 
+                // refresh transaction details page
+                window.location.href=$('[name="trans_id"]').val();
+
                 //if success reload ajax table
                 $('#modal_form').modal('hide');
                 reload_table();
@@ -2852,6 +2865,9 @@ function delete_trans_detail_pack(idone, idtwo)
 
                 var details = 'Transaction detail package voided T' + idone 
                 + ': G' + idtwo; 
+
+                // refresh transaction details page
+                window.location.href=$('[name="trans_id"]').val();
 
                 set_system_log_one(log_type, details);
 

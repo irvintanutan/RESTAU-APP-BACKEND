@@ -202,10 +202,14 @@ $(document).ready(function()
                 },
                 {
                       "targets": 3,
-                      "className": "text-right",
+                      "className": "text-center",
                 },
                 {
                       "targets": 4,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
                       "className": "text-center",
                 },
                 ],
@@ -913,16 +917,35 @@ function set_discount() // ---> calling for the Add Modal form
     $('.modal-title').text(text); // Set Title to Bootstrap modal title
 }
 
-function set_cancel() // ---> calling for the Add Modal form
+function set_cancel(id) // ---> calling for the Add Modal form
 {
-    save_method = 'set-cancel';
-    text = 'Set Cancel';
-    
-    $('#form_set_cancel')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-    $('#modal_form_set_cancel').modal('show'); // show bootstrap modal
-    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+    if(confirm('Are you sure to cancel this transaction?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "../set-cancel/" + id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Transaction has been cancelled'; 
+
+                set_system_log_one(log_type, details);
+
+                reload_table();
+
+                // refresh transaction details page
+                window.location.href=$('[name="trans_id"]').val();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
 }
 
 // ------------------------------------------------- 
@@ -1022,13 +1045,7 @@ function confirm_trans()
     {
         $form = '#form_set_discount';
         url = "../set-discount";
-    }
-    // else if(save_method == 'update-loan-date-remarks') 
-    // {
-    //     $form = '#form_edit_date_remarks';
-    //     url = "../profiles/profiles_controller/ajax_update_date_remarks";
-    // }
-    
+    }   
  
     // ajax adding data to database
     $.ajax({

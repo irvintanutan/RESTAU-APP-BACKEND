@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// require __DIR__ . '/vendor/mike42/escpos-php/autoload.php';
+require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\Printer;
+
 class Transactions_controller extends CI_Controller {
 
     public function __construct()
@@ -301,6 +306,8 @@ class Transactions_controller extends CI_Controller {
         // $ready = $request->ready;
         $array = json_decode(json_encode($request), true);
         
+        $line_items = array();
+
         foreach ($array as $transaction) 
         {
             foreach ($transaction['details'] as $details)
@@ -336,6 +343,7 @@ class Transactions_controller extends CI_Controller {
             foreach ($transaction['products'] as $products)
             {
                 $prod_id = $products['prod_id'];
+                $prod_name = $this->products->get_product_name($prod_id);
                 $prod_price = $this->products->get_product_price($prod_id);
                 $prod_qty = $products['qty'];
 
@@ -355,6 +363,8 @@ class Transactions_controller extends CI_Controller {
                     'total' => $prod_total
                 );
                 $this->trans_details->save($data_products);
+
+                $line_items[] = new item(" " . $prod_qty . " " . $prod_name, $prod_price);
             }
 
             // get each package for trans_details  ------------------------------------------------
@@ -425,9 +435,100 @@ class Transactions_controller extends CI_Controller {
                 $this->table_groups->save($data_tables);
             }
 
+            // $connector = new FilePrintConnector("/dev/usb/lp0");
+            // $printer = new Printer($connector);
+
+            // $printer -> pulse();
+            // /* Print some bold text */
+            // $printer -> setEmphasis(true);
+            // $printer -> text("FOO CORP Ltd.\n");
+            // $printer -> setEmphasis(false);
+            // $printer -> feed();
+            // $printer -> text("Receipt for whatever\n");
+            // $printer -> text($line_items_str);
+            // $printer -> feed(1);
+
+            // /* Bar-code at the end */
+            // $printer -> setJustification(Printer::JUSTIFY_CENTER);
+            // $printer -> cut();
+            // $printer -> close();
+
+            $this->print_receipt_cook($line_items);
+
         }
 
+        
+
         echo json_encode(array("status" => TRUE));
+    }
+
+    public function print_receipt_cook($line_items)
+    {
+        /* Open the printer; this will change depending on how it is connected */
+        $connector = new FilePrintConnector("/dev/usb/lp0");
+        $printer = new Printer($connector);
+
+        /* Information for the receipt */
+        $items = $line_items;
+        $subtotal = new item('Subtotal', '12.95');
+        $tax = new item('A local tax', '1.30');
+        $total = new item('Total', '14.25', true);
+        /* Date is kept the same for testing */
+        // $date = date('l jS \of F Y h:i:s A');
+        $date = "Monday 6th of April 2015 02:56:25 PM";
+
+        /* Start the printer */
+        $printer = new Printer($connector);
+
+        /* Print top logo */
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+
+        /* Name of shop */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text("ExampleMart Ltd.\n");
+        $printer -> selectPrintMode();
+        $printer -> text("Shop No. 42.\n");
+        $printer -> feed();
+
+        /* Title of receipt */
+        $printer -> setEmphasis(true);
+        $printer -> text("SALES INVOICE\n");
+        $printer -> setEmphasis(false);
+
+        /* Items */
+        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', '$'));
+        $printer -> setEmphasis(false);
+        foreach ($items as $item) {
+            $printer -> text($item);
+        }
+        $printer -> setEmphasis(true);
+        $printer -> text($subtotal);
+        $printer -> setEmphasis(false);
+        $printer -> feed();
+
+        /* Tax and total */
+        $printer -> text($tax);
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($total);
+        $printer -> selectPrintMode();
+
+        /* Footer */
+        $printer -> feed(2);
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $printer -> text("Thank you for shopping at ExampleMart\n");
+        $printer -> text("For trading hours, please visit example.com\n");
+        $printer -> feed(2);
+        $printer -> text($date . "\n");
+
+        /* Cut the receipt and open the cash drawer */
+        $printer -> cut();
+        $printer -> pulse();
+
+        $printer -> close();
+
+        
     }
 
     public function ajax_api_reset_trans($trans_id) // reset trans_details of a checked out transaction (add, update qty, delete line items)
@@ -563,4 +664,33 @@ class Transactions_controller extends CI_Controller {
 
         echo json_encode(array("status" => TRUE));
     }
+ }
+
+ /* A wrapper to do organise item names & prices into columns */
+ class item
+ {
+     private $name;
+     private $price;
+     private $dollarSign;
+
+     public function __construct($name = '', $price = '', $dollarSign = false)
+     {
+         $this -> name = $name;
+         $this -> price = $price;
+         $this -> dollarSign = $dollarSign;
+     }
+
+     public function __toString()
+     {
+         $rightCols = 10;
+         $leftCols = 15;
+         if ($this -> dollarSign) {
+             $leftCols = $leftCols / 2 - $rightCols / 2;
+         }
+         $left = str_pad($this -> name, $leftCols) ;
+
+         $sign = ($this -> dollarSign ? '$ ' : '');
+         $right = str_pad($sign . $this -> price, $rightCols, ' ', STR_PAD_LEFT);
+         return "$left$right\n";
+     }
  }

@@ -47,6 +47,7 @@
                                         <th style="width:60px;">Tbl ID</th>
                                         <th>Name</th>
                                         <th>Status</th>
+                                        <th class="min-desktop">Current Transaction</th>
                                         <th class="min-desktop">Encoded</th>
                                         <th style="width:90px;">Action</th>
                                     </tr>

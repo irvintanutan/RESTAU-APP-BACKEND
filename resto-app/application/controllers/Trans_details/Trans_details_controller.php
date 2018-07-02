@@ -244,6 +244,18 @@ class Trans_details_controller extends CI_Controller {
 
         echo json_encode(array("status" => TRUE));
     }
+
+    public function ajax_set_cancel($trans_id) // set cancel function
+    {
+        $status = 'CANCELLED';
+
+        $data = array(
+                'status' => $status,
+            );
+        $this->transactions->update(array('trans_id' => $trans_id), $data);
+
+        echo json_encode(array("status" => TRUE));
+    }
  
     // public function ajax_update()
     // {

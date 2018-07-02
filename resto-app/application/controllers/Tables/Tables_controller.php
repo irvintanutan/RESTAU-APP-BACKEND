@@ -47,6 +47,10 @@ class Tables_controller extends CI_Controller {
             if ($if_occupied->num_rows() != 0)
             {
                 $status = "Occupied";
+
+                $trans_id = $if_occupied->row()->trans_id;
+
+                $trans_btn = '<a class="btn btn-md btn-primary" href="trans-details-page/'.$trans_id.'"> Go to Transaction: S' . $trans_id . '</a>';
             }
             else
             {
@@ -62,9 +66,13 @@ class Tables_controller extends CI_Controller {
                 {
                     $status = "Unavailable";
                 }
+
+                $trans_btn = '';
             }
 
             $row[] = $status;
+
+            $row[] = $trans_btn;
 
             $row[] = $tables->encoded;
 

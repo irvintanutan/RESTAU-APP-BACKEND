@@ -99,14 +99,14 @@
                                 <button class="btn btn-warning" onclick="set_discount()"><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                <button class="btn btn-danger" onclick="set_cancel()"><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
+                                <button class="btn btn-danger" onclick="set_cancel(<?php echo $transaction->trans_id; ?>)"><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
                                 <hr>
                             <?php
                                 }
                                 else
                                 {
                             ?>
-                                <button class="btn btn-success" onclick="set_payment()" disabled><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
+                                <button class="btn btn-success" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
 
                                 <button class="btn btn-warning" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

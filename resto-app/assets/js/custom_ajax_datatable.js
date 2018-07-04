@@ -60,12 +60,8 @@ $(document).ready(function()
                     "orderable": false, //set not orderable
                 },
                 {
-                      "targets": 3,
-                      "className": "text-center",
-                },
-                {
                       "targets": 4,
-                      "className": "text-right",
+                      "className": "text-center",
                 },
                 {
                       "targets": 5,
@@ -84,7 +80,7 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
-                  var row_count = data[8],
+                  var row_count = data[9],
                       $node = this.api().row(row).nodes().to$();
 
                   if (row_count == 0) 
@@ -116,10 +112,6 @@ $(document).ready(function()
                     "orderable": false, //set not orderable
                 },
                 {
-                      "targets": 3,
-                      "className": "text-right",
-                },
-                {
                       "targets": 4,
                       "className": "text-right",
                 },
@@ -129,6 +121,10 @@ $(document).ready(function()
                 },
                 {
                       "targets": 6,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 7,
                       "className": "text-center",
                 },
                 ],
@@ -136,7 +132,7 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
-                  var row_count = data[7],
+                  var row_count = data[8],
                       $node = this.api().row(row).nodes().to$();
 
                   if (row_count == 0) 
@@ -272,7 +268,7 @@ $(document).ready(function()
                 },
                 {
                       "targets": 2,
-                      "className": "text-right",
+                      "className": "text-center",
                 },
                 {
                       "targets": 3,
@@ -284,7 +280,7 @@ $(document).ready(function()
                 },
                 {
                       "targets": 5,
-                      "className": "text-center",
+                      "className": "text-right",
                 },
                 {
                       "targets": 6,
@@ -293,13 +289,17 @@ $(document).ready(function()
                 {
                       "targets": 7,
                       "className": "text-center",
+                },
+                {
+                      "targets": 8,
+                      "className": "text-center",
                 }
                 ],
                 "scrollX": true,
 
                 "rowCallback": function( row, data, index )
                 {
-                  var order_type = data[5],
+                  var order_type = data[2],
                       $node = this.api().row(row).nodes().to$();
 
                   if (order_type == 'TAKE-OUT') 
@@ -1552,11 +1552,15 @@ function edit_product(id)
         {
             $('[name="prod_id"]').val(data.prod_id);
             $('[name="name"]').val(data.name);
+            $('[name="short_name"]').val(data.short_name);
             $('[name="descr"]').val(data.descr);
+
             $('[name="cat_id"]').val(data.cat_id).prop('selected', true);
+
             $('[name="price"]').val(data.price);
 
             $('[name="current_name"]').val(data.name);
+            $('[name="current_short_name"]').val(data.short_name);
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Product'); // Set title to Bootstrap modal title
@@ -1585,11 +1589,13 @@ function edit_package(id)
         {
             $('[name="pack_id"]').val(data.pack_id);
             $('[name="name"]').val(data.name);
+            $('[name="short_name"]').val(data.short_name);
             $('[name="descr"]').val(data.descr);
 
             $('[name="price"]').val(data.price);
 
             $('[name="current_name"]').val(data.name);
+            $('[name="current_short_name"]').val(data.short_name);
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Package'); // Set title to Bootstrap modal title
@@ -1699,6 +1705,39 @@ function edit_discount(id)
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Discount'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_store_config(id)
+{
+    save_method = 'update-store-config';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-store-config/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="conf_id"]').val(data.conf_id);
+            $('[name="name"]').val(data.name);
+            $('[name="address"]').val(data.address);
+            $('[name="city"]').val(data.city);
+            $('[name="tin"]').val(data.tin);
+            $('[name="vat"]').val(data.vat);
+            $('[name="bs_price"]').val(data.bs_price);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Store Config'); // Set title to Bootstrap modal title
  
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -2056,6 +2095,11 @@ function save()
     {
         url = "update-discount";
     }
+    else if(save_method == 'update-store-config') 
+    {
+        url = "update-store-config";
+    }
+
     else if(save_method == 'add-prod-detail') 
     {
         url = "../add-prod-detail";
@@ -2175,7 +2219,10 @@ function save()
                 $('#modal_form_adjust_loan').modal('hide');
                 $('#modal_form_edit_date_remarks').modal('hide');
                 
-                reload_table();
+                if (save_method != 'update-store-config')
+                {
+                  reload_table();
+                }
 
 
                 // set logs -------------------------------------------------------------------
@@ -2285,6 +2332,17 @@ function save()
 
                     set_system_log(log_type, details);
                 }
+                else if(save_method == 'update-store-config') 
+                {
+                    log_type = 'Update';
+
+                    details = 'Store config updated';
+
+                    set_system_log(log_type, details);
+
+                    window.location.href="store-config-page";
+                }
+
                 else if(save_method == 'add-prod-detail')
                 {
                     log_type = 'Add';

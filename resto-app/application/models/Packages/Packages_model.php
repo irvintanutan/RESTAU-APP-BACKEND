@@ -5,8 +5,8 @@ class Packages_model extends CI_Model {
  
     var $table = 'packages';
 
-    var $column_order = array('pack_id','name','descr','price','sold','encoded',null); //set column field database for datatable orderable
-    var $column_search = array('pack_id','name','descr','price','sold','encoded'); //set column field database for datatable searchable
+    var $column_order = array('pack_id','name','short_name','descr','price','sold','encoded',null); //set column field database for datatable orderable
+    var $column_search = array('pack_id','name','short_name','descr','price','sold','encoded'); //set column field database for datatable searchable
 
     var $order = array('pack_id' => 'desc'); // default order 
  
@@ -91,6 +91,17 @@ class Packages_model extends CI_Model {
         return $query;
     }
 
+    // check for duplicates in the database table for validation
+    function get_sn_duplicates($short_name)
+    {      
+        $this->db->from($this->table);
+        $this->db->where('short_name',$short_name);
+
+        $query = $this->db->get();
+
+        return $query;
+    }
+
     // get both id and names
     function get_packages()
     {
@@ -127,6 +138,19 @@ class Packages_model extends CI_Model {
         $row = $query->row();
 
         return $row->name;
+    }
+
+    function get_package_short_name($pack_id)
+    {
+        $this->db->select('short_name');
+        $this->db->from($this->table);
+        $this->db->where('pack_id',$pack_id);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->short_name;
     }
 
     function get_package_price($pack_id)

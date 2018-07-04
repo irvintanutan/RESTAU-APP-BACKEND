@@ -75,12 +75,16 @@
                         <div class="form-body">
                         <div class="form-group">
                                               
-                            
-                            <label class="control-label col-md-3">Description: <h4><?php echo $product->descr; ?></h4></label>
+                            <label class="control-label col-md-2">Short Name: <h4><?php echo $product->short_name; ?></h4></label>
+
+                            <label class="control-label col-md-4">Description: <h4><?php echo $product->descr; ?></h4></label>
 
                             <label class="control-label col-md-2">Category: <h4><?php echo $this->categories->get_category_name($product->cat_id); // get name instead of id ?></h4></label>
-                            <label class="control-label col-md-2">Price: <h4>₱ <?php echo number_format($product->price, 2, '.', ','); ?></h4></label>
-                            <label class="control-label col-md-1">Sold: <h4><?php echo $product->sold; ?></h4></label>
+
+                            <label class="control-label col-md-8"><h4><?php echo "<hr>" ?></h4></label>
+
+                            <label class="control-label col-md-2">Product Price: <h4>₱ <?php echo number_format($product->price, 2, '.', ','); ?></h4></label>
+                            <label class="control-label col-md-2">Sold: <h4><?php echo $product->sold; ?></h4></label>
                             
                             
                             

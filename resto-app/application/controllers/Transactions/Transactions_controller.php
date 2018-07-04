@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
 
 class Transactions_controller extends CI_Controller {
 
@@ -92,6 +93,8 @@ class Transactions_controller extends CI_Controller {
             $row[] = 'S' . $transactions->trans_id;
             $row[] = $transactions->datetime;
 
+            $row[] = $transactions->order_type;
+
             $gross = $this->trans_details->get_trans_gross($transactions->trans_id);
             $discount = $transactions->discount;
             $total_due = ($gross - $discount);
@@ -101,7 +104,7 @@ class Transactions_controller extends CI_Controller {
             // $row[] = $transactions->disc_type;
             $row[] = number_format($total_due, 2);
             
-            $row[] = $transactions->order_type;
+            $row[] = $transactions->method;
 
             $row[] = $this->users->get_username($transactions->user_id);
             // $row[] = $transactions->cash_amt;
@@ -347,7 +350,7 @@ class Transactions_controller extends CI_Controller {
             foreach ($transaction['products'] as $products)
             {
                 $prod_id = $products['prod_id'];
-                $prod_name = $this->products->get_product_name($prod_id);
+                $prod_name = $this->products->get_product_short_name($prod_id);
                 $prod_price = $this->products->get_product_price($prod_id);
                 $prod_qty = $products['qty'];
 
@@ -377,7 +380,7 @@ class Transactions_controller extends CI_Controller {
             foreach ($transaction['packages'] as $packages)
             {
                 $pack_id = $packages['pack_id'];
-                $pack_name = $this->packages->get_package_name($pack_id);
+                $pack_name = $this->packages->get_package_short_name($pack_id);
                 $pack_price = $this->packages->get_package_price($pack_id);
                 $pack_qty = $packages['qty'];
 
@@ -410,7 +413,7 @@ class Transactions_controller extends CI_Controller {
                 foreach ($pack_products as $pack_products_list)
                 {
                     $pack_prod_id = $pack_products_list->prod_id;
-                    $pack_prod_name = $this->products->get_product_name($pack_prod_id);
+                    $pack_prod_name = $this->products->get_product_short_name($pack_prod_id);
                     $pack_prod_qty = ($pack_products_list->qty * $pack_qty); // multiply package product qty by pack_qty
 
                     // insert new product to trans_details (from package products) ------------------------
@@ -490,12 +493,14 @@ class Transactions_controller extends CI_Controller {
         $connector = new FilePrintConnector("/dev/usb/lp0");
         $printer = new Printer($connector);
 
+        $logo = EscposImage::load("cafe.png", false);
+
         /* Information for the receipt */
-        $store_name = "Lolo Ernings\nLechon - Obrero";
-        $address = "Sample st., Bo. Obrero";
+        $store_name = wordwrap("Lolo Ernings Lechon - Obrero", 25, "\n");
+        $address = wordwrap("Sample st., Bo. Obrero", 25, "\n");
         $city = "Davao City";
-        $tin = "TIN:" . "008-351-499-011";
-        $date = date('l jS \of F Y h:i A');
+        $tin = wordwrap("TIN:" . "008-351-499-011", 25, "\n");
+        $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $vat = (12 / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
         $discount = 0;
 
@@ -519,6 +524,7 @@ class Transactions_controller extends CI_Controller {
 
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $printer -> graphics($logo);
 
         /* Name of shop */
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);

@@ -43,16 +43,18 @@
                             <!-- <button class="btn btn-success" onclick="add_table()"><i class="fa fa-plus-square"></i> &nbsp;Add New Table</button> -->
                             <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
                             <br><br>
-                            <table id="transactions-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="transactions-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">
                                 <thead>
                                     <tr>
                                         <th style="width:60px;">Trans ID</th>
                                         <th>DateTime</th>
+                                        <th>OrderType</th>
+
                                         <th>Gross</th>
                                         <th>Discount</th>
-                                        
                                         <th>TotalDue</th>
-                                        <th>OrderType</th>
+                                        
+                                        <th>PaymentMethod</th>
                                         <th>Staff</th>
 
                                         <th style="width:30px;">Action</th>

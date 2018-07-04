@@ -75,10 +75,11 @@
                         <div class="form-body">
                         <div class="form-group">
                                               
-                            
-                            <label class="control-label col-md-5">Description: <h4><?php echo $package->descr; ?></h4></label>
+                            <label class="control-label col-md-2">Short Name: <h4><?php echo $package->short_name; ?></h4></label>
 
-                            
+                            <label class="control-label col-md-4">Description: <h4><?php echo $package->descr; ?></h4></label>
+
+                            <label class="control-label col-md-8"><h4><?php echo "<hr>" ?></h4></label>
 
                             <label class="control-label col-md-2">Price: <h4>₱ <?php echo number_format($package->price, 2, '.', ','); ?></h4></label>
                             <label class="control-label col-md-1">Sold: <h4><?php echo $package->sold; ?></h4></label>

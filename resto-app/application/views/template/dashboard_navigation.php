@@ -464,38 +464,31 @@
 
                                     <!--Menu list item-->
 
-                                    <?php if($this->uri->segment(1) == 'schedules-page'){ ?>
+                                    <?php if($this->session->userdata('administrator') == '1'): ?>
+
+                                    <?php if($this->uri->segment(1) == 'store-config-page'){ ?>
 
                                     <li class="active-link">
-                                        <a href="#">
-                                            <i class="fa fa-clock-o"></i>
-                                            <strong><span class="menu-title">Schedules</span></strong>
-                                            <i class="arrow"></i>
+                                        <a href="<?php echo base_url();?>store-config-page">
+                                            <i class="fa fa-cogs"></i>
+                                            <strong><span class="menu-title">Store Config</span></strong>
+                                            <span class="label label-danger pull-right">Admin</span>
                                         </a>
-                                    
-                                        <!--Submenu-->
-                                        <ul class="collapse">
-                                            <li><a href="<?php echo base_url();?>schedules-page">Schedules</a></li>
-                                        </ul>
                                     </li>
 
                                     <?php }else{ ?>
 
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-clock-o"></i>
-                                            <span class="menu-title">Schedules</span>
-                                            <i class="arrow"></i>
+                                        <a href="<?php echo base_url();?>store-config-page">
+                                            <i class="fa fa-cogs"></i>
+                                            <span class="menu-title">Store Config</span>
+                                            <span class="label label-danger pull-right">Admin</span>
                                         </a>
-                                    
-                                        <!--Submenu-->
-                                        <ul class="collapse">
-                                            <li><a href="<?php echo base_url();?>schedules-page">Show List</a></li>
-                                        </ul>
                                     </li>
 
                                     <?php } ?>
 
+                                    <?php endif ?>
                                     
 
                                     <!--Menu list item-->

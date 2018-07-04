@@ -36,8 +36,11 @@ class Packages_controller extends CI_Controller {
             $no++;
             $row = array();
             $row[] = 'G' . $packages->pack_id;
+
             $row[] = $packages->name;
+            $row[] = $packages->short_name;
             $row[] = $packages->descr;
+
             $row[] = $packages->price;
             // $row[] = $packages->img;
             $row[] = $packages->sold;
@@ -80,6 +83,7 @@ class Packages_controller extends CI_Controller {
         $this->_validate();
         $data = array(
                 'name' => $this->input->post('name'),
+                'short_name' => $this->input->post('short_name'),
                 'descr' => $this->input->post('descr'),
                 'price' => $this->input->post('price'),
                 'img' => '',
@@ -95,10 +99,9 @@ class Packages_controller extends CI_Controller {
         $this->_validate();
         $data = array(
                 'name' => $this->input->post('name'),
+                'short_name' => $this->input->post('short_name'),
                 'descr' => $this->input->post('descr'),
                 'price' => $this->input->post('price'),
-                // 'img' => $this->input->post('img'),
-                // 'sold' => 0,
             );
         $this->packages->update(array('pack_id' => $this->input->post('pack_id')), $data);
         echo json_encode(array("status" => TRUE));
@@ -135,12 +138,37 @@ class Packages_controller extends CI_Controller {
             if ($this->input->post('current_name') != $new_name)
             {
                 // validate if name already exist in the databaase table
-                $duplicates = $this->packages->get_duplicates($this->input->post('name'));
+                $duplicates = $this->packages->get_duplicates($new_name);
 
                 if ($duplicates->num_rows() != 0)
                 {
                     $data['inputerror'][] = 'name';
                     $data['error_string'][] = 'Package name already registered';
+                    $data['status'] = FALSE;
+                }
+            }
+        }
+
+        if($this->input->post('short_name') == '')
+        {
+            $data['inputerror'][] = 'short_name';
+            $data['error_string'][] = 'Package short name is required';
+            $data['status'] = FALSE;
+        }
+        // validation for duplicates
+        else
+        {
+            $new_short_name = $this->input->post('short_name');
+            // check if name has a new value or not
+            if ($this->input->post('current_short_name') != $new_short_name)
+            {
+                // validate if name already exist in the databaase table
+                $duplicates_short_name = $this->packages->get_sn_duplicates($new_short_name);
+
+                if ($duplicates_short_name->num_rows() != 0)
+                {
+                    $data['inputerror'][] = 'short_name';
+                    $data['error_string'][] = 'Package short name already registered';
                     $data['status'] = FALSE;
                 }
             }
@@ -181,10 +209,13 @@ class Packages_controller extends CI_Controller {
 
             $row = array();
             $row['pack_id'] = $packages->pack_id;
+
             $row['name'] = $packages->name;
+            $row['short_name'] = $packages->short_name;
             $row['descr'] = $packages->descr;
+
             $row['price'] = $packages->price;
-            // $row[] = $packages->img;
+
             $row['sold'] = $packages->sold;
 
             $row['encoded'] = $packages->encoded;

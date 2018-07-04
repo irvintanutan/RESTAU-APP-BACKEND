@@ -46,6 +46,7 @@
                                     <tr>
                                         <th style="width:60px;">Pack ID</th>
                                         <th>Name</th>
+                                        <th>Short Name</th>
                                         <th>Description</th>
                                         <th>Price</th>
                                         <th>Sold</th>
@@ -81,6 +82,7 @@
 
                                 <input type="hidden" value="" name="pack_id"/>
                                 <input type="hidden" value="" name="current_name"/>
+                                <input type="hidden" value="" name="current_short_name"/>
                                 
                                 <div class="form-body">
 
@@ -88,6 +90,14 @@
                                         <label class="control-label col-md-3">Name :</label>
                                         <div class="col-md-9">
                                             <input name="name" placeholder="Package Name" class="form-control" type="text">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Short Name (maximum of 12 characters):</label>
+                                        <div class="col-md-9">
+                                            <input name="short_name" placeholder="Package Short Name" class="form-control" type="text" maxlength="12">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

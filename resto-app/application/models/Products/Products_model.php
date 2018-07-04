@@ -5,8 +5,8 @@ class Products_model extends CI_Model {
  
     var $table = 'products';
 
-    var $column_order = array('prod_id','name','descr','cat_id','price','sold','encoded',null); //set column field database for datatable orderable
-    var $column_search = array('prod_id','name','descr','cat_id','price','sold','encoded'); //set column field database for datatable searchable
+    var $column_order = array('prod_id','name','short_name','descr','cat_id','price','sold','encoded',null); //set column field database for datatable orderable
+    var $column_search = array('prod_id','name','short_name','descr','cat_id','price','sold','encoded'); //set column field database for datatable searchable
 
     var $order = array('prod_id' => 'desc'); // default order 
  
@@ -91,6 +91,17 @@ class Products_model extends CI_Model {
         return $query;
     }
 
+    // check for duplicates in the database table for validation
+    function get_sn_duplicates($short_name)
+    {      
+        $this->db->from($this->table);
+        $this->db->where('short_name',$short_name);
+
+        $query = $this->db->get();
+
+        return $query;
+    }
+
     // get both id and names
     function get_products()
     {
@@ -129,6 +140,19 @@ class Products_model extends CI_Model {
         $row = $query->row();
 
         return $row->name;
+    }
+
+    function get_product_short_name($prod_id)
+    {
+        $this->db->select('short_name');
+        $this->db->from($this->table);
+        $this->db->where('prod_id',$prod_id);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->short_name;
     }
 
     function get_product_descr($prod_id)

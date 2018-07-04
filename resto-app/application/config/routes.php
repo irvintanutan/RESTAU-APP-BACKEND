@@ -166,6 +166,22 @@ $route['showlist-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_list
 $route['add-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_add_trans';
 
 
+
+//************************************ STORE CONFIG ROUTES *************************************************************
+//******************************************************************************************************************
+
+$route['store-config-page'] = 'Store_config/Store_config_controller';
+
+$route['edit-store-config/(:num)'] = 'Store_config/Store_config_controller/ajax_edit/$1';
+
+$route['update-store-config'] = 'Store_config/Store_config_controller/ajax_update';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-store-config-api'] = 'Store_config/Store_config_controller/ajax_api_list';
+
+
+
 //************************************ PROD DETAIL ROUTES **************************************************************
 //******************************************************************************************************************
 

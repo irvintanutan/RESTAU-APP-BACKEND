@@ -41,7 +41,9 @@ class Products_controller extends CI_Controller {
             $no++;
             $row = array();
             $row[] = 'P' . $products->prod_id;
+
             $row[] = $products->name;
+            $row[] = $products->short_name; // 12 char short name
             $row[] = $products->descr;
 
             $row[] = $this->categories->get_category_name($products->cat_id); // get name instead of id
@@ -88,6 +90,7 @@ class Products_controller extends CI_Controller {
         $this->_validate();
         $data = array(
                 'name' => $this->input->post('name'),
+                'short_name' => $this->input->post('short_name'),
                 'descr' => $this->input->post('descr'),
                 'cat_id' => $this->input->post('cat_id'),
                 'price' => $this->input->post('price'),
@@ -104,11 +107,10 @@ class Products_controller extends CI_Controller {
         $this->_validate();
         $data = array(
                 'name' => $this->input->post('name'),
+                'short_name' => $this->input->post('short_name'),
                 'descr' => $this->input->post('descr'),
                 'cat_id' => $this->input->post('cat_id'),
                 'price' => $this->input->post('price'),
-                'img' => $this->input->post('img'),
-                // 'sold' => 0,
             );
         $this->products->update(array('prod_id' => $this->input->post('prod_id')), $data);
         echo json_encode(array("status" => TRUE));
@@ -145,12 +147,37 @@ class Products_controller extends CI_Controller {
             if ($this->input->post('current_name') != $new_name)
             {
                 // validate if name already exist in the databaase table
-                $duplicates = $this->products->get_duplicates($this->input->post('name'));
+                $duplicates = $this->products->get_duplicates($new_name);
 
                 if ($duplicates->num_rows() != 0)
                 {
                     $data['inputerror'][] = 'name';
                     $data['error_string'][] = 'Product name already registered';
+                    $data['status'] = FALSE;
+                }
+            }
+        }
+
+        if($this->input->post('short_name') == '')
+        {
+            $data['inputerror'][] = 'short_name';
+            $data['error_string'][] = 'Product short name is required';
+            $data['status'] = FALSE;
+        }
+        // validation for duplicates
+        else
+        {
+            $new_short_name = $this->input->post('short_name');
+            // check if name has a new value or not
+            if ($this->input->post('current_short_name') != $new_short_name)
+            {
+                // validate if name already exist in the databaase table
+                $duplicates_short_name = $this->products->get_sn_duplicates($new_short_name);
+
+                if ($duplicates_short_name->num_rows() != 0)
+                {
+                    $data['inputerror'][] = 'short_name';
+                    $data['error_string'][] = 'Product short name already registered';
                     $data['status'] = FALSE;
                 }
             }
@@ -198,14 +225,16 @@ class Products_controller extends CI_Controller {
         
             $row = array();
             $row['prod_id'] = $products->prod_id;
+
             $row['name'] = $products->name;
+            $row['short_name'] = $products->short_name;
             $row['descr'] = $products->descr;
 
             $row['cat_id'] = $products->cat_id;
             $row['cat_name'] = $this->categories->get_category_name($products->cat_id); // get name instead of id
 
             $row['price'] = $products->price;
-            // $row[] = $products->img;
+
             $row['sold'] = $products->sold;
 
             $row['encoded'] = $products->encoded;

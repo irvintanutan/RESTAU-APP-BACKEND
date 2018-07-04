@@ -5,7 +5,7 @@
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div id="page-title">
-                    <h1 class="page-header text-overflow"><!-- <img src="assets/img/jikiapps.png" style="width: 12%; margin-top: 0%; margin-right: 1%;"> -->R e s t o A p p | Restaurant Point of Sales App </h1>
+                    <h1 class="page-header text-overflow"><img src="assets/img/comp_logo.png" style="width: 12%; margin-top: 0%; margin-right: 1%;">R e s t o A p p | Restaurant Point of Sales App </h1>
 
                     <!-- For alert and notifications assets/js/demo/nifty-demo.js-->
 

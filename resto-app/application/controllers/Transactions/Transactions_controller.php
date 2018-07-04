@@ -314,6 +314,10 @@ class Transactions_controller extends CI_Controller {
             {
                 // insert new transaction ------------------------------------------------
 
+                $order_type = $details['order_type'];
+                $user_id = $details['user_id'];
+                $staff_username = $this->users->get_username($user_id);
+
                 $data = array(
                         'datetime' => date("Y-m-d H:i:s"),
 
@@ -322,12 +326,12 @@ class Transactions_controller extends CI_Controller {
 
                         'status' => 'ONGOING',
 
-                        'order_type' => $details['order_type'],
+                        'order_type' => $order_type,
 
                         'cash_amt' => 0,
                         'change_amt' => 0,
 
-                        'user_id' => $details['user_id'],
+                        'user_id' => $user_id,
                         'cashier_id' => 0,
                     );
                     
@@ -364,7 +368,8 @@ class Transactions_controller extends CI_Controller {
                 );
                 $this->trans_details->save($data_products);
 
-                $line_items[] = new item(" " . $prod_qty . " " . $prod_name, $prod_price);
+                // add line item to line_items array
+                $line_items[] = new item($prod_qty . " " . $prod_name . " @" . $prod_price, number_format($prod_total, 2));
             }
 
             // get each package for trans_details  ------------------------------------------------
@@ -372,6 +377,7 @@ class Transactions_controller extends CI_Controller {
             foreach ($transaction['packages'] as $packages)
             {
                 $pack_id = $packages['pack_id'];
+                $pack_name = $this->packages->get_package_name($pack_id);
                 $pack_price = $this->packages->get_package_price($pack_id);
                 $pack_qty = $packages['qty'];
 
@@ -392,6 +398,9 @@ class Transactions_controller extends CI_Controller {
                 );
                 $this->trans_details->save($data_packages);
 
+                // add line item to line_items array
+                $line_items[] = new item($pack_qty . " " . $pack_name . " @" . $pack_price, number_format($pack_total, 2));
+
                 // get package product list ---------------------------------------------------------
 
                 $pack_products = $this->pack_details->get_pack_detail_products($pack_id);
@@ -401,6 +410,7 @@ class Transactions_controller extends CI_Controller {
                 foreach ($pack_products as $pack_products_list)
                 {
                     $pack_prod_id = $pack_products_list->prod_id;
+                    $pack_prod_name = $this->products->get_product_name($pack_prod_id);
                     $pack_prod_qty = ($pack_products_list->qty * $pack_qty); // multiply package product qty by pack_qty
 
                     // insert new product to trans_details (from package products) ------------------------
@@ -418,42 +428,53 @@ class Transactions_controller extends CI_Controller {
                         'part_of' => $pack_id 
                     );
                     $this->trans_details->save($data_pack_products);
+
+                    // add line item to line_items array
+                    $line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
                 }
             }
 
             // get each table for table_groups -------------------------------------------------------------
+
+            $line_tables = array();
 
             foreach ($transaction['tables'] as $tables)
             {
                 // insert new table to table_groups -------------------------------------------------------
                 $tbl_id = $tables['tbl_id'];
 
+                if ($tbl_id != 0)
+                {
+                    $tbl_name = $this->tables->get_table_name($tbl_id);    
+                }
+                else
+                {
+                    $tbl_name = 'No Table';
+                }
+                
+
                 $data_tables = array(
                     'trans_id' => $trans_id,
                     'tbl_id' => $tbl_id,
                 );
                 $this->table_groups->save($data_tables);
+
+                $line_tables[] = $tbl_name;
             }
 
-            // $connector = new FilePrintConnector("/dev/usb/lp0");
-            // $printer = new Printer($connector);
+            if (sizeof($line_tables) != 0)
+            {
+                $table_str = implode(', ', $line_tables);
+            }
+            else
+            {
+                $table_str = 'n/a';
+            }
 
-            // $printer -> pulse();
-            // /* Print some bold text */
-            // $printer -> setEmphasis(true);
-            // $printer -> text("FOO CORP Ltd.\n");
-            // $printer -> setEmphasis(false);
-            // $printer -> feed();
-            // $printer -> text("Receipt for whatever\n");
-            // $printer -> text($line_items_str);
-            // $printer -> feed(1);
 
-            // /* Bar-code at the end */
-            // $printer -> setJustification(Printer::JUSTIFY_CENTER);
-            // $printer -> cut();
-            // $printer -> close();
+            $gross_total = $this->trans_details->get_trans_gross($trans_id);
 
-            $this->print_receipt_cook($line_items);
+            $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
         }
 
@@ -462,20 +483,36 @@ class Transactions_controller extends CI_Controller {
         echo json_encode(array("status" => TRUE));
     }
 
-    public function print_receipt_cook($line_items)
+    // public function print_receipt_cook($line_items, $tables, $gross_total, $discount
+    public function print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total)
     {
         /* Open the printer; this will change depending on how it is connected */
         $connector = new FilePrintConnector("/dev/usb/lp0");
         $printer = new Printer($connector);
 
         /* Information for the receipt */
+        $store_name = "Lolo Ernings\nLechon - Obrero";
+        $address = "Sample st., Bo. Obrero";
+        $city = "Davao City";
+        $tin = "TIN:" . "008-351-499-011";
+        $date = date('l jS \of F Y h:i A');
+        $vat = (12 / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
+        $discount = 0;
+
         $items = $line_items;
-        $subtotal = new item('Subtotal', '12.95');
-        $tax = new item('A local tax', '1.30');
-        $total = new item('Total', '14.25', true);
-        /* Date is kept the same for testing */
-        // $date = date('l jS \of F Y h:i:s A');
-        $date = "Monday 6th of April 2015 02:56:25 PM";
+        
+        $total_sales = ($gross_total / (1 + $vat));
+
+        $vat_amount = ($gross_total - $total_sales);
+
+        $amount_due = ($gross_total - $discount);
+
+
+        // string variables
+        $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
+        $vat_str = new item('Vat', number_format($vat_amount, 2));
+        $amount_due_str = new item('Amount Due     Php', number_format($amount_due, 2));
+        
 
         /* Start the printer */
         $printer = new Printer($connector);
@@ -485,43 +522,59 @@ class Transactions_controller extends CI_Controller {
 
         /* Name of shop */
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-        $printer -> text("ExampleMart Ltd.\n");
+        $printer -> text($store_name . "\n");
         $printer -> selectPrintMode();
-        $printer -> text("Shop No. 42.\n");
-        $printer -> feed();
+        $printer -> text($address . "\n");
+        $printer -> text($city . "\n");
+        $printer -> text($tin . "\n");
+
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+        $printer -> text($table_str . "\n");
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
 
         /* Title of receipt */
-        $printer -> setEmphasis(true);
-        $printer -> text("SALES INVOICE\n");
-        $printer -> setEmphasis(false);
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($order_type . "\n");
+        $printer -> selectPrintMode();
+
+        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer -> text(new item('Transaction#: ' . $trans_id, ''));
+        $printer -> text(new item('Staff: ' . $staff_username, ''));
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
 
         /* Items */
-        $printer -> setJustification(Printer::JUSTIFY_LEFT);
         $printer -> setEmphasis(true);
-        $printer -> text(new item('', '$'));
+        $printer -> text(new item('', 'Php'));
         $printer -> setEmphasis(false);
         foreach ($items as $item) {
             $printer -> text($item);
         }
-        $printer -> setEmphasis(true);
-        $printer -> text($subtotal);
-        $printer -> setEmphasis(false);
-        $printer -> feed();
 
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        $printer -> setEmphasis(true);
+        $printer -> text($total_sales_str);
         /* Tax and total */
-        $printer -> text($tax);
-        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-        $printer -> text($total);
-        $printer -> selectPrintMode();
+        $printer -> text($vat_str);
+        $printer -> setEmphasis(false);
+
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', '=========='));
+        
+        $printer -> text($amount_due_str);
+        $printer -> setEmphasis(false);
+        
 
         /* Footer */
-        $printer -> feed(2);
+        $printer -> feed();
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $printer -> text("Thank you for shopping at ExampleMart\n");
-        $printer -> text("For trading hours, please visit example.com\n");
-        $printer -> feed(2);
         $printer -> text($date . "\n");
 
+        $printer -> feed();
+        $printer -> text("Innotech Solutions\n");
+        $printer -> text("Thank You Come Again\n");
+        
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
         $printer -> pulse();
@@ -683,13 +736,13 @@ class Transactions_controller extends CI_Controller {
      public function __toString()
      {
          $rightCols = 10;
-         $leftCols = 15;
+         $leftCols = 25;
          if ($this -> dollarSign) {
              $leftCols = $leftCols / 2 - $rightCols / 2;
          }
          $left = str_pad($this -> name, $leftCols) ;
 
-         $sign = ($this -> dollarSign ? '$ ' : '');
+         $sign = ($this -> dollarSign ? 'Php ' : '');
          $right = str_pad($sign . $this -> price, $rightCols, ' ', STR_PAD_LEFT);
          return "$left$right\n";
      }

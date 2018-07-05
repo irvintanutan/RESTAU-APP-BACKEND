@@ -45,7 +45,7 @@
 
                         <div class="control-label col-md-3" style="margin-right: 20px;">
 
-                            <img id="image1" src="assets/img/comp_logo.png" style="width:100%; max-height: 275px; margin-left:20px; margin-top:15px;">                       
+                            <img id="image1" src=<?php echo "'assets/img/" . $store->img . "'"; ?> style="width:100%; max-height: 275px; margin-left:20px; margin-top:15px;">                       
 
                             <?php echo form_open_multipart('Store_config/Store_config_controller/do_upload');?> 
                               <form action = "" method = "">

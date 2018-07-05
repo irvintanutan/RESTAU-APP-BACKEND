@@ -6,17 +6,22 @@ class Dashboard_controller extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        // $this->load->model('clients/clients_model','clients');
+        $this->load->model('Store_config/Store_config_model','store');
 
     }
 
     public function index()
     {						
         if ($this->session->userdata('user_id') == '')
-    {
-        redirect('error500');
-    }
+        {
+            redirect('error500');
+        }
+        
+        $this->load->helper('url');
 
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+        
+        $data['store'] = $store;       
         // get today's date and yesterday
         $today = date('Y-m-d');
 

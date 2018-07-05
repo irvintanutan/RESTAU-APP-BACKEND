@@ -73,6 +73,10 @@ $(document).ready(function()
                 },
                 {
                       "targets": 7,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 8,
                       "className": "text-center",
                 },
                 ],
@@ -361,6 +365,134 @@ $(document).ready(function()
                   else
                   {
                     $node.css('background-color', '#ccffcc');
+                  }
+                }
+            });
+    }
+    else if(tableID == "prod-discounts-table")
+    {
+    //datatables
+            table = $('#prod-discounts-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-prod-discounts",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 4,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 6,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 7,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 8,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 9,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 10,
+                      "className": "text-right",
+                },
+                ],
+                "scrollX": true,
+
+                "rowCallback": function( row, data, index )
+                {
+                  var status = data[6],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (status != 'ACTIVE') 
+                  {
+                    $node.css('background-color', '#cccccc');
+                  }
+                  else
+                  {
+                    $node.css('background-color', '#99ff99');
+                  }
+                }
+            });
+    }
+    else if(tableID == "pack-discounts-table")
+    {
+    //datatables
+            table = $('#pack-discounts-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-pack-discounts",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 4,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 6,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 7,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 9,
+                      "className": "text-right",
+                },
+                ],
+                "scrollX": true,
+
+                "rowCallback": function( row, data, index )
+                {
+                  var status = data[6],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (status != 'ACTIVE') 
+                  {
+                    $node.css('background-color', '#cccccc');
+                  }
+                  else
+                  {
+                    $node.css('background-color', '#99ff99');
                   }
                 }
             });
@@ -1351,7 +1483,31 @@ function add_discount() // ---> calling for the Add Modal form
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
 
-    $('[name="status"]').prop('disabled', true);
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
+function add_prod_discount() // ---> calling for the Add Modal form
+{
+    save_method = 'add-prod-discount';
+    text = 'Add Product Discount';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
+function add_pack_discount() // ---> calling for the Add Modal form
+{
+    save_method = 'add-pack-discount';
+    text = 'Add Package Discount';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
 
     $('#modal_form').modal('show'); // show bootstrap modal
     $('.modal-title').text(text); // Set Title to Bootstrap modal title
@@ -1705,6 +1861,84 @@ function edit_discount(id)
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Discount'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_prod_discount(id)
+{
+    save_method = 'update-prod-discount';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-prod-discount/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="pd_id"]').val(data.pd_id);
+            $('[name="prod_id"]').val(data.prod_id).prop('selected', true);
+
+            $('[name="remarks"]').val(data.remarks);
+
+            $('[name="date_start"]').val(data.date_start);
+            $('[name="date_end"]').val(data.date_end);
+
+            $('[name="status"]').val(data.status).prop('selected', true);
+
+            $('[name="new_price"]').val(data.new_price);
+            
+            $('[name="current_name"]').val(data.prod_id);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Product Discount'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_pack_discount(id)
+{
+    save_method = 'update-pack-discount';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-pack-discount/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="pd_id"]').val(data.pd_id);
+            $('[name="pack_id"]').val(data.pack_id).prop('selected', true);
+
+            $('[name="remarks"]').val(data.remarks);
+
+            $('[name="date_start"]').val(data.date_start);
+            $('[name="date_end"]').val(data.date_end);
+
+            $('[name="status"]').val(data.status).prop('selected', true);
+
+            $('[name="new_price"]').val(data.new_price);
+            
+            $('[name="current_name"]').val(data.pack_id);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Package Discount'); // Set title to Bootstrap modal title
  
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -2095,6 +2329,22 @@ function save()
     {
         url = "update-discount";
     }
+    else if(save_method == 'add-prod-discount') 
+    {
+        url = "add-prod-discount";
+    }
+    else if(save_method == 'update-prod-discount') 
+    {
+        url = "update-prod-discount";
+    }
+    else if(save_method == 'add-pack-discount') 
+    {
+        url = "add-pack-discount";
+    }
+    else if(save_method == 'update-pack-discount') 
+    {
+        url = "update-pack-discount";
+    }
     else if(save_method == 'update-store-config') 
     {
         url = "update-store-config";
@@ -2329,6 +2579,38 @@ function save()
 
                     details = 'Discount updated D' + $('[name="tbl_id"]').val() 
                     + ': ' + $('[name="current_name"]').val() + ' to ' + $('[name="name"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'add-prod-discount')
+                {
+                    log_type = 'Add';
+
+                    details = 'New product discount added: P' + $('[name="prod_id"]').val(); 
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'update-prod-discount') 
+                {
+                    log_type = 'Update';
+
+                    details = 'Product discount updated P' + $('[name="prod_id"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'add-pack-discount')
+                {
+                    log_type = 'Add';
+
+                    details = 'New package discount added: G' + $('[name="prod_id"]').val(); 
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'update-pack-discount') 
+                {
+                    log_type = 'Update';
+
+                    details = 'Package discount updated G' + $('[name="prod_id"]').val();
 
                     set_system_log(log_type, details);
                 }
@@ -2817,6 +3099,64 @@ function delete_discount(id, name)
 
                 var details = 'Discount deleted D' + id 
                 + ': ' + name; 
+
+                set_system_log(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_prod_discount(id, name)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "delete-prod-discount/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Product discount deleted: ' + name; 
+
+                set_system_log(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_pack_discount(id, name)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "delete-pack-discount/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Package discount deleted: ' + name; 
 
                 set_system_log(log_type, details);
 

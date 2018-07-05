@@ -114,7 +114,7 @@ class Prod_details_controller extends CI_Controller {
 
     public function do_upload() 
     {
-         $config['upload_path']   = './uploads/products'; 
+         $config['upload_path']   = 'uploads/products'; 
          $config['allowed_types'] = 'jpg|jpeg'; 
          $config['max_size']      = 2000; 
          $config['max_width']     = 5000; 

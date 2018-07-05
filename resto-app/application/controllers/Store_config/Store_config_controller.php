@@ -27,8 +27,52 @@ class Store_config_controller extends CI_Controller {
         $this->load->view('store_config/store_config_view',$data);
         $this->load->view('template/dashboard_navigation');
         $this->load->view('template/dashboard_footer');
-
     }
+
+
+    // ================================================= IMAGE SECTION =====================================================
+
+
+    public function do_upload() 
+    {
+
+        $img_name = $this->store->get_store_config_img(1);
+
+        $version = explode("_", $img_name)[1];
+
+        $new_version = ($version + 1);
+
+         $config['upload_path']   = 'assets/img'; 
+         $config['allowed_types'] = 'png'; 
+         $config['max_size']      = 2000; 
+         $config['max_width']     = 5000; 
+         $config['max_height']    = 5000;
+         $new_name = 'complogo_' . $new_version . '_.png';
+         $config['file_name'] = $new_name;
+         $config['overwrite'] = TRUE;
+
+         $this->load->library('upload', $config);
+            
+         if ( ! $this->upload->do_upload('userfile1')) // upload fail
+         {
+            $error = array('error' => $this->upload->display_errors()); 
+            $this->load->view('upload_form', $error);
+            // echo '<script type="text/javascript">alert("' . $error.toString() . '"); </script>';
+         }
+         else // upload success
+         { 
+            $data = array('upload_data' => $this->upload->data()); 
+            
+            $data = array(
+                'img' => $new_name
+            );
+            $this->store->update(array('conf_id' => 1), $data); //  set id as 1 since there is only a single configuration
+            redirect('/store-config-page');
+         } 
+    }
+
+
+    // ======================================= END IMAGE SECTION ===========================================================
    
     // public function ajax_list()
     // {

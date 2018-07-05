@@ -181,6 +181,51 @@ $route['update-store-config'] = 'Store_config/Store_config_controller/ajax_updat
 $route['showlist-store-config-api'] = 'Store_config/Store_config_controller/ajax_api_list';
 
 
+//************************************ PRODUCT DISCOUNT ROUTES ***************************************************************
+//******************************************************************************************************************
+
+$route['prod-discounts-page'] = 'Prod_discounts/Prod_discounts_controller';
+
+$route['showlist-prod-discounts'] = 'Prod_discounts/Prod_discounts_controller/ajax_list';
+
+$route['add-prod-discount'] = 'Prod_discounts/Prod_discounts_controller/ajax_add';
+
+$route['edit-prod-discount/(:num)'] = 'Prod_discounts/Prod_discounts_controller/ajax_edit/$1';
+
+$route['update-prod-discount'] = 'Prod_discounts/Prod_discounts_controller/ajax_update';
+
+$route['delete-prod-discount/(:num)'] = 'Prod_discounts/Prod_discounts_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+// $route['showlist-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_list';
+
+// $route['add-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_add_trans';
+
+
+//************************************ PRODUCT DISCOUNT ROUTES ***************************************************************
+//******************************************************************************************************************
+
+$route['pack-discounts-page'] = 'Pack_discounts/Pack_discounts_controller';
+
+$route['showlist-pack-discounts'] = 'Pack_discounts/Pack_discounts_controller/ajax_list';
+
+$route['add-pack-discount'] = 'Pack_discounts/Pack_discounts_controller/ajax_add';
+
+$route['edit-pack-discount/(:num)'] = 'Pack_discounts/Pack_discounts_controller/ajax_edit/$1';
+
+$route['update-pack-discount'] = 'Pack_discounts/Pack_discounts_controller/ajax_update';
+
+$route['delete-pack-discount/(:num)'] = 'Pack_discounts/Pack_discounts_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+// $route['showlist-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_list';
+
+// $route['add-discounts-api'] = 'Discounts/Discounts_controller/ajax_api_add_trans';
+
+
+
 
 //************************************ PROD DETAIL ROUTES **************************************************************
 //******************************************************************************************************************

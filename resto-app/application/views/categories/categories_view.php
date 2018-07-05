@@ -78,6 +78,7 @@
                             <form action="#" id="form" class="form-horizontal">
 
                                 <input type="hidden" value="" name="cat_id"/>
+                                <input type="hidden" value="" name="current_name"/>
                                 
                                 <div class="form-body">
 

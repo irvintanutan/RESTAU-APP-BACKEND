@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 04, 2018 at 09:32 AM
+-- Generation Time: Jul 05, 2018 at 08:40 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -699,7 +699,96 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000576, 'TORRES, JIK', 'Add', 'New%20table%20added:%20sample4', '2018-07-02 20:26:24'),
 (1000577, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-03 13:22:26'),
 (1000578, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-03 18:25:17'),
-(1000579, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-03 18:42:06');
+(1000579, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-03 18:42:06'),
+(1000580, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-04 11:23:05'),
+(1000581, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S78', '2018-07-04 11:44:12'),
+(1000582, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S77', '2018-07-04 11:44:22'),
+(1000583, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S76', '2018-07-04 11:44:32'),
+(1000584, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S75', '2018-07-04 11:46:48'),
+(1000585, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S74', '2018-07-04 11:47:01'),
+(1000586, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S73', '2018-07-04 11:47:12'),
+(1000587, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S72', '2018-07-04 11:47:28'),
+(1000588, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S71', '2018-07-04 11:47:51'),
+(1000589, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S70', '2018-07-04 11:48:01'),
+(1000590, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S69', '2018-07-04 11:48:38'),
+(1000591, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S68', '2018-07-04 11:48:48'),
+(1000592, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S67', '2018-07-04 11:49:54'),
+(1000593, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S66', '2018-07-04 12:38:54'),
+(1000594, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S65', '2018-07-04 12:39:26'),
+(1000595, 'TORRES, JIK', 'Update', 'Product%20updated%20P10:%20Chicken%20Rice%20Meal%20to%20Chicken%20Rice%20Meal', '2018-07-04 14:03:24'),
+(1000596, 'TORRES, JIK', 'Update', 'Product%20updated%20P9:%20Extra%20Large%20Fries%20to%20Extra%20Large%20Fries', '2018-07-04 14:16:46'),
+(1000597, 'TORRES, JIK', 'Update', 'Product%20updated%20P8:%20Mix%20Fries%20to%20Mix%20Fries', '2018-07-04 14:17:06'),
+(1000598, 'TORRES, JIK', 'Update', 'Product%20updated%20P7:%20Double%20Cheese%20Burger%20to%20Double%20Cheese%20Burger', '2018-07-04 14:26:23'),
+(1000599, 'TORRES, JIK', 'Update', 'Product%20updated%20P5:%20Cheesy%20Fries%20to%20Cheesy%20Fries', '2018-07-04 14:26:37'),
+(1000600, 'TORRES, JIK', 'Update', 'Product%20updated%20P5:%20Cheesy%20Fries%20to%20Cheesy%20Fries', '2018-07-04 14:27:02'),
+(1000601, 'TORRES, JIK', 'Update', 'Product%20updated%20P6:%20Barbecue%20Fries%20to%20Barbecue%20Fries', '2018-07-04 14:27:13'),
+(1000602, 'TORRES, JIK', 'Update', 'Product%20updated%20P4:%20Sprite%20in%20Can%20to%20Sprite%20in%20Can', '2018-07-04 14:27:29'),
+(1000603, 'TORRES, JIK', 'Update', 'Product%20updated%20P3:%20Cheese%20Burger%20to%20Cheese%20Burger', '2018-07-04 14:27:49'),
+(1000604, 'TORRES, JIK', 'Update', 'Product%20updated%20P2:%20Iced%20Tea%20Pitcher%20to%20Iced%20Tea%20Pitcher', '2018-07-04 14:28:08'),
+(1000605, 'TORRES, JIK', 'Update', 'Product%20updated%20P1:%20Coca%20Cola%20to%20Coca%20Cola', '2018-07-04 14:28:19'),
+(1000606, 'TORRES, JIK', 'Update', 'Product%20updated%20P9:%20Extra%20Large%20Fries%20to%20Extra%20Large%20Fries', '2018-07-04 14:29:07'),
+(1000607, 'TORRES, JIK', 'Update', 'Product%20updated%20P9:%20Extra%20Large%20Fries%20to%20Extra%20Large%20Fries', '2018-07-04 14:29:12'),
+(1000608, 'TORRES, JIK', 'Update', 'Product%20updated%20P1:%20Coca%20Cola%20to%20Coca%20Cola', '2018-07-04 15:18:00'),
+(1000609, 'TORRES, JIK', 'Add', 'New%20product%20added:%20Plain%20Rice', '2018-07-04 15:30:44'),
+(1000610, 'TORRES, JIK', 'Add', 'New%20product%20item%20added:%2012', '2018-07-04 15:40:34'),
+(1000611, 'TORRES, JIK', 'Update', 'Package%20updated%20G3:%20Barkada%20Package%20to%20Barkada%20Package', '2018-07-04 16:12:50'),
+(1000612, 'TORRES, JIK', 'Update', 'Package%20updated%20G2:%20Family%20Bundle%202%20to%20Family%20Bundle%202', '2018-07-04 16:13:14'),
+(1000613, 'TORRES, JIK', 'Update', 'Package%20updated%20G1:%20Family%20Bundle%201%20to%20Family%20Bundle%201', '2018-07-04 16:13:36'),
+(1000614, 'TORRES, JIK', 'Update', 'Package%20updated%20G1:%20Family%20Bundle%201%20to%20Family%20Bundle%201', '2018-07-04 16:15:38'),
+(1000615, 'TORRES, JIK', 'Update', 'Package%20updated%20G1:%20Family%20Bundle%201%20to%20Family%20Bundle%201', '2018-07-04 16:15:55'),
+(1000616, 'TORRES, JIK', 'Update', 'Package%20updated%20G1:%20Family%20Bundle%201%20to%20Family%20Bundle%201', '2018-07-04 16:16:06'),
+(1000617, 'TORRES, JIK', 'Add', 'New%20package%20added:%20Lechon%20Bundle%201', '2018-07-04 16:18:35'),
+(1000618, 'TORRES, JIK', 'Update', 'Package%20updated%20G4:%20Lechon%20Bundle%201%20to%20Lechon%20Bundle%201', '2018-07-04 16:19:37'),
+(1000619, 'TORRES, JIK', 'Update', 'Package%20updated%20G4:%20Lechon%20Bundle%201%20to%20Lechon%20Bundle%201', '2018-07-04 16:19:48'),
+(1000620, 'TORRES, JIK', 'Update', 'Table%20updated%20T1:%20Square%20Table%201%20to%20Table', '2018-07-04 16:43:32'),
+(1000621, 'TORRES, JIK', 'Update', 'Table%20updated%20T2:%20Square%20Table%202%20to%20Table', '2018-07-04 16:43:44'),
+(1000622, 'TORRES, JIK', 'Update', 'Table%20updated%20T3:%20Circle%20Table%201%20to%20Table', '2018-07-04 16:43:55'),
+(1000623, 'TORRES, JIK', 'Update', 'Table%20updated%20T4:%20Circle%20Table%202%20to%20Table', '2018-07-04 16:44:04'),
+(1000624, 'TORRES, JIK', 'Update', 'Table%20updated%20T5:%20Circle%20Table%203%20to%20Table', '2018-07-04 16:44:13'),
+(1000625, 'TORRES, JIK', 'Update', 'Table%20updated%20T6:%20Circle%20Table%204%20to%20Table', '2018-07-04 16:44:24'),
+(1000626, 'TORRES, JIK', 'Update', 'Table%20updated%20T7:%20Circle%20Table%205%20to%20Table', '2018-07-04 16:44:32'),
+(1000627, 'TORRES, JIK', 'Update', 'Table%20updated%20T8:%20Circle%20Table%206%20to%20Table', '2018-07-04 16:44:41'),
+(1000628, 'TORRES, JIK', 'Update', 'Table%20updated%20T9:%20Circle%20Table%207%20to%20Table', '2018-07-04 16:44:50'),
+(1000629, 'TORRES, JIK', 'Update', 'Table%20updated%20T10:%20Circle%20Table%208%20to%20Table', '2018-07-04 16:44:59'),
+(1000630, 'TORRES, JIK', 'Update', 'Table%20updated%20T11:%20Circle%20Table%209%20to%20Table', '2018-07-04 16:45:53'),
+(1000631, 'TORRES, JIK', 'Update', 'Table%20updated%20T12:%20sample%20to%20Table', '2018-07-04 16:46:02'),
+(1000632, 'TORRES, JIK', 'Update', 'Table%20updated%20T13:%20sample2%20to%20Table', '2018-07-04 16:46:15'),
+(1000633, 'TORRES, JIK', 'Update', 'Table%20updated%20T14:%20sample3%20to%20Table', '2018-07-04 16:46:26'),
+(1000634, 'TORRES, JIK', 'Update', 'Table%20updated%20T15:%20sample4%20to%20Table', '2018-07-04 16:46:34'),
+(1000635, 'TORRES, JIK', 'Update', 'Table%20updated%20T12:%20Table', '2018-07-04 16:46:50'),
+(1000636, 'TORRES, JIK', 'Update', 'Table%20updated%20T14:%20Table', '2018-07-04 16:46:55'),
+(1000637, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-04 16:53:38'),
+(1000638, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-04 19:33:41'),
+(1000639, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-04 19:33:51'),
+(1000640, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-04 19:33:55'),
+(1000641, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-04 19:34:30'),
+(1000642, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-04 19:36:24'),
+(1000643, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-04 19:36:28'),
+(1000644, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-04 19:36:33'),
+(1000645, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-05 09:12:17'),
+(1000646, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-05 09:13:36'),
+(1000647, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-05 09:13:45'),
+(1000648, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-05 09:13:49'),
+(1000649, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-05 09:13:54'),
+(1000650, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-05 09:14:07'),
+(1000651, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-05 09:14:22'),
+(1000652, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-05 09:14:27'),
+(1000653, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-05 11:46:06'),
+(1000654, 'TORRES, JIK', 'Add', 'New%20product%20discount%20added:%20P6', '2018-07-05 19:40:33'),
+(1000655, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:41:28'),
+(1000656, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:41:36'),
+(1000657, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:46:41'),
+(1000658, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:46:54'),
+(1000659, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:47:05'),
+(1000660, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:47:17'),
+(1000661, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:47:26'),
+(1000662, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:47:44'),
+(1000663, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:47:52'),
+(1000664, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:48:10'),
+(1000665, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:48:19'),
+(1000666, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:49:14'),
+(1000667, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:49:30'),
+(1000668, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:49:46');
 
 -- --------------------------------------------------------
 
@@ -710,6 +799,7 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 CREATE TABLE `packages` (
   `pack_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `short_name` varchar(12) NOT NULL,
   `descr` varchar(200) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `img` varchar(20) NOT NULL,
@@ -722,10 +812,11 @@ CREATE TABLE `packages` (
 -- Dumping data for table `packages`
 --
 
-INSERT INTO `packages` (`pack_id`, `name`, `descr`, `price`, `img`, `sold`, `encoded`, `removed`) VALUES
-(1, 'Family Bundle 1', '', '500.00', '1.jpg', 12, '2018-05-25 01:21:37', 0),
-(2, 'Family Bundle 2', 'Sample descr pack 1', '1000.00', '2.jpg', 0, '2018-05-29 13:17:08', 0),
-(3, 'Barkada Package', 'Family package X 2', '1000.00', '3.jpg', 7, '2018-05-29 15:18:31', 0);
+INSERT INTO `packages` (`pack_id`, `name`, `short_name`, `descr`, `price`, `img`, `sold`, `encoded`, `removed`) VALUES
+(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1.jpg', 40, '2018-05-25 01:21:37', 0),
+(2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2.jpg', 0, '2018-05-29 13:17:08', 0),
+(3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3.jpg', 7, '2018-05-29 15:18:31', 0),
+(4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4.jpg', 0, '2018-07-04 16:18:35', 0);
 
 -- --------------------------------------------------------
 
@@ -763,6 +854,7 @@ INSERT INTO `pack_details` (`pack_id`, `prod_id`, `qty`, `encoded`) VALUES
 CREATE TABLE `products` (
   `prod_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `short_name` varchar(12) NOT NULL,
   `descr` varchar(200) NOT NULL,
   `cat_id` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
@@ -777,19 +869,20 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`prod_id`, `name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coco Loco', 'JUSTIN AND MICO', 1, '50.00', '1.jpg', 15, 0, '2018-05-24 18:22:34', 0),
-(2, 'Iced Tea Pitcher', 'Soda', 1, '45.00', '2.jpg', 15, 12, '2018-05-28 14:37:40', 0),
-(3, 'Cheese Burger', 'Regular size cheese burger', 3, '100.00', '3.jpg', 29, 0, '2018-05-29 13:51:47', 0),
-(4, 'Sprite in Can', 'Green can soda in can', 1, '50.00', '4.jpg', 2, 0, '2018-05-29 13:55:32', 0),
-(5, 'Cheesy Fries', 'French fries cheese flavor', 3, '80.00', '5.jpg', 3, 0, '2018-05-29 13:56:42', 0),
-(6, 'Barbecue Fries', 'French fries BBQ flavor', 3, '80.00', '6.jpg', 4, 0, '2018-05-29 13:57:27', 0),
-(7, 'Double Cheese Burger', 'Heavy cheese burger X 2', 3, '180.00', '7.jpg', 3, 14, '2018-05-29 13:58:22', 0),
-(8, 'Mix Fries', '2 flavored french fries', 3, '100.00', '8.jpg', 1, 0, '2018-05-29 14:56:29', 0),
-(9, 'Extra Large Fries', 'Triple size french fries', 3, '150.00', '9.jpg', 3, 26, '2018-05-29 14:58:13', 0),
-(10, 'Chicken Rice Meal', 'Fried chicken cut with rice', 3, '70.00', '10.jpg', 2, 48, '2018-05-29 14:59:21', 0),
-(11, 'test insert 1', 'test insert 1 descr', 2, '1000.00', '', 0, 0, '2018-05-31 14:33:22', 1),
-(12, 'test insert 2', 'test insert 2 descr', 2, '2000.00', '', 0, 0, '2018-05-31 14:33:23', 1);
+INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
+(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1.jpg', 43, 0, '2018-05-24 18:22:34', 0),
+(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2.jpg', 15, 40, '2018-05-28 14:37:40', 0),
+(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3.jpg', 85, 0, '2018-05-29 13:51:47', 0),
+(4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4.jpg', 2, 0, '2018-05-29 13:55:32', 0),
+(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5.jpg', 3, 0, '2018-05-29 13:56:42', 0),
+(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6.jpg', 4, 0, '2018-05-29 13:57:27', 0),
+(7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7.jpg', 3, 14, '2018-05-29 13:58:22', 0),
+(8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8.jpg', 1, 0, '2018-05-29 14:56:29', 0),
+(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9.jpg', 3, 54, '2018-05-29 14:58:13', 0),
+(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10.jpg', 2, 160, '2018-05-29 14:59:21', 0),
+(11, 'test insert 1', '', 'test insert 1 descr', 2, '1000.00', '', 0, 0, '2018-05-31 14:33:22', 1),
+(12, 'test insert 2', '', 'test insert 2 descr', 2, '2000.00', '', 0, 0, '2018-05-31 14:33:23', 1),
+(13, 'Plain Rice', 'PlainRice', '1 cup plain rice banay-banay', 4, '20.00', '13.jpg', 0, 0, '2018-07-04 15:30:44', 0);
 
 -- --------------------------------------------------------
 
@@ -833,7 +926,33 @@ INSERT INTO `prod_details` (`prod_id`, `item_id`, `qty`, `encoded`) VALUES
 (10, 12, 1, '2018-05-29 16:47:22'),
 (10, 1, 1, '2018-05-29 16:51:50'),
 (9, 2, 3, '2018-05-29 16:52:17'),
-(9, 9, 3, '2018-05-29 16:52:38');
+(9, 9, 3, '2018-05-29 16:52:38'),
+(13, 12, 1, '2018-07-04 15:40:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prod_discounts`
+--
+
+CREATE TABLE `prod_discounts` (
+  `pd_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `remarks` varchar(200) NOT NULL,
+  `date_start` varchar(20) NOT NULL,
+  `date_end` varchar(20) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `new_price` decimal(10,2) NOT NULL,
+  `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `removed` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `prod_discounts`
+--
+
+INSERT INTO `prod_discounts` (`pd_id`, `prod_id`, `remarks`, `date_start`, `date_end`, `status`, `new_price`, `encoded`, `removed`) VALUES
+(1, 6, 'Discount promo test 1', '2018-07-05', '2018-07-05', 'INACTIVE', '70.00', '2018-07-05 19:40:32', 0);
 
 -- --------------------------------------------------------
 
@@ -851,6 +970,13 @@ CREATE TABLE `store_config` (
   `bs_price` decimal(10,2) NOT NULL,
   `img` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `store_config`
+--
+
+INSERT INTO `store_config` (`conf_id`, `name`, `address`, `city`, `tin`, `vat`, `bs_price`, `img`) VALUES
+(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', 'TIN:008-351-499-012', 0, '45.00', 'complogo_3_.png');
 
 -- --------------------------------------------------------
 
@@ -871,21 +997,21 @@ CREATE TABLE `tables` (
 --
 
 INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
-(1, 'Square Table 1', 0, '2018-06-06 17:57:24', 0),
-(2, 'Square Table 2', 0, '2018-06-06 18:01:17', 0),
-(3, 'Circle Table 1', 0, '2018-06-11 11:54:21', 0),
-(4, 'Circle Table 2', 0, '2018-06-11 11:54:34', 0),
-(5, 'Circle Table 3', 0, '2018-06-13 15:54:11', 0),
-(6, 'Circle Table 4', 0, '2018-06-19 13:17:19', 0),
-(7, 'Circle Table 5', 0, '2018-06-19 13:17:26', 0),
-(8, 'Circle Table 6', 0, '2018-06-19 13:17:32', 0),
-(9, 'Circle Table 7', 0, '2018-06-19 13:17:38', 0),
-(10, 'Circle Table 8', 0, '2018-06-19 13:17:44', 0),
-(11, 'Circle Table 9', 0, '2018-06-19 13:17:50', 0),
-(12, 'sample', 0, '2018-07-02 20:26:11', 0),
-(13, 'sample2', 0, '2018-07-02 20:26:15', 0),
-(14, 'sample3', 0, '2018-07-02 20:26:20', 0),
-(15, 'sample4', 0, '2018-07-02 20:26:24', 0);
+(1, 'Table #1', 0, '2018-06-06 17:57:24', 0),
+(2, 'Table #2 ', 0, '2018-06-06 18:01:17', 0),
+(3, 'Table #3', 0, '2018-06-11 11:54:21', 0),
+(4, 'Table #4', 0, '2018-06-11 11:54:34', 0),
+(5, 'Table #5', 0, '2018-06-13 15:54:11', 0),
+(6, 'Table #6', 0, '2018-06-19 13:17:19', 0),
+(7, 'Table #7', 0, '2018-06-19 13:17:26', 0),
+(8, 'Table #8', 0, '2018-06-19 13:17:32', 0),
+(9, 'Table #9', 0, '2018-06-19 13:17:38', 0),
+(10, 'Table #10', 0, '2018-06-19 13:17:44', 0),
+(11, 'Table #11', 0, '2018-06-19 13:17:50', 0),
+(12, 'Table #12', 2, '2018-07-02 20:26:11', 0),
+(13, 'Table #13', 0, '2018-07-02 20:26:15', 0),
+(14, 'Table #14', 1, '2018-07-02 20:26:20', 0),
+(15, 'Table #15', 0, '2018-07-02 20:26:24', 0);
 
 -- --------------------------------------------------------
 
@@ -974,34 +1100,15 @@ INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
 (97, 63, 4),
 (98, 64, 3),
 (99, 64, 4),
-(100, 65, 3),
-(101, 65, 4),
-(102, 66, 3),
-(103, 66, 4),
-(104, 67, 3),
-(105, 67, 4),
-(106, 68, 3),
-(107, 68, 4),
-(108, 69, 3),
-(109, 69, 4),
-(110, 70, 3),
-(111, 70, 4),
-(112, 71, 3),
-(113, 71, 4),
-(114, 72, 3),
-(115, 72, 4),
-(116, 73, 3),
-(117, 73, 4),
-(118, 74, 3),
-(119, 74, 4),
-(120, 75, 3),
-(121, 75, 4),
-(122, 76, 3),
-(123, 76, 4),
-(124, 77, 3),
-(125, 77, 4),
-(126, 78, 3),
-(127, 78, 4);
+(100, 81, 3),
+(101, 81, 4),
+(102, 82, 3),
+(103, 82, 4),
+(104, 84, 1),
+(105, 84, 11),
+(106, 84, 13),
+(107, 85, 15),
+(108, 86, 2);
 
 -- --------------------------------------------------------
 
@@ -1093,20 +1200,28 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (62, '2018-07-03 18:41:20', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (63, '2018-07-03 18:49:22', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (64, '2018-07-03 18:53:34', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(65, '2018-07-03 19:00:18', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(66, '2018-07-03 19:02:28', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(67, '2018-07-03 19:06:07', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(68, '2018-07-03 19:09:37', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(69, '2018-07-03 19:15:34', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(70, '2018-07-03 19:24:38', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(71, '2018-07-03 19:28:03', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(72, '2018-07-03 19:30:32', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(73, '2018-07-03 19:33:21', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(74, '2018-07-03 19:37:53', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(75, '2018-07-03 19:50:18', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(76, '2018-07-03 19:51:52', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(77, '2018-07-03 19:55:04', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(78, '2018-07-03 19:57:33', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0);
+(65, '2018-07-03 19:00:18', '0.00', 0, 'CLEARED', 'DINE-IN', '1500.00', '0.00', 'Credit Card', '656589855', 'n/a', 'n/a', 103, 108),
+(66, '2018-07-03 19:02:28', '0.00', 0, 'CLEARED', 'DINE-IN', '1500.00', '0.00', 'Credit Card', '112522525', 'n/a', 'n/a', 103, 108),
+(67, '2018-07-03 19:06:07', '0.00', 0, 'CLEARED', 'DINE-IN', '1500.00', '0.00', 'Credit Card', '2000', 'n/a', 'n/a', 103, 108),
+(68, '2018-07-03 19:09:37', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(69, '2018-07-03 19:15:34', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(70, '2018-07-03 19:24:38', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(71, '2018-07-03 19:28:03', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(72, '2018-07-03 19:30:32', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(73, '2018-07-03 19:33:21', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(74, '2018-07-03 19:37:53', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(75, '2018-07-03 19:50:18', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(76, '2018-07-03 19:51:52', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(77, '2018-07-03 19:55:04', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(78, '2018-07-03 19:57:33', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '500.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
+(79, '2018-07-05 20:18:37', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(80, '2018-07-05 20:20:08', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(81, '2018-07-05 20:20:51', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(82, '2018-07-05 20:21:42', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(83, '2018-07-05 20:24:34', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(84, '2018-07-05 20:29:25', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(85, '2018-07-05 20:33:33', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(86, '2018-07-05 20:35:23', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0);
 
 -- --------------------------------------------------------
 
@@ -1507,7 +1622,57 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (78, 0, 1, 1, '500.00', 2, '1000.00', 0),
 (78, 2, 0, 2, '0.00', 2, '0.00', 1),
 (78, 9, 0, 2, '0.00', 2, '0.00', 1),
-(78, 10, 0, 2, '0.00', 8, '0.00', 1);
+(78, 10, 0, 2, '0.00', 8, '0.00', 1),
+(79, 6, 0, 0, '80.00', 1, '80.00', 0),
+(79, 3, 0, 0, '100.00', 1, '100.00', 0),
+(79, 5, 0, 0, '80.00', 1, '80.00', 0),
+(79, 0, 4, 1, '1200.00', 1, '1200.00', 0),
+(80, 6, 0, 0, '80.00', 1, '80.00', 0),
+(80, 3, 0, 0, '100.00', 1, '100.00', 0),
+(80, 0, 3, 1, '1000.00', 1, '1000.00', 0),
+(80, 9, 0, 2, '0.00', 2, '0.00', 3),
+(80, 7, 0, 2, '0.00', 2, '0.00', 3),
+(81, 1, 0, 0, '50.00', 2, '100.00', 0),
+(81, 3, 0, 0, '100.00', 4, '400.00', 0),
+(81, 0, 1, 1, '500.00', 2, '1000.00', 0),
+(81, 2, 0, 2, '0.00', 2, '0.00', 1),
+(81, 9, 0, 2, '0.00', 2, '0.00', 1),
+(81, 10, 0, 2, '0.00', 8, '0.00', 1),
+(82, 1, 0, 0, '50.00', 2, '100.00', 0),
+(82, 3, 0, 0, '100.00', 4, '400.00', 0),
+(82, 0, 1, 1, '500.00', 2, '1000.00', 0),
+(82, 2, 0, 2, '0.00', 2, '0.00', 1),
+(82, 9, 0, 2, '0.00', 2, '0.00', 1),
+(82, 10, 0, 2, '0.00', 8, '0.00', 1),
+(83, 3, 0, 0, '100.00', 2, '200.00', 0),
+(83, 6, 0, 0, '80.00', 1, '80.00', 0),
+(83, 4, 0, 0, '50.00', 1, '50.00', 0),
+(83, 13, 0, 0, '20.00', 4, '80.00', 0),
+(83, 0, 3, 1, '1000.00', 2, '2000.00', 0),
+(83, 9, 0, 2, '0.00', 4, '0.00', 3),
+(83, 7, 0, 2, '0.00', 4, '0.00', 3),
+(83, 0, 4, 1, '1200.00', 1, '1200.00', 0),
+(84, 6, 0, 0, '80.00', 1, '80.00', 0),
+(84, 3, 0, 0, '100.00', 1, '100.00', 0),
+(84, 5, 0, 0, '80.00', 1, '80.00', 0),
+(84, 13, 0, 0, '20.00', 4, '80.00', 0),
+(84, 0, 3, 1, '1000.00', 1, '1000.00', 0),
+(84, 9, 0, 2, '0.00', 2, '0.00', 3),
+(84, 7, 0, 2, '0.00', 2, '0.00', 3),
+(85, 13, 0, 0, '20.00', 3, '60.00', 0),
+(85, 3, 0, 0, '100.00', 1, '100.00', 0),
+(85, 0, 3, 1, '1000.00', 1, '1000.00', 0),
+(85, 9, 0, 2, '0.00', 2, '0.00', 3),
+(85, 7, 0, 2, '0.00', 2, '0.00', 3),
+(85, 0, 2, 1, '1000.00', 1, '1000.00', 0),
+(85, 1, 0, 2, '0.00', 5, '0.00', 2),
+(85, 10, 0, 2, '0.00', 5, '0.00', 2),
+(85, 9, 0, 2, '0.00', 2, '0.00', 2),
+(86, 6, 0, 0, '80.00', 1, '80.00', 0),
+(86, 3, 0, 0, '100.00', 1, '100.00', 0),
+(86, 5, 0, 0, '80.00', 1, '80.00', 0),
+(86, 13, 0, 0, '20.00', 3, '60.00', 0),
+(86, 1, 0, 0, '50.00', 1, '50.00', 0);
 
 -- --------------------------------------------------------
 
@@ -1592,6 +1757,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`prod_id`);
 
 --
+-- Indexes for table `prod_discounts`
+--
+ALTER TABLE `prod_discounts`
+  ADD PRIMARY KEY (`pd_id`);
+
+--
 -- Indexes for table `store_config`
 --
 ALTER TABLE `store_config`
@@ -1644,22 +1815,27 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000580;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000669;
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `prod_discounts`
+--
+ALTER TABLE `prod_discounts`
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `store_config`
 --
 ALTER TABLE `store_config`
-  MODIFY `conf_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `conf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tables`
 --
@@ -1669,12 +1845,12 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT for table `users`
 --

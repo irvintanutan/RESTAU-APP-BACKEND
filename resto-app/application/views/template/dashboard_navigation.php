@@ -144,7 +144,7 @@
                                         <a href="#">
                                             <i class="fa fa-university"></i>
                                             <strong><span class="menu-title">Menu</span></strong>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            <i class="arrow"></i>
                                         </a>
 
                                         <!--Submenu-->
@@ -162,7 +162,7 @@
                                         <a href="#">
                                             <i class="fa fa-university"></i>
                                             <span class="menu-title">Menu</span>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            <i class="arrow"></i>
                                         </a>
 
                                         <!--Submenu-->
@@ -191,7 +191,7 @@
                                         <a href="<?php echo base_url();?>categories-page">
                                             <i class="fa fa-users"></i>
                                             <strong><span class="menu-title">Categories</span></strong>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            
                                         </a>
                                     </li>
 
@@ -201,7 +201,7 @@
                                         <a href="<?php echo base_url();?>categories-page">
                                             <i class="fa fa-users"></i>
                                             <span class="menu-title">Categories</span>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            
                                         </a>
                                     </li>
 
@@ -222,7 +222,7 @@
                                         <a href="<?php echo base_url();?>tables-page">
                                             <i class="fa fa-money"></i>
                                             <strong><span class="menu-title">Tables</span></strong>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            
                                         </a>
                                     </li>
 
@@ -232,7 +232,7 @@
                                         <a href="<?php echo base_url();?>tables-page">
                                             <i class="fa fa-money"></i>
                                             <span class="menu-title">Tables</span>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            
                                         </a>
                                     </li>
 
@@ -247,7 +247,7 @@
 
                                     <?php if($this->session->userdata('administrator') == '1'): ?>
 
-                                    <?php if($this->uri->segment(1) == 'discounts-page' || $this->uri->segment(1) == 'packages-page'){ ?>
+                                    <?php if($this->uri->segment(1) == 'discounts-page' || $this->uri->segment(1) == 'prod-discounts-page' || $this->uri->segment(1) == 'pack-discounts-page'){ ?>
 
                                     <li class="active-link">
                                         <a href="#">
@@ -260,7 +260,9 @@
                                         <ul class="collapse">
                                             <li><a href="<?php echo base_url();?>discounts-page">Trans. Discounts</a>
                                             </li>                                            
-                                            <li><a href="<?php echo base_url();?>disc-prods-page">Product Discounts</a>
+                                            <li><a href="<?php echo base_url();?>prod-discounts-page">Product Discounts</a>
+                                            </li>
+                                            <li><a href="<?php echo base_url();?>pack-discounts-page">Package Discounts</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -278,7 +280,9 @@
                                         <ul class="collapse">
                                             <li><a href="<?php echo base_url();?>discounts-page">Trans. Discounts</a>
                                             </li>                                            
-                                            <li><a href="<?php echo base_url();?>disc-prods-page">Product Discounts</a>
+                                            <li><a href="<?php echo base_url();?>prod-discounts-page">Product Discounts</a>
+                                            </li>
+                                            <li><a href="<?php echo base_url();?>pack-discounts-page">Package Discounts</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -294,14 +298,14 @@
                                     
                                     <?php if($this->session->userdata('administrator') == '1'): ?>
 
-                                    <?php if($this->uri->segment(1) == 'transactions-page'){ ?>
+                                    <?php if($this->uri->segment(1) == 'transactions-page' || $this->uri->segment(1) == 'transactions-page-cleared' || $this->uri->segment(1) == 'transactions-page-cancelled'){ ?>
 
             
                                     <li class="active-link">
                                         <a href="#">
                                             <i class="fa fa-money"></i>
                                             <strong><span class="menu-title">Transactions</span></strong>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            <i class="arrow"></i>
                                         </a>
 
                                         <!--Submenu-->
@@ -321,7 +325,7 @@
                                         <a href="#">
                                             <i class="fa fa-money"></i>
                                             <span class="menu-title">Transactions</span>
-                                            <span class="label label-danger pull-right">Admin</span>
+                                            <i class="arrow"></i>
                                         </a>
 
                                         <!--Submenu-->

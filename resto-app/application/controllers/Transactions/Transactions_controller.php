@@ -23,6 +23,7 @@ class Transactions_controller extends CI_Controller {
         $this->load->model('Table_groups/Table_groups_model','table_groups');
 
         $this->load->model('Users/Users_model','users');
+        $this->load->model('Store_config/Store_config_model','store');
     }
 
     public function index() // index of ongoing transactions
@@ -493,15 +494,20 @@ class Transactions_controller extends CI_Controller {
         $connector = new FilePrintConnector("/dev/usb/lp0");
         $printer = new Printer($connector);
 
-        $logo = EscposImage::load("cafe.png", false);
+        // $logo = EscposImage::load("cafe.png", false);
+
+
+        // fetch config data
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+
 
         /* Information for the receipt */
-        $store_name = wordwrap("Lolo Ernings Lechon - Obrero", 25, "\n");
-        $address = wordwrap("Sample st., Bo. Obrero", 25, "\n");
-        $city = "Davao City";
-        $tin = wordwrap("TIN:" . "008-351-499-011", 25, "\n");
+        $store_name = wordwrap($store->name, 15, "\n");
+        $address = wordwrap($store->address, 25, "\n");
+        $city = $store->city;
+        $tin = wordwrap($store->tin, 25, "\n");
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
-        $vat = (12 / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
+        $vat = ($store->vat / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
         $discount = 0;
 
         $items = $line_items;
@@ -524,7 +530,7 @@ class Transactions_controller extends CI_Controller {
 
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $printer -> graphics($logo);
+        // $printer -> graphics($logo);
 
         /* Name of shop */
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);

@@ -84,6 +84,19 @@ class Store_config_model extends CI_Model {
 
         return $query->result();
     }
+
+    function get_store_config_img($conf_id)
+    {
+        $this->db->select('img');
+        $this->db->from($this->table);
+        $this->db->where('conf_id',$conf_id);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->img;
+    }
  
     // function count_filtered()
     // {

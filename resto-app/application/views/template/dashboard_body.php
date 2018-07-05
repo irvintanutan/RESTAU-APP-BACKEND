@@ -5,7 +5,12 @@
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div id="page-title">
-                    <h1 class="page-header text-overflow"><img src="assets/img/comp_logo.png" style="width: 12%; margin-top: 0%; margin-right: 1%;">R e s t o A p p | Restaurant Point of Sales App </h1>
+                    <div class="col-md-2">
+                        <img src=<?php echo "'assets/img/" . $store->img . "'"; ?> style="width: 100%; margin-top: 0%; margin-right: 3%;">
+                    </div>
+                    <div class="col-md-10">
+                        <h1 class="page-header text-overflow"><br><br><b><?php echo $store->name; ?></b><br><span style="font-size: 16px;">R e s t o A p p | Restaurant Point of Sales App by InnoTech Solutions</span></h1>
+                    </div>
 
                     <!-- For alert and notifications assets/js/demo/nifty-demo.js-->
 
@@ -29,7 +34,12 @@
                 <!--Page content-->
                 <!--===================================================-->
                 <div id="page-content">
-                
+                    
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h1 align="right" class="panel-title"><i style="font-size: 18px;">Daily Stats | <?php echo date('l, F j, Y', strtotime(date('Y-m-d'))); ?></i></h1>
+                        </div>
+                    </div>
                     <!--Tiles - Bright Version-->
                     <!--===================================================-->
 

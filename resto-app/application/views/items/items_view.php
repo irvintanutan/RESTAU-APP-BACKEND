@@ -104,8 +104,9 @@
                                         <div class="col-md-9">
                                             <select name="type" class="form-control">
                                                 <option value="">--Select Type--</option>
-                                                <option value="0">Non Perishable</option>
-                                                <option value="1">Perishable</option>
+                                                <option value="NON-PERISHABLE">NON-PERISHABLE</option>
+                                                <option value="PERISHABLE">PERISHABLE</option>
+                                                <option value="EQUIPMENT">EQUIPMENT</option>
                                             </select>
                                             <span class="help-block"></span>
                                         </div>

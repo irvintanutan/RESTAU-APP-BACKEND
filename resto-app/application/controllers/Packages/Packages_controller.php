@@ -8,6 +8,8 @@ class Packages_controller extends CI_Controller {
         parent::__construct();
         $this->load->model('Packages/Packages_model','packages');
         $this->load->model('Pack_details/Pack_details_model','pack_details');
+
+        $this->load->model('Pack_discounts/Pack_discounts_model','pack_discounts');
     }
 
     public function index()						
@@ -183,7 +185,7 @@ class Packages_controller extends CI_Controller {
         else if($this->input->post('price') <= 0)
         {
             $data['inputerror'][] = 'price';
-            $data['error_string'][] = 'Product price should be greater than zero';
+            $data['error_string'][] = 'Package price should be greater than zero';
             $data['status'] = FALSE;
         }
         
@@ -214,7 +216,33 @@ class Packages_controller extends CI_Controller {
             $row['short_name'] = $packages->short_name;
             $row['descr'] = $packages->descr;
 
-            $row['price'] = $packages->price;
+
+            $pack_price = $packages->price;
+
+            // check if product is discounted
+            $check_discount = $this->pack_discounts->get_by_pack_id($packages->pack_id);
+
+            if ($check_discount == null)
+            {
+                $is_discounted = false;
+                $less_price = 0;
+            }
+            else
+            {
+                $new_price = $check_discount->new_price;
+
+                $is_discounted = true;
+                $less_price = ($pack_price - $new_price);
+
+                $pack_price = $new_price;
+            }
+
+            $row['is_discounted'] = $is_discounted;
+
+            $row['price'] = $pack_price;
+
+            $row['less_price'] = $less_price;
+
 
             $row['sold'] = $packages->sold;
 

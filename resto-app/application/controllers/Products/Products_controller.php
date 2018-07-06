@@ -9,6 +9,8 @@ class Products_controller extends CI_Controller {
         $this->load->model('Products/Products_model','products');
         $this->load->model('Categories/Categories_model','categories');
         $this->load->model('Prod_details/Prod_details_model','prod_details');
+
+        $this->load->model('Prod_discounts/Prod_discounts_model','prod_discounts');
     }
 
     public function index()						
@@ -233,13 +235,39 @@ class Products_controller extends CI_Controller {
             $row['cat_id'] = $products->cat_id;
             $row['cat_name'] = $this->categories->get_category_name($products->cat_id); // get name instead of id
 
-            $row['price'] = $products->price;
+
+            $prod_price = $products->price;
+
+            // check if product is discounted
+            $check_discount = $this->prod_discounts->get_by_prod_id($products->prod_id);
+
+            if ($check_discount == null)
+            {
+                $is_discounted = false;
+                $less_price = 0;
+            }
+            else
+            {
+                $new_price = $check_discount->new_price;
+
+                $is_discounted = true;
+                $less_price = ($prod_price - $new_price);
+
+                $prod_price = $new_price;
+            }
+
+            $row['is_discounted'] = $is_discounted;
+
+            $row['price'] = $prod_price;
+
+            $row['less_price'] = $less_price;            
+
 
             $row['sold'] = $products->sold;
 
             $row['encoded'] = $products->encoded;
 
-            $row['img'] = $products->img;            
+            $row['img'] = $products->img;
 
             // get number of rows found / check if it has details data
             $row['item_count'] = $this->prod_details->check_if_found($products->prod_id)->num_rows();

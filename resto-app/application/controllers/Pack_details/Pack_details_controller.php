@@ -114,12 +114,28 @@ class Pack_details_controller extends CI_Controller {
 
     public function do_upload() 
     {
+        $pack_id = $this->input->post('pack_id');
+
+        $version = 0;
+
+        try
+        {
+            $img_name = $this->packages->get_package_img($pack_id);
+
+            $version = explode("_", $img_name)[1]; // get index 1 of the exploded img_name to increment
+        }
+        catch (Exception $e) {
+            // json_encode 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+
+        $new_version = ($version + 1);
+
          $config['upload_path']   = 'uploads/packages'; 
          $config['allowed_types'] = 'jpg|jpeg'; 
          $config['max_size']      = 2000; 
          $config['max_width']     = 5000; 
          $config['max_height']    = 5000;
-         $new_name = $this->input->post('pack_id') . '.jpg';
+         $new_name = $pack_id . '_' . $new_version . '_.jpg';
          $config['file_name'] = $new_name;
          $config['overwrite'] = TRUE;
 
@@ -138,8 +154,8 @@ class Pack_details_controller extends CI_Controller {
             $data = array(
                 'img' => $new_name
             );
-            $this->packages->update(array('pack_id' => $this->input->post('pack_id')), $data);
-            redirect('/pack-details-page/' . $this->input->post('pack_id'));
+            $this->packages->update(array('pack_id' => $pack_id), $data);
+            redirect('/pack-details-page/' . $pack_id);
          } 
     }
 

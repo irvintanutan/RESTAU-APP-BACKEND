@@ -24,6 +24,9 @@ class Transactions_controller extends CI_Controller {
 
         $this->load->model('Users/Users_model','users');
         $this->load->model('Store_config/Store_config_model','store');
+
+        $this->load->model('Pack_discounts/Pack_discounts_model','pack_discounts');
+        $this->load->model('Prod_discounts/Prod_discounts_model','prod_discounts');
     }
 
     public function index() // index of ongoing transactions
@@ -355,6 +358,18 @@ class Transactions_controller extends CI_Controller {
                 $prod_price = $this->products->get_product_price($prod_id);
                 $prod_qty = $products['qty'];
 
+                // check if product is discounted
+                $check_discount = $this->prod_discounts->get_by_prod_id($prod_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $prod_price = $new_price;
+
+                    $prod_name = $prod_name . "*"; // discounted product indicator
+                }
+
                 $prod_total = ($prod_price * $prod_qty);
 
                 // insert new product to trans_details ---------------------------------------------
@@ -384,6 +399,18 @@ class Transactions_controller extends CI_Controller {
                 $pack_name = $this->packages->get_package_short_name($pack_id);
                 $pack_price = $this->packages->get_package_price($pack_id);
                 $pack_qty = $packages['qty'];
+
+                // check if product is discounted
+                $check_discount = $this->pack_discounts->get_by_pack_id($pack_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $pack_price = $new_price;
+
+                    $pack_name = $pack_name . "*"; // discounted product indicator
+                }
 
                 $pack_total = ($pack_price * $pack_qty);
 

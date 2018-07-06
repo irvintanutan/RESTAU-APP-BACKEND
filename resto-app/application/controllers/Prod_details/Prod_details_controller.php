@@ -114,12 +114,28 @@ class Prod_details_controller extends CI_Controller {
 
     public function do_upload() 
     {
+        $prod_id = $this->input->post('prod_id');
+
+        $version = 0;
+
+        try
+        {
+            $img_name = $this->products->get_product_img($prod_id);
+
+            $version = explode("_", $img_name)[1]; // get index 1 of the exploded img_name to increment
+        }
+        catch (Exception $e) {
+            // json_encode 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+
+        $new_version = ($version + 1);
+
          $config['upload_path']   = 'uploads/products'; 
          $config['allowed_types'] = 'jpg|jpeg'; 
          $config['max_size']      = 2000; 
          $config['max_width']     = 5000; 
          $config['max_height']    = 5000;
-         $new_name = $this->input->post('prod_id') . '.jpg';
+         $new_name = $prod_id . '_' . $new_version . '_.jpg';
          $config['file_name'] = $new_name;
          $config['overwrite'] = TRUE;
 
@@ -138,8 +154,8 @@ class Prod_details_controller extends CI_Controller {
             $data = array(
                 'img' => $new_name
             );
-            $this->products->update(array('prod_id' => $this->input->post('prod_id')), $data);
-            redirect('/prod-details-page/' . $this->input->post('prod_id'));
+            $this->products->update(array('prod_id' => $prod_id), $data);
+            redirect('/prod-details-page/' . $prod_id);
          } 
     }
 

@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Prod_discounts_model extends CI_Model {
+class Pack_discounts_model extends CI_Model {
  
-    var $table = 'prod_discounts';
+    var $table = 'pack_discounts';
 
-    var $column_order = array('pd_id','prod_id',null,'remarks','date_start','date_end','status','new_price',null,null,'encoded'); //set column field database for datatable orderable
-    var $column_search = array('pd_id','prod_id','remarks','date_start','date_end','status','new_price','encoded'); //set column field database for datatable searchable
+    var $column_order = array('pd_id','pack_id',null,'remarks','date_start','date_end','status','new_price',null,null,'encoded'); //set column field database for datatable orderable
+    var $column_search = array('pd_id','pack_id','remarks','date_start','date_end','status','new_price','encoded'); //set column field database for datatable searchable
 
     var $order = array('pd_id' => 'desc'); // default order 
  
@@ -79,10 +79,10 @@ class Prod_discounts_model extends CI_Model {
     }
 
     // check for duplicates in the database table for validation
-    function get_duplicates($prod_id)
+    function get_duplicates($pack_id)
     {      
         $this->db->from($this->table);
-        $this->db->where('prod_id',$prod_id);
+        $this->db->where('pack_id',$pack_id);
 
         $query = $this->db->get();
 
@@ -90,7 +90,7 @@ class Prod_discounts_model extends CI_Model {
     }
 
     // get both id and names
-    function get_prod_discounts()
+    function get_pack_discounts()
     {
         $this->db->from($this->table);
 
@@ -101,11 +101,11 @@ class Prod_discounts_model extends CI_Model {
         return $query->result();
     }
 
-    function get_prod_discount_id($prod_id)
+    function get_pack_discount_id($pack_id)
     {
         $this->db->select('pd_id');
         $this->db->from($this->table);
-        $this->db->where('prod_id',$prod_id);
+        $this->db->where('pack_id',$pack_id);
 
         $query = $this->db->get();
 
@@ -114,9 +114,9 @@ class Prod_discounts_model extends CI_Model {
         return $row->pd_id;
     }
 
-    function get_prod_discount_name($pd_id)
+    function get_pack_discount_name($pd_id)
     {
-        $this->db->select('prod_id');
+        $this->db->select('pack_id');
         $this->db->from($this->table);
         $this->db->where('pd_id',$pd_id);
         
@@ -124,7 +124,7 @@ class Prod_discounts_model extends CI_Model {
 
         $row = $query->row();
 
-        return $row->prod_id;
+        return $row->pack_id;
     }
  
     function count_filtered()
@@ -155,14 +155,14 @@ class Prod_discounts_model extends CI_Model {
         return $query->row();
     }
 
-    public function get_by_prod_id($prod_id)
+    public function get_by_pack_id($pack_id)
     {
         $result = null;
 
         try {
 
             $this->db->from($this->table);
-            $this->db->where('prod_id',$prod_id);
+            $this->db->where('pack_id',$pack_id);
 
             $this->db->where('status', 'ACTIVE');
             $query = $this->db->get();

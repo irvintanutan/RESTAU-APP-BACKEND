@@ -37,17 +37,8 @@ class Items_controller extends CI_Controller {
             $row[] = 'I' . $items->item_id;
             $row[] = $items->name;
             $row[] = $items->descr;
-
-            if ($items->type == 0)
-            {
-                $item_type = 'Non Perishable';
-            }
-            else
-            {
-                $item_type = 'Perishable';
-            }
             
-            $row[] = $item_type;
+            $row[] = $items->type;
 
             $row[] = $items->encoded;
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2018 at 08:40 PM
+-- Generation Time: Jul 06, 2018 at 08:41 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -77,7 +77,7 @@ CREATE TABLE `items` (
   `item_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `descr` varchar(200) NOT NULL,
-  `type` int(1) NOT NULL,
+  `type` varchar(20) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -87,19 +87,21 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`item_id`, `name`, `descr`, `type`, `encoded`, `removed`) VALUES
-(1, 'Coca Cola', 'Softdrink', 0, '2018-05-25 16:05:26', 0),
-(2, 'French Fries', 'Potato French Fries', 1, '2018-05-29 13:43:45', 0),
-(3, 'Burger Patty', 'Beef burger patty', 1, '2018-05-29 13:44:08', 0),
-(4, 'Burger Bun', 'Bread burger bun', 1, '2018-05-29 13:44:29', 0),
-(5, 'Sprite', 'Transparent soda', 0, '2018-05-29 13:45:22', 0),
-(6, 'Lettuce', 'Lettuce leaves', 1, '2018-05-29 13:45:55', 0),
-(7, 'Cheese slice', 'Yellow cheese slice', 1, '2018-05-29 13:46:20', 0),
-(8, 'Tomato', 'Sliced tomato', 1, '2018-05-29 13:46:51', 0),
-(9, 'Cheese Powder', 'Fries cheese flavoring', 0, '2018-05-29 13:47:31', 0),
-(10, 'Barbecue Powder', 'Burger bbq flavoring', 0, '2018-05-29 13:48:11', 0),
-(11, 'Iced Tea Powder', 'Nestea iced tea powder', 0, '2018-05-29 13:49:47', 0),
-(12, 'Cup of Rice', 'Tonner banay banay not NFA', 1, '2018-05-29 16:44:36', 0),
-(13, 'Fried Chicken Cuts', 'Can be thigh, wings, drumsticks, breasts', 1, '2018-05-29 16:46:28', 0);
+(1, 'Coca Cola', 'Softdrink', 'NON-PERISHABLE', '2018-05-25 16:05:26', 0),
+(2, 'French Fries', 'Potato French Fries', 'PERISHABLE', '2018-05-29 13:43:45', 0),
+(3, 'Burger Patty', 'Beef burger patty', 'PERISHABLE', '2018-05-29 13:44:08', 0),
+(4, 'Burger Bun', 'Bread burger bun', 'PERISHABLE', '2018-05-29 13:44:29', 0),
+(5, 'Sprite', 'Transparent soda', 'NON-PERISHABLE', '2018-05-29 13:45:22', 0),
+(6, 'Lettuce', 'Lettuce leaves', 'PERISHABLE', '2018-05-29 13:45:55', 0),
+(7, 'Cheese slice', 'Yellow cheese slice', 'PERISHABLE', '2018-05-29 13:46:20', 0),
+(8, 'Tomato', 'Sliced tomato', 'PERISHABLE', '2018-05-29 13:46:51', 0),
+(9, 'Cheese Powder', 'Fries cheese flavoring', 'NON-PERISHABLE', '2018-05-29 13:47:31', 0),
+(10, 'Barbecue Powder', 'Burger bbq flavoring', 'NON-PERISHABLE', '2018-05-29 13:48:11', 0),
+(11, 'Iced Tea Powder', 'Nestea iced tea powder', 'NON-PERISHABLE', '2018-05-29 13:49:47', 0),
+(12, 'Cup of Rice', 'Tonner banay banay not NFA', 'PERISHABLE', '2018-05-29 16:44:36', 0),
+(13, 'Fried Chicken Cuts', 'Can be thigh, wings, drumsticks, breasts', 'PERISHABLE', '2018-05-29 16:46:28', 0),
+(14, 'Square Tables', 'Tables for customer use', 'EQUIPMENT', '2018-07-06 11:04:52', 0),
+(15, 'Chairs', 'Chairs for customer use', 'EQUIPMENT', '2018-07-06 11:05:13', 0);
 
 -- --------------------------------------------------------
 
@@ -788,7 +790,38 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000665, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:48:19'),
 (1000666, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:49:14'),
 (1000667, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:49:30'),
-(1000668, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:49:46');
+(1000668, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-05 19:49:46'),
+(1000669, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-06 09:26:34'),
+(1000670, 'TORRES, JIK', 'Add', 'New%20item%20added:%20Square%20Tables', '2018-07-06 11:04:52'),
+(1000671, 'TORRES, JIK', 'Add', 'New%20item%20added:%20Chairs', '2018-07-06 11:05:13'),
+(1000672, 'TORRES, JIK', 'Update', 'Item%20updated%20I13:%20Fried%20Chicken%20Cuts%20to%20Fried%20Chicken%20Cuts', '2018-07-06 11:06:32'),
+(1000673, 'TORRES, JIK', 'Update', 'Item%20updated%20I12:%20Cup%20of%20Rice%20to%20Cup%20of%20Rice', '2018-07-06 11:06:40'),
+(1000674, 'TORRES, JIK', 'Update', 'Item%20updated%20I11:%20Iced%20Tea%20Powder%20to%20Iced%20Tea%20Powder', '2018-07-06 11:06:44'),
+(1000675, 'TORRES, JIK', 'Update', 'Item%20updated%20I11:%20Iced%20Tea%20Powder%20to%20Iced%20Tea%20Powder', '2018-07-06 11:06:56'),
+(1000676, 'TORRES, JIK', 'Update', 'Item%20updated%20I10:%20Barbecue%20Powder%20to%20Barbecue%20Powder', '2018-07-06 11:07:06'),
+(1000677, 'TORRES, JIK', 'Update', 'Item%20updated%20I9:%20Cheese%20Powder%20to%20Cheese%20Powder', '2018-07-06 11:07:10'),
+(1000678, 'TORRES, JIK', 'Update', 'Item%20updated%20I8:%20Tomato%20to%20Tomato', '2018-07-06 11:07:16'),
+(1000679, 'TORRES, JIK', 'Update', 'Item%20updated%20I7:%20Cheese%20slice%20to%20Cheese%20slice', '2018-07-06 11:07:24'),
+(1000680, 'TORRES, JIK', 'Update', 'Item%20updated%20I6:%20Lettuce%20to%20Lettuce', '2018-07-06 11:07:36'),
+(1000681, 'TORRES, JIK', 'Update', 'Item%20updated%20I5:%20Sprite%20to%20Sprite', '2018-07-06 11:09:28'),
+(1000682, 'TORRES, JIK', 'Update', 'Item%20updated%20I4:%20Burger%20Bun%20to%20Burger%20Bun', '2018-07-06 11:09:33'),
+(1000683, 'TORRES, JIK', 'Update', 'Item%20updated%20I3:%20Burger%20Patty%20to%20Burger%20Patty', '2018-07-06 11:09:38'),
+(1000684, 'TORRES, JIK', 'Update', 'Item%20updated%20I2:%20French%20Fries%20to%20French%20Fries', '2018-07-06 11:09:43'),
+(1000685, 'TORRES, JIK', 'Update', 'Item%20updated%20I1:%20Coca%20Cola%20to%20Coca%20Cola', '2018-07-06 11:09:47'),
+(1000686, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-06 14:10:32'),
+(1000687, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-06 17:34:58'),
+(1000688, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-06 17:42:11'),
+(1000689, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-06 17:42:18'),
+(1000690, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 17:43:20'),
+(1000691, 'TORRES, JIK', 'Add', 'New%20package%20discount%20added:%20Gundefined', '2018-07-06 18:24:59'),
+(1000692, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 19:43:34'),
+(1000693, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 19:44:19'),
+(1000694, 'TORRES, JIK', 'Update', 'Package%20discount%20updated%20Gundefined', '2018-07-06 19:45:38'),
+(1000695, 'TORRES, JIK', 'Update', 'Package%20discount%20updated%20Gundefined', '2018-07-06 19:46:38'),
+(1000696, 'TORRES, JIK', 'Update', 'Package%20discount%20updated%20Gundefined', '2018-07-06 19:46:53'),
+(1000697, 'TORRES, JIK', 'Update', 'Package%20discount%20updated%20Gundefined', '2018-07-06 19:47:05'),
+(1000698, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 20:06:56'),
+(1000699, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 20:07:17');
 
 -- --------------------------------------------------------
 
@@ -813,10 +846,10 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`pack_id`, `name`, `short_name`, `descr`, `price`, `img`, `sold`, `encoded`, `removed`) VALUES
-(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1.jpg', 40, '2018-05-25 01:21:37', 0),
-(2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2.jpg', 0, '2018-05-29 13:17:08', 0),
-(3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3.jpg', 7, '2018-05-29 15:18:31', 0),
-(4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4.jpg', 0, '2018-07-04 16:18:35', 0);
+(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 40, '2018-05-25 01:21:37', 0),
+(2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2_1_.jpg', 0, '2018-05-29 13:17:08', 0),
+(3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3_1_.jpg', 7, '2018-05-29 15:18:31', 0),
+(4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4_1_.jpg', 0, '2018-07-04 16:18:35', 0);
 
 -- --------------------------------------------------------
 
@@ -848,6 +881,32 @@ INSERT INTO `pack_details` (`pack_id`, `prod_id`, `qty`, `encoded`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pack_discounts`
+--
+
+CREATE TABLE `pack_discounts` (
+  `pd_id` int(11) NOT NULL,
+  `pack_id` int(11) NOT NULL,
+  `remarks` varchar(200) NOT NULL,
+  `date_start` varchar(20) NOT NULL,
+  `date_end` varchar(20) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `new_price` decimal(10,2) NOT NULL,
+  `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `removed` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pack_discounts`
+--
+
+INSERT INTO `pack_discounts` (`pd_id`, `pack_id`, `remarks`, `date_start`, `date_end`, `status`, `new_price`, `encoded`, `removed`) VALUES
+(1, 4, 'Discount promo test 1', '2018-07-05', '2018-07-05', 'ACTIVE', '1100.00', '2018-07-05 19:40:32', 0),
+(2, 1, '', '2018-07-06', '2018-07-06', 'ACTIVE', '450.00', '2018-07-06 18:24:59', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -870,19 +929,19 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1.jpg', 43, 0, '2018-05-24 18:22:34', 0),
-(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2.jpg', 15, 40, '2018-05-28 14:37:40', 0),
-(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3.jpg', 85, 0, '2018-05-29 13:51:47', 0),
-(4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4.jpg', 2, 0, '2018-05-29 13:55:32', 0),
-(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5.jpg', 3, 0, '2018-05-29 13:56:42', 0),
-(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6.jpg', 4, 0, '2018-05-29 13:57:27', 0),
-(7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7.jpg', 3, 14, '2018-05-29 13:58:22', 0),
-(8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8.jpg', 1, 0, '2018-05-29 14:56:29', 0),
-(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9.jpg', 3, 54, '2018-05-29 14:58:13', 0),
-(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10.jpg', 2, 160, '2018-05-29 14:59:21', 0),
+(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 43, 0, '2018-05-24 18:22:34', 0),
+(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 15, 40, '2018-05-28 14:37:40', 0),
+(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 85, 0, '2018-05-29 13:51:47', 0),
+(4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4_1_.jpg', 2, 0, '2018-05-29 13:55:32', 0),
+(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 3, 0, '2018-05-29 13:56:42', 0),
+(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 4, 0, '2018-05-29 13:57:27', 0),
+(7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 3, 14, '2018-05-29 13:58:22', 0),
+(8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8_1_.jpg', 1, 0, '2018-05-29 14:56:29', 0),
+(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 3, 54, '2018-05-29 14:58:13', 0),
+(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 2, 160, '2018-05-29 14:59:21', 0),
 (11, 'test insert 1', '', 'test insert 1 descr', 2, '1000.00', '', 0, 0, '2018-05-31 14:33:22', 1),
 (12, 'test insert 2', '', 'test insert 2 descr', 2, '2000.00', '', 0, 0, '2018-05-31 14:33:23', 1),
-(13, 'Plain Rice', 'PlainRice', '1 cup plain rice banay-banay', 4, '20.00', '13.jpg', 0, 0, '2018-07-04 15:30:44', 0);
+(13, 'Plain Rice', 'PlainRice', '1 cup plain rice banay-banay', 4, '20.00', '13_1_.jpg', 0, 0, '2018-07-04 15:30:44', 0);
 
 -- --------------------------------------------------------
 
@@ -952,7 +1011,7 @@ CREATE TABLE `prod_discounts` (
 --
 
 INSERT INTO `prod_discounts` (`pd_id`, `prod_id`, `remarks`, `date_start`, `date_end`, `status`, `new_price`, `encoded`, `removed`) VALUES
-(1, 6, 'Discount promo test 1', '2018-07-05', '2018-07-05', 'INACTIVE', '70.00', '2018-07-05 19:40:32', 0);
+(1, 6, 'Discount promo test 1', '2018-07-05', '2018-07-05', 'ACTIVE', '70.00', '2018-07-05 19:40:32', 0);
 
 -- --------------------------------------------------------
 
@@ -976,7 +1035,7 @@ CREATE TABLE `store_config` (
 --
 
 INSERT INTO `store_config` (`conf_id`, `name`, `address`, `city`, `tin`, `vat`, `bs_price`, `img`) VALUES
-(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', 'TIN:008-351-499-012', 0, '45.00', 'complogo_3_.png');
+(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png');
 
 -- --------------------------------------------------------
 
@@ -1751,6 +1810,12 @@ ALTER TABLE `packages`
   ADD PRIMARY KEY (`pack_id`);
 
 --
+-- Indexes for table `pack_discounts`
+--
+ALTER TABLE `pack_discounts`
+  ADD PRIMARY KEY (`pd_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -1810,17 +1875,22 @@ ALTER TABLE `discounts`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000669;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000700;
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
   MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `pack_discounts`
+--
+ALTER TABLE `pack_discounts`
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `products`
 --

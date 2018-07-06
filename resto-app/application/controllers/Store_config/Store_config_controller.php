@@ -35,10 +35,17 @@ class Store_config_controller extends CI_Controller {
 
     public function do_upload() 
     {
+        $version = 0;
 
-        $img_name = $this->store->get_store_config_img(1);
+        try
+        {
+            $img_name = $this->store->get_store_config_img(1);
 
-        $version = explode("_", $img_name)[1];
+            $version = explode("_", $img_name)[1]; // get index 1 of the exploded img_name to increment
+        }
+        catch (Exception $e) {
+            // json_encode 'Caught exception: ',  $e->getMessage(), "\n";
+        }
 
         $new_version = ($version + 1);
 

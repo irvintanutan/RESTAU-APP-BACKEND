@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
+
 class Trans_details_controller extends CI_Controller {
 
     public function __construct()
@@ -19,6 +24,10 @@ class Trans_details_controller extends CI_Controller {
         $this->load->model('Users/Users_model','users');
 
         $this->load->model('Discounts/Discounts_model','discounts');
+        $this->load->model('Store_config/Store_config_model','store');
+
+        $this->load->model('Pack_discounts/Pack_discounts_model','pack_discounts');
+        $this->load->model('Prod_discounts/Prod_discounts_model','prod_discounts');
     }
 
     public function index($trans_id)						
@@ -60,7 +69,11 @@ class Trans_details_controller extends CI_Controller {
         }
 
         $discounts_data = $this->discounts->get_discounts();
+
+        $managers_password = $this->store->get_store_config_password(1); // get manager's password
         
+        $data['managers_password'] = $managers_password;
+
         $data['discounts'] = $discounts_data;
         
         $data['transaction'] = $transactions_data;
@@ -82,32 +95,63 @@ class Trans_details_controller extends CI_Controller {
         $no = $_POST['start'];
 
         $item_count = 0; // initialize number of items counter
+        $transactions_data = $this->transactions->get_by_id($trans_id);
+
+        $status = $transactions_data->status;
 
         foreach ($list as $trans_details) {
             $no++;
             $row = array();
 
-            if ($trans_details->prod_type == 1) // if prod_type is package
+            if ($status == 'ONGOING')
             {
-                $item_id = 'G' . $trans_details->pack_id;
-                $item_name = $this->packages->get_package_name($trans_details->pack_id);
+                if ($trans_details->prod_type == 1) // if prod_type is package
+                {
+                    $item_id = 'G' . $trans_details->pack_id;
+                    $item_name = $this->packages->get_package_name($trans_details->pack_id);
 
-                $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')"><i class="fa fa-trash"></i></a>';
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')"><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 0) // if prod_type is individual product
+                {
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')"><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 2) // if prod_type is package product
+                {   
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }    
             }
-            else if ($trans_details->prod_type == 0) // if prod_type is individual product
+            else
             {
-                $item_id = 'P' . $trans_details->prod_id;
-                $item_name = $this->products->get_product_name($trans_details->prod_id);
+                if ($trans_details->prod_type == 1) // if prod_type is package
+                {
+                    $item_id = 'G' . $trans_details->pack_id;
+                    $item_name = $this->packages->get_package_name($trans_details->pack_id);
 
-                $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')"><i class="fa fa-trash"></i></a>';
-            }
-            else if ($trans_details->prod_type == 2) // if prod_type is package product
-            {   
-                $item_id = 'P' . $trans_details->prod_id;
-                $item_name = $this->products->get_product_name($trans_details->prod_id);
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 0) // if prod_type is individual product
+                {
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
 
-                $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 2) // if prod_type is package product
+                {   
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }
             }
+            
 
             $row[] = $item_id;
             $row[] = $item_name;
@@ -214,6 +258,8 @@ class Trans_details_controller extends CI_Controller {
                 $this->products->update_sold_pack_prod($items->prod_id, $qty);
             }
         }
+
+        $this->set_payment_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
 
         echo json_encode(array("status" => TRUE));
     }
@@ -487,4 +533,454 @@ class Trans_details_controller extends CI_Controller {
 
 
     // ================================================ API POST REQUEST METHOD ============================================
+
+
+    // ================================================ PRINT RECEIPT SECTION ==============================================
+
+
+    public function set_transaction_receipt($trans_id, $print_type) // setting transaction receipt via trans_id (can be used to print bill out or final receipts)
+    {
+        $transactions_data = $this->transactions->get_by_id($trans_id);
+
+        $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+        $order_type = $transactions_data->order_type;
+
+        $user_id = $transactions_data->user_id;
+        $staff_username = $this->users->get_username($user_id);
+
+        $cashier_id = $transactions_data->cashier_id;
+
+        if ($cashier_id != 0)
+        {
+            $cashier_username = $this->users->get_username($cashier_id);    
+        }
+        else
+        {
+            $cashier_username = 'n/a';   
+        }
+        
+
+        $discount = $transactions_data->discount;
+        $disc_type = $transactions_data->disc_type;
+
+        if ($disc_type != 0)
+        {
+            $disc_type_name = $this->discounts->get_discount_name($disc_type);
+        }
+        else
+        {
+            $disc_type_name = 'n/a';   
+        }
+
+        $net_total = $gross_total - $discount;
+
+        $cash_amt = $transactions_data->cash_amt;
+        $change_amt = $transactions_data->change_amt;
+
+        // ------------------------------------------- Products/Package ---------------------------------
+
+        $trans_details_items = $this->trans_details->get_trans_detail_items($trans_id); // get all trans_details items (products, packages, package products)
+
+        $line_items = array();
+
+        foreach ($trans_details_items as $items) // get each line item details to print
+        {
+            if ($items->prod_type == 0) // if prod_type is individual product
+            {
+                $prod_id = $items->prod_id;
+                $prod_name = $this->products->get_product_short_name($prod_id);
+                $prod_price = $this->products->get_product_price($prod_id);
+                $prod_qty = $items->qty;
+
+                // check if product is discounted
+                $check_discount = $this->prod_discounts->get_by_prod_id($prod_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $prod_price = $new_price;
+
+                    $prod_name = $prod_name . "*"; // discounted product indicator
+                }
+
+                $prod_total = ($prod_price * $prod_qty);
+
+                // add line item to line_items array
+                $line_items[] = new item($prod_qty . " " . $prod_name . " @" . $prod_price, number_format($prod_total, 2));
+            }
+            else if ($items->prod_type == 1) // if prod_type is package
+            {
+                $pack_id = $items->pack_id;
+                $pack_name = $this->packages->get_package_short_name($pack_id);
+                $pack_price = $this->packages->get_package_price($pack_id);
+                $pack_qty = $items->qty;
+
+                // check if product is discounted
+                $check_discount = $this->pack_discounts->get_by_pack_id($pack_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $pack_price = $new_price;
+
+                    $pack_name = $pack_name . "*"; // discounted product indicator
+                }
+
+                $pack_total = ($pack_price * $pack_qty);
+
+                // add line item to line_items array
+                $line_items[] = new item($pack_qty . " " . $pack_name . " @" . $pack_price, number_format($pack_total, 2));
+            }
+            else if ($items->prod_type == 2) // if prod_type is package product
+            {
+                $pack_prod_id = $items->prod_id;
+                $pack_prod_name = $this->products->get_product_short_name($pack_prod_id);
+                $pack_prod_qty = $items->qty;
+
+                // add line item to line_items array
+                $line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
+            }
+        }
+
+        // ------------------------------------------- Tables ---------------------------------
+
+        $tables = $this->table_groups->get_table_group_tables($trans_id);
+        $line_tables = array();
+
+        if ($tables->num_rows() != 0)
+        {
+            foreach ($tables->result() as $tables_list) 
+            {
+                $tbl_id = $tables_list->tbl_id;
+
+                if ($tbl_id == 0)
+                {
+                    $tbl_name = 'No Table';
+                }
+                else
+                {
+                    $tbl_name = $this->tables->get_table_name($tbl_id);
+                }
+
+                $line_tables[] = $tbl_name;
+            }
+        }
+        
+        if (sizeof($line_tables) != 0)
+        {
+            $table_str = implode(', ', $line_tables);
+        }
+        else
+        {
+            $table_str = 'n/a';
+        }
+
+        // printing receipts
+        if ($print_type == "payment")
+        {
+            $this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt);
+        }
+        else // billout recipts
+        {
+            $this->print_bill_out_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $discount, $disc_type_name);
+        }
+        
+    }
+
+
+
+    // ================================================ RECEIPT FORMATTING SECTION ============================================================
+
+
+    public function print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt)
+    {
+        /* Open the printer; this will change depending on how it is connected */
+        $connector = new FilePrintConnector("/dev/usb/lp0");
+        $printer = new Printer($connector);
+
+        // $logo = EscposImage::load("cafe.png", false);
+
+
+        // fetch config data
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+
+
+        /* Information for the receipt */
+        $store_name = wordwrap($store->name, 15, "\n");
+        $address = wordwrap($store->address, 25, "\n");
+        $city = $store->city;
+        $tin = wordwrap($store->tin, 25, "\n");
+        $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
+        $vat = ($store->vat / 100);
+
+        $items = $line_items;
+        
+        $total_sales = ($gross_total / (1 + $vat));
+
+        $vat_amount = ($gross_total - $total_sales);
+
+        $amount_due = ($gross_total - $discount);
+
+
+        // string variables
+        $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
+        $vat_str = new item('Vat', number_format($vat_amount, 2));
+
+        $discount_str = new item('Less: ' . $disc_type_name, "-" . number_format($discount, 2));
+
+        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));
+        $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
+        $change_amt_str = new item('CHANGE           Php', number_format($change_amt, 2));
+
+        
+
+        /* Start the printer */
+        $printer = new Printer($connector);
+
+        /* Print top logo */
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        // $printer -> graphics($logo);
+
+        /* Name of shop */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($store_name . "\n");
+        $printer -> selectPrintMode();
+        $printer -> text($address . "\n");
+        $printer -> text($city . "\n");
+        $printer -> text($tin . "\n");
+
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+        $printer -> text($table_str . "\n");
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+
+        /* Title of receipt */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($order_type . "\n");
+        $printer -> selectPrintMode();
+
+        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer -> text(new item('Transaction#: ' . $trans_id, ''));
+        $printer -> text(new item('Staff: ' . $staff_username, ''));
+        $printer -> text(new item('Cashier: ' . $cashier_username, ''));
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        /* Items */
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', 'Php'));
+        $printer -> setEmphasis(false);
+        foreach ($items as $item) {
+            $printer -> text($item);
+        }
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        $printer -> setEmphasis(true);
+        $printer -> text($total_sales_str);
+        /* Tax and total */
+        $printer -> text($vat_str);
+
+
+        if ($discount != 0) // print only if there is a discount (not zero)
+        {
+            $printer -> text($discount_str);
+        }
+
+        $printer -> setEmphasis(false);
+
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', '=========='));
+        
+        $printer -> text($amount_due_str);
+
+        // ------------------------------------------ PAYMENT RECEIPT PRINTS --------------------------------------------------
+
+        $printer -> text($cash_amt_str);
+        $printer -> text($change_amt_str);        
+
+        $printer -> setEmphasis(false);
+        
+        // --------------------------------------------------------------------------------------------------------------------
+
+        /* Footer */
+        $printer -> feed();
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $printer -> text($date . "\n");
+
+        $printer -> feed();
+        $printer -> text("Innotech Solutions\n");
+        $printer -> text("Thank You Come Again\n");
+        $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
+        
+        /* Cut the receipt and open the cash drawer */
+        $printer -> cut();
+        $printer -> pulse();
+
+        $printer -> close();
+
+        
+    }
+
+    public function print_bill_out_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $discount, $disc_type_name)
+    {
+        /* Open the printer; this will change depending on how it is connected */
+        $connector = new FilePrintConnector("/dev/usb/lp0");
+        $printer = new Printer($connector);
+
+        // $logo = EscposImage::load("cafe.png", false);
+
+
+        // fetch config data
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+
+
+        /* Information for the receipt */
+        $store_name = wordwrap("BILL OUT", 15, "\n");
+        // $address = wordwrap($store->address, 25, "\n");
+        // $city = $store->city;
+        // $tin = wordwrap($store->tin, 25, "\n");
+        $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
+        $vat = ($store->vat / 100);
+
+        $items = $line_items;
+        
+        $total_sales = ($gross_total / (1 + $vat));
+
+        $vat_amount = ($gross_total - $total_sales);
+
+        $amount_due = ($gross_total - $discount);
+
+
+        // string variables
+        $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
+        $vat_str = new item('Vat', number_format($vat_amount, 2));
+
+        $discount_str = new item('Less: ' . $disc_type_name, "-" . number_format($discount, 2));
+
+        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));
+        // $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
+        // $change_amt_str = new item('CHANGE           Php', number_format($change_amt, 2));
+
+        
+
+        /* Start the printer */
+        $printer = new Printer($connector);
+
+        /* Print top logo */
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        // $printer -> graphics($logo);
+
+        /* Name of shop */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($store_name . "\n");
+        $printer -> selectPrintMode();
+        // $printer -> text($address . "\n");
+        // $printer -> text($city . "\n");
+        // $printer -> text($tin . "\n");
+
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+        $printer -> text($table_str . "\n");
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+
+        /* Title of receipt */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($order_type . "\n");
+        $printer -> selectPrintMode();
+
+        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer -> text(new item('Transaction#: ' . $trans_id, ''));
+        $printer -> text(new item('Staff: ' . $staff_username, ''));
+        // $printer -> text(new item('Cashier: ' . $cashier_username, ''));
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        /* Items */
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', 'Php'));
+        $printer -> setEmphasis(false);
+        foreach ($items as $item) {
+            $printer -> text($item);
+        }
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        $printer -> setEmphasis(true);
+        $printer -> text($total_sales_str);
+        /* Tax and total */
+        $printer -> text($vat_str);
+
+
+        if ($discount != 0) // print only if there is a discount (not zero)
+        {
+            $printer -> text($discount_str);
+        }
+
+        $printer -> setEmphasis(false);
+
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', '=========='));
+        
+        $printer -> text($amount_due_str);
+
+        // ------------------------------------------ PAYMENT RECEIPT PRINTS --------------------------------------------------
+
+        // $printer -> text($cash_amt_str);
+        // $printer -> text($change_amt_str);        
+
+        $printer -> setEmphasis(false);
+        
+        // --------------------------------------------------------------------------------------------------------------------
+
+        /* Footer */
+        $printer -> feed();
+        // $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        // $printer -> text($date . "\n");
+
+        // $printer -> feed();
+        // $printer -> text("Innotech Solutions\n");
+        // $printer -> text("Thank You Come Again\n");
+        $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
+        
+        /* Cut the receipt and open the cash drawer */
+        $printer -> cut();
+        $printer -> pulse();
+
+        $printer -> close();
+
+        
+    }
+ }
+
+
+
+ /* A wrapper to do organise item names & prices into columns */
+ class item
+ {
+     private $name;
+     private $price;
+     private $dollarSign;
+
+     public function __construct($name = '', $price = '', $dollarSign = false)
+     {
+         $this -> name = $name;
+         $this -> price = $price;
+         $this -> dollarSign = $dollarSign;
+     }
+
+     public function __toString()
+     {
+         $rightCols = 10;
+         $leftCols = 25;
+         if ($this -> dollarSign) {
+             $leftCols = $leftCols / 2 - $rightCols / 2;
+         }
+         $left = str_pad($this -> name, $leftCols) ;
+
+         $sign = ($this -> dollarSign ? 'Php ' : '');
+         $right = str_pad($sign . $this -> price, $rightCols, ' ', STR_PAD_LEFT);
+         return "$left$right\n";
+     }
  }

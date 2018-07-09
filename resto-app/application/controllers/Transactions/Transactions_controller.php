@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// require __DIR__ . '/vendor/mike42/escpos-php/autoload.php';
 require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\Printer;
@@ -289,23 +288,6 @@ class Transactions_controller extends CI_Controller {
     // // ================================================ API POST REQUEST METHOD ============================================
 
 
-    // public function ajax_input_test($trans_id)
-    // {
-    //     $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
-    //     $request = json_decode($stream_clean);
-    //     // $ready = $request->ready;
-    //     $array = json_decode(json_encode($request), true);
-        
-    //     foreach ($array as $items) {
-    //         $data = array(
-    //             'name' => $items['name'],
-    //         );
-    //     }
-        
-    //     $this->transactions->update(array('trans_id' => $trans_id), $data);
-    //     echo json_encode(array("status" => TRUE));
-    // }
-
     public function ajax_api_add_trans()
     {
         $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
@@ -515,7 +497,7 @@ class Transactions_controller extends CI_Controller {
     }
 
     // public function print_receipt_cook($line_items, $tables, $gross_total, $discount
-    public function print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total)
+    public function print_kitchen_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total)
     {
         /* Open the printer; this will change depending on how it is connected */
         $connector = new FilePrintConnector("/dev/usb/lp0");
@@ -529,13 +511,12 @@ class Transactions_controller extends CI_Controller {
 
 
         /* Information for the receipt */
-        $store_name = wordwrap($store->name, 15, "\n");
-        $address = wordwrap($store->address, 25, "\n");
-        $city = $store->city;
-        $tin = wordwrap($store->tin, 25, "\n");
+        $store_name = wordwrap("KITCHEN", 15, "\n");
+        // $address = wordwrap($store->address, 25, "\n");
+        // $city = $store->city;
+        // $tin = wordwrap($store->tin, 25, "\n");
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $vat = ($store->vat / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
-        $discount = 0;
 
         $items = $line_items;
         
@@ -543,7 +524,7 @@ class Transactions_controller extends CI_Controller {
 
         $vat_amount = ($gross_total - $total_sales);
 
-        $amount_due = ($gross_total - $discount);
+        $amount_due = $gross_total;
 
 
         // string variables
@@ -563,9 +544,9 @@ class Transactions_controller extends CI_Controller {
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
         $printer -> text($store_name . "\n");
         $printer -> selectPrintMode();
-        $printer -> text($address . "\n");
-        $printer -> text($city . "\n");
-        $printer -> text($tin . "\n");
+        // $printer -> text($address . "\n");
+        // $printer -> text($city . "\n");
+        // $printer -> text($tin . "\n");
 
         $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
         $printer -> text($table_str . "\n");
@@ -610,9 +591,10 @@ class Transactions_controller extends CI_Controller {
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
         $printer -> text($date . "\n");
 
-        $printer -> feed();
-        $printer -> text("Innotech Solutions\n");
-        $printer -> text("Thank You Come Again\n");
+        // $printer -> feed();
+        // $printer -> text("Innotech Solutions\n");
+        // $printer -> text("Thank You Come Again\n");
+        $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();

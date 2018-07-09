@@ -11,6 +11,7 @@ class Products_controller extends CI_Controller {
         $this->load->model('Prod_details/Prod_details_model','prod_details');
 
         $this->load->model('Prod_discounts/Prod_discounts_model','prod_discounts');
+        $this->load->model('Store_config/Store_config_model','store');
     }
 
     public function index()						
@@ -222,6 +223,17 @@ class Products_controller extends CI_Controller {
     {
         $list = $this->products->get_api_datatables();
         $data = array();
+
+        $min_price = $this->store->get_store_bs_price(1);
+
+        $best_selling = $this->products->get_best_selling($min_price);
+        $best_selling_array = array();
+
+        foreach ($best_selling as $bp_products) {
+            $best_selling_array[] = $bp_products->prod_id;
+
+            echo json_encode($bp_products->pack_id);
+        }
         
         foreach ($list as $products) {
         
@@ -271,6 +283,17 @@ class Products_controller extends CI_Controller {
 
             // get number of rows found / check if it has details data
             $row['item_count'] = $this->prod_details->check_if_found($products->prod_id)->num_rows();
+
+            if (in_array($products->prod_id, $best_selling_array))
+            {
+                $row['is_best_selling'] = true;
+                $row['rank'] = (array_search($products->prod_id, $best_selling_array) + 1);
+            }
+            else
+            {
+                $row['is_best_selling'] = false;
+                $row['rank'] = 'n/a';
+            }
 
  
             $data[] = $row;

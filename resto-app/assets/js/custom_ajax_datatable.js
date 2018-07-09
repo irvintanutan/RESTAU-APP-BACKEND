@@ -1051,34 +1051,56 @@ function set_discount() // ---> calling for the Add Modal form
 
 function set_cancel(id) // ---> calling for the Add Modal form
 {
-    if(confirm('Are you sure to cancel this transaction?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "../set-cancel/" + id,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
-            {
-                var log_type = 'Delete';
 
-                var details = 'Transaction has been cancelled'; 
+  bootbox.prompt({
+      title: "Enter 'Manager's Password' to proceed",
+      inputType: 'password',
+      callback: function (result) {
 
-                set_system_log_one(log_type, details);
+          var managers_password = $('[name="managers_password"]').val();
 
-                reload_table();
+          if (result == managers_password) 
+          {
+            bootbox.confirm("ARE YOU SURE YOU WANT TO CANCEL THIS TRANSACTION?", function(result){
 
-                // refresh transaction details page
-                window.location.href=$('[name="trans_id"]').val();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
-            }
-        });
- 
-    }
+              if (result == true)
+              {
+                // ajax delete data to database
+                $.ajax({
+                    url : "../set-cancel/" + id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        var log_type = 'Delete';
+
+                        var details = 'Transaction has been cancelled'; 
+
+                        set_system_log_one(log_type, details);
+
+                        reload_table();
+
+                        // refresh transaction details page
+                        window.location.href=$('[name="trans_id"]').val();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert('Error deleting data');
+                    }
+                });
+              }
+
+            });
+          }
+          else if (result != null)
+          {
+            bootbox.alert("INVALID PASSWORD INPUT");
+          }
+      }
+  });
 }
+
+
 
 // ------------------------------------------------- 
 
@@ -1241,6 +1263,37 @@ function confirm_trans()
  
         }
     });
+}
+
+function print_bill_out(id) // ---> calling for the Add Modal form
+{
+    if(confirm('Are you sure to cancel this transaction?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "../set-cancel/" + id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Transaction has been cancelled'; 
+
+                set_system_log_one(log_type, details);
+
+                reload_table();
+
+                // refresh transaction details page
+                window.location.href=$('[name="trans_id"]').val();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
 }
 
 
@@ -1969,6 +2022,7 @@ function edit_store_config(id)
             $('[name="tin"]').val(data.tin);
             $('[name="vat"]').val(data.vat);
             $('[name="bs_price"]').val(data.bs_price);
+            $('[name="password"]').val(data.password);
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Store Config'); // Set title to Bootstrap modal title
@@ -3234,164 +3288,111 @@ function delete_pack_detail(idone, idtwo)
 }
 function delete_trans_detail_prod(idone, idtwo)
 {
-    if(confirm('Are you sure to delete this data?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "../delete-trans-detail-prod/"+idone+"/"+idtwo,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
+
+    bootbox.prompt({
+        title: "Enter 'Manager's Password' to proceed",
+        inputType: 'password',
+        callback: function (result) {
+
+            var managers_password = $('[name="managers_password"]').val();
+
+            if (result == managers_password) 
             {
-                var log_type = 'Delete';
+              bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
 
-                var details = 'Transaction detail product voided T' + idone 
-                + ': P' + idtwo; 
+                if (result == true)
+                {
+                  // ajax delete data to database
+                  $.ajax({
+                      url : "../delete-trans-detail-prod/"+idone+"/"+idtwo,
+                      type: "POST",
+                      dataType: "JSON",
+                      success: function(data)
+                      {
+                          var log_type = 'Delete';
 
-                set_system_log_one(log_type, details);
+                          var details = 'Transaction detail product voided T' + idone 
+                          + ': P' + idtwo; 
 
-                // refresh transaction details page
-                window.location.href=$('[name="trans_id"]').val();
+                          set_system_log_one(log_type, details);
 
-                //if success reload ajax table
-                $('#modal_form').modal('hide');
-                reload_table();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
+                          // refresh transaction details page
+                          window.location.href=$('[name="trans_id"]').val();
+
+                          //if success reload ajax table
+                          $('#modal_form').modal('hide');
+                          reload_table();
+                      },
+                      error: function (jqXHR, textStatus, errorThrown)
+                      {
+                          alert('Error deleting data');
+                      }
+                  });
+                }
+
+              });
             }
-        });
- 
-    }
+            else if (result != null)
+            {
+              bootbox.alert("INVALID PASSWORD INPUT");
+            }
+        }
+    });
 }
 function delete_trans_detail_pack(idone, idtwo)
 {
-    if(confirm('Are you sure to delete this data?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "../delete-trans-detail-pack/"+idone+"/"+idtwo,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
+    bootbox.prompt({
+        title: "Enter 'Manager's Password' to proceed",
+        inputType: 'password',
+        callback: function (result) {
+
+            var managers_password = $('[name="managers_password"]').val();
+
+            if (result == managers_password) 
             {
-                var log_type = 'Delete';
+              bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
 
-                var details = 'Transaction detail package voided T' + idone 
-                + ': G' + idtwo; 
+                if (result == true)
+                {
+                  // ajax delete data to database
+                  $.ajax({
+                      url : "../delete-trans-detail-pack/"+idone+"/"+idtwo,
+                      type: "POST",
+                      dataType: "JSON",
+                      success: function(data)
+                      {
+                          var log_type = 'Delete';
 
-                // refresh transaction details page
-                window.location.href=$('[name="trans_id"]').val();
+                          var details = 'Transaction detail package voided T' + idone 
+                          + ': G' + idtwo; 
 
-                set_system_log_one(log_type, details);
+                          // refresh transaction details page
+                          window.location.href=$('[name="trans_id"]').val();
 
-                //if success reload ajax table
-                $('#modal_form').modal('hide');
-                reload_table();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
+                          set_system_log_one(log_type, details);
+
+                          //if success reload ajax table
+                          $('#modal_form').modal('hide');
+                          reload_table();
+                      },
+                      error: function (jqXHR, textStatus, errorThrown)
+                      {
+                          alert('Error deleting data');
+                      }
+                  });
+                }
+
+              });
             }
-        });
- 
-    }
-}
-
-
-
-
-function delete_atm(id, name)
-{
-    if(confirm('Are you sure to delete this data?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "atm/atm_controller/ajax_delete/"+id,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
+            else if (result != null)
             {
-                var log_type = 'Delete';
-
-                var details = 'ATM Bank deleted A' + id 
-                + ': ' + name; 
-
-                set_system_log(log_type, details);
-
-                //if success reload ajax table
-                $('#modal_form').modal('hide');
-                reload_table();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
+              bootbox.alert("INVALID PASSWORD INPUT");
             }
-        });
- 
-    }
-}
-function delete_loan(id)
-{
-    if(confirm('Are you sure to delete this data?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "../profiles/profiles_controller/ajax_delete/"+id,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
-            {
-                var log_type = 'Delete';
-
-                var details = 'Loan deleted: L' + id + ' from client: ' + $('[name="client_name"]').val();
-
-                set_system_log_one(log_type, details);
-
-                //if success reload ajax table
-                $('#modal_form').modal('hide');
-                reload_table();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
-            } 
-
-        });
- 
-    }
+        }
+    });
 }
 
-function delete_schedule(id)
-{
-    if(confirm('Are you sure to delete this data?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "Schedules/Schedules_controller/ajax_delete/"+id,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
-            {
-                var log_type = 'Delete';
 
-                var details = 'Appointment schedule deleted';
-
-                set_system_log(log_type, details);
-
-                //if success reload ajax table
-                $('#modal_form').modal('hide');
-                reload_table();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
-            }
-        });
- 
-    }
-}
 
 function delete_user(id)
 {

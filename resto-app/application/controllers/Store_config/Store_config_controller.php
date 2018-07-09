@@ -141,7 +141,8 @@ class Store_config_controller extends CI_Controller {
                 'city' => $this->input->post('city'),
                 'tin' => $this->input->post('tin'),
                 'vat' => $this->input->post('vat'),
-                'bs_price' => $this->input->post('bs_price')
+                'bs_price' => $this->input->post('bs_price'),
+                'password' => $this->input->post('password')
             );
         $this->store->update(array('conf_id' => $this->input->post('conf_id')), $data);
         echo json_encode(array("status" => TRUE));
@@ -215,6 +216,13 @@ class Store_config_controller extends CI_Controller {
         {
             $data['inputerror'][] = 'bs_price';
             $data['error_string'][] = 'Best selling min value is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('password') == '')
+        {
+            $data['inputerror'][] = 'password';
+            $data['error_string'][] = 'Manager\'s password is required';
             $data['status'] = FALSE;
         }
 

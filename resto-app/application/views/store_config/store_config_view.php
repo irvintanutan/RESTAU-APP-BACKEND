@@ -82,6 +82,12 @@
                             <label class="control-label col-md-8"><h4><?php echo "<hr>" ?></h4></label>
 
 
+                            <label class="control-label col-md-8">Manager's Password: <h4><?php echo $store->password; ?></h4></label>
+
+
+                            <label class="control-label col-md-8"><h4><?php echo "<hr>" ?></h4></label>
+
+
                             <label class="control-label col-md-3"></label>
 
                             <label class="control-label col-md-3"></label>
@@ -194,6 +200,14 @@
                                         <label class="control-label col-md-3">Best Selling Minimum Price :</label>
                                         <div class="col-md-9">
                                             <input name="bs_price" placeholder="Minimum Price Value" class="form-control" value="40.00" type="number">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Manager's Password :</label>
+                                        <div class="col-md-9">
+                                            <input name="password" placeholder="Manager's Password" class="form-control" type="text">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

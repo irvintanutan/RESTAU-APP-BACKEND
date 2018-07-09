@@ -87,7 +87,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Name :</label>
                                         <div class="col-md-9">
-                                            <input name="name" placeholder="Discount Name" class="form-control" type="text">
+                                            <input name="name" placeholder="Discount Name" class="form-control" type="text" maxlength="14">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

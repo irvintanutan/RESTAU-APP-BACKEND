@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 06, 2018 at 08:41 PM
+-- Generation Time: Jul 09, 2018 at 09:00 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -65,7 +65,8 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`disc_id`, `name`, `descr`, `less_p`, `less_c`, `encoded`, `removed`) VALUES
-(1, 'Senior Citizen (20%)', 'Senior Citizen Discount', 20, '0.00', '2018-06-25 17:39:03', 0);
+(1, 'SC (20%)', 'Senior Citizen Discount', 20, '0.00', '2018-06-25 17:39:03', 0),
+(2, 'PWD Discount (20%)', 'Person with disability discount', 20, '0.00', '2018-07-09 13:00:09', 0);
 
 -- --------------------------------------------------------
 
@@ -821,7 +822,21 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000696, 'TORRES, JIK', 'Update', 'Package%20discount%20updated%20Gundefined', '2018-07-06 19:46:53'),
 (1000697, 'TORRES, JIK', 'Update', 'Package%20discount%20updated%20Gundefined', '2018-07-06 19:47:05'),
 (1000698, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 20:06:56'),
-(1000699, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 20:07:17');
+(1000699, 'TORRES, JIK', 'Update', 'Product%20discount%20updated%20P6', '2018-07-06 20:07:17'),
+(1000700, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-09 10:26:09'),
+(1000701, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-09 12:42:23'),
+(1000702, 'TORRES, JIK', 'Update', 'Discount%20updated%20Dundefined:%20Senior%20Citizen%2020%20to%20SC%2020', '2018-07-09 12:43:13'),
+(1000703, 'TORRES, JIK', 'Add', 'New%20discount%20added:%20PWD%20Discount%2020', '2018-07-09 13:00:09'),
+(1000704, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-09 17:21:02'),
+(1000705, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-09 17:22:05'),
+(1000706, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-09 17:31:47'),
+(1000707, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-09 17:31:50'),
+(1000708, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-09 17:31:54'),
+(1000709, 'TORRES, JIK', 'Delete', 'Transaction%20has%20been%20cancelled', '2018-07-09 18:59:52'),
+(1000710, 'TORRES, JIK', 'Delete', 'Transaction%20has%20been%20cancelled', '2018-07-09 19:01:12'),
+(1000711, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20product%20voided%20T85:%20P3', '2018-07-09 19:15:19'),
+(1000712, 'TORRES, JIK', 'Delete', 'Transaction%20has%20been%20cancelled', '2018-07-09 19:16:19'),
+(1000713, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20product%20voided%20T84:%20P13', '2018-07-09 19:29:01');
 
 -- --------------------------------------------------------
 
@@ -1027,15 +1042,16 @@ CREATE TABLE `store_config` (
   `tin` varchar(45) NOT NULL,
   `vat` int(11) NOT NULL,
   `bs_price` decimal(10,2) NOT NULL,
-  `img` varchar(45) NOT NULL
+  `img` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `store_config`
 --
 
-INSERT INTO `store_config` (`conf_id`, `name`, `address`, `city`, `tin`, `vat`, `bs_price`, `img`) VALUES
-(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png');
+INSERT INTO `store_config` (`conf_id`, `name`, `address`, `city`, `tin`, `vat`, `bs_price`, `img`, `password`) VALUES
+(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png', 'jiktorres');
 
 -- --------------------------------------------------------
 
@@ -1167,7 +1183,9 @@ INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
 (105, 84, 11),
 (106, 84, 13),
 (107, 85, 15),
-(108, 86, 2);
+(108, 86, 2),
+(109, 87, 3),
+(110, 87, 4);
 
 -- --------------------------------------------------------
 
@@ -1279,8 +1297,9 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (82, '2018-07-05 20:21:42', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (83, '2018-07-05 20:24:34', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (84, '2018-07-05 20:29:25', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(85, '2018-07-05 20:33:33', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(86, '2018-07-05 20:35:23', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0);
+(85, '2018-07-05 20:33:33', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(86, '2018-07-05 20:35:23', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(87, '2018-07-06 21:00:05', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0);
 
 -- --------------------------------------------------------
 
@@ -1714,12 +1733,10 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (84, 6, 0, 0, '80.00', 1, '80.00', 0),
 (84, 3, 0, 0, '100.00', 1, '100.00', 0),
 (84, 5, 0, 0, '80.00', 1, '80.00', 0),
-(84, 13, 0, 0, '20.00', 4, '80.00', 0),
 (84, 0, 3, 1, '1000.00', 1, '1000.00', 0),
 (84, 9, 0, 2, '0.00', 2, '0.00', 3),
 (84, 7, 0, 2, '0.00', 2, '0.00', 3),
 (85, 13, 0, 0, '20.00', 3, '60.00', 0),
-(85, 3, 0, 0, '100.00', 1, '100.00', 0),
 (85, 0, 3, 1, '1000.00', 1, '1000.00', 0),
 (85, 9, 0, 2, '0.00', 2, '0.00', 3),
 (85, 7, 0, 2, '0.00', 2, '0.00', 3),
@@ -1731,7 +1748,13 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (86, 3, 0, 0, '100.00', 1, '100.00', 0),
 (86, 5, 0, 0, '80.00', 1, '80.00', 0),
 (86, 13, 0, 0, '20.00', 3, '60.00', 0),
-(86, 1, 0, 0, '50.00', 1, '50.00', 0);
+(86, 1, 0, 0, '50.00', 1, '50.00', 0),
+(87, 1, 0, 0, '50.00', 2, '100.00', 0),
+(87, 3, 0, 0, '100.00', 4, '400.00', 0),
+(87, 0, 1, 1, '450.00', 2, '900.00', 0),
+(87, 2, 0, 2, '0.00', 2, '0.00', 1),
+(87, 9, 0, 2, '0.00', 2, '0.00', 1),
+(87, 10, 0, 2, '0.00', 8, '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -1870,7 +1893,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `disc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `disc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `items`
 --
@@ -1880,7 +1903,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000700;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000714;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -1915,12 +1938,12 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 --
 -- AUTO_INCREMENT for table `users`
 --

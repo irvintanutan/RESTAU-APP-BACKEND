@@ -97,6 +97,32 @@ class Store_config_model extends CI_Model {
 
         return $row->img;
     }
+
+    function get_store_config_password($conf_id)
+    {
+        $this->db->select('password');
+        $this->db->from($this->table);
+        $this->db->where('conf_id',$conf_id);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->password;
+    }
+
+    function get_store_bs_price($conf_id)
+    {
+        $this->db->select('bs_price');
+        $this->db->from($this->table);
+        $this->db->where('conf_id',$conf_id);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->bs_price;
+    }
  
     // function count_filtered()
     // {

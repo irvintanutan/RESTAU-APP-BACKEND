@@ -6,10 +6,12 @@ class Packages_controller extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Products/Products_model','products');
         $this->load->model('Packages/Packages_model','packages');
         $this->load->model('Pack_details/Pack_details_model','pack_details');
 
         $this->load->model('Pack_discounts/Pack_discounts_model','pack_discounts');
+        $this->load->model('Store_config/Store_config_model','store');
     }
 
     public function index()						
@@ -206,6 +208,17 @@ class Packages_controller extends CI_Controller {
     {
         $list = $this->packages->get_api_datatables();
         $data = array();
+
+        $min_price = $this->store->get_store_bs_price(1);
+
+        $best_selling = $this->products->get_best_selling($min_price);
+        $best_selling_array = array();
+
+        foreach ($best_selling as $bp_products) {
+            $best_selling_array[] = $bp_products->pack_id;
+
+            echo json_encode($bp_products->pack_id);
+        }
         
         foreach ($list as $packages) {
 
@@ -252,6 +265,18 @@ class Packages_controller extends CI_Controller {
 
             // get number of rows found / check if it has details data
             $row['prod_count'] = $this->pack_details->check_if_found($packages->pack_id)->num_rows();
+
+            if (in_array($packages->pack_id, $best_selling_array))
+            {
+                $row['is_best_selling'] = true;
+                $row['rank'] = (array_search($packages->pack_id, $best_selling_array) + 1);
+            }
+            else
+            {
+                $row['is_best_selling'] = false;
+                $row['rank'] = 'n/a';
+            }
+
 
             $data[] = $row;
         }

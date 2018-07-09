@@ -80,6 +80,26 @@ class Products_model extends CI_Model {
         return $query->result();
     }
 
+    function get_best_selling($min_price)
+    {        
+        $this->db->from($this->table);
+        $this->db->from('packages');
+
+        // get only records that are not currently removed
+        $this->db->where('products.removed', '0');
+        $this->db->where('packages.removed', '0');
+        $this->db->where('products.price >=', $min_price);
+        $this->db->where('packages.price >=', $min_price);
+
+        $this->db->order_by("products.sold", "desc");
+        $this->db->order_by("packages.sold", "desc");
+
+        $this->db->limit(10);
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     // check for duplicates in the database table for validation
     function get_duplicates($name)
     {      

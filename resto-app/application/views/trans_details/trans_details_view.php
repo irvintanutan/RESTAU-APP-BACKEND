@@ -89,33 +89,38 @@
                                 </tbody>
                             </table>
                             
-                            <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
 
                             <?php 
                                 if ($transaction->status == 'ONGOING'){
                             ?>
-                                <button class="btn btn-success" onclick="set_payment()"><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
+                                <button class="btn btn-default col-md-1" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;REFRESH</button>
 
-                                <button class="btn btn-warning" onclick="set_discount()"><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-success col-md-2" onclick="set_payment()"><i class="fa fa-plus-square"></i> &nbsp;SET PAYMENT</button>
 
-                                <button class="btn btn-danger" onclick="set_cancel(<?php echo $transaction->trans_id; ?>)"><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
-                                <hr>
+                                <button class="btn btn-warning col-md-2" onclick="set_discount()"><i class="fa fa-minus-square"></i> &nbsp;SET DISCOUNT</button>
+
+                                <button class="btn btn-primary col-md-2" onclick="print_bill_out(<?php echo $transaction->trans_id; ?>)"><i class="fa fa-print"></i> &nbsp;PRINT BILL-OUT</button>
+
+                                <label class="control-label col-md-3"></label>
+
+                                <button class="btn btn-danger col-md-2" onclick="set_cancel(<?php echo $transaction->trans_id; ?>)"><i class="fa fa-trash"></i> &nbsp;CANCEL TRANSACTION</button>
+                                
                             <?php
                                 }
-                                else
+                                else if ($transaction->status == 'CLEARED')
                                 {
                             ?>
-                                <button class="btn btn-success" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Set Payment</button>
+                                <button class="btn btn-default col-md-1" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;REFRESH</button>
 
-                                <button class="btn btn-warning" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Set Discount</button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-primary col-md-2" onclick="print_receipt(<?php echo $transaction->trans_id; ?>)"><i class="fa fa-print"></i> &nbsp;REPRINT RECEIPT</button>
 
-                                <button class="btn btn-danger" onclick="" disabled><i class="fa fa-plus-square"></i> &nbsp;Cancel Transaction</button>
-                                <hr>
+                                
+                                
                             <?php
                                 }
                             ?>
+                            <br>
+                            <hr>
 
                             <label class="control-label col-md-2">Payment Method: <h4><?php echo $transaction->method; ?></h4></label>
                             <label class="control-label col-md-3">Card Number: <h4><?php echo $transaction->card_number; ?></h4></label>
@@ -159,6 +164,8 @@
 
                                 <input type="hidden" value=<?php echo "'" . $transaction->trans_id . "'"; ?> name="trans_id"/> 
                                 <input type="hidden" value=<?php echo "'" . $net_total . "'"; ?> name="amount_due"/>
+
+                                <input type="hidden" value=<?php echo "'" . $managers_password . "'"; ?> name="managers_password"/>
                                 
                                 <div class="form-body">
 

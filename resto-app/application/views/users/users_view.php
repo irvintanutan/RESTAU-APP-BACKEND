@@ -86,7 +86,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Username :</label>
                                         <div class="col-md-9">
-                                            <input name="username" placeholder="Username" class="form-control" type="text" >
+                                            <input name="username" placeholder="Username" class="form-control" type="text" maxlength="14">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

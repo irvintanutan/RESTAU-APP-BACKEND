@@ -89,7 +89,7 @@
                                     <div class="panel panel-warning panel-colorful">
                                         <div class="panel-body text-center">
                                             <p class="text-uppercase mar-btm text-sm">Total Menu Items Sold Today</p>
-                                            <i class="fa fa-coffee fa-5x"></i>
+                                            <i class="fa fa-cutlery fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo '57'; //echo number_format($total_interests, 2, '.', ','); ?> </p>
                                             <small><span class="text-bold" style="font-size: 11px;">Individual Products: [ <?php echo '43'; //echo number_format($total_paid, 2, '.', ','); ?> ] <br> Packages: [ <?php echo '14'; //echo number_format($total_paid, 2, '.', ','); ?> ]<br><br></small>

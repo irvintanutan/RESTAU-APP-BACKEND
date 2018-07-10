@@ -82,21 +82,7 @@ class Products_model extends CI_Model {
 
     function get_best_selling($min_price)
     {        
-        $this->db->from($this->table);
-        $this->db->from('packages');
-
-        // get only records that are not currently removed
-        $this->db->where('products.removed', '0');
-        $this->db->where('packages.removed', '0');
-        $this->db->where('products.price >=', $min_price);
-        $this->db->where('packages.price >=', $min_price);
-
-        $this->db->order_by("products.sold", "desc");
-        $this->db->order_by("packages.sold", "desc");
-
-        $this->db->limit(10);
-        
-        $query = $this->db->get();
+        $query = $this->db->query("select * from ((select products.prod_id, null as pack_id, products.sold as sold from products where products.removed = 0 and products.price >= " . $min_price . ") union (select null as prod_id, packages.pack_id, packages.sold as sold from packages where packages.removed = 0 and packages.price >= " . $min_price . ")) results order by sold desc LIMIT 10;");
         return $query->result();
     }
 

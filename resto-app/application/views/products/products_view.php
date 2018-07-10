@@ -62,7 +62,7 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i> - No assigned items &nbsp; ]</span>
+                    <span>Legend: [ &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i> - No assigned items &nbsp; | &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

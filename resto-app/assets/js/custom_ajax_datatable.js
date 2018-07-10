@@ -84,12 +84,16 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
-                  var row_count = data[9],
+                  var row_count = data[9], best_selling = data[6],
                       $node = this.api().row(row).nodes().to$();
 
                   if (row_count == 0) 
                   {
                     $node.css('background-color', '#ccccff');
+                  }
+                  else if (isNaN(best_selling) == true)
+                  {
+                    $node.css('background-color', '#ccff99'); 
                   }
                 }
             });
@@ -136,12 +140,16 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
-                  var row_count = data[8],
+                  var row_count = data[8], best_selling = data[5],
                       $node = this.api().row(row).nodes().to$();
 
                   if (row_count == 0) 
                   {
                     $node.css('background-color', '#ccccff');
+                  }
+                  else if (isNaN(best_selling) == true)
+                  {
+                    $node.css('background-color', '#ccff99'); 
                   }
                 }
             });

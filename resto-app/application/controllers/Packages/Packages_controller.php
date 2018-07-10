@@ -33,6 +33,19 @@ class Packages_controller extends CI_Controller {
    
     public function ajax_list()
     {
+        // get best selling list -------------------------------------------------
+
+        $min_price = $this->store->get_store_bs_price(1);
+
+        $best_selling = $this->products->get_best_selling($min_price);
+        $best_selling_array = array();
+
+        foreach ($best_selling as $bp_products) 
+        {
+            $best_selling_array[] = $bp_products->pack_id;
+        }
+        //------------------------------------------------------------------------
+
         $list = $this->packages->get_datatables();
         $data = array();
         $no = $_POST['start'];
@@ -46,8 +59,16 @@ class Packages_controller extends CI_Controller {
             $row[] = $packages->descr;
 
             $row[] = $packages->price;
-            // $row[] = $packages->img;
-            $row[] = $packages->sold;
+            
+
+            if (in_array($packages->pack_id, $best_selling_array))
+            {
+                $row[] = '( <i class="fa fa-star"></i> Rank: ' . (array_search($packages->pack_id, $best_selling_array) + 1) . " ) &nbsp;&nbsp;&nbsp;&nbsp;" . $packages->sold;    
+            }
+            else
+            {
+                $row[] = $packages->sold;
+            }
 
             $row[] = $packages->encoded;
 
@@ -217,7 +238,7 @@ class Packages_controller extends CI_Controller {
         foreach ($best_selling as $bp_products) {
             $best_selling_array[] = $bp_products->pack_id;
 
-            echo json_encode($bp_products->pack_id);
+            // echo json_encode($bp_products->pack_id);
         }
         
         foreach ($list as $packages) {

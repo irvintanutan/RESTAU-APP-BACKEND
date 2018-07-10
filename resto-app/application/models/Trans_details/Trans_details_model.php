@@ -54,6 +54,13 @@ class Trans_details_model extends CI_Model {
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
+
+    private function _get_datatables_query_sold_today()
+    {   
+        $this->db->from($this->table);
+ 
+        $i = 0;
+    }
  
     function get_datatables($trans_id)
     {        
@@ -62,6 +69,32 @@ class Trans_details_model extends CI_Model {
         $this->db->limit($_POST['length'], $_POST['start']);
 
         $this->db->where('trans_id',$trans_id); // if data is part of the object by ID
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_datatables_sold_today()
+    {   
+        $this->_get_datatables_query_sold_today();
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+
+        $this->db->select('distinct trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $date_from = date("Y-m-d") . ' 00:00:00'; // get date today to filter
+        $date_to = date("Y-m-d") . ' 23:59:59';
+
+        $this->db->where('trans_details.prod_type !=', 2); // no package-product included
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->group_by('trans_details.prod_id');
+        $this->db->group_by('trans_details.pack_id'); 
+        $this->db->order_by('sold', 'DESC');
 
         $query = $this->db->get();
         return $query->result();
@@ -125,6 +158,53 @@ class Trans_details_model extends CI_Model {
     {
         $this->db->from($this->table);
         $this->db->where('trans_id',$trans_id);
+
+        return $this->db->count_all_results();
+    }
+
+    function count_filtered_sold_today()
+    {
+        $this->_get_datatables_query_sold_today();
+
+        $this->db->select('distinct trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $date_from = date("Y-m-d") . ' 00:00:00'; // get date today to filter
+        $date_to = date("Y-m-d") . ' 23:59:59';
+
+        $this->db->where('trans_details.prod_type !=', 2); // no package-product included
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->group_by('trans_details.prod_id');
+        $this->db->group_by('trans_details.pack_id'); 
+        $this->db->order_by('sold', 'DESC');
+
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+ 
+    public function count_all_sold_today()
+    {
+        $this->db->from($this->table);
+
+        $this->db->select('distinct trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $date_from = date("Y-m-d") . ' 00:00:00'; // get date today to filter
+        $date_to = date("Y-m-d") . ' 23:59:59';
+
+        $this->db->where('trans_details.prod_type !=', 2); // no package-product included
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->group_by('trans_details.prod_id');
+        $this->db->group_by('trans_details.pack_id'); 
+        $this->db->order_by('sold', 'DESC');
 
         return $this->db->count_all_results();
     }

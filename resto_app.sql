@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 09, 2018 at 09:00 PM
+-- Generation Time: Jul 10, 2018 at 06:05 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -836,7 +836,12 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000710, 'TORRES, JIK', 'Delete', 'Transaction%20has%20been%20cancelled', '2018-07-09 19:01:12'),
 (1000711, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20product%20voided%20T85:%20P3', '2018-07-09 19:15:19'),
 (1000712, 'TORRES, JIK', 'Delete', 'Transaction%20has%20been%20cancelled', '2018-07-09 19:16:19'),
-(1000713, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20product%20voided%20T84:%20P13', '2018-07-09 19:29:01');
+(1000713, 'TORRES, JIK', 'Delete', 'Transaction%20detail%20product%20voided%20T84:%20P13', '2018-07-09 19:29:01'),
+(1000714, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-10 10:54:22'),
+(1000715, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-10 14:16:28'),
+(1000716, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-10 15:56:16'),
+(1000717, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-10 15:57:43'),
+(1000718, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-10 15:58:19');
 
 -- --------------------------------------------------------
 
@@ -861,9 +866,9 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`pack_id`, `name`, `short_name`, `descr`, `price`, `img`, `sold`, `encoded`, `removed`) VALUES
-(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 40, '2018-05-25 01:21:37', 0),
+(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 42, '2018-05-25 01:21:37', 0),
 (2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2_1_.jpg', 0, '2018-05-29 13:17:08', 0),
-(3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3_1_.jpg', 7, '2018-05-29 15:18:31', 0),
+(3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3_1_.jpg', 9, '2018-05-29 15:18:31', 0),
 (4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4_1_.jpg', 0, '2018-07-04 16:18:35', 0);
 
 -- --------------------------------------------------------
@@ -945,15 +950,15 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
 (1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 43, 0, '2018-05-24 18:22:34', 0),
-(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 15, 40, '2018-05-28 14:37:40', 0),
+(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 15, 42, '2018-05-28 14:37:40', 0),
 (3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 85, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4_1_.jpg', 2, 0, '2018-05-29 13:55:32', 0),
 (5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 3, 0, '2018-05-29 13:56:42', 0),
-(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 4, 0, '2018-05-29 13:57:27', 0),
-(7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 3, 14, '2018-05-29 13:58:22', 0),
+(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 6, 0, '2018-05-29 13:57:27', 0),
+(7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 3, 18, '2018-05-29 13:58:22', 0),
 (8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8_1_.jpg', 1, 0, '2018-05-29 14:56:29', 0),
-(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 3, 54, '2018-05-29 14:58:13', 0),
-(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 2, 160, '2018-05-29 14:59:21', 0),
+(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 3, 60, '2018-05-29 14:58:13', 0),
+(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 2, 168, '2018-05-29 14:59:21', 0),
 (11, 'test insert 1', '', 'test insert 1 descr', 2, '1000.00', '', 0, 0, '2018-05-31 14:33:22', 1),
 (12, 'test insert 2', '', 'test insert 2 descr', 2, '2000.00', '', 0, 0, '2018-05-31 14:33:23', 1),
 (13, 'Plain Rice', 'PlainRice', '1 cup plain rice banay-banay', 4, '20.00', '13_1_.jpg', 0, 0, '2018-07-04 15:30:44', 0);
@@ -1239,7 +1244,7 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (24, '2018-06-28 14:57:24', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (25, '2018-06-28 14:57:37', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (26, '2018-06-28 15:01:18', '120.00', 1, 'CLEARED', 'DINE-IN', '880.00', '0.00', 'Credit Card', '111121212121', 'Emilio Aguinaldo', '21212121212', 103, 108),
-(27, '2018-06-28 15:04:24', '0.00', 0, 'Ongoing', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(27, '2018-06-28 15:04:24', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (28, '2018-06-28 17:46:38', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (29, '2018-06-28 18:12:35', '0.00', 0, 'CLEARED', 'DINE-IN', '1300.00', '70.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108),
 (30, '2018-06-29 21:32:35', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
@@ -1299,7 +1304,8 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (84, '2018-07-05 20:29:25', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (85, '2018-07-05 20:33:33', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
 (86, '2018-07-05 20:35:23', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
-(87, '2018-07-06 21:00:05', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0);
+(87, '2018-07-06 21:00:05', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0),
+(88, '2018-07-10 17:32:59', '0.00', 0, 'CLEARED', 'DINE-IN', '1520.00', '0.00', 'Credit Card', '1212121212121', 'n/a', 'n/a', 103, 108);
 
 -- --------------------------------------------------------
 
@@ -1754,7 +1760,15 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (87, 0, 1, 1, '450.00', 2, '900.00', 0),
 (87, 2, 0, 2, '0.00', 2, '0.00', 1),
 (87, 9, 0, 2, '0.00', 2, '0.00', 1),
-(87, 10, 0, 2, '0.00', 8, '0.00', 1);
+(87, 10, 0, 2, '0.00', 8, '0.00', 1),
+(88, 6, 0, 0, '70.00', 1, '70.00', 0),
+(88, 0, 3, 1, '1000.00', 1, '1000.00', 0),
+(88, 9, 0, 2, '0.00', 2, '0.00', 3),
+(88, 7, 0, 2, '0.00', 2, '0.00', 3),
+(88, 0, 1, 1, '450.00', 1, '450.00', 0),
+(88, 2, 0, 2, '0.00', 1, '0.00', 1),
+(88, 9, 0, 2, '0.00', 1, '0.00', 1),
+(88, 10, 0, 2, '0.00', 4, '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -1903,7 +1917,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000714;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000719;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -1938,12 +1952,12 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 --
 -- AUTO_INCREMENT for table `users`
 --

@@ -259,7 +259,7 @@ class Trans_details_controller extends CI_Controller {
             }
         }
 
-        $this->set_payment_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
+        $this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
 
         echo json_encode(array("status" => TRUE));
     }

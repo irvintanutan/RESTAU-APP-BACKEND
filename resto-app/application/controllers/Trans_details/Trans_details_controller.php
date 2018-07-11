@@ -80,7 +80,7 @@ class Trans_details_controller extends CI_Controller {
         $data['gross_total'] = $gross_total;
         $data['table_str'] = $table_str;
 
-        $data['title'] = 'Transaction Details';
+        $data['title'] = '<i class="fa fa-qrcode"></i> Transaction Details';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('trans_details/trans_details_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -154,11 +154,11 @@ class Trans_details_controller extends CI_Controller {
             
 
             $row[] = $item_id;
-            $row[] = $item_name;
+            $row[] = '<b>' . $item_name . '</b>';
 
             $row[] = $trans_details->price;
             $row[] = $trans_details->qty;
-            $row[] = $trans_details->total;
+            $row[] = '<b>' . $trans_details->total . '</b>';
 
             //add html for action
             $row[] = $void_btn;
@@ -259,7 +259,7 @@ class Trans_details_controller extends CI_Controller {
             }
         }
 
-        $this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
+        //$this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
 
         echo json_encode(array("status" => TRUE));
     }
@@ -461,10 +461,12 @@ class Trans_details_controller extends CI_Controller {
 
                 $item_id = $trans_details->pack_id;
                 $item_name = $this->packages->get_package_name($trans_details->pack_id);
+                $item_short_name = $this->packages->get_package_short_name($trans_details->pack_id);
                 $img = $this->packages->get_package_img($trans_details->pack_id);
 
                 $row['pack_id'] = $item_id;
                 $row['name'] = $item_name;
+                $row['short_name'] = $item_short_name;
                 $row['img'] = $img;
 
                 $row['price'] = $trans_details->price;
@@ -479,11 +481,13 @@ class Trans_details_controller extends CI_Controller {
 
                 $item_id = $trans_details->prod_id;
                 $item_name = $this->products->get_product_name($trans_details->prod_id);
+                $item_short_name = $this->products->get_product_short_name($trans_details->prod_id);
                 $cat_id = $this->products->get_product_cat_id($trans_details->prod_id);
                 $img = $this->products->get_product_img($trans_details->prod_id);
 
                 $row['prod_id'] = $item_id;
                 $row['name'] = $item_name;
+                $row['short_name'] = $item_short_name;
                 $row['cat_id'] = $cat_id;
                 $row['img'] = $img;
 

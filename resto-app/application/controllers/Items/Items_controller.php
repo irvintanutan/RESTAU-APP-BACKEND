@@ -18,7 +18,7 @@ class Items_controller extends CI_Controller {
 
         $this->load->helper('url');							
 
-        $data['title'] = 'Items Information List';					
+        $data['title'] = '<i class="fa fa-archive"></i> Items';					
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('items/items_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -35,7 +35,7 @@ class Items_controller extends CI_Controller {
             $no++;
             $row = array();
             $row[] = 'I' . $items->item_id;
-            $row[] = $items->name;
+            $row[] = '<b>' . $items->name . '</b>';
             $row[] = $items->descr;
             
             $row[] = $items->type;

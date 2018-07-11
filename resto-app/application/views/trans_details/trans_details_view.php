@@ -5,7 +5,7 @@
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div id="page-title">
-                    <h1 class="page-header text-overflow"><?php echo $title; ?>: S<?php echo $transaction->trans_id . ': ' . $transaction->datetime;?></h1>
+                    <h1 class="page-header text-overflow"><?php echo $title; ?> : [ S<?php echo $transaction->trans_id; ?> ]</h1>
 
                     <!--Searchbox-->
                     <!-- <div class="searchbox">
@@ -25,7 +25,7 @@
                 <ol class="breadcrumb">
                     <li><a href="<?php echo base_url('dashboard');?>">Dashboard</a></li>
                     <li><a href="<?php echo base_url('/transactions-page');?>">Transactions List</a></li>
-                    <li class="active">S<?php echo $transaction->trans_id; ?></li>
+                    <li class="active"><?php echo ' [ S' . $transaction->trans_id . ' ] : ' . $transaction->datetime; ?></li>
                 </ol>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <!--End breadcrumb-->
@@ -40,11 +40,11 @@
 
                             <div class="panel-body col-md-12">
 
-                                <label class="control-label col-md-1">Status: <?php if ($transaction->status == 'ONGOING'){ $status = '<h4 style="color: green;">ONGOING</h4>'; }else if ($transaction->status == 'CANCELLED'){ $status = '<h4 style="color: brown;">CANCELLED</h4>'; }else{ $status = '<h4 style="color: gray;">CLEARED</h4>'; } echo $status; ?></h4></label>
-                                <label class="control-label col-md-2">Order Type: <h4><?php echo $transaction->order_type; ?></h4></label>
-                                <label class="control-label col-md-2">Discount Type: <h4><?php if ($transaction->disc_type == 0){ echo 'n/a'; }else{ echo $this->discounts->get_discount_name($transaction->disc_type); } ?></h4></label>
+                                <label class="control-label col-md-2">STATUS <?php if ($transaction->status == 'ONGOING'){ $status = '<h4 style="color: green;">ONGOING</h4>'; }else if ($transaction->status == 'CANCELLED'){ $status = '<h4 style="color: brown;">CANCELLED</h4>'; }else{ $status = '<h4 style="color: gray;">CLEARED</h4>'; } echo $status; ?></h4></label>
+                                <label class="control-label col-md-2">ORDER TYPE <h4><?php echo $transaction->order_type; ?></h4></label>
+                                <label class="control-label col-md-2">DISCOUNT TYPE <h4><?php if ($transaction->disc_type == 0){ echo 'n/a'; }else{ echo $this->discounts->get_discount_name($transaction->disc_type); } ?></h4></label>
 
-                                <label class="control-label col-md-1" style="text-align: right;">Items: <h4><input type="text" value="" name="item_count" size="4" style="border: none; text-align: center;" readonly/></h4></label>
+                                <label class="control-label col-md-1" style="text-align: right;">ITEMS <h4><input type="text" value="" name="item_count" size="4" style="border: none; text-align: center;" readonly/></h4></label>
 
                                 <?php
 
@@ -53,10 +53,10 @@
                                     $net_total = $gross_total - $discount;
                                 ?>
 
-                                <label class="control-label col-md-2" style="text-align: right;">Gross Total: <h4><?php echo number_format($gross_total, 2); ?></h4></label>
-                                <label class="control-label col-md-2" style="text-align: right;">Discount: <h4>( <?php echo number_format($discount, 2); ?> )</h4></label>
+                                <label class="control-label col-md-2" style="text-align: right;">GROSS TOTAL <h4><?php echo number_format($gross_total, 2); ?></h4></label>
+                                <label class="control-label col-md-1" style="text-align: right;">DISCOUNT <h4>( <?php echo number_format($discount, 2); ?> )</h4></label>
 
-                                <label class="control-label col-md-2" style="text-align: right;">Net Total: <h4 style="color: darkblue;"><?php echo number_format($net_total, 2); ?></h4></label>
+                                <label class="control-label col-md-2" style="text-align: right;">NET TOTAL <h4 style="color: darkblue;"><?php echo number_format($net_total, 2); ?></h4></label>
                                 
 
                             </div>
@@ -69,10 +69,10 @@
                         
                         <div class="panel-body col-md-12" style="margin-top: -5%">
 
-                            
+                            <br>
                             <hr>
 
-                            <table id="trans-details-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="trans-details-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">
                                 <thead>
                                     <tr>
                                         <th style="width:60px;">ID</th>
@@ -93,7 +93,7 @@
                             <?php 
                                 if ($transaction->status == 'ONGOING'){
                             ?>
-                                <button class="btn btn-default col-md-1" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;REFRESH</button>
+                                <button class="btn btn-default col-md-1" onclick="reload_page()"><i class="fa fa-refresh"></i> &nbsp;REFRESH</button>
 
                                 <button class="btn btn-success col-md-2" onclick="set_payment()"><i class="fa fa-plus-square"></i> &nbsp;SET PAYMENT</button>
 
@@ -110,7 +110,7 @@
                                 else if ($transaction->status == 'CLEARED')
                                 {
                             ?>
-                                <button class="btn btn-default col-md-1" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;REFRESH</button>
+                                <button class="btn btn-default col-md-1" onclick="reload_page()"><i class="fa fa-refresh"></i> &nbsp;REFRESH</button>
 
                                 <button class="btn btn-primary col-md-2" onclick="print_receipt(<?php echo $transaction->trans_id; ?>)"><i class="fa fa-print"></i> &nbsp;REPRINT RECEIPT</button>
 
@@ -122,21 +122,27 @@
                             <br>
                             <hr>
 
-                            <label class="control-label col-md-2">Payment Method: <h4><?php echo $transaction->method; ?></h4></label>
-                            <label class="control-label col-md-3">Card Number: <h4><?php echo $transaction->card_number; ?></h4></label>
+                            <div class="col-md-5" style="border-top: 2px solid #cccccc; border-radius: 10px;">
+                                <label class="control-label col-md-5" style="margin-top: 10px;">Payment Method: <h4><?php echo $transaction->method; ?></h4></label>
+                                <label class="control-label col-md-7" style="margin-top: 10px;">Card Number: <h4><?php echo $transaction->card_number; ?></h4></label>
+                            </div>
+                            <div class="col-md-7" style="border-bottom: 2px solid #cccccc; border-radius: 10px;">
+                                <label class="control-label col-md-4" style="text-align: right; margin-top: 10px;">AMOUNT DUE: <h3 style="color: #006699;">( ₱ <?php echo number_format($net_total, 2); ?> )</h3></label>
+                                <label class="control-label col-md-4" style="text-align: right; margin-top: 10px;">CASH: <h3 style="color: green;">₱ <?php echo number_format($transaction->cash_amt, 2); ?></h3></label>
+                                <label class="control-label col-md-4" style="text-align: right; margin-top: 10px;">CHANGE: <h3 style="color: brown;">₱ <?php echo number_format($transaction->change_amt, 2); ?></h3></label>
+                            </div>
 
-                            <label class="control-label col-md-3" style="text-align: right;">Amount Due: <h3 style="color: blue;">( ₱ <?php echo number_format($net_total, 2); ?> )</h3></label>
-                            <label class="control-label col-md-2" style="text-align: right;">Cash Amount: <h3 style="color: green;">₱ <?php echo number_format($transaction->cash_amt, 2); ?></h3></label>
-                            <label class="control-label col-md-2" style="text-align: right;">Change Amount: <h3 style="color: brown;">₱ <?php echo number_format($transaction->change_amt, 2); ?></h3></label>
+                            <div class="col-md-5" style="border-bottom: 2px solid #cccccc; border-radius: 10px;">
+                                <label class="control-label col-md-5">Staff: <h4><?php echo $this->users->get_username($transaction->user_id); ?></h4></label>
+                                <label class="control-label col-md-7">Customer Name: <h4><?php echo $transaction->cust_name; ?></h4></label>
+                                <br><hr><br>
 
-                            <label class="control-label col-md-2">Staff: <h4><?php echo $this->users->get_username($transaction->user_id); ?></h4></label>
-                            <label class="control-label col-md-10">Customer Name: <h4><?php echo $transaction->cust_name; ?></h4></label>
+                                <label class="control-label col-md-5">Cashier: <h4><?php if ($transaction->cashier_id == 0){ echo "n/a"; }else{ echo $this->users->get_username($transaction->cashier_id); } ?></h4></label>
+                                <label class="control-label col-md-7">Discount ID#: <h4><?php echo $transaction->cust_disc_id; ?></h4></label>
+                                <br><hr><br>
 
-                            <label class="control-label col-md-2">Cashier: <h4><?php if ($transaction->cashier_id == 0){ echo "n/a"; }else{ echo $this->users->get_username($transaction->cashier_id); } ?></h4></label>
-                            <label class="control-label col-md-10">Discount ID#: <h4><?php echo $transaction->cust_disc_id; ?></h4></label>
-
-                            <label class="control-label col-md-12">Table(s): <h4><?php echo $table_str; ?></h4></label>
-                            
+                                <label class="control-label col-md-12">Table(s): <h4><?php echo $table_str; ?></h4></label>
+                            </div>
 
                         </div>
                     </div>
@@ -190,10 +196,11 @@
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Cash :</label>
-                                        <div class="col-md-9">
+                                        <div class="col-md-6">
                                             <input id="cash_amt" name="cash_amt" placeholder="Cash Amount" class="form-control" type="number" style="font-size: 15px;" >
                                             <span class="help-block"></span>
                                         </div>
+                                        <button class="btn btn-success col-md-2" id="exact_amt" onclick="exact_amt_cash_input()">EXACT AMT</button>
                                     </div>
 
                                     <div class="form-group">
@@ -210,6 +217,26 @@
                                             <input id="cust_name" name="cust_name" placeholder="Customer Full Name" class="form-control" value=<?php echo "'" . $transaction->cust_name . "'"; ?> type="text" style="font-size: 15px;" disabled>
                                             <span class="help-block"></span>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1"></label>
+                                        <button class="btn btn-default col-md-2" id="cash_1" onclick="add_cash_input(1)">1</button>
+                                        <button class="btn btn-info col-md-2" id="cash_5" onclick="add_cash_input(5)">5</button>
+                                        <button class="btn btn-default col-md-2" id="cash_10" onclick="add_cash_input(10)">10</button>
+                                        <button class="btn btn-info col-md-2" id="cash_20" onclick="add_cash_input(20)">20</button>
+                                        <button class="btn btn-default col-md-2" id="cash_50" onclick="add_cash_input(50)">50</button>
+                                        <label class="control-label col-md-1"></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1"></label>
+                                        <button class="btn btn-default col-md-2" id="cash_100" onclick="add_cash_input(100)">100</button>
+                                        <button class="btn btn-info col-md-2" id="cash_200" onclick="add_cash_input(200)">200</button>
+                                        <button class="btn btn-default col-md-2" id="cash_500" onclick="add_cash_input(500)">500</button>
+                                        <button class="btn btn-info col-md-2" id="cash_1000" onclick="add_cash_input(1000)">1000</button>
+                                        <button class="btn btn-warning col-md-2" id="cash_clear" onclick="clear_cash_input()">CLEAR</button>
+                                        <label class="control-label col-md-1"></label>
                                     </div>
 
                                 </div>

@@ -38,6 +38,69 @@ $(document).ready(function()
                 "scrollX": true
             });
     }
+    else if(tableID == "sold-today-table")
+    {
+    //datatables
+            table = $('#sold-today-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+                "ordering": false,
+                "searching": false,
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-sold-today",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 2,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 4,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-right",
+                }
+                ],
+                "scrollX": true,
+
+                "rowCallback": function( row, data, index )
+                {
+                  var best_selling = data[4],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (best_selling.length > 20) // if there are words such as rank, star symbol, etc. (more than 14 chars automatically)
+                  {
+                    function isOdd(num) { return num % 2;}
+
+                    if (isOdd(index) == 1) // to have different color when changed color is in sequence
+                    {
+                      $node.css('background-color', '#ccff99');
+                    }
+                    else
+                    {
+                      $node.css('background-color', '#ccffcc');
+                    }
+                  }
+                }
+            });
+    }
     else if(tableID == "products-table")
     {
     //datatables
@@ -91,9 +154,18 @@ $(document).ready(function()
                   {
                     $node.css('background-color', '#ccccff');
                   }
-                  else if (isNaN(best_selling) == true)
+                  else if (best_selling.length > 20) // if there are words such as rank, star symbol, etc. (more than 14 chars automatically)
                   {
-                    $node.css('background-color', '#ccff99'); 
+                    function isOdd(num) { return num % 2;}
+                    
+                    if (isOdd(index) == 1) // to have different color when changed color is in sequence
+                    {
+                      $node.css('background-color', '#ccff99');
+                    }
+                    else
+                    {
+                      $node.css('background-color', '#ccffcc');
+                    } 
                   }
                 }
             });
@@ -147,9 +219,18 @@ $(document).ready(function()
                   {
                     $node.css('background-color', '#ccccff');
                   }
-                  else if (isNaN(best_selling) == true)
+                  else if (best_selling.length > 20) // if there are words such as rank, star symbol, etc. (more than 14 chars automatically)
                   {
-                    $node.css('background-color', '#ccff99'); 
+                    function isOdd(num) { return num % 2;}
+                    
+                    if (isOdd(index) == 1) // to have different color when changed color is in sequence
+                    {
+                      $node.css('background-color', '#ccff99');
+                    }
+                    else
+                    {
+                      $node.css('background-color', '#ccffcc');
+                    } 
                   }
                 }
             });
@@ -230,7 +311,7 @@ $(document).ready(function()
 
                   if (status == 'Occupied') 
                   {
-                    $node.css('background-color', '#99cccc');
+                    $node.css('background-color', '#66cccc');
                   }
                   else if (status == 'Reserved') 
                   {
@@ -238,7 +319,7 @@ $(document).ready(function()
                   }
                   else if (status == 'Unavailable') 
                   {
-                    $node.css('background-color', '#999999');
+                    $node.css('background-color', '#cccccc');
                   }
                 }
             });
@@ -278,6 +359,14 @@ $(document).ready(function()
                     "targets": [ -1 ], //last column
                     "orderable": false, //set not orderable
                 },
+                { 
+                    "targets": [ 3 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                { 
+                    "targets": [ 5 ], //last column
+                    "orderable": false, //set not orderable
+                },
                 {
                       "targets": 2,
                       "className": "text-center",
@@ -311,12 +400,24 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
+                  $('td', row).eq(5).css({color: "#006699"});
+
                   var order_type = data[2],
                       $node = this.api().row(row).nodes().to$();
 
                   if (order_type == 'TAKE-OUT') 
                   {
-                    $node.css('background-color', '#ffffcc');
+                    function isOdd(num) { return num % 2;}
+
+                    if (isOdd(index) == 1) // to have different color when changed color is in sequence
+                    {
+                      $node.css('background-color', '#ffffcc');
+                    }
+                    else
+                    {
+                      $node.css('background-color', '#ffff99');
+                    }
+                    
                   }
                 }
             });
@@ -365,6 +466,8 @@ $(document).ready(function()
                 {
                   var disc_type = data[7],
                       $node = this.api().row(row).nodes().to$();
+
+                  $('td', row).eq(3).css({"background-color": "#ffcc99"});
 
                   if (disc_type != 0) 
                   {
@@ -431,6 +534,9 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
+                  $('td', row).eq(7).css({color: "#3300cc"});
+                  $('td', row).eq(8).css({color: "#cc3300"});
+
                   var status = data[6],
                       $node = this.api().row(row).nodes().to$();
 
@@ -483,7 +589,15 @@ $(document).ready(function()
                       "className": "text-right",
                 },
                 {
+                      "targets": 8,
+                      "className": "text-right",
+                },
+                {
                       "targets": 9,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 10,
                       "className": "text-right",
                 },
                 ],
@@ -491,6 +605,9 @@ $(document).ready(function()
 
                 "rowCallback": function( row, data, index )
                 {
+                  $('td', row).eq(7).css({color: "#3300cc"});
+                  $('td', row).eq(8).css({color: "#cc3300"});
+
                   var status = data[6],
                       $node = this.api().row(row).nodes().to$();
 
@@ -572,6 +689,8 @@ $(document).ready(function()
                 "processing": true, //Feature control the processing indicator.
                 "serverSide": true, //Feature control DataTables' server-side processing mode.
                 "order": [], //Initial no order.
+                "ordering": false,
+                "searching": false,
          
                 // Load data for the table's content from an Ajax source
                 "ajax": {
@@ -602,7 +721,6 @@ $(document).ready(function()
                       "className": "text-center",
                 },
                 ],
-                "scrollX": true,
 
                 "rowCallback": function( row, data, index )
                 {
@@ -1032,6 +1150,10 @@ $(document).ready(function()
 
 // ========================================================== TRANSACTION DETAILS FORM SECTION ====================================
 
+function reload_page() // ---> calling for reload page
+{
+    location.reload();
+}
 
 function set_payment() // ---> calling for the Add Modal form
 {
@@ -1102,7 +1224,14 @@ function set_cancel(id) // ---> calling for the Add Modal form
           }
           else if (result != null)
           {
-            bootbox.alert("INVALID PASSWORD INPUT");
+            
+            bootbox.alert({
+                title: "Incorrect Password Input",
+                message: "Access Denied",
+                callback: function () {
+                    
+                }
+            });
           }
       }
   });
@@ -1186,6 +1315,36 @@ $("#disc_type_trans_details").change(function()
           }
       });
     }
+});
+
+function exact_amt_cash_input()
+{
+    amount_due = parseFloat($('[name="amount_due"]').val());
+
+    $('[name="cash_amt"]').val(amount_due);
+}
+
+function add_cash_input(cash_input)
+{
+    var current_cash = 0;
+
+    if ($('[name="cash_amt"]').val() != "")
+    {
+      current_cash = parseFloat($('[name="cash_amt"]').val());
+    }
+    
+    var new_cash = (current_cash + cash_input);
+
+    $('[name="cash_amt"]').val(new_cash);
+}
+
+function clear_cash_input()
+{
+    $('[name="cash_amt"]').val("");
+}
+
+$( "form" ).submit(function( event ) { // -------------------------------- EXPIREMENTAL FUNCTION (Fixes dismissed modal when add_cash_input buttons are clicked)
+  event.preventDefault();
 });
 
 function confirm_trans()
@@ -3342,7 +3501,13 @@ function delete_trans_detail_prod(idone, idtwo)
             }
             else if (result != null)
             {
-              bootbox.alert("INVALID PASSWORD INPUT");
+              bootbox.alert({
+                  title: "Incorrect Password Input",
+                  message: "Access Denied",
+                  callback: function () {
+                      
+                  }
+              });
             }
         }
     });
@@ -3394,7 +3559,13 @@ function delete_trans_detail_pack(idone, idtwo)
             }
             else if (result != null)
             {
-              bootbox.alert("INVALID PASSWORD INPUT");
+              bootbox.alert({
+                  title: "Incorrect Password Input",
+                  message: "Access Denied",
+                  callback: function () {
+                      
+                  }
+              });
             }
         }
     });

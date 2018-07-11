@@ -39,7 +39,7 @@ class Transactions_controller extends CI_Controller {
         
         $data['trans_status'] = 'ONGOING';
 
-        $data['title'] = 'Transactions Information List - <b><span style="color: green;">ONGOING</span></b>';
+        $data['title'] = '<i class="fa fa-qrcode" style="color: green;"></i> Transactions - <b><span style="color: green;"><u>ONGOING</u></span></b>';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -58,7 +58,7 @@ class Transactions_controller extends CI_Controller {
 
         $data['trans_status'] = 'CLEARED';
 
-        $data['title'] = 'Transactions Information List - <b><span style="color: gray;">CLEARED</span></b>';
+        $data['title'] = '<i class="fa fa-qrcode"></i> Transactions - <b><u><span style="color: gray;">CLEARED</span></u></b>';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -77,7 +77,7 @@ class Transactions_controller extends CI_Controller {
 
         $data['trans_status'] = 'CANCELLED';
 
-        $data['title'] = 'Transactions Information List - <b><span style="color: brown;">CANCELLED</span></b>';
+        $data['title'] = '<i class="fa fa-qrcode" style="color: brown;"></i> Transactions - <b><span style="color: brown;"><u>CANCELLED</u></span></b>';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -93,7 +93,7 @@ class Transactions_controller extends CI_Controller {
         foreach ($list as $transactions) {
             $no++;
             $row = array();
-            $row[] = 'S' . $transactions->trans_id;
+            $row[] = '<b>S' . $transactions->trans_id . '</b>';
             $row[] = $transactions->datetime;
 
             $row[] = $transactions->order_type;
@@ -105,7 +105,7 @@ class Transactions_controller extends CI_Controller {
             $row[] = $gross;
             $row[] = $discount;
             // $row[] = $transactions->disc_type;
-            $row[] = number_format($total_due, 2);
+            $row[] = '<b>' . number_format($total_due, 2) . '</b>';
             
             $row[] = $transactions->method;
 

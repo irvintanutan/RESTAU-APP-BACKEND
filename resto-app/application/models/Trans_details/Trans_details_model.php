@@ -18,41 +18,9 @@ class Trans_details_model extends CI_Model {
  
     private function _get_datatables_query()
     {
-         
         $this->db->from($this->table);
  
         $i = 0;
-     
-        foreach ($this->column_search as $item) // loop column 
-        {
-            if($_POST['search']['value']) // if datatable send POST for search
-            {
-                 
-                if($i===0) // first loop
-                {
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
-                    $this->db->like($item, $_POST['search']['value']);
-                }
-                else
-                {
-                    $this->db->or_like($item, $_POST['search']['value']);
-                }
- 
-                if(count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
-            }
-            $i++;
-        }
-         
-        if(isset($_POST['order'])) // here order processing
-        {
-            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-        } 
-        else if(isset($this->order))
-        {
-            $order = $this->order;
-            $this->db->order_by(key($order), $order[key($order)]);
-        }
     }
 
     private function _get_datatables_query_sold_today()
@@ -80,7 +48,7 @@ class Trans_details_model extends CI_Model {
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
 
-        $this->db->select('distinct trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, SUM(trans_details.qty) as sold');
+        $this->db->select('trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, trans_details.prod_type as prod_type, SUM(trans_details.qty) as sold');
          
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
@@ -93,7 +61,9 @@ class Trans_details_model extends CI_Model {
         $this->db->where('transactions.datetime <=', $date_to);
 
         $this->db->group_by('trans_details.prod_id');
-        $this->db->group_by('trans_details.pack_id'); 
+        $this->db->group_by('trans_details.pack_id');
+        $this->db->group_by('trans_details.prod_type');
+        
         $this->db->order_by('sold', 'DESC');
 
         $query = $this->db->get();
@@ -166,7 +136,7 @@ class Trans_details_model extends CI_Model {
     {
         $this->_get_datatables_query_sold_today();
 
-        $this->db->select('distinct trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, SUM(trans_details.qty) as sold');
+        $this->db->select('trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, trans_details.prod_type as prod_type, SUM(trans_details.qty) as sold');
          
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
@@ -179,7 +149,9 @@ class Trans_details_model extends CI_Model {
         $this->db->where('transactions.datetime <=', $date_to);
 
         $this->db->group_by('trans_details.prod_id');
-        $this->db->group_by('trans_details.pack_id'); 
+        $this->db->group_by('trans_details.pack_id');
+        $this->db->group_by('trans_details.prod_type');
+
         $this->db->order_by('sold', 'DESC');
 
         $query = $this->db->get();
@@ -190,7 +162,7 @@ class Trans_details_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $this->db->select('distinct trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, SUM(trans_details.qty) as sold');
+        $this->db->select('trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, trans_details.prod_type as prod_type, SUM(trans_details.qty) as sold');
          
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
@@ -203,7 +175,9 @@ class Trans_details_model extends CI_Model {
         $this->db->where('transactions.datetime <=', $date_to);
 
         $this->db->group_by('trans_details.prod_id');
-        $this->db->group_by('trans_details.pack_id'); 
+        $this->db->group_by('trans_details.pack_id');
+        $this->db->group_by('trans_details.prod_type');
+
         $this->db->order_by('sold', 'DESC');
 
         return $this->db->count_all_results();

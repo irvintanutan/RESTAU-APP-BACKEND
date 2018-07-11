@@ -72,8 +72,7 @@ class Statistics_controller extends CI_Controller {
 
         $data['year_total'] = number_format($year_total, 2, '.', ',');
 
-
-        $data['title'] = 'Statistics / Charts';	
+        $data['title'] = '<i class="fa fa-pie-chart"></i> <i class="fa fa-area-chart"></i> <i class="fa fa-bar-chart"></i> Statistics / Charts';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('statistics/statistics_view',$data);
         $this->load->view('template/dashboard_navigation');

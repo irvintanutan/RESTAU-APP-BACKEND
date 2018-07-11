@@ -67,7 +67,7 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i> - Dine-In &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i> - Take-Out &nbsp; ]</span>
+                    <span>Legend: [ &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i><i style = "color: #cccccc;" class="fa fa-square"></i> - Dine-In &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i><i style = "color: #ffff99;" class="fa fa-square"></i> - Take-Out &nbsp; ]</span>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

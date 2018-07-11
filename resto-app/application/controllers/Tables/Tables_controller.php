@@ -23,7 +23,7 @@ class Tables_controller extends CI_Controller {
         
         // $data['categories'] = $categories_data;
 
-        $data['title'] = 'Tables Information List';
+        $data['title'] = '<i class="fa fa-table"></i> Tables';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('tables/tables_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -40,7 +40,7 @@ class Tables_controller extends CI_Controller {
             $no++;
             $row = array();
             $row[] = 'T' . $tables->tbl_id;
-            $row[] = $tables->name;
+            $row[] = '<b>' . $tables->name . '</b>';
 
             $if_occupied = $this->table_groups->check_if_found($tables->tbl_id);
 
@@ -50,7 +50,7 @@ class Tables_controller extends CI_Controller {
 
                 $trans_id = $if_occupied->row()->trans_id;
 
-                $trans_btn = '<a class="btn btn-md btn-primary" href="trans-details-page/'.$trans_id.'"> Go to Transaction: S' . $trans_id . '</a>';
+                $trans_btn = '<a class="btn btn-md btn-warning" href="trans-details-page/'.$trans_id.'"> Go to Transaction: S' . $trans_id . '</a>';
             }
             else
             {

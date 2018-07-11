@@ -18,7 +18,7 @@ class Discounts_controller extends CI_Controller {
 
         $this->load->helper('url');							
 
-        $data['title'] = 'Discounts Information List';					
+        $data['title'] = '<i class="fa fa-tags"></i> Transaction Discounts';					
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('discounts/discounts_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -38,8 +38,8 @@ class Discounts_controller extends CI_Controller {
             $row[] = $discounts->name;
             $row[] = $discounts->descr;
             
-            $row[] = $discounts->less_p . ' %';
-            $row[] = '₱ ' . $discounts->less_c;
+            $row[] = '<b>' . $discounts->less_p . ' % </b>';
+            $row[] = '<b>₱ ' . $discounts->less_c . '</b>';
 
             $row[] = $discounts->encoded;
 

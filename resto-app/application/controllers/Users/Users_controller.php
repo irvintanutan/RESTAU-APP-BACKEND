@@ -19,9 +19,9 @@ class Users_controller extends CI_Controller {
 
 		$this->load->helper('url');							
    												
-	   	$data['title'] = "Users List";	
+	   	$data['title'] = '<i class="fa fa-user-circle"></i> Users';	
 	   	$this->load->view('template/dashboard_header', $data);
-	    $this->load->view('users/users_view', $data);		// mao lang ni ang replaceable
+	    $this->load->view('users/users_view', $data);
 	    $this->load->view('template/dashboard_navigation');
 	    $this->load->view('template/dashboard_footer'); 
 	}

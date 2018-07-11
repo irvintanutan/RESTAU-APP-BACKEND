@@ -11,6 +11,7 @@ class Dashboard_controller extends CI_Controller {
         $this->load->model('Packages/Packages_model','packages');
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
+        $this->load->model('Store_config/Store_config_model','store');
 
     }
 
@@ -29,7 +30,7 @@ class Dashboard_controller extends CI_Controller {
         // get today's date and yesterday
         $today = date('Y-m-d');
 
-        $data['title'] = 'Dashboard';	
+        $data['title'] = '<i class="fa fa-tachometer"></i> Dashboard';	
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('template/dashboard_body',$data);
         $this->load->view('template/dashboard_navigation');
@@ -37,28 +38,76 @@ class Dashboard_controller extends CI_Controller {
 
     }
 
-    SELECT distinct trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, SUM(trans_details.qty) as sold from trans_details INNER JOIN transactions ON trans_details.trans_id = transactions.trans_id WHERE trans_details.prod_type != 2 and transactions.status = "CLEARED" and transactions.datetime >= "2018-07-01 00:00:00" and transactions.datetime <= "2018-07-10 23:59:59" group by trans_details.prod_id, trans_details.pack_id order by sold desc
-
-    public function ajax_list()
+    public function ajax_list() // get all that belongs to this ID via foreign key
     {
+        // get best selling list -------------------------------------------------
+
+        $min_price = $this->store->get_store_bs_price(1);
+
+        $best_selling = $this->products->get_best_selling($min_price);
+        $best_selling_prod_array = array();
+        $best_selling_pack_array = array();
+
+        foreach ($best_selling as $bp_products) // different storage for products and package since index is used to get the rank
+        {
+            $best_selling_prod_array[] = $bp_products->prod_id;
+            $best_selling_pack_array[] = $bp_products->pack_id;
+        }
+        //------------------------------------------------------------------------
+
         $list = $this->trans_details->get_datatables_sold_today();
         $data = array();
         $no = $_POST['start'];
+
         foreach ($list as $trans_details) {
             $no++;
             $row = array();
+            
+            if ($trans_details->prod_type == 1) // if prod_type is package
+            {
+                $item_id = 'G' . $trans_details->pack_id;
+                $item_name = $this->packages->get_package_name($trans_details->pack_id);
+                $item_type = 'PACKAGE';
+                $item_price = $this->packages->get_package_price($trans_details->pack_id);
 
-            $prod_id = $trans_details->prod_id;
-            $pack_id = $trans_details->pack_id;
-            $sold = $trans_details->sold;
+                if (in_array($trans_details->pack_id, $best_selling_pack_array))
+                {
+                    $item_sold = '( <i class="fa fa-star"></i> Rank: ' . (array_search($trans_details->pack_id, $best_selling_pack_array) + 1) . " ) &nbsp;&nbsp;&nbsp;&nbsp; <b>" . $trans_details->sold . "</b>";    
+                }
+                else
+                {
+                    $item_sold = '<b>' . $trans_details->sold . '</b>';
+                }
+            }
+            else if ($trans_details->prod_type == 0) // if prod_type is individual product
+            {
+                $item_id = 'P' . $trans_details->prod_id;
+                $item_name = $this->products->get_product_name($trans_details->prod_id);
+                $item_type = 'PRODUCT';
+                $item_price = $this->products->get_product_price($trans_details->prod_id);
 
-            $row[] = 'P' . $trans_details->prod_id;
-            $row[] = $this->clients->get_client_name($trans_details->client_id);
+                if (in_array($trans_details->prod_id, $best_selling_prod_array))
+                {
+                    $item_sold = '( <i class="fa fa-star"></i> Rank: ' . (array_search($trans_details->prod_id, $best_selling_prod_array) + 1) . " ) &nbsp;&nbsp;&nbsp;&nbsp; <b>" . $trans_details->sold . "</b>";    
+                }
+                else
+                {
+                    $item_sold = '<b>' . $trans_details->sold . '</b>';
+                }
+            }
 
-            $row[] = number_format($trans_details->total_trans_details, 2, '.', ',');
-            $row[] = number_format($trans_details->paid, 2, '.', ',');
-            $row[] = number_format($trans_details->balance, 2, '.', ',');
- 
+            $row[] = $item_id;
+            $row[] = $item_name;
+            $row[] = $item_type;
+
+            $row[] = $item_price;
+
+            $row[] = $item_sold;
+
+            $total_item_sales = ($item_price * $trans_details->sold);
+
+            $row[] = "₱ " . number_format($total_item_sales, 2);
+
             $data[] = $row;
         }
  

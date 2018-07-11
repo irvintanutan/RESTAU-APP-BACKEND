@@ -27,7 +27,7 @@ class Products_controller extends CI_Controller {
         
         $data['categories'] = $categories_data;
 
-        $data['title'] = 'Products Information List';
+        $data['title'] = '<i class="fa fa-cube"></i> Products';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('products/products_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -59,7 +59,7 @@ class Products_controller extends CI_Controller {
             $row[] = 'P' . $products->prod_id;
 
             $row[] = $products->name;
-            $row[] = $products->short_name; // 12 char short name
+            $row[] = '<b>' . $products->short_name . '</b>'; // 12 char short name
             $row[] = $products->descr;
 
             $row[] = $this->categories->get_category_name($products->cat_id); // get name instead of id
@@ -69,11 +69,11 @@ class Products_controller extends CI_Controller {
 
             if (in_array($products->prod_id, $best_selling_array))
             {
-                $row[] = '( <i class="fa fa-star"></i> Rank: ' . (array_search($products->prod_id, $best_selling_array) + 1) . " ) &nbsp;&nbsp;&nbsp;&nbsp;" . $products->sold;    
+                $row[] = '( <i class="fa fa-star"></i> Rank: ' . (array_search($products->prod_id, $best_selling_array) + 1) . " ) &nbsp;&nbsp;&nbsp;&nbsp; <b>" . $products->sold . '</b>';    
             }
             else
             {
-                $row[] = $products->sold;
+                $row[] = '<b>' . $products->sold . '</b>';
             }
 
 

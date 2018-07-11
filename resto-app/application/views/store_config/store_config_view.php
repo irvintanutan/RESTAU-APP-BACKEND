@@ -41,80 +41,86 @@
                             <h3 class="panel-title"><b><?php echo $store->name; ?></b></h3>
                         </div>
 
+                        <div class="panel-body col-md-12">
 
+                            <div class="control-label col-md-3">
 
-                        <div class="control-label col-md-3" style="margin-right: 20px;">
+                                <img id="image1" src=<?php echo "'assets/img/" . $store->img . "'"; ?> style="width:100%; max-height: 275px; margin-top:15px;">                       
 
-                            <img id="image1" src=<?php echo "'assets/img/" . $store->img . "'"; ?> style="width:100%; max-height: 275px; margin-left:20px; margin-top:15px;">                       
-
-                            <?php echo form_open_multipart('Store_config/Store_config_controller/do_upload');?> 
-                              <form action = "" method = "">
-                                 <br />  
-                                 <input type = "file" name = "userfile1" id="userfile1" size = "20" style = "padding-left: 20px;"/> 
-                                 <br />
-                                 
-                                 <input type = "submit" value = "Upload" class="btn btn-primary" style = "width:100%; margin-left: 20px;"/>
-                              </form>
-                        </div>
-                
-                        
-
-                        <div class="form-body">
-                        <div class="form-group">
-                                              
-                            <label class="control-label col-md-3">Store Name: <h4><?php echo $store->name; ?></h4></label>
-
-                            <label class="control-label col-md-3">Address: <h4><?php echo $store->address; ?></h4></label>
-
-                            <label class="control-label col-md-2">City: <h4><?php echo $store->city; ?></h4></label>
-
-
-                            <label class="control-label col-md-8"><h4><?php echo "<hr>" ?></h4></label>
-
-
-                            <label class="control-label col-md-3">TIN: <h4><?php echo $store->tin; ?></h4></label>
-
-                            <label class="control-label col-md-3">VAT: <h4><?php echo $store->vat; ?></h4></label>
-
-                            <label class="control-label col-md-2">Best Selling Minimum Price: <h4>₱ <?php echo number_format($store->bs_price, 2, '.', ','); ?></h4></label>
+                                <?php echo form_open_multipart('Store_config/Store_config_controller/do_upload');?> 
+                                  <form action = "" method = "">
+                                     <br />  
+                                     <input type = "file" name = "userfile1" id="userfile1" size = "20" style = "width:100%;"/> 
+                                     <br />
+                                     
+                                     <input type = "submit" value = "Upload" class="btn btn-primary" style = "width:100%;"/>
+                                  </form>
+                            </div>
+                    
                             
+                            <div class="col-md-9" style="border-bottom: 2px solid #cccccc; border-top: 2px solid #cccccc; border-radius: 10px;">
+                                <div class="form-body">
+                                <div class="form-group">
 
-                            <label class="control-label col-md-8"><h4><?php echo "<hr>" ?></h4></label>
+                                    <label class="control-label col-md-12"><br></label>
+                                                      
+                                    <label class="control-label col-md-4">Store Name: <h4><?php echo $store->name; ?></h4></label>
+
+                                    <label class="control-label col-md-4">Address: <h4><?php echo $store->address; ?></h4></label>
+
+                                    <label class="control-label col-md-4">City: <h4><?php echo $store->city; ?></h4></label>
 
 
-                            <label class="control-label col-md-8">Manager's Password: <h4><?php echo $store->password; ?></h4></label>
+                                    <label class="control-label col-md-12"><h4><?php echo "<hr>" ?></h4></label>
 
 
-                            <label class="control-label col-md-8"><h4><?php echo "<hr>" ?></h4></label>
+                                    <label class="control-label col-md-4">TIN: <h4><?php echo $store->tin; ?></h4></label>
+
+                                    <label class="control-label col-md-4">VAT: <h4><?php echo $store->vat; ?></h4></label>
+
+                                    <label class="control-label col-md-4">Best Selling Minimum Price: <h4>₱ <?php echo number_format($store->bs_price, 2, '.', ','); ?></h4></label>
+                                    
+
+                                    <label class="control-label col-md-12"><h4><?php echo "<hr>" ?></h4></label>
 
 
-                            <label class="control-label col-md-3"></label>
+                                    <label class="control-label col-md-12">Manager's Password: <h4><?php echo $store->password; ?></h4></label>
 
-                            <label class="control-label col-md-3"></label>
 
-                            <button class="control-label col-md-2 btn btn-info" onclick="edit_store_config(1)" style="font-size: 14px;"><i class="fa fa-pencil-square-o"></i> &nbsp;Edit Store Config</button>
-                            
-                        </div>   
+                                    <label class="control-label col-md-12"><h4><?php echo "<hr>" ?></h4></label>
+
+
+                                    <label class="control-label col-md-4"></label>
+
+                                    <label class="control-label col-md-4"></label>
+
+                                    <button class="control-label col-md-4 btn btn-info" onclick="edit_store_config(1)" style="font-size: 14px;"><i class="fa fa-pencil-square-o"></i> &nbsp;Edit Store Config</button>
+
+                                    <label class="control-label col-md-12"><br></label>
+                                    
+                                </div>   
+                                </div>
+                            </div>
+
                         </div>
-
-                        <div class="control-label col-md-12">
+                        <!-- <div class="control-label col-md-12">
                         
                         <hr style="background-color: #ccccff; height: 3px;">
 
-                        <!-- <div class="panel-heading">
+                        <div class="panel-heading">
                             <h3 class="panel-title">store Details Table</h3>
                         </div>
-                        <hr> -->
-                        </div>
+                        <hr>
+                        </div> -->
 
 
                         
-                        <div class="panel-body col-md-12">
+                        <!-- <div class="panel-body col-md-12">
 
                             
-                            <!-- <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
-                            <br><br> -->
-                            <!-- <table id="prod-details-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
+                            <br><br>
+                            <table id="prod-details-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th style="width:60px;">Item ID</th>
@@ -128,8 +134,8 @@
                                 </thead>
                                 <tbody>
                                 </tbody>
-                            </table> -->
-                        </div>
+                            </table>
+                        </div> -->
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->

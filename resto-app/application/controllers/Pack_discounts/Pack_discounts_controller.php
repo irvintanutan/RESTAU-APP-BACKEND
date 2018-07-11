@@ -23,7 +23,7 @@ class Pack_discounts_controller extends CI_Controller {
         
         $data['packages'] = $packages_list;						
 
-        $data['title'] = 'Package Discounts Information List';					
+        $data['title'] = '<i class="fa fa-tags"></i> Package Discounts';					
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('pack_discounts/pack_discounts_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -58,9 +58,9 @@ class Pack_discounts_controller extends CI_Controller {
             
             $less_amount = ($package_price - $new_price);
 
-            $row[] = $new_price;
+            $row[] = '<b>' . number_format($new_price, 2) . '</b>';
 
-            $row[] = "( -" . number_format($less_amount, 2, '.', ',') . " )";
+            $row[] = "<b>( -" . number_format($less_amount, 2) . " )</b>";
 
             //add html for action
             $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_pack_discount('."'".$pack_discounts->pd_id."'".')"><i class="fa fa-pencil-square-o"></i></a>

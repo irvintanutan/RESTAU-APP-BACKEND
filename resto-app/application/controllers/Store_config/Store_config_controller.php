@@ -22,7 +22,7 @@ class Store_config_controller extends CI_Controller {
         
         $data['store'] = $store;                        
 
-        $data['title'] = 'Store Configurations';                 
+        $data['title'] = '<i class="fa fa-cogs"></i> Store Configurations';                 
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('store_config/store_config_view',$data);
         $this->load->view('template/dashboard_navigation');

@@ -23,7 +23,7 @@ class Packages_controller extends CI_Controller {
 
         $this->load->helper('url');							
 
-        $data['title'] = 'Packages Information List';					
+        $data['title'] = '<i class="fa fa-cubes"></i> Packages';					
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('packages/packages_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -55,7 +55,7 @@ class Packages_controller extends CI_Controller {
             $row[] = 'G' . $packages->pack_id;
 
             $row[] = $packages->name;
-            $row[] = $packages->short_name;
+            $row[] = '<b>' . $packages->short_name . '</b>';
             $row[] = $packages->descr;
 
             $row[] = $packages->price;
@@ -63,11 +63,11 @@ class Packages_controller extends CI_Controller {
 
             if (in_array($packages->pack_id, $best_selling_array))
             {
-                $row[] = '( <i class="fa fa-star"></i> Rank: ' . (array_search($packages->pack_id, $best_selling_array) + 1) . " ) &nbsp;&nbsp;&nbsp;&nbsp;" . $packages->sold;    
+                $row[] = '( <i class="fa fa-star"></i> Rank: ' . (array_search($packages->pack_id, $best_selling_array) + 1) . " ) &nbsp;&nbsp;&nbsp;&nbsp; <b>" . $packages->sold . '</b>';    
             }
             else
             {
-                $row[] = $packages->sold;
+                $row[] = '<b>' . $packages->sold . '</b>';
             }
 
             $row[] = $packages->encoded;

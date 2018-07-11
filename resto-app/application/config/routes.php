@@ -12,8 +12,10 @@ $route['translate_uri_dashes'] = TRUE;
 // $route['log-user'] = 'login_controller/login_validation';
 
 
-$route['dashboard'] = 'dashboard_controller/index';
+$route['dashboard'] = 'Dashboard_controller/index';
 $route['user-logout'] = 'login_controller/logout';
+
+$route['showlist-sold-today'] = 'Dashboard_controller/ajax_list';
 
 
 

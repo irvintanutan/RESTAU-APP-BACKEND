@@ -5,7 +5,7 @@
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div id="page-title">
-                    <!-- <h1 class="page-header text-overflow"><img src="assets/img/jikiapps.png" style="width: 12%; margin-top: 0%; margin-right: 1%;">e - L e n d i n g | Lending Manager App </h1> -->
+                    <h1 class="page-header text-overflow"><?php echo $title; ?></h1>
 
 
                     <!--Searchbox-->
@@ -23,11 +23,10 @@
 
                 <!--Breadcrumb-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <!-- <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li class="active">Data</li>
-                </ol> -->
+                <ol class="breadcrumb">
+                    <li><a href="<?php echo base_url('dashboard');?>">Dashboard</a></li>
+                    <li><a href="<?php echo base_url('statistics-page');?>">Statistics / Charts</a></li>
+                </ol>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <!--End breadcrumb-->
                 <!--Page content-->
@@ -35,7 +34,7 @@
                 <div id="page-content" class="panel panel-light panel-colorful">
                 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Statistics / Charts</h3>
+                        <h3 class="panel-title">Results as of <?php echo date('l, F j, Y', strtotime(date('Y-m-d'))); ?></h3>
                     </div>
                     <br>
 

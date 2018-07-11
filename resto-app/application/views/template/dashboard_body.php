@@ -8,8 +8,12 @@
                     <div class="col-md-2">
                         <img src=<?php echo "'assets/img/" . $store->img . "'"; ?> style="width: 100%; margin-top: 0%; margin-right: 3%;">
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <h1 class="page-header text-overflow"><br><br><b><?php echo $store->name; ?></b><br><span style="font-size: 16px;">R e s t o A p p | Restaurant Point of Sales App by InnoTech Solutions</span></h1>
+                    </div>
+
+                    <div class="col-md-2"><br><br><br><br>
+                        <h1 class="page-header text-overflow" align="center">[ <?php echo $title; ?> ]</h1>
                     </div>
 
                     <!-- For alert and notifications assets/js/demo/nifty-demo.js-->
@@ -37,7 +41,7 @@
                     
                     <div class="panel">
                         <div class="panel-heading">
-                            <h1 align="right" class="panel-title"><i style="font-size: 18px;">Daily Stats | <?php echo date('l, F j, Y', strtotime(date('Y-m-d'))); ?></i></h1>
+                            <h1 align="right" class="panel-title"><i class="fa fa-pie-chart"></i> <i style="font-size: 18px;">Daily Stats | <?php echo date('l, F j, Y', strtotime(date('Y-m-d'))); ?></i></h1>
                         </div>
                     </div>
                     <!--Tiles - Bright Version-->
@@ -120,10 +124,35 @@
                     </div>
                     
                     
+                    <!-- Basic Data Tables -->
+                    <!--===================================================-->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h1 class="panel-title"><i class="fa fa-calendar-check-o"></i> <i style="font-size: 18px;">Menu Items Sold Today</i></h1>
+                        </div>
 
-
-
-                    
+                        <div class="panel-body">
+                            
+                            <table id="sold-today-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">
+                                <thead>
+                                    <tr>
+                                        <th style="width:60px;">ID</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Price</th>
+                                        <th>Sold</th>
+                                        <th>Sales</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--===================================================-->
+                    <!-- End Striped Table -->
+                    <span>Legend: [ &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
 
 
 
@@ -141,8 +170,8 @@
 
 
                 </div>
-                <!--===================================================-->
-                <!--End page content-->
+                <!--=================================================== -->
+                <!-- End page content-->
                 <hr style="background-color: #cccccc; height:1px;">
                 <hr>
                 <hr>

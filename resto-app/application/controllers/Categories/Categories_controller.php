@@ -18,7 +18,7 @@ class Categories_controller extends CI_Controller {
 
         $this->load->helper('url');							
 
-        $data['title'] = 'Categories Information List';					
+        $data['title'] = '<i class="fa fa-braille"></i> Categories';					
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('categories/categories_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -35,15 +35,15 @@ class Categories_controller extends CI_Controller {
             $no++;
             $row = array();
             $row[] = 'C' . $categories->cat_id;
-            $row[] = $categories->name;
+            $row[] = '<b>' . $categories->name . '</b>';
             $row[] = $categories->descr;
 
             $row[] = $categories->encoded;
 
             //add html for action
-            $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_product('."'".$categories->cat_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
+            $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_category('."'".$categories->cat_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
                       
-                      <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_product('."'".$categories->cat_id."'".', '."'".$categories->name."'".')"><i class="fa fa-trash"></i></a>';
+                      <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_category('."'".$categories->cat_id."'".', '."'".$categories->name."'".')"><i class="fa fa-trash"></i></a>';
  
             $data[] = $row;
         }

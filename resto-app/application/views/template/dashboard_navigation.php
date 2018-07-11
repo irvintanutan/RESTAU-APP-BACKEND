@@ -70,7 +70,7 @@
 
                                     <li class="active-link">
                                         <a href="<?php echo base_url('statistics-page');?>">
-                                            <i class="fa fa-area-chart"></i>
+                                            <i class="fa fa-bar-chart"></i>
                                             <span class="menu-title">
                                                 <strong>Statistics / Charts</strong>
                                             </span>
@@ -81,7 +81,7 @@
 
                                     <li>
                                         <a href="<?php echo base_url('statistics-page');?>">
-                                            <i class="fa fa-area-chart"></i>
+                                            <i class="fa fa-bar-chart"></i>
                                             <span class="menu-title">
                                                 Statistics / Charts
                                             </span>
@@ -111,7 +111,7 @@
 
                                     <li class="active-link">
                                         <a href="<?php echo base_url();?>items-page">
-                                            <i class="fa fa-building"></i>
+                                            <i class="fa fa-archive"></i>
                                             <strong><span class="menu-title">Items</span></strong>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
@@ -121,7 +121,7 @@
 
                                     <li>
                                         <a href="<?php echo base_url();?>items-page">
-                                            <i class="fa fa-building"></i>
+                                            <i class="fa fa-archive"></i>
                                             <span class="menu-title">Items</span>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
@@ -142,7 +142,7 @@
 
                                     <li class="active-link">
                                         <a href="#">
-                                            <i class="fa fa-university"></i>
+                                            <i class="fa fa-cutlery"></i>
                                             <strong><span class="menu-title">Menu</span></strong>
                                             <i class="arrow"></i>
                                         </a>
@@ -160,7 +160,7 @@
 
                                     <li>
                                         <a href="#">
-                                            <i class="fa fa-university"></i>
+                                            <i class="fa fa-cutlery"></i>
                                             <span class="menu-title">Menu</span>
                                             <i class="arrow"></i>
                                         </a>
@@ -189,7 +189,7 @@
 
                                     <li class="active-link">
                                         <a href="<?php echo base_url();?>categories-page">
-                                            <i class="fa fa-users"></i>
+                                            <i class="fa fa-braille"></i>
                                             <strong><span class="menu-title">Categories</span></strong>
                                             
                                         </a>
@@ -199,7 +199,7 @@
 
                                     <li>
                                         <a href="<?php echo base_url();?>categories-page">
-                                            <i class="fa fa-users"></i>
+                                            <i class="fa fa-braille"></i>
                                             <span class="menu-title">Categories</span>
                                             
                                         </a>
@@ -220,7 +220,7 @@
 
                                     <li class="active-link">
                                         <a href="<?php echo base_url();?>tables-page">
-                                            <i class="fa fa-money"></i>
+                                            <i class="fa fa-table"></i>
                                             <strong><span class="menu-title">Tables</span></strong>
                                             
                                         </a>
@@ -230,7 +230,7 @@
 
                                     <li>
                                         <a href="<?php echo base_url();?>tables-page">
-                                            <i class="fa fa-money"></i>
+                                            <i class="fa fa-table"></i>
                                             <span class="menu-title">Tables</span>
                                             
                                         </a>
@@ -251,7 +251,7 @@
 
                                     <li class="active-link">
                                         <a href="#">
-                                            <i class="fa fa-university"></i>
+                                            <i class="fa fa-tags"></i>
                                             <strong><span class="menu-title">Discounts</span></strong>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
@@ -271,7 +271,7 @@
 
                                     <li>
                                         <a href="#">
-                                            <i class="fa fa-university"></i>
+                                            <i class="fa fa-tags"></i>
                                             <span class="menu-title">Discounts</span>
                                             <span class="label label-danger pull-right">Admin</span>
                                         </a>
@@ -303,7 +303,7 @@
             
                                     <li class="active-link">
                                         <a href="#">
-                                            <i class="fa fa-money"></i>
+                                            <i class="fa fa-qrcode"></i>
                                             <strong><span class="menu-title">Transactions</span></strong>
                                             <i class="arrow"></i>
                                         </a>
@@ -323,7 +323,7 @@
 
                                     <li>
                                         <a href="#">
-                                            <i class="fa fa-money"></i>
+                                            <i class="fa fa-qrcode"></i>
                                             <span class="menu-title">Transactions</span>
                                             <i class="arrow"></i>
                                         </a>
@@ -366,33 +366,23 @@
                                     <?php if($this->uri->segment(1) == 'users-page'){ ?>
 
                                     <li class="active-link">
-                                        <a href="#">
+                                        <a href="<?php echo base_url();?>users-page">
                                             <i class="fa fa-user-circle"></i>
                                             <strong><span class="menu-title">Users</span></strong>
                                             <span class="label label-danger pull-right">Admin</span>
                                             
                                         </a>
-                                    
-                                        <!--Submenu-->
-                                        <ul class="collapse">
-                                            <li><a href="<?php echo base_url();?>users-page">Show List</a></li>
-                                        </ul>
                                     </li>
 
                                     <?php }else{ ?>
 
                                     <li>
-                                        <a href="#">
+                                        <a href="<?php echo base_url();?>users-page">
                                             <i class="fa fa-user-circle"></i>
                                             <span class="menu-title">Users</span>
                                             <span class="label label-danger pull-right">Admin</span>
                                             
                                         </a>
-                                    
-                                        <!--Submenu-->
-                                        <ul class="collapse">
-                                            <li><a href="<?php echo base_url();?>users-page">Show List</a></li>
-                                        </ul>
                                     </li>
 
                                     <?php } ?>
@@ -406,31 +396,19 @@
                                     <?php if($this->uri->segment(1) == 'logs-page'){ ?>
 
                                     <li class="active-link">
-                                        <a href="#">
+                                        <a href="<?php echo base_url();?>logs-page">
                                             <i class="fa fa-history"></i>
                                             <strong><span class="menu-title">System Logs</span></strong>
-                                            <i class="arrow"></i>
                                         </a>
-                                    
-                                        <!--Submenu-->
-                                        <ul class="collapse">
-                                            <li><a href="<?php echo base_url();?>logs-page">Show List</a></li>
-                                        </ul>
                                     </li>
 
                                     <?php }else{ ?>
 
                                     <li>
-                                        <a href="#">
+                                        <a href="<?php echo base_url();?>logs-page">
                                             <i class="fa fa-history"></i>
                                             <span class="menu-title">System Logs</span>
-                                            <i class="arrow"></i>
                                         </a>
-                                    
-                                        <!--Submenu-->
-                                        <ul class="collapse">
-                                            <li><a href="<?php echo base_url();?>logs-page">Show List</a></li>
-                                        </ul>
                                     </li>
 
                                     <?php } ?>

@@ -5,8 +5,8 @@ class Transactions_model extends CI_Model {
  
     var $table = 'transactions';
 
-    var $column_order = array('trans_id','datetime','order_type','gross','discount','total_due','method','user_id',null); //set column field database for datatable orderable
-    var $column_search = array('trans_id','datetime','order_type','gross','discount','total_due','method','user_id'); //set column field database for datatable searchable
+    var $column_order = array('trans_id','datetime','order_type',null,'discount',null,'method','user_id',null); //set column field database for datatable orderable
+    var $column_search = array('trans_id','datetime','order_type','discount','method','user_id'); //set column field database for datatable searchable
 
     var $order = array('trans_id' => 'desc'); // default order 
  

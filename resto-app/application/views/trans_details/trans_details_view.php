@@ -194,7 +194,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="cash_input_div">
                                         <label class="control-label col-md-3">Cash :</label>
                                         <div class="col-md-6">
                                             <input id="cash_amt" name="cash_amt" placeholder="Cash Amount" class="form-control" type="number" style="font-size: 15px;" >
@@ -219,24 +219,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-1"></label>
-                                        <button class="btn btn-default col-md-2" id="cash_1" onclick="add_cash_input(1)">1</button>
-                                        <button class="btn btn-info col-md-2" id="cash_5" onclick="add_cash_input(5)">5</button>
-                                        <button class="btn btn-default col-md-2" id="cash_10" onclick="add_cash_input(10)">10</button>
-                                        <button class="btn btn-info col-md-2" id="cash_20" onclick="add_cash_input(20)">20</button>
-                                        <button class="btn btn-default col-md-2" id="cash_50" onclick="add_cash_input(50)">50</button>
-                                        <label class="control-label col-md-1"></label>
-                                    </div>
+                                    <div id="cash_buttons">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1"></label>
+                                            <button class="btn btn-default col-md-2" id="cash_1" onclick="add_cash_input(1)">1</button>
+                                            <button class="btn btn-info col-md-2" id="cash_5" onclick="add_cash_input(5)">5</button>
+                                            <button class="btn btn-default col-md-2" id="cash_10" onclick="add_cash_input(10)">10</button>
+                                            <button class="btn btn-info col-md-2" id="cash_20" onclick="add_cash_input(20)">20</button>
+                                            <button class="btn btn-default col-md-2" id="cash_50" onclick="add_cash_input(50)">50</button>
+                                            <label class="control-label col-md-1"></label>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-1"></label>
-                                        <button class="btn btn-default col-md-2" id="cash_100" onclick="add_cash_input(100)">100</button>
-                                        <button class="btn btn-info col-md-2" id="cash_200" onclick="add_cash_input(200)">200</button>
-                                        <button class="btn btn-default col-md-2" id="cash_500" onclick="add_cash_input(500)">500</button>
-                                        <button class="btn btn-info col-md-2" id="cash_1000" onclick="add_cash_input(1000)">1000</button>
-                                        <button class="btn btn-warning col-md-2" id="cash_clear" onclick="clear_cash_input()">CLEAR</button>
-                                        <label class="control-label col-md-1"></label>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1"></label>
+                                            <button class="btn btn-default col-md-2" id="cash_100" onclick="add_cash_input(100)">100</button>
+                                            <button class="btn btn-info col-md-2" id="cash_200" onclick="add_cash_input(200)">200</button>
+                                            <button class="btn btn-default col-md-2" id="cash_500" onclick="add_cash_input(500)">500</button>
+                                            <button class="btn btn-info col-md-2" id="cash_1000" onclick="add_cash_input(1000)">1000</button>
+                                            <button class="btn btn-warning col-md-2" id="cash_clear" onclick="clear_cash_input()">CLEAR</button>
+                                            <label class="control-label col-md-1"></label>
+                                        </div>
                                     </div>
 
                                 </div>

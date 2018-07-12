@@ -1157,82 +1157,168 @@ function reload_page() // ---> calling for reload page
 
 function set_payment() // ---> calling for the Add Modal form
 {
-    save_method = 'set-payment';
-    text = 'Set Payment';
+    var id = $('[name="trans_id"]').val();
     
-    $('#form_set_payment')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-    $('#modal_form_set_payment').modal('show'); // show bootstrap modal
-    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "../edit-transaction/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            var is_updated = data.is_updated; // get current is_updated value
+
+            if (is_updated == 1) // transaction is updated
+            {
+              bootbox.dialog({
+                  title  : "This transaction was updated",
+                  message  : "Reloading..."
+              });
+
+              setTimeout(function(){ reload_page(); }, 1500);
+            }
+            else
+            {
+              save_method = 'set-payment';
+              text = 'Set Payment';
+              
+              $('#form_set_payment')[0].reset(); // reset form on modals
+              $('.form-group').removeClass('has-error'); // clear error class
+              $('.help-block').empty(); // clear error string
+              $('#modal_form_set_payment').modal('show'); // show bootstrap modal
+              $('.modal-title').text(text); // Set Title to Bootstrap modal title
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
 }
 
 function set_discount() // ---> calling for the Add Modal form
 {
-    save_method = 'set-discount';
-    text = 'Set Discount';
+    var id = $('[name="trans_id"]').val();
     
-    $('#form_set_discount')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-    $('#modal_form_set_discount').modal('show'); // show bootstrap modal
-    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "../edit-transaction/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            var is_updated = data.is_updated; // get current is_updated value
+
+            if (is_updated == 1) // transaction is updated
+            {
+              bootbox.dialog({
+                  title  : "This transaction was updated",
+                  message  : "Reloading..."
+              });
+
+              setTimeout(function(){ reload_page(); }, 1500);
+            }
+            else
+            {
+              save_method = 'set-discount';
+              text = 'Set Discount';
+              
+              $('#form_set_discount')[0].reset(); // reset form on modals
+              $('.form-group').removeClass('has-error'); // clear error class
+              $('.help-block').empty(); // clear error string
+              $('#modal_form_set_discount').modal('show'); // show bootstrap modal
+              $('.modal-title').text(text); // Set Title to Bootstrap modal title
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
 }
 
 function set_cancel(id) // ---> calling for the Add Modal form
 {
+  var id = $('[name="trans_id"]').val();
+  
+  //Ajax Load data from ajax
+  $.ajax({
+      url : "../edit-transaction/" + id,
+      type: "GET",
+      dataType: "JSON",
+      success: function(data)
+      {
+          var is_updated = data.is_updated; // get current is_updated value
 
-  bootbox.prompt({
-      title: "Enter 'Manager's Password' to proceed",
-      inputType: 'password',
-      callback: function (result) {
-
-          var managers_password = $('[name="managers_password"]').val();
-
-          if (result == managers_password) 
+          if (is_updated == 1) // transaction is updated
           {
-            bootbox.confirm("ARE YOU SURE YOU WANT TO CANCEL THIS TRANSACTION?", function(result){
-
-              if (result == true)
-              {
-                // ajax delete data to database
-                $.ajax({
-                    url : "../set-cancel/" + id,
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function(data)
-                    {
-                        var log_type = 'Delete';
-
-                        var details = 'Transaction has been cancelled'; 
-
-                        set_system_log_one(log_type, details);
-
-                        reload_table();
-
-                        // refresh transaction details page
-                        window.location.href=$('[name="trans_id"]').val();
-                    },
-                    error: function (jqXHR, textStatus, errorThrown)
-                    {
-                        alert('Error deleting data');
-                    }
-                });
-              }
-
+            bootbox.dialog({
+                title  : "This transaction was updated",
+                message  : "Reloading..."
             });
+
+            setTimeout(function(){ reload_page(); }, 1500);
           }
-          else if (result != null)
+          else
           {
-            
-            bootbox.alert({
-                title: "Incorrect Password Input",
-                message: "Access Denied",
-                callback: function () {
-                    
-                }
-            });
+            bootbox.prompt({
+                  title: "Enter 'Manager's Password' to proceed",
+                  inputType: 'password',
+                  callback: function (result) {
+
+                      var managers_password = $('[name="managers_password"]').val();
+
+                      if (result == managers_password) 
+                      {
+                        bootbox.confirm("ARE YOU SURE YOU WANT TO CANCEL THIS TRANSACTION?", function(result){
+
+                          if (result == true)
+                          {
+                            // ajax delete data to database
+                            $.ajax({
+                                url : "../set-cancel/" + id,
+                                type: "POST",
+                                dataType: "JSON",
+                                success: function(data)
+                                {
+                                    var log_type = 'Delete';
+
+                                    var details = 'Transaction has been cancelled'; 
+
+                                    set_system_log_one(log_type, details);
+
+                                    reload_table();
+
+                                    // refresh transaction details page
+                                    window.location.href=$('[name="trans_id"]').val();
+                                },
+                                error: function (jqXHR, textStatus, errorThrown)
+                                {
+                                    alert('Error deleting data');
+                                }
+                            });
+                          }
+
+                        });
+                      }
+                      else if (result != null)
+                      {
+                        
+                        bootbox.alert({
+                            title: "Incorrect Password Input",
+                            message: "Access Denied",
+                            callback: function () {
+                                
+                            }
+                        });
+                      }
+                  }
+              });
           }
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+          alert('Error get data from ajax');
       }
   });
 }
@@ -1254,6 +1340,23 @@ $("#method").change(function()
 
         document.getElementById("card_number").disabled = true;
         document.getElementById("cust_name").disabled = true;
+
+        document.getElementById("cash_input_div").style.display = 'block';
+        document.getElementById("cash_buttons").style.display = 'block';
+
+        // document.getElementById("exact_amt").disabled = false;
+
+        // document.getElementById("cash_1").disabled = false;
+        // document.getElementById("cash_5").disabled = false;
+        // document.getElementById("cash_10").disabled = false;
+        // document.getElementById("cash_20").disabled = false;
+        // document.getElementById("cash_50").disabled = false;
+
+        // document.getElementById("cash_100").disabled = false;
+        // document.getElementById("cash_200").disabled = false;
+        // document.getElementById("cash_500").disabled = false;
+        // document.getElementById("cash_1000").disabled = false;
+        // document.getElementById("cash_clear").disabled = false;
     }
     else if (method == "Credit Card")
     {
@@ -1263,6 +1366,23 @@ $("#method").change(function()
         
         document.getElementById("card_number").disabled = false;
         document.getElementById("cust_name").disabled = false;
+
+        document.getElementById("cash_input_div").style.display = 'none';
+        document.getElementById("cash_buttons").style.display = 'none';
+
+        // document.getElementById("exact_amt").disabled = true;
+
+        // document.getElementById("cash_1").disabled = true;
+        // document.getElementById("cash_5").disabled = true;
+        // document.getElementById("cash_10").disabled = true;
+        // document.getElementById("cash_20").disabled = true;
+        // document.getElementById("cash_50").disabled = true;
+
+        // document.getElementById("cash_100").disabled = true;
+        // document.getElementById("cash_200").disabled = true;
+        // document.getElementById("cash_500").disabled = true;
+        // document.getElementById("cash_1000").disabled = true;
+        // document.getElementById("cash_clear").disabled = true;
     }
     else if (method == "Cash Card")
     {
@@ -1272,6 +1392,23 @@ $("#method").change(function()
         
         document.getElementById("card_number").disabled = false;
         document.getElementById("cust_name").disabled = false;
+
+        document.getElementById("cash_input_div").style.display = 'none';
+        document.getElementById("cash_buttons").style.display = 'none';
+
+        // document.getElementById("exact_amt").disabled = true;
+
+        // document.getElementById("cash_1").disabled = true;
+        // document.getElementById("cash_5").disabled = true;
+        // document.getElementById("cash_10").disabled = true;
+        // document.getElementById("cash_20").disabled = true;
+        // document.getElementById("cash_50").disabled = true;
+
+        // document.getElementById("cash_100").disabled = true;
+        // document.getElementById("cash_200").disabled = true;
+        // document.getElementById("cash_500").disabled = true;
+        // document.getElementById("cash_1000").disabled = true;
+        // document.getElementById("cash_clear").disabled = true;
     }
 });
 
@@ -1434,33 +1571,263 @@ function confirm_trans()
 
 function print_bill_out(id) // ---> calling for the Add Modal form
 {
-    if(confirm('Are you sure to cancel this transaction?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "../set-cancel/" + id,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
+    var id = $('[name="trans_id"]').val();
+      
+      //Ajax Load data from ajax
+      $.ajax({
+          url : "../edit-transaction/" + id,
+          type: "GET",
+          dataType: "JSON",
+          success: function(data)
+          {
+              var is_updated = data.is_updated; // get current is_updated value
+
+              if (is_updated == 1) // transaction is updated
+              {
+                bootbox.dialog({
+                    title  : "This transaction was updated",
+                    message  : "Reloading..."
+                });
+
+                setTimeout(function(){ reload_page(); }, 1500);
+              }
+              else
+              {
+                bootbox.prompt({
+                      title: "Enter 'Manager's Password' to proceed",
+                      inputType: 'password',
+                      callback: function (result) {
+
+                          var managers_password = $('[name="managers_password"]').val();
+
+                          if (result == managers_password) 
+                          {
+                            bootbox.confirm("ARE YOU SURE YOU WANT TO CANCEL THIS TRANSACTION?", function(result){
+
+                              if (result == true)
+                              {
+                                // ajax delete data to database
+                                $.ajax({
+                                    url : "../set-cancel/" + id,
+                                    type: "POST",
+                                    dataType: "JSON",
+                                    success: function(data)
+                                    {
+                                        var log_type = 'Delete';
+
+                                        var details = 'Transaction has been cancelled'; 
+
+                                        set_system_log_one(log_type, details);
+
+                                        reload_table();
+
+                                        // refresh transaction details page
+                                        window.location.href=$('[name="trans_id"]').val();
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown)
+                                    {
+                                        alert('Error deleting data');
+                                    }
+                                });
+                              }
+
+                            });
+                          }
+                          else if (result != null)
+                          {
+                            
+                            bootbox.alert({
+                                title: "Incorrect Password Input",
+                                message: "Access Denied",
+                                callback: function () {
+                                    
+                                }
+                            });
+                          }
+                      }
+                  });
+              }
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error get data from ajax');
+          }
+      });
+}
+
+function delete_trans_detail_prod(idone, idtwo)
+{
+    var id = $('[name="trans_id"]').val();
+    
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "../edit-transaction/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            var is_updated = data.is_updated; // get current is_updated value
+
+            if (is_updated == 1) // transaction is updated
             {
-                var log_type = 'Delete';
+              bootbox.dialog({
+                  title  : "This transaction was updated",
+                  message  : "Reloading..."
+              });
 
-                var details = 'Transaction has been cancelled'; 
-
-                set_system_log_one(log_type, details);
-
-                reload_table();
-
-                // refresh transaction details page
-                window.location.href=$('[name="trans_id"]').val();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
+              setTimeout(function(){ reload_page(); }, 1500);
             }
-        });
- 
-    }
+            else
+            {
+              bootbox.prompt({
+                  title: "Enter 'Manager's Password' to proceed",
+                  inputType: 'password',
+                  callback: function (result) {
+
+                      var managers_password = $('[name="managers_password"]').val();
+
+                      if (result == managers_password) 
+                      {
+                        bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
+
+                          if (result == true)
+                          {
+                            // ajax delete data to database
+                            $.ajax({
+                                url : "../delete-trans-detail-prod/"+idone+"/"+idtwo,
+                                type: "POST",
+                                dataType: "JSON",
+                                success: function(data)
+                                {
+                                    var log_type = 'Delete';
+
+                                    var details = 'Transaction detail product voided T' + idone 
+                                    + ': P' + idtwo; 
+
+                                    set_system_log_one(log_type, details);
+
+                                    // refresh transaction details page
+                                    window.location.href=$('[name="trans_id"]').val();
+
+                                    //if success reload ajax table
+                                    $('#modal_form').modal('hide');
+                                    reload_table();
+                                },
+                                error: function (jqXHR, textStatus, errorThrown)
+                                {
+                                    alert('Error deleting data');
+                                }
+                            });
+                          }
+
+                        });
+                      }
+                      else if (result != null)
+                      {
+                        bootbox.alert({
+                            title: "Incorrect Password Input",
+                            message: "Access Denied",
+                            callback: function () {
+                                
+                            }
+                        });
+                      }
+                  }
+              });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+function delete_trans_detail_pack(idone, idtwo)
+{
+    var id = $('[name="trans_id"]').val();
+    
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "../edit-transaction/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            var is_updated = data.is_updated; // get current is_updated value
+
+            if (is_updated == 1) // transaction is updated
+            {
+              bootbox.dialog({
+                  title  : "This transaction was updated",
+                  message  : "Reloading..."
+              });
+
+              setTimeout(function(){ reload_page(); }, 1500);
+            }
+            else
+            {
+              bootbox.prompt({
+                  title: "Enter 'Manager's Password' to proceed",
+                  inputType: 'password',
+                  callback: function (result) {
+
+                      var managers_password = $('[name="managers_password"]').val();
+
+                      if (result == managers_password) 
+                      {
+                        bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
+
+                          if (result == true)
+                          {
+                            // ajax delete data to database
+                            $.ajax({
+                                url : "../delete-trans-detail-pack/"+idone+"/"+idtwo,
+                                type: "POST",
+                                dataType: "JSON",
+                                success: function(data)
+                                {
+                                    var log_type = 'Delete';
+
+                                    var details = 'Transaction detail package voided T' + idone 
+                                    + ': G' + idtwo; 
+
+                                    // refresh transaction details page
+                                    window.location.href=$('[name="trans_id"]').val();
+
+                                    set_system_log_one(log_type, details);
+
+                                    //if success reload ajax table
+                                    $('#modal_form').modal('hide');
+                                    reload_table();
+                                },
+                                error: function (jqXHR, textStatus, errorThrown)
+                                {
+                                    alert('Error deleting data');
+                                }
+                            });
+                          }
+
+                        });
+                      }
+                      else if (result != null)
+                      {
+                        bootbox.alert({
+                            title: "Incorrect Password Input",
+                            message: "Access Denied",
+                            callback: function () {
+                                
+                            }
+                        });
+                      }
+                  }
+              });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
 }
 
 
@@ -1489,6 +1856,60 @@ $("#disc_type").change(function()
         document.getElementById("less_c").disabled = false;
     }
     
+});
+
+$("#discount_prod_id").change(function() // display product's original price when selected on the product discount form
+{
+    var prod_id = $('[name="prod_id"]').val();
+
+    if (prod_id == "")
+    {
+      $('[name="orig_price"]').val("");
+    }
+    else
+    {
+      //Ajax Load data from ajax
+      $.ajax({
+          url : "edit-product/" + prod_id,
+          type: "GET",
+          dataType: "JSON",
+          success: function(data)
+          {
+              $('[name="orig_price"]').val(data.price);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error get data from ajax');
+          }
+      });
+    }
+});
+
+$("#discount_pack_id").change(function() // display package's original price when selected on the package discount form
+{
+    var pack_id = $('[name="pack_id"]').val();
+
+    if (pack_id == "")
+    {
+      $('[name="orig_price"]').val("");
+    }
+    else
+    {
+      //Ajax Load data from ajax
+      $.ajax({
+          url : "edit-package/" + pack_id,
+          type: "GET",
+          dataType: "JSON",
+          success: function(data)
+          {
+              $('[name="orig_price"]').val(data.price);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error get data from ajax');
+          }
+      });
+    }
 });
 
 
@@ -3453,125 +3874,6 @@ function delete_pack_detail(idone, idtwo)
  
     }
 }
-function delete_trans_detail_prod(idone, idtwo)
-{
-
-    bootbox.prompt({
-        title: "Enter 'Manager's Password' to proceed",
-        inputType: 'password',
-        callback: function (result) {
-
-            var managers_password = $('[name="managers_password"]').val();
-
-            if (result == managers_password) 
-            {
-              bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
-
-                if (result == true)
-                {
-                  // ajax delete data to database
-                  $.ajax({
-                      url : "../delete-trans-detail-prod/"+idone+"/"+idtwo,
-                      type: "POST",
-                      dataType: "JSON",
-                      success: function(data)
-                      {
-                          var log_type = 'Delete';
-
-                          var details = 'Transaction detail product voided T' + idone 
-                          + ': P' + idtwo; 
-
-                          set_system_log_one(log_type, details);
-
-                          // refresh transaction details page
-                          window.location.href=$('[name="trans_id"]').val();
-
-                          //if success reload ajax table
-                          $('#modal_form').modal('hide');
-                          reload_table();
-                      },
-                      error: function (jqXHR, textStatus, errorThrown)
-                      {
-                          alert('Error deleting data');
-                      }
-                  });
-                }
-
-              });
-            }
-            else if (result != null)
-            {
-              bootbox.alert({
-                  title: "Incorrect Password Input",
-                  message: "Access Denied",
-                  callback: function () {
-                      
-                  }
-              });
-            }
-        }
-    });
-}
-function delete_trans_detail_pack(idone, idtwo)
-{
-    bootbox.prompt({
-        title: "Enter 'Manager's Password' to proceed",
-        inputType: 'password',
-        callback: function (result) {
-
-            var managers_password = $('[name="managers_password"]').val();
-
-            if (result == managers_password) 
-            {
-              bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
-
-                if (result == true)
-                {
-                  // ajax delete data to database
-                  $.ajax({
-                      url : "../delete-trans-detail-pack/"+idone+"/"+idtwo,
-                      type: "POST",
-                      dataType: "JSON",
-                      success: function(data)
-                      {
-                          var log_type = 'Delete';
-
-                          var details = 'Transaction detail package voided T' + idone 
-                          + ': G' + idtwo; 
-
-                          // refresh transaction details page
-                          window.location.href=$('[name="trans_id"]').val();
-
-                          set_system_log_one(log_type, details);
-
-                          //if success reload ajax table
-                          $('#modal_form').modal('hide');
-                          reload_table();
-                      },
-                      error: function (jqXHR, textStatus, errorThrown)
-                      {
-                          alert('Error deleting data');
-                      }
-                  });
-                }
-
-              });
-            }
-            else if (result != null)
-            {
-              bootbox.alert({
-                  title: "Incorrect Password Input",
-                  message: "Access Denied",
-                  callback: function () {
-                      
-                  }
-              });
-            }
-        }
-    });
-}
-
-
 
 function delete_user(id)
 {

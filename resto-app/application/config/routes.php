@@ -292,6 +292,8 @@ $route['delete-trans-detail-pack/(:num)/(:num)'] = 'Trans_details/Trans_details_
 
 //======================================== API SECTION =================================================================
 
+$route['set-payment-api'] = 'Trans_details/Trans_details_controller/ajax_set_payment_api';
+
 $route['showlist-trans-details-api/(:num)'] = 'Trans_details/Trans_details_controller/ajax_api_list/$1';
 
 

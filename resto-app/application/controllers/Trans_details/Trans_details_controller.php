@@ -80,6 +80,9 @@ class Trans_details_controller extends CI_Controller {
         $data['gross_total'] = $gross_total;
         $data['table_str'] = $table_str;
 
+        $this->reset_is_updated($trans_id); // reset is_updated every page load
+
+
         $data['title'] = '<i class="fa fa-qrcode"></i> Transaction Details';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('trans_details/trans_details_view',$data);
@@ -301,6 +304,16 @@ class Trans_details_controller extends CI_Controller {
         $this->transactions->update(array('trans_id' => $trans_id), $data);
 
         echo json_encode(array("status" => TRUE));
+    }
+
+    public function reset_is_updated($trans_id) // reset is_updated to false whenever page is loaded or refreshed
+    {
+        $is_updated = 0; // set to false
+
+        $data = array(
+                'is_updated' => $is_updated,
+            );
+        $this->transactions->update(array('trans_id' => $trans_id), $data);
     }
  
     // public function ajax_update()
@@ -537,6 +550,301 @@ class Trans_details_controller extends CI_Controller {
 
 
     // ================================================ API POST REQUEST METHOD ============================================
+
+
+    public function ajax_set_payment_api() // set payment function (OVER THE COUNTER TRANSACTIONS USING TABLET)
+    {
+
+        $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+        $request = json_decode($stream_clean);
+        // $ready = $request->ready;
+        $array = json_decode(json_encode($request), true);
+        
+        $line_items = array();
+
+        foreach ($array as $transaction) 
+        {
+            foreach ($transaction['details'] as $details)
+            {
+                // insert new transaction ------------------------------------------------
+
+                $discount = $details['discount'];
+                $disc_type = $details['disc_type']; // discount type id
+
+                $order_type = $details['order_type'];
+
+                $method = $details['method'];
+
+                $cash_amt = $details['cash_amt'];
+
+                $card_number = $details['card_number'];
+                $cust_name = $details['cust_name'];
+
+                $user_id = $details['user_id'];
+                $staff_username = $this->users->get_username($user_id);
+
+                $cashier_id = $details['cashier_id'];
+                
+                $amount_due = $details['amount_due'];
+
+
+                if ($method == 'Cash') // if method is Cash
+                {
+                    $cash_amt = $cash_amt;
+                }
+                else // if Credit Card or Cash Card
+                {
+                    $cash_amt = $amount_due; // if method is not cash, set cash as amount due (result: no change amount)
+                }
+
+                if ($card_number == '') // set as n/a if empty
+                {
+                    $card_number = 'n/a';
+                }
+
+                if ($cust_name == '') // set as n/a if empty
+                {
+                    $cust_name = 'n/a';
+                }
+
+                $data = array(
+                        'datetime' => date("Y-m-d H:i:s"),
+
+                        'discount' => $discount,
+                        'disc_type' => $disc_type,
+
+                        'status' => 'CLEARED',
+
+                        'order_type' => $order_type,
+
+                        'method' => $method,
+
+                        'cash_amt' => $cash_amt,
+                        'change_amt' => ($cash_amt - $amount_due),
+
+                        'card_number' => $card_number,
+                        'cust_name' => $cust_name,
+
+                        'user_id' => $user_id,
+                        'cashier_id' => $cashier_id
+                    );
+                    
+                $insert = $this->transactions->save($data);
+            }
+            
+            // end insert new transaction ------------------------------------------------
+
+            $trans_id = $insert; // get the new trans_id
+
+            // get each product for trans_details  ------------------------------------------------
+
+            foreach ($transaction['products'] as $products)
+            {
+                $prod_id = $products['prod_id'];
+                $prod_name = $this->products->get_product_short_name($prod_id);
+                $prod_price = $this->products->get_product_price($prod_id);
+                $prod_qty = $products['qty'];
+
+                // check if product is discounted
+                $check_discount = $this->prod_discounts->get_by_prod_id($prod_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $prod_price = $new_price;
+
+                    $prod_name = $prod_name . "*"; // discounted product indicator
+                }
+
+                $prod_total = ($prod_price * $prod_qty);
+
+                // insert new product to trans_details ---------------------------------------------
+
+                $data_products = array(
+                    'trans_id' => $trans_id,
+                    'prod_id' => $prod_id,
+
+                    'prod_type' => 0, // 0 - individual product
+
+                    'price' => $prod_price,
+                    'qty' => $prod_qty,
+
+                    'total' => $prod_total
+                );
+                $this->trans_details->save($data_products);
+
+                // add line item to line_items array
+                $line_items[] = new item($prod_qty . " " . $prod_name . " @" . $prod_price, number_format($prod_total, 2));
+            }
+
+            // get each package for trans_details  ------------------------------------------------
+
+            foreach ($transaction['packages'] as $packages)
+            {
+                $pack_id = $packages['pack_id'];
+                $pack_name = $this->packages->get_package_short_name($pack_id);
+                $pack_price = $this->packages->get_package_price($pack_id);
+                $pack_qty = $packages['qty'];
+
+                // check if product is discounted
+                $check_discount = $this->pack_discounts->get_by_pack_id($pack_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $pack_price = $new_price;
+
+                    $pack_name = $pack_name . "*"; // discounted product indicator
+                }
+
+                $pack_total = ($pack_price * $pack_qty);
+
+                // insert new package to trans_details ---------------------------------------------
+
+                $data_packages = array(
+                    'trans_id' => $trans_id,
+                    'pack_id' => $pack_id,
+
+                    'prod_type' => 1, // 1 - package
+
+                    'price' => $pack_price,
+                    'qty' => $pack_qty,
+
+                    'total' => $pack_total
+                );
+                $this->trans_details->save($data_packages);
+
+                // add line item to line_items array
+                $line_items[] = new item($pack_qty . " " . $pack_name . " @" . $pack_price, number_format($pack_total, 2));
+
+                // get package product list ---------------------------------------------------------
+
+                $pack_products = $this->pack_details->get_pack_detail_products($pack_id);
+
+                // get each product of the package -----------------------------------------------------              
+                
+                foreach ($pack_products as $pack_products_list)
+                {
+                    $pack_prod_id = $pack_products_list->prod_id;
+                    $pack_prod_name = $this->products->get_product_short_name($pack_prod_id);
+                    $pack_prod_qty = ($pack_products_list->qty * $pack_qty); // multiply package product qty by pack_qty
+
+                    // insert new product to trans_details (from package products) ------------------------
+
+                    $data_pack_products = array(
+                        'trans_id' => $trans_id,
+                        'prod_id' => $pack_prod_id,
+
+                        'prod_type' => 2, // 2 - package product
+
+                        'price' => 0,
+                        'qty' => $pack_prod_qty,
+
+                        'total' => 0,
+                        'part_of' => $pack_id 
+                    );
+                    $this->trans_details->save($data_pack_products);
+
+                    // add line item to line_items array
+                    $line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
+                }
+            }
+
+            // get each table for table_groups -------------------------------------------------------------
+
+            $line_tables = array();
+
+            foreach ($transaction['tables'] as $tables)
+            {
+                // insert new table to table_groups -------------------------------------------------------
+                $tbl_id = $tables['tbl_id'];
+
+                if ($tbl_id != 0)
+                {
+                    $tbl_name = $this->tables->get_table_name($tbl_id);    
+                }
+                else
+                {
+                    $tbl_name = 'No Table';
+                }
+                
+
+                $data_tables = array(
+                    'trans_id' => $trans_id,
+                    'tbl_id' => $tbl_id,
+                );
+                $this->table_groups->save($data_tables);
+
+                $line_tables[] = $tbl_name;
+            }
+
+            if (sizeof($line_tables) != 0)
+            {
+                $table_str = implode(', ', $line_tables);
+            }
+            else
+            {
+                $table_str = 'n/a';
+            }
+
+
+            $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+            //$this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
+
+        }
+
+        
+
+        echo json_encode(array("status" => TRUE));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+        $this->table_groups->delete_by_trans_id($trans_id);
+
+        $trans_details_items = $this->trans_details->get_trans_detail_items($trans_id); // get all trans_details items (products, packages, package products)
+
+        foreach ($trans_details_items as $items) // update sold of each items
+        {
+            $qty = $items->qty; // get qty to use as sold value to update
+
+            if ($items->prod_type == 0) // if prod_type is individual product
+            {
+                $this->products->update_sold_prod($items->prod_id, $qty);
+            }
+            else if ($items->prod_type == 1) // if prod_type is package
+            {
+                $this->packages->update_sold_pack($items->pack_id, $qty);
+            }
+            else if ($items->prod_type == 2) // if prod_type is package product
+            {
+                $this->products->update_sold_pack_prod($items->prod_id, $qty);
+            }
+        }
+
+        //$this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
+
+        echo json_encode(array("status" => TRUE));
+    }
 
 
     // ================================================ PRINT RECEIPT SECTION ==============================================

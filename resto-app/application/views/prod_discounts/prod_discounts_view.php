@@ -91,7 +91,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Product :</label>
                                         <div class="col-md-9">
-                                            <select name="prod_id" class="form-control">
+                                            <select id="discount_prod_id" name="prod_id" class="form-control">
                                                 <option value="">--Select Product--</option>
                                                 <?php 
                                                     foreach($products as $row)
@@ -135,6 +135,14 @@
                                                 <option value="INACTIVE">INACTIVE</option>
                                                 <option value="ACTIVE">ACTIVE</option>
                                             </select>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Original Price :</label>
+                                        <div class="col-md-9">
+                                            <input id="orig_price" name="orig_price" placeholder="Product Original Price" class="form-control" type="number" readonly>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

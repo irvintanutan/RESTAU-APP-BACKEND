@@ -623,6 +623,8 @@ class Transactions_controller extends CI_Controller {
                         'order_type' => $details['order_type'], // DINE-IN, TAKE-OUT
 
                         'status' => $details['status'], // ONGOING, CANCELLED
+
+                        'is_updated' => 1, // set is_updated to true in every transaction updates method process
                     );
 
                 $this->transactions->update(array('trans_id' => $trans_id), $data);

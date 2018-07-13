@@ -62,9 +62,9 @@
                                             <i class="fa fa-money fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin">
-                                            <?php echo '₱ 36,000.00'; ?>     
+                                            <?php echo $today_net_sales_str; ?>     
                                             </p>
-                                            <small><span class="text-semibold" style="font-size: 11px;">[ <?php echo ' 75 %'; ?> ] Higher than yesterday<br><br><br></small>
+                                            <small><span class="text-semibold" style="font-size: 12px;"><?php echo $percent_higher_net_sales_str ?></small>
                                         </div>
                                     </div>
                                 </div>
@@ -77,10 +77,10 @@
                                     <div class="panel panel-danger panel-colorful">
                                         <div class="panel-body text-center">
                                             <p class="text-uppercase mar-btm text-sm">Total Transactions Today</p>
-                                            <i class="fa fa-users fa-5x"></i>
+                                            <i class="fa fa-qrcode fa-5x"></i>
                                             <hr>
-                                            <p class="h1 text-thin"><?php echo '14'; //echo number_format($total_balance, 2, '.', ','); ?> </p>
-                                            <small><span class="text-semibold" style="font-size: 11px;">Dine in: [ <?php echo '15'; //echo number_format($total_paid, 2, '.', ','); ?> ] | Take out: [ <?php echo '6'; //echo number_format($total_paid, 2, '.', ','); ?> ]<br><br><br></small>
+                                            <p class="h1 text-thin"><?php echo $total_trans_count_today; ?> </p>
+                                            <small><span class="text-semibold" style="font-size: 12px;">Dine in: [ <?php echo $dine_in_today; ?> ] | Take out: [ <?php echo $take_out_today; ?> ]</small>
                                         </div>
                                     </div>
                                 </div>
@@ -95,8 +95,8 @@
                                             <p class="text-uppercase mar-btm text-sm">Total Menu Items Sold Today</p>
                                             <i class="fa fa-cutlery fa-5x"></i>
                                             <hr>
-                                            <p class="h1 text-thin"><?php echo '57'; //echo number_format($total_interests, 2, '.', ','); ?> </p>
-                                            <small><span class="text-bold" style="font-size: 11px;">Individual Products: [ <?php echo '43'; //echo number_format($total_paid, 2, '.', ','); ?> ] <br> Packages: [ <?php echo '14'; //echo number_format($total_paid, 2, '.', ','); ?> ]<br><br></small>
+                                            <p class="h1 text-thin"><?php echo $total_menu_items_sold_today; ?> </p>
+                                            <small><span class="text-bold" style="font-size: 12px;">Individual Products: [ <?php echo $individual_products_sold_today; ?> ] | Packages: [ <?php echo $packages_sold_today; ?> ]</small>
                                         </div>
                                     </div>
                                 </div>
@@ -111,8 +111,8 @@
                                             <p class="text-uppercase mar-btm text-sm">Total Discounts Rendered Today</p>
                                             <i class="fa fa-percent fa-5x"></i>
                                             <hr>
-                                            <p class="h1 text-thin"><?php echo '₱ 2,200.00'; //echo $loans_count; ?></p>
-                                            <small><span class="text-semibold" style="font-size: 11px;">[ 6 % ] of the Total<br>Gross Sales [ ₱ 42,000.00 ]<br><br></small>
+                                            <p class="h1 text-thin"><?php echo $discounts_rendered_today_str; ?></p>
+                                            <small><span class="text-semibold" style="font-size: 11px;"><?php echo $discounts_gross_percentage_str; ?></small>
                                         </div>
                                     </div>
                                 </div>

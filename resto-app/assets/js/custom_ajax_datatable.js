@@ -1155,6 +1155,23 @@ function reload_page() // ---> calling for reload page
     location.reload();
 }
 
+function go_to_ongoing_trans() // ---> calling for rgo back page
+{
+    window.location.href='../transactions-page';
+}
+
+function go_to_cleared_trans() // ---> calling for rgo back page
+{
+    window.location.href='../transactions-page-cleared';
+}
+
+function go_to_cancelled_trans() // ---> calling for rgo back page
+{
+    window.location.href='../transactions-page-cancelled';
+}
+
+
+
 function set_payment() // ---> calling for the Add Modal form
 {
     var id = $('[name="trans_id"]').val();
@@ -1287,10 +1304,12 @@ function set_cancel(id) // ---> calling for the Add Modal form
 
                                     set_system_log_one(log_type, details);
 
-                                    reload_table();
+                                    bootbox.dialog({
+                                        title  : "Transaction Cancelled Successfully",
+                                        message  : "Transaction Cancellation"
+                                    });
 
-                                    // refresh transaction details page
-                                    window.location.href=$('[name="trans_id"]').val();
+                                    setTimeout(function(){ go_to_ongoing_trans(); }, 1200); // delay effect
                                 },
                                 error: function (jqXHR, textStatus, errorThrown)
                                 {
@@ -1343,20 +1362,6 @@ $("#method").change(function()
 
         document.getElementById("cash_input_div").style.display = 'block';
         document.getElementById("cash_buttons").style.display = 'block';
-
-        // document.getElementById("exact_amt").disabled = false;
-
-        // document.getElementById("cash_1").disabled = false;
-        // document.getElementById("cash_5").disabled = false;
-        // document.getElementById("cash_10").disabled = false;
-        // document.getElementById("cash_20").disabled = false;
-        // document.getElementById("cash_50").disabled = false;
-
-        // document.getElementById("cash_100").disabled = false;
-        // document.getElementById("cash_200").disabled = false;
-        // document.getElementById("cash_500").disabled = false;
-        // document.getElementById("cash_1000").disabled = false;
-        // document.getElementById("cash_clear").disabled = false;
     }
     else if (method == "Credit Card")
     {
@@ -1369,20 +1374,6 @@ $("#method").change(function()
 
         document.getElementById("cash_input_div").style.display = 'none';
         document.getElementById("cash_buttons").style.display = 'none';
-
-        // document.getElementById("exact_amt").disabled = true;
-
-        // document.getElementById("cash_1").disabled = true;
-        // document.getElementById("cash_5").disabled = true;
-        // document.getElementById("cash_10").disabled = true;
-        // document.getElementById("cash_20").disabled = true;
-        // document.getElementById("cash_50").disabled = true;
-
-        // document.getElementById("cash_100").disabled = true;
-        // document.getElementById("cash_200").disabled = true;
-        // document.getElementById("cash_500").disabled = true;
-        // document.getElementById("cash_1000").disabled = true;
-        // document.getElementById("cash_clear").disabled = true;
     }
     else if (method == "Cash Card")
     {
@@ -1395,20 +1386,6 @@ $("#method").change(function()
 
         document.getElementById("cash_input_div").style.display = 'none';
         document.getElementById("cash_buttons").style.display = 'none';
-
-        // document.getElementById("exact_amt").disabled = true;
-
-        // document.getElementById("cash_1").disabled = true;
-        // document.getElementById("cash_5").disabled = true;
-        // document.getElementById("cash_10").disabled = true;
-        // document.getElementById("cash_20").disabled = true;
-        // document.getElementById("cash_50").disabled = true;
-
-        // document.getElementById("cash_100").disabled = true;
-        // document.getElementById("cash_200").disabled = true;
-        // document.getElementById("cash_500").disabled = true;
-        // document.getElementById("cash_1000").disabled = true;
-        // document.getElementById("cash_clear").disabled = true;
     }
 });
 
@@ -1533,6 +1510,13 @@ function confirm_trans()
                     details = 'New transaction payment added: S' + $('[name="trans_id"]').val();
 
                     set_system_log_one(log_type, details);
+
+                    bootbox.dialog({
+                        title  : "Payment Processed Successfully",
+                        message  : "Transaction Payment"
+                    });
+
+                    setTimeout(function(){ go_to_ongoing_trans(); }, 1200); // delay effect
                 }
                 if(save_method == 'set-discount') 
                 {
@@ -1541,10 +1525,9 @@ function confirm_trans()
                     details = 'New transaction discount added: S' + $('[name="trans_id"]').val();
 
                     set_system_log_one(log_type, details);
-                }
 
-                // refresh transaction details page
-                window.location.href=$('[name="trans_id"]').val();
+                    reload_page();
+                }
             }
             else
             {
@@ -1830,6 +1813,74 @@ function delete_trans_detail_pack(idone, idtwo)
     });
 }
 
+function set_refund_transaction() // ---> calling for the Add Modal form
+{
+  bootbox.prompt({
+        title: "Enter 'Manager's Password' to proceed",
+        inputType: 'password',
+        callback: function (result) {
+
+            var managers_password = $('[name="managers_password"]').val();
+
+            if (result == managers_password) 
+            {
+              bootbox.prompt({
+                    title: "Enter Transaction's Receipt Number to Refund",
+                    inputType: 'text',
+                    callback: function (result) {
+
+                        var receipt_no = result;
+
+                        //Ajax Load data from ajax
+                        $.ajax({
+                            url : "get-transaction-by-receipt/" + receipt_no,
+                            type: "GET",
+                            dataType: "JSON",
+                            success: function(data)
+                            {
+                              if (data == null)
+                              {
+                                bootbox.alert({
+                                    title: "Transaction Not Found",
+                                    message: "Wrong Receipt Number Input",
+                                    callback: function () {
+                                        
+                                    }
+                                });
+                              }
+                              else
+                              {
+                                window.location.href='trans-details-refund-page/' + data.trans_id;
+                              }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown)
+                            {
+                                bootbox.alert({
+                                    title: "Transaction Not Found",
+                                    message: "Wrong Receipt Number Input",
+                                    callback: function () {
+                                        
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
+            }
+            else if (result != null)
+            {
+              bootbox.alert({
+                  title: "Incorrect Password Input",
+                  message: "Access Denied",
+                  callback: function () {
+                      
+                  }
+              });
+            }
+        }
+    });
+}
 
 // ========================================================== DISCOUNTS FORM LISTENER SECTION =====================================
 

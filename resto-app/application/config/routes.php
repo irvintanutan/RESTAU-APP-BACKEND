@@ -134,6 +134,8 @@ $route['add-transaction'] = 'Transactions/Transactions_controller/ajax_add';
 
 $route['edit-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax_edit/$1';
 
+$route['get-transaction-by-receipt/(:num)'] = 'Transactions/Transactions_controller/ajax_get_by_receipt/$1';
+
 $route['update-transaction'] = 'Transactions/Transactions_controller/ajax_update';
 
 $route['delete-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax_delete/$1';
@@ -274,6 +276,8 @@ $route['showlist-pack-details-api/(:num)'] = 'Pack_details/Pack_details_controll
 //******************************************************************************************************************
 
 $route['trans-details-page/(:num)'] = 'Trans_details/Trans_details_controller/index/$1';
+
+$route['trans-details-refund-page/(:num)'] = 'Trans_details/Trans_details_controller/index_refund/$1';
 
 $route['showlist-trans-details/(:num)'] = 'Trans_details/Trans_details_controller/ajax_list/$1';
 

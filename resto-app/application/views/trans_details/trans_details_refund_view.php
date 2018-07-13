@@ -22,30 +22,16 @@
 
                 <!--Breadcrumb-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <div class="col-md-10">
+                <div class="col-md-9">
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard');?>">Dashboard</a></li>
                         <li><a href="<?php echo base_url('/transactions-page');?>">Transactions List</a></li>
                         <li class="active"><?php echo ' [ S' . $transaction->trans_id . ' ] : ' . $transaction->datetime; ?></li>
                     </ol>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
 
-                    <?php 
-                        if ($transaction->status == 'ONGOING'){
-                    ?>
-                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_ongoing_trans()"><i class="fa fa-reply"></i> &nbsp;ONGOING TRANSACTIONS</button>
-                    <?php
-                        } else if ($transaction->status == 'CLEARED'){
-                    ?>
-                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_cleared_trans()"><i class="fa fa-reply"></i> &nbsp;CLEARED TRANSACTIONS</button>
-                    <?php
-                        } else if ($transaction->status == 'CANCELLED'){
-                    ?>
-                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_cancelled_trans()"><i class="fa fa-reply"></i> &nbsp;CANCELLED TRANSACTIONS</button>
-                    <?php
-                        }
-                    ?>
+                    <button class="btn btn-dark col-md-11" align="right" onclick="go_to_cleared_trans()"><i class="fa fa-reply"></i> &nbsp;CANCEL TRANSACTION REFUND</button>
                 </div>
                 <br>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -61,11 +47,7 @@
 
                             <div class="panel-body col-md-12">
 
-                                <?php if ($transaction->status == 'ONGOING'){ $status = '<label class="control-label label-success col-md-2 badge">STATUS <h4 style="color: darkgreen;">[ ONGOING ]</h4>'; }
-
-                                else if ($transaction->status == 'CANCELLED'){ $status = '<label class="control-label label-danger col-md-2 badge">STATUS <h4 style="color: white;">[ CANCELLED ]</h4>'; }
-
-                                else if ($transaction->status == 'CLEARED'){ $status = '<label class="control-label col-md-2 badge">STATUS <h4 style="color: white;">[ CLEARED ]</h4>'; } echo $status; ?></h4></label>
+                                <label class="control-label label-warning col-md-2 badge">STATUS <?php $status = '<h4 style="color: white;">[ REFUND ]</h4>'; echo $status; ?></h4></label>
 
                                 <label class="control-label col-md-2">ORDER TYPE <h4><?php echo $transaction->order_type; ?></h4></label>
                                 <label class="control-label col-md-2">DISCOUNT TYPE <h4><?php if ($transaction->disc_type == 0){ echo 'n/a'; }else{ echo $this->discounts->get_discount_name($transaction->disc_type); } ?></h4></label>

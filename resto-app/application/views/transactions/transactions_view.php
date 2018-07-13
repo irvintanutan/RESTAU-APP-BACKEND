@@ -41,7 +41,7 @@
                         </div>
                         <div class="panel-body">
                             <!-- <button class="btn btn-success" onclick="add_table()"><i class="fa fa-plus-square"></i> &nbsp;Add New Table</button> -->
-                            <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
+                            <button class="btn btn-default col-md-1" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
                             <br><br>
                             <table id="transactions-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">
                                 <thead>
@@ -63,6 +63,17 @@
                                 <tbody>
                                 </tbody>
                             </table>
+
+                            <?php
+                                if ($trans_status == 'CLEARED'){ // if transaction status is cleared, enable reprint and refund buttons
+                            ?>
+                            <div class="col-md-12">
+                                <button class="btn btn-dark col-md-2" onclick="print_last_receipt()"><i class="fa fa-print"></i> &nbsp;REPRINT LAST RECEIPT</button>
+                                <button class="btn btn-warning col-md-2" onclick="set_refund_transaction()"><i class="fa fa-reply"></i> &nbsp;REFUND TRANSACTION</button>
+                            </div>
+                            <?php
+                                }
+                            ?>
                         </div>
                     </div>
                     <!--===================================================-->
@@ -76,3 +87,4 @@
             <!--END CONTENT CONTAINER-->
 
         
+            <input type="hidden" value=<?php echo "'" . $managers_password . "'"; ?> name="managers_password"/>

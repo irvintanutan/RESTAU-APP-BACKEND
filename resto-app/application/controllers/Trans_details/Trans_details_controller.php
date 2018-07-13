@@ -90,6 +90,69 @@ class Trans_details_controller extends CI_Controller {
         $this->load->view('template/dashboard_footer');
 
     }
+
+    public function index_refund($trans_id) // accessed whenever refund process is activated                        
+    {
+        if($this->session->userdata('user_id') == '')
+        {
+            redirect('error500');
+        }
+
+        $this->load->helper('url');
+
+        $transactions_data = $this->transactions->get_by_id($trans_id);
+
+        $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+        $tables = $this->table_groups->get_table_group_tables($trans_id);
+
+        if ($tables->num_rows() != 0)
+        {
+            $tables_data = array();
+
+            foreach ($tables->result() as $tables_list) 
+            {
+                if ($tables_list->tbl_id == 0)
+                {
+                    $tables_data[] = 'No Table';
+                }
+                else
+                {
+                    $tables_data[] = $this->tables->get_table_name($tables_list->tbl_id);
+                }
+            }
+
+            $table_str = implode(', ', $tables_data);
+        }
+        else
+        {
+            $table_str = 'n/a';
+        }
+
+        $discounts_data = $this->discounts->get_discounts();
+
+        $managers_password = $this->store->get_store_config_password(1); // get manager's password
+        
+        $data['managers_password'] = $managers_password;
+
+        $data['discounts'] = $discounts_data;
+        
+        $data['transaction'] = $transactions_data;
+        $data['gross_total'] = $gross_total;
+        $data['table_str'] = $table_str;
+
+        $this->reset_is_updated($trans_id); // reset is_updated every page load
+
+
+        $data['title'] = '<i class="fa fa-qrcode"></i> Transaction Details';
+        $this->load->view('template/dashboard_header',$data);
+        $this->load->view('trans_details/trans_details_refund_view',$data);
+        $this->load->view('template/dashboard_navigation');
+        $this->load->view('template/dashboard_footer');
+
+    }
+
+
    
     public function ajax_list($trans_id) // get all that belongs to this ID via foreign key
     {
@@ -189,6 +252,105 @@ class Trans_details_controller extends CI_Controller {
         //output to json format
         echo json_encode($output);
     }
+
+    public function ajax_list_refund($trans_id) // get all that belongs to this ID via foreign key
+    {
+        $list = $this->trans_details->get_datatables($trans_id);
+        $data = array();
+        $no = $_POST['start'];
+
+        $item_count = 0; // initialize number of items counter
+        $transactions_data = $this->transactions->get_by_id($trans_id);
+
+        $status = $transactions_data->status;
+
+        foreach ($list as $trans_details) {
+            $no++;
+            $row = array();
+
+            if ($status == 'ONGOING')
+            {
+                if ($trans_details->prod_type == 1) // if prod_type is package
+                {
+                    $item_id = 'G' . $trans_details->pack_id;
+                    $item_name = $this->packages->get_package_name($trans_details->pack_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')"><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 0) // if prod_type is individual product
+                {
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')"><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 2) // if prod_type is package product
+                {   
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }    
+            }
+            else
+            {
+                if ($trans_details->prod_type == 1) // if prod_type is package
+                {
+                    $item_id = 'G' . $trans_details->pack_id;
+                    $item_name = $this->packages->get_package_name($trans_details->pack_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 0) // if prod_type is individual product
+                {
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }
+                else if ($trans_details->prod_type == 2) // if prod_type is package product
+                {   
+                    $item_id = 'P' . $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+                }
+            }
+            
+
+            $row[] = $item_id;
+            $row[] = '<b>' . $item_name . '</b>';
+
+            $row[] = $trans_details->price;
+            $row[] = $trans_details->qty;
+            $row[] = '<b>' . $trans_details->total . '</b>';
+
+            //add html for action
+            $row[] = $void_btn;
+
+            $prod_type = $trans_details->prod_type;
+            
+            if ($prod_type == 0 || $prod_type == 2) // if prod_type is individual product or package product only
+            {
+                $item_count += $trans_details->qty;
+            }
+
+            $row[] = $prod_type;
+            $row[] = $trans_details->part_of;
+            $row[] = $item_count;
+    
+            $data[] = $row;
+        }
+    
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->trans_details->count_all($trans_id),
+                        "recordsFiltered" => $this->trans_details->count_filtered($trans_id),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
+    }
  
     // public function ajax_edit($trans_id, $prod_id)
     // {
@@ -199,6 +361,8 @@ class Trans_details_controller extends CI_Controller {
     public function ajax_set_payment() // set payment function
     {
         $trans_id = $this->input->post('trans_id');
+
+        $receipt_no = $this->transactions->get_last_receipt_no() + 1; // set transaction's receipt number (add 1 to max receipt value)
 
         $method = $this->input->post('method');
         if ($method == 'Cash') // if method is Cash
@@ -235,7 +399,9 @@ class Trans_details_controller extends CI_Controller {
                 'card_number' => $card_number,
                 'cust_name' => $cust_name,
 
-                'cashier_id' => $this->session->userdata('user_id')
+                'cashier_id' => $this->session->userdata('user_id'),
+
+                'receipt_no' => $receipt_no
 
             );
         $this->transactions->update(array('trans_id' => $trans_id), $data);
@@ -587,6 +753,8 @@ class Trans_details_controller extends CI_Controller {
                 
                 $amount_due = $details['amount_due'];
 
+                $receipt_no = $details['receipt_no'];
+
 
                 if ($method == 'Cash') // if method is Cash
                 {
@@ -626,7 +794,9 @@ class Trans_details_controller extends CI_Controller {
                         'cust_name' => $cust_name,
 
                         'user_id' => $user_id,
-                        'cashier_id' => $cashier_id
+                        'cashier_id' => $cashier_id,
+
+                        'receipt_no' => $receipt_no
                     );
                     
                 $insert = $this->transactions->save($data);
@@ -993,7 +1163,7 @@ class Trans_details_controller extends CI_Controller {
         // printing receipts
         if ($print_type == "payment")
         {
-            $this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt);
+            $this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_number);
         }
         else // billout recipts
         {
@@ -1007,8 +1177,13 @@ class Trans_details_controller extends CI_Controller {
     // ================================================ RECEIPT FORMATTING SECTION ============================================================
 
 
-    public function print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt)
+    public function print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_number)
     {
+        if ($receipt_number == "")
+        {
+            $receipt_number = ""; // ------------------------------------------------------------------- GENERATE RECEIPT NUMBER HERE
+        }
+
         /* Open the printer; this will change depending on how it is connected */
         $connector = new FilePrintConnector("/dev/usb/lp0");
         $printer = new Printer($connector);

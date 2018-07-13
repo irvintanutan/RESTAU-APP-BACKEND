@@ -34,20 +34,20 @@ class Statistics_controller extends CI_Controller {
 
         $current_year = date('Y');
 
-        $jan = $this->transactions->get_monthly_net_sales('01', $current_year)['cash_amt'];
-        $feb = $this->transactions->get_monthly_net_sales('02', $current_year)['cash_amt'];
-        $mar = $this->transactions->get_monthly_net_sales('03', $current_year)['cash_amt'];
-        $apr = $this->transactions->get_monthly_net_sales('04', $current_year)['cash_amt'];
+        $jan = $this->transactions->get_monthly_net_sales('01', $current_year);
+        $feb = $this->transactions->get_monthly_net_sales('02', $current_year);
+        $mar = $this->transactions->get_monthly_net_sales('03', $current_year);
+        $apr = $this->transactions->get_monthly_net_sales('04', $current_year);
 
-        $may = $this->transactions->get_monthly_net_sales('05', $current_year)['cash_amt'];
-        $jun = $this->transactions->get_monthly_net_sales('06', $current_year)['cash_amt'];
-        $jul = $this->transactions->get_monthly_net_sales('07', $current_year)['cash_amt'];
-        $aug = $this->transactions->get_monthly_net_sales('08', $current_year)['cash_amt'];
+        $may = $this->transactions->get_monthly_net_sales('05', $current_year);
+        $jun = $this->transactions->get_monthly_net_sales('06', $current_year);
+        $jul = $this->transactions->get_monthly_net_sales('07', $current_year);
+        $aug = $this->transactions->get_monthly_net_sales('08', $current_year);
 
-        $sep = $this->transactions->get_monthly_net_sales('09', $current_year)['cash_amt'];
-        $oct = $this->transactions->get_monthly_net_sales('10', $current_year)['cash_amt'];
-        $nov = $this->transactions->get_monthly_net_sales('11', $current_year)['cash_amt'];
-        $dec = $this->transactions->get_monthly_net_sales('12', $current_year)['cash_amt'];
+        $sep = $this->transactions->get_monthly_net_sales('09', $current_year);
+        $oct = $this->transactions->get_monthly_net_sales('10', $current_year);
+        $nov = $this->transactions->get_monthly_net_sales('11', $current_year);
+        $dec = $this->transactions->get_monthly_net_sales('12', $current_year);
 
         $year_total = ($jan + $feb + $mar + $apr + $may + $jun + $jul + $aug + $sep + $oct + $nov + $dec);
 

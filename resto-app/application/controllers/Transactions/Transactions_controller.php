@@ -39,7 +39,7 @@ class Transactions_controller extends CI_Controller {
         
         $data['trans_status'] = 'ONGOING';
 
-        $data['title'] = '<i class="fa fa-qrcode" style="color: green;"></i> Transactions - <b><span style="color: green;"><u>ONGOING</u></span></b>';
+        $data['title'] = '<i class="fa fa-qrcode" style="color: green;"></i> Transactions - <span class="label-success badge" style="color: green; font-size:25px; padding: .5%">&nbsp;&nbsp;<b> [ ONGOING ] </b>&nbsp;&nbsp;</span>';
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -56,9 +56,14 @@ class Transactions_controller extends CI_Controller {
 
         $this->load->helper('url');
 
+        $managers_password = $this->store->get_store_config_password(1); // get manager's password
+        
+        $data['managers_password'] = $managers_password;
+
         $data['trans_status'] = 'CLEARED';
 
-        $data['title'] = '<i class="fa fa-qrcode"></i> Transactions - <b><u><span style="color: gray;">CLEARED</span></u></b>';
+        $data['title'] = '<i class="fa fa-qrcode" style="color: gray;"></i> Transactions - <span class="label-dark badge" style="color: white; font-size:25px; padding: .5%">&nbsp;&nbsp;<b> [ CLEARED ] </b>&nbsp;&nbsp;</span>';
+
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -77,7 +82,8 @@ class Transactions_controller extends CI_Controller {
 
         $data['trans_status'] = 'CANCELLED';
 
-        $data['title'] = '<i class="fa fa-qrcode" style="color: brown;"></i> Transactions - <b><span style="color: brown;"><u>CANCELLED</u></span></b>';
+        $data['title'] = '<i class="fa fa-qrcode" style="color: red;"></i> Transactions - <span class="label-danger badge" style="color: white; font-size:25px; padding: .5%">&nbsp;&nbsp;<b> [ CANCELLED ] </b>&nbsp;&nbsp;</span>';
+
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -134,6 +140,12 @@ class Transactions_controller extends CI_Controller {
     public function ajax_edit($trans_id)
     {
         $data = $this->transactions->get_by_id($trans_id);
+        echo json_encode($data);
+    }
+
+    public function ajax_get_by_receipt($receipt_no)  // get transaction by receipt number
+    {
+        $data = $this->transactions->get_by_receipt_no($receipt_no);
         echo json_encode($data);
     }
  

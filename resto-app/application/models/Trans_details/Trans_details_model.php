@@ -52,8 +52,9 @@ class Trans_details_model extends CI_Model {
          
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
-        $date_from = date("Y-m-d") . ' 00:00:00'; // get date today to filter
-        $date_to = date("Y-m-d") . ' 23:59:59';
+        $today = date('Y-m-d');
+        $date_from = $today . ' 00:00:00'; // get date today to filter
+        $date_to = $today . ' 23:59:59';
 
         $this->db->where('trans_details.prod_type !=', 2); // no package-product included
         $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
@@ -179,6 +180,29 @@ class Trans_details_model extends CI_Model {
         $this->db->group_by('trans_details.prod_type');
 
         $this->db->order_by('sold', 'DESC');
+
+        return $this->db->count_all_results();
+    }
+
+    public function count_all_sold_today_by_prod_type($prod_type)
+    {
+        $this->db->from($this->table);
+
+        $this->db->select('trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, trans_details.prod_type as prod_type, SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $date_from = date("Y-m-d") . ' 00:00:00'; // get date today to filter
+        $date_to = date("Y-m-d") . ' 23:59:59';
+
+        $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->group_by('trans_details.prod_id');
+        $this->db->group_by('trans_details.pack_id');
+        $this->db->group_by('trans_details.prod_type');
 
         return $this->db->count_all_results();
     }

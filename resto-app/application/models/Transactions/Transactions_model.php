@@ -101,10 +101,22 @@ class Transactions_model extends CI_Model {
         return $row->status;
     }
 
-    // get monthly new sales specified by month and year
+    function get_last_receipt_no() // function to get the last receipt number to increment in every receipt generation
+    {
+        $this->db->select_max('receipt_no');
+        $this->db->from($this->table);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->receipt_no;
+    }
+
+    // get monthly net sales specified by month and year
     public function get_monthly_net_sales($month, $year)
     {
-        $this->db->select('SUM(cash_amt) AS cash_amt');    
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
         
         $this->db->from($this->table);
 
@@ -117,9 +129,64 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        $data['cash_amt'] = $query->row()->cash_amt;
+        return $query->row()->total;
+    }
 
-        return $data;
+    // get daily net sales
+    public function get_daily_net_sales($date)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total;
+    }
+
+    // get daily net sales
+    public function get_daily_discounts_rendered($date)
+    {
+        $this->db->select('SUM(discount) AS discount');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->discount;
+    }
+
+    // get daily transaction count based on order type
+    public function get_count_trans_today($date, $order_type)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $this->db->where('order_type', $order_type); // transaction status should be cleared (paid by customer already)
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count;
     }
  
     function count_filtered($trans_status)
@@ -167,6 +234,15 @@ class Transactions_model extends CI_Model {
     {
         $this->db->from($this->table);
         $this->db->where('trans_id',$trans_id);
+        $query = $this->db->get();
+ 
+        return $query->row();
+    }
+
+    public function get_by_receipt_no($receipt_no) // get transaction by receipt number
+    {
+        $this->db->from($this->table);
+        $this->db->where('receipt_no',$receipt_no);
         $query = $this->db->get();
  
         return $query->row();

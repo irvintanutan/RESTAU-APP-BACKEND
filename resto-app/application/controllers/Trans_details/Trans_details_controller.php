@@ -1,10 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+require_once(APPPATH.'vendor\mike42\autoload.php');
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\EscposImage;
 
 class Trans_details_controller extends CI_Controller {
 
@@ -428,7 +427,7 @@ class Trans_details_controller extends CI_Controller {
             }
         }
 
-        //$this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
+        $this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
 
         echo json_encode(array("status" => TRUE));
     }
@@ -962,7 +961,7 @@ class Trans_details_controller extends CI_Controller {
 
             $gross_total = $this->trans_details->get_trans_gross($trans_id);
 
-            //$this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
+            $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
         }
 
@@ -1185,7 +1184,7 @@ class Trans_details_controller extends CI_Controller {
         }
 
         /* Open the printer; this will change depending on how it is connected */
-        $connector = new FilePrintConnector("/dev/usb/lp0");
+        $connector = new WindowsPrintConnector("epsontmu");
         $printer = new Printer($connector);
 
         // $logo = EscposImage::load("cafe.png", false);

@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+// require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
+require_once(APPPATH.'vendor\mike42\autoload.php');
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\EscposImage;
 
 class Transactions_controller extends CI_Controller {
 
@@ -509,10 +509,10 @@ class Transactions_controller extends CI_Controller {
     }
 
     // public function print_receipt_cook($line_items, $tables, $gross_total, $discount
-    public function print_kitchen_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total)
+    public function print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total)
     {
         /* Open the printer; this will change depending on how it is connected */
-        $connector = new FilePrintConnector("/dev/usb/lp0");
+        $connector = new WindowsPrintConnector("epsontmu");
         $printer = new Printer($connector);
 
         // $logo = EscposImage::load("cafe.png", false);

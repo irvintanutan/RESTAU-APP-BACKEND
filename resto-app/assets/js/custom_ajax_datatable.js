@@ -1559,8 +1559,6 @@ function confirm_trans()
             {
                 $('#modal_form_set_payment').modal('hide');
                 $('#modal_form_set_discount').modal('hide');
-                
-                reload_table();
 
                 // set logs -------------------------------------------------------------------
 
@@ -1647,9 +1645,13 @@ function print_bill_out(id) // ---> calling for the Add Modal form
                     dataType: "JSON",
                     success: function(data)
                     {
+                        bootbox.dialog({
+                            title  : "Bill-out Printed Successfully",
+                            message  : "Bill-out Receipt"
+                        });
+
+                        setTimeout(function(){ go_to_ongoing_trans(); }, 1200); // delay effect
                         
-                        // refresh transaction details page
-                        window.location.href=$('[name="trans_id"]').val();
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {

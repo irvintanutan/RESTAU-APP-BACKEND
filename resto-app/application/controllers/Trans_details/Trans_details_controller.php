@@ -352,7 +352,7 @@ class Trans_details_controller extends CI_Controller {
             );
         $this->transactions->update(array('trans_id' => $trans_id), $data);
         
-        $this->table_groups->delete_by_trans_id($trans_id);
+        
 
         $trans_details_items = $this->trans_details->get_trans_detail_items($trans_id); // get all trans_details items (products, packages, package products)
 
@@ -375,6 +375,8 @@ class Trans_details_controller extends CI_Controller {
         }
 
         $this->set_transaction_receipt($trans_id, "payment", $receipt_no); // print receipt upon clearing out the transaction
+
+        $this->table_groups->delete_by_trans_id($trans_id);
 
         echo json_encode(array("status" => TRUE));
     }
@@ -414,6 +416,8 @@ class Trans_details_controller extends CI_Controller {
                 'status' => $status,
             );
         $this->transactions->update(array('trans_id' => $trans_id), $data);
+
+        $this->table_groups->delete_by_trans_id($trans_id);
 
         echo json_encode(array("status" => TRUE));
     }
@@ -1020,20 +1024,8 @@ class Trans_details_controller extends CI_Controller {
             {
                 $prod_id = $items->prod_id;
                 $prod_name = $this->products->get_product_short_name($prod_id);
-                $prod_price = $this->products->get_product_price($prod_id);
+                $prod_price = $items->price;
                 $prod_qty = $items->qty;
-
-                // check if product is discounted
-                $check_discount = $this->prod_discounts->get_by_prod_id($prod_id);
-
-                if ($check_discount != null)
-                {
-                    $new_price = $check_discount->new_price;
-
-                    $prod_price = $new_price;
-
-                    $prod_name = $prod_name . "*"; // discounted product indicator
-                }
 
                 $prod_total = ($prod_price * $prod_qty);
 
@@ -1044,20 +1036,8 @@ class Trans_details_controller extends CI_Controller {
             {
                 $pack_id = $items->pack_id;
                 $pack_name = $this->packages->get_package_short_name($pack_id);
-                $pack_price = $this->packages->get_package_price($pack_id);
+                $pack_price = $items->price;
                 $pack_qty = $items->qty;
-
-                // check if product is discounted
-                $check_discount = $this->pack_discounts->get_by_pack_id($pack_id);
-
-                if ($check_discount != null)
-                {
-                    $new_price = $check_discount->new_price;
-
-                    $pack_price = $new_price;
-
-                    $pack_name = $pack_name . "*"; // discounted product indicator
-                }
 
                 $pack_total = ($pack_price * $pack_qty);
 
@@ -1252,14 +1232,12 @@ class Trans_details_controller extends CI_Controller {
         $printer -> pulse();
 
         $printer -> close();
-
-        
     }
 
     public function print_bill_out_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $discount, $disc_type_name)
     {
         /* Open the printer; this will change depending on how it is connected */
-        $connector = new FilePrintConnector("/dev/usb/lp0");
+        $connector = new WindowsPrintConnector("epsontmu");
         $printer = new Printer($connector);
 
         // $logo = EscposImage::load("cafe.png", false);
@@ -1382,7 +1360,7 @@ class Trans_details_controller extends CI_Controller {
 
         $printer -> close();
 
-        
+        echo json_encode(array("status" => TRUE));
     }
  }
 

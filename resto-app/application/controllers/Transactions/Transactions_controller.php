@@ -36,6 +36,10 @@ class Transactions_controller extends CI_Controller {
         }
 
         $this->load->helper('url');
+
+        $managers_password = $this->store->get_store_config_password(1); // get manager's password
+        
+        $data['managers_password'] = $managers_password;
         
         $data['trans_status'] = 'ONGOING';
 
@@ -79,6 +83,10 @@ class Transactions_controller extends CI_Controller {
         }
 
         $this->load->helper('url');
+
+        $managers_password = $this->store->get_store_config_password(1); // get manager's password
+        
+        $data['managers_password'] = $managers_password;
 
         $data['trans_status'] = 'CANCELLED';
 
@@ -614,7 +622,7 @@ class Transactions_controller extends CI_Controller {
 
         $printer -> close();
 
-        
+        echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_api_reset_trans($trans_id) // reset trans_details of a checked out transaction (add, update qty, delete line items)

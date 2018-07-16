@@ -58,7 +58,7 @@ class Dashboard_controller extends CI_Controller {
                 $percent_higher_net_sales = ((1 - ($today_net_sales / $yesterday_net_sales)) * 100);
             }
             
-            $percent_higher_net_sales_str = '[ ' . $percent_higher_net_sales . ' % ] Higher than yesterday\'s ' . '[ ₱ ' . number_format($yesterday_net_sales, 2) . ' ]';
+            $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ ₱ ' . number_format($yesterday_net_sales, 2) . ' ]';
         }
         else // if yesterday net sales is lower (higher today)
         {
@@ -75,10 +75,17 @@ class Dashboard_controller extends CI_Controller {
             }
             else
             {
-                $percent_higher_net_sales = (($yesterday_net_sales / $today_net_sales) * 100);
+                if ($yesterday_net_sales == 0) // if both today and yesterday is zero
+                {
+                    $percent_higher_net_sales = 100;    
+                }
+                else
+                {
+                    $percent_higher_net_sales = (($yesterday_net_sales / $today_net_sales) * 100);
+                }
             }
 
-            $percent_higher_net_sales_str = '[ ' . $percent_higher_net_sales . ' % ] Higher than yesterday\'s ' . '[ ₱ ' . number_format($yesterday_net_sales, 2) . ' ]';
+            $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ ₱ ' . number_format($yesterday_net_sales, 2) . ' ]';
         }
         
         $today_net_sales_str = '₱ ' . number_format($today_net_sales, 2);
@@ -123,7 +130,7 @@ class Dashboard_controller extends CI_Controller {
         
 
         $discounts_rendered_today_str = '₱ ' . number_format($discounts_rendered_today, 2);
-        $discounts_gross_percentage_str = '[ ' . $discounts_gross_percentage . ' % ]  of the Total Gross Sales [ ₱ ' . number_format($gross_total_today, 2) . ' ]';
+        $discounts_gross_percentage_str = '[ ' . number_format($discounts_gross_percentage, 1) . ' % ]  of the Total Gross Sales [ ₱ ' . number_format($gross_total_today, 2) . ' ]';
 
 
 

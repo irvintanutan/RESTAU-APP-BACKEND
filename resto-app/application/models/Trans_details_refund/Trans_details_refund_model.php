@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Trans_details_model extends CI_Model {
+class Trans_details_refund_model extends CI_Model {
  
-    var $table = 'trans_details';
+    var $table = 'trans_details_refund';
 
     var $column_order = array(null,null,'price','qty','total',null); //set column field database for datatable orderable
     var $column_search = array('price','qty','total'); //set column field database for datatable searchable
@@ -103,12 +103,6 @@ class Trans_details_model extends CI_Model {
         $row = $query->row();
 
         return $row->gross;
-    }
-
-    // get trans_details of a transaction then copy to trans_details_refund table
-    function copy_to_trans_details_refund($trans_id)
-    {
-        $query = $this->db->query("insert into trans_details_refund (trans_id, prod_id, pack_id, prod_type, price, qty, total, part_of) select trans_id, prod_id, pack_id, prod_type, price, qty, total, part_of from trans_details where trans_id = " . $trans_id . " and (trans_id, prod_id, pack_id) NOT IN (select trans_id, prod_id, pack_id from trans_details_refund);");
     }
 
     // check if the parent data has children in FK

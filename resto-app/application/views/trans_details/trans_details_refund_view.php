@@ -80,7 +80,7 @@
                             <br>
                             <hr>
 
-                            <table id="trans-details-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">
+                            <table id="trans-details-refund-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">
                                 <thead>
                                     <tr>
                                         <th style="width:60px;">ID</th>
@@ -128,8 +128,7 @@
                             <hr>
 
                             <div class="col-md-5" style="border-top: 2px solid #cccccc; border-radius: 10px;">
-                                <label class="control-label col-md-5" style="margin-top: 10px;">Payment Method: <h4><?php echo $transaction->method; ?></h4></label>
-                                <label class="control-label col-md-7" style="margin-top: 10px;">Card Number: <h4><?php echo $transaction->card_number; ?></h4></label>
+                                
                             </div>
                             <div class="col-md-7" style="border-bottom: 2px solid #cccccc; border-radius: 10px;">
                                 <label class="control-label col-md-4" style="text-align: right; margin-top: 10px;">AMOUNT DUE: <h3 style="color: #006699;">( ₱ <?php echo number_format($net_total, 2); ?> )</h3></label>
@@ -145,8 +144,6 @@
                                 <label class="control-label col-md-5">Cashier: <h4><?php if ($transaction->cashier_id == 0){ echo "n/a"; }else{ echo $this->users->get_username($transaction->cashier_id); } ?></h4></label>
                                 <label class="control-label col-md-7">Discount ID#: <h4><?php echo $transaction->cust_disc_id; ?></h4></label>
                                 <br><hr><br>
-
-                                <label class="control-label col-md-12">Table(s): <h4><?php echo $table_str; ?></h4></label>
                             </div>
 
                         </div>

@@ -299,6 +299,33 @@ class Packages_controller extends CI_Controller {
             }
 
 
+            // get package product list ---------------------------------------------------------
+            $pack_prod_data = array();
+
+            $pack_products = $this->pack_details->get_pack_detail_products($packages->pack_id);
+
+            // get each product of the package -----------------------------------------------------              
+            
+            foreach ($pack_products as $pack_products_list)
+            {
+                $pack_prod_row = array();
+
+                $pack_prod_id = $pack_products_list->prod_id;
+                $pack_prod_name = $this->products->get_product_name($pack_prod_id);
+                $pack_prod_short_name = $this->products->get_product_short_name($pack_prod_id);
+                $pack_prod_qty = $pack_products_list->qty; // multiply package product qty by pack_qty
+
+                $pack_prod_row['pack_prod_id'] = $pack_prod_id;
+                $pack_prod_row['pack_prod_name'] = $pack_prod_name;
+                $pack_prod_row['pack_prod_short_name'] = $pack_prod_short_name;
+                $pack_prod_row['pack_prod_qty'] = $pack_prod_qty;
+
+                $pack_prod_data[] = $pack_prod_row;
+            }
+
+            $row['package_products'] = $pack_prod_data;
+
+
             $data[] = $row;
         }
     

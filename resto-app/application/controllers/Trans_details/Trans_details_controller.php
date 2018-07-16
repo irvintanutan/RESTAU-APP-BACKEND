@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once(APPPATH.'vendor\mike42\autoload.php');
+require_once(APPPATH.'vendor/mike42/autoload.php');
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
@@ -18,6 +18,7 @@ class Trans_details_controller extends CI_Controller {
         $this->load->model('Tables/Tables_model','tables');
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
+        $this->load->model('Trans_details_refund/Trans_details_refund_model','trans_details_refund');
         $this->load->model('Table_groups/Table_groups_model','table_groups');
 
         $this->load->model('Users/Users_model','users');
@@ -99,49 +100,20 @@ class Trans_details_controller extends CI_Controller {
 
         $this->load->helper('url');
 
+        // copy items from trans_details to trans_details_refund table
+        $this->trans_details->copy_to_trans_details_refund($trans_id);
+
+
         $transactions_data = $this->transactions->get_by_id($trans_id);
 
-        $gross_total = $this->trans_details->get_trans_gross($trans_id);
-
-        $tables = $this->table_groups->get_table_group_tables($trans_id);
-
-        if ($tables->num_rows() != 0)
-        {
-            $tables_data = array();
-
-            foreach ($tables->result() as $tables_list) 
-            {
-                if ($tables_list->tbl_id == 0)
-                {
-                    $tables_data[] = 'No Table';
-                }
-                else
-                {
-                    $tables_data[] = $this->tables->get_table_name($tables_list->tbl_id);
-                }
-            }
-
-            $table_str = implode(', ', $tables_data);
-        }
-        else
-        {
-            $table_str = 'n/a';
-        }
-
-        $discounts_data = $this->discounts->get_discounts();
+        $gross_total = $this->trans_details_refund->get_trans_gross($trans_id);
 
         $managers_password = $this->store->get_store_config_password(1); // get manager's password
         
         $data['managers_password'] = $managers_password;
-
-        $data['discounts'] = $discounts_data;
         
         $data['transaction'] = $transactions_data;
         $data['gross_total'] = $gross_total;
-        $data['table_str'] = $table_str;
-
-        $this->reset_is_updated($trans_id); // reset is_updated every page load
-
 
         $data['title'] = '<i class="fa fa-qrcode"></i> Transaction Details';
         $this->load->view('template/dashboard_header',$data);
@@ -254,7 +226,7 @@ class Trans_details_controller extends CI_Controller {
 
     public function ajax_list_refund($trans_id) // get all that belongs to this ID via foreign key
     {
-        $list = $this->trans_details->get_datatables($trans_id);
+        $list = $this->trans_details_refund->get_datatables($trans_id);
         $data = array();
         $no = $_POST['start'];
 
@@ -267,54 +239,27 @@ class Trans_details_controller extends CI_Controller {
             $no++;
             $row = array();
 
-            if ($status == 'ONGOING')
+            if ($trans_details->prod_type == 1) // if prod_type is package
             {
-                if ($trans_details->prod_type == 1) // if prod_type is package
-                {
-                    $item_id = 'G' . $trans_details->pack_id;
-                    $item_name = $this->packages->get_package_name($trans_details->pack_id);
+                $item_id = 'G' . $trans_details->pack_id;
+                $item_name = $this->packages->get_package_name($trans_details->pack_id);
 
-                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')"><i class="fa fa-trash"></i></a>';
-                }
-                else if ($trans_details->prod_type == 0) // if prod_type is individual product
-                {
-                    $item_id = 'P' . $trans_details->prod_id;
-                    $item_name = $this->products->get_product_name($trans_details->prod_id);
-
-                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')"><i class="fa fa-trash"></i></a>';
-                }
-                else if ($trans_details->prod_type == 2) // if prod_type is package product
-                {   
-                    $item_id = 'P' . $trans_details->prod_id;
-                    $item_name = $this->products->get_product_name($trans_details->prod_id);
-
-                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
-                }    
+                $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="refund_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')"><i class="fa fa-trash"></i></a>';
             }
-            else
+            else if ($trans_details->prod_type == 0) // if prod_type is individual product
             {
-                if ($trans_details->prod_type == 1) // if prod_type is package
-                {
-                    $item_id = 'G' . $trans_details->pack_id;
-                    $item_name = $this->packages->get_package_name($trans_details->pack_id);
+                $item_id = 'P' . $trans_details->prod_id;
+                $item_name = $this->products->get_product_name($trans_details->prod_id);
 
-                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_pack('."'".$trans_id."'".', '."'".$trans_details->pack_id."'".')" disabled><i class="fa fa-trash"></i></a>';
-                }
-                else if ($trans_details->prod_type == 0) // if prod_type is individual product
-                {
-                    $item_id = 'P' . $trans_details->prod_id;
-                    $item_name = $this->products->get_product_name($trans_details->prod_id);
-
-                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
-                }
-                else if ($trans_details->prod_type == 2) // if prod_type is package product
-                {   
-                    $item_id = 'P' . $trans_details->prod_id;
-                    $item_name = $this->products->get_product_name($trans_details->prod_id);
-
-                    $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="delete_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
-                }
+                $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="refund_trans_detail_prod('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')"><i class="fa fa-trash"></i></a>';
             }
+            else if ($trans_details->prod_type == 2) // if prod_type is package product
+            {   
+                $item_id = 'P' . $trans_details->prod_id;
+                $item_name = $this->products->get_product_name($trans_details->prod_id);
+
+                $void_btn = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Void" onclick="refund_trans_detail_prod_pack('."'".$trans_id."'".', '."'".$trans_details->prod_id."'".')" disabled><i class="fa fa-trash"></i></a>';
+            }  
             
 
             $row[] = $item_id;
@@ -337,14 +282,16 @@ class Trans_details_controller extends CI_Controller {
             $row[] = $prod_type;
             $row[] = $trans_details->part_of;
             $row[] = $item_count;
+
+            $row[] = $trans_details->refunded;
     
             $data[] = $row;
         }
     
         $output = array(
                         "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->trans_details->count_all($trans_id),
-                        "recordsFiltered" => $this->trans_details->count_filtered($trans_id),
+                        "recordsTotal" => $this->trans_details_refund->count_all($trans_id),
+                        "recordsFiltered" => $this->trans_details_refund->count_filtered($trans_id),
                         "data" => $data,
                 );
         //output to json format
@@ -427,7 +374,7 @@ class Trans_details_controller extends CI_Controller {
             }
         }
 
-        $this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
+        $this->set_transaction_receipt($trans_id, "payment", $receipt_no); // print receipt upon clearing out the transaction
 
         echo json_encode(array("status" => TRUE));
     }
@@ -651,7 +598,36 @@ class Trans_details_controller extends CI_Controller {
                 $row['qty'] = $trans_details->qty;
                 $row['total'] = $trans_details->total;
 
+
+                // get package product list ---------------------------------------------------------
+                $pack_prod_data = array();
+
+                $pack_products = $this->pack_details->get_pack_detail_products($item_id);
+
+                // get each product of the package -----------------------------------------------------              
+                
+                foreach ($pack_products as $pack_products_list)
+                {
+                    $pack_prod_row = array();
+
+                    $pack_prod_id = $pack_products_list->prod_id;
+                    $pack_prod_name = $this->products->get_product_name($pack_prod_id);
+                    $pack_prod_short_name = $this->products->get_product_short_name($pack_prod_id);
+                    $pack_prod_qty = ($pack_products_list->qty * $trans_details->qty); // multiply package product qty by pack_qty
+
+                    $pack_prod_row['pack_prod_id'] = $pack_prod_id;
+                    $pack_prod_row['pack_prod_name'] = $pack_prod_name;
+                    $pack_prod_row['pack_prod_short_name'] = $pack_prod_short_name;
+                    $pack_prod_row['pack_prod_qty'] = $pack_prod_qty;
+
+                    $pack_prod_data[] = $pack_prod_row;
+                }
+
+                $row['package_products'] = $pack_prod_data;
+
+
                 $pack_data[] = $row;
+
             }
             else if ($trans_details->prod_type == 0) // if prod_type is individual product
             {
@@ -958,34 +934,9 @@ class Trans_details_controller extends CI_Controller {
                 $table_str = 'n/a';
             }
 
-
-            $gross_total = $this->trans_details->get_trans_gross($trans_id);
-
-            $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
-
         }
 
-        
-
         echo json_encode(array("status" => TRUE));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
         
         $this->table_groups->delete_by_trans_id($trans_id);
@@ -1010,8 +961,6 @@ class Trans_details_controller extends CI_Controller {
             }
         }
 
-        //$this->set_transaction_receipt($trans_id, "payment"); // print receipt upon clearing out the transaction
-
         echo json_encode(array("status" => TRUE));
     }
 
@@ -1019,7 +968,7 @@ class Trans_details_controller extends CI_Controller {
     // ================================================ PRINT RECEIPT SECTION ==============================================
 
 
-    public function set_transaction_receipt($trans_id, $print_type) // setting transaction receipt via trans_id (can be used to print bill out or final receipts)
+    public function set_transaction_receipt($trans_id, $print_type, $receipt_no) // setting transaction receipt via trans_id (can be used to print bill out or final receipts)
     {
         $transactions_data = $this->transactions->get_by_id($trans_id);
 
@@ -1162,7 +1111,7 @@ class Trans_details_controller extends CI_Controller {
         // printing receipts
         if ($print_type == "payment")
         {
-            $this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_number);
+            $this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_no);
         }
         else // billout recipts
         {
@@ -1176,12 +1125,8 @@ class Trans_details_controller extends CI_Controller {
     // ================================================ RECEIPT FORMATTING SECTION ============================================================
 
 
-    public function print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_number)
+    public function print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_no)
     {
-        if ($receipt_number == "")
-        {
-            $receipt_number = ""; // ------------------------------------------------------------------- GENERATE RECEIPT NUMBER HERE
-        }
 
         /* Open the printer; this will change depending on how it is connected */
         $connector = new WindowsPrintConnector("epsontmu");
@@ -1249,6 +1194,7 @@ class Trans_details_controller extends CI_Controller {
 
         $printer -> setJustification(Printer::JUSTIFY_LEFT);
         $printer -> text(new item('Transaction#: ' . $trans_id, ''));
+        $printer -> text(new item('Receipt#: ' . $receipt_no, ''));
         $printer -> text(new item('Staff: ' . $staff_username, ''));
         $printer -> text(new item('Cashier: ' . $cashier_username, ''));
 

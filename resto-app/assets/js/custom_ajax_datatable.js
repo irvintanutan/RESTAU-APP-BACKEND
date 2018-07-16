@@ -742,6 +742,70 @@ $(document).ready(function()
                 }
             });
     }
+    else if(tableID == "trans-details-refund-table")
+    {
+    //datatables
+            // get id
+            var trans_id = $('[name="trans_id"]').val();
+
+            table = $('#trans-details-refund-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+                "ordering": false,
+                "searching": false,
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "../showlist-trans-details-refund/" + trans_id,
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 2,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 4,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-center",
+                },
+                ],
+
+                "rowCallback": function( row, data, index )
+                {
+                  var status = data[6],
+                      $node = this.api().row(row).nodes().to$();
+
+                  if (status == '1') 
+                  {
+                    $node.css('background-color', '#ffcc66');
+                  }
+                  else if (status == '2') 
+                  {
+                    $node.css('background-color', '#ffffcc');
+                  }
+
+                  var item_count = data[8];
+
+                  $('[name="item_count"]').val(item_count);
+                }
+            });
+    }
 
 
 
@@ -1576,59 +1640,22 @@ function print_bill_out(id) // ---> calling for the Add Modal form
               }
               else
               {
-                bootbox.prompt({
-                      title: "Enter 'Manager's Password' to proceed",
-                      inputType: 'password',
-                      callback: function (result) {
-
-                          var managers_password = $('[name="managers_password"]').val();
-
-                          if (result == managers_password) 
-                          {
-                            bootbox.confirm("ARE YOU SURE YOU WANT TO CANCEL THIS TRANSACTION?", function(result){
-
-                              if (result == true)
-                              {
-                                // ajax delete data to database
-                                $.ajax({
-                                    url : "../set-cancel/" + id,
-                                    type: "POST",
-                                    dataType: "JSON",
-                                    success: function(data)
-                                    {
-                                        var log_type = 'Delete';
-
-                                        var details = 'Transaction has been cancelled'; 
-
-                                        set_system_log_one(log_type, details);
-
-                                        reload_table();
-
-                                        // refresh transaction details page
-                                        window.location.href=$('[name="trans_id"]').val();
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown)
-                                    {
-                                        alert('Error deleting data');
-                                    }
-                                });
-                              }
-
-                            });
-                          }
-                          else if (result != null)
-                          {
-                            
-                            bootbox.alert({
-                                title: "Incorrect Password Input",
-                                message: "Access Denied",
-                                callback: function () {
-                                    
-                                }
-                            });
-                          }
-                      }
-                  });
+                // ajax delete data to database
+                $.ajax({
+                    url : "../print-billout-receipt/" + id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        
+                        // refresh transaction details page
+                        window.location.href=$('[name="trans_id"]').val();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert('Error deleting data');
+                    }
+                });
               }
           },
           error: function (jqXHR, textStatus, errorThrown)

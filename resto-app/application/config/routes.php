@@ -281,6 +281,8 @@ $route['trans-details-refund-page/(:num)'] = 'Trans_details/Trans_details_contro
 
 $route['showlist-trans-details/(:num)'] = 'Trans_details/Trans_details_controller/ajax_list/$1';
 
+$route['showlist-trans-details-refund/(:num)'] = 'Trans_details/Trans_details_controller/ajax_list_refund/$1';
+
 $route['set-payment'] = 'Trans_details/Trans_details_controller/ajax_set_payment';
 
 $route['set-discount'] = 'Trans_details/Trans_details_controller/ajax_set_discount';
@@ -293,6 +295,12 @@ $route['update-trans-detail'] = 'Trans_details/Trans_details_controller/ajax_upd
 
 $route['delete-trans-detail-prod/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/ajax_delete_prod/$1/$2';
 $route['delete-trans-detail-pack/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/ajax_delete_pack/$1/$2';
+
+// receipt routes
+
+$route['print-billout-receipt/(:num)'] = 'Trans_details/Trans_details_controller/set_transaction_receipt/$1/billout/0'; // print billout-type receipt
+
+$route['reprint-trans-receipt/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/set_transaction_receipt/$1/payment/$2'; // reprint payment-type receipt
 
 //======================================== API SECTION =================================================================
 

@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // require_once(APPPATH.'vendor/mike42/escpos-php/autoload.php');
-require_once(APPPATH.'vendor\mike42\autoload.php');
+require_once(APPPATH.'vendor/mike42/autoload.php');
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 

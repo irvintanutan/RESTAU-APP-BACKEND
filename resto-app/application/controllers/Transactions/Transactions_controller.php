@@ -151,6 +151,12 @@ class Transactions_controller extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function ajax_get_last_receipt_no_trans()
+    {
+        $data = $this->transactions->get_last_receipt_transaction_data();
+        echo json_encode($data);
+    }
+
     public function ajax_get_by_receipt($receipt_no)  // get transaction by receipt number
     {
         $data = $this->transactions->get_by_receipt_no($receipt_no);
@@ -540,17 +546,17 @@ class Transactions_controller extends CI_Controller {
 
         $items = $line_items;
         
-        $total_sales = ($gross_total / (1 + $vat));
+        // $total_sales = ($gross_total / (1 + $vat));
 
-        $vat_amount = ($gross_total - $total_sales);
+        // $vat_amount = ($gross_total - $total_sales);
 
-        $amount_due = $gross_total;
+        // $amount_due = $gross_total;
 
 
-        // string variables
-        $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
-        $vat_str = new item('Vat', number_format($vat_amount, 2));
-        $amount_due_str = new item('Amount Due     Php', number_format($amount_due, 2));
+        // // string variables
+        // $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
+        // $vat_str = new item('Vat', number_format($vat_amount, 2));
+        // $amount_due_str = new item('Amount Due     Php', number_format($amount_due, 2));
         
 
         /* Start the printer */
@@ -593,17 +599,17 @@ class Transactions_controller extends CI_Controller {
 
         $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
 
-        $printer -> setEmphasis(true);
-        $printer -> text($total_sales_str);
-        /* Tax and total */
-        $printer -> text($vat_str);
-        $printer -> setEmphasis(false);
+        // $printer -> setEmphasis(true);
+        // $printer -> text($total_sales_str);
+        // /* Tax and total */
+        // $printer -> text($vat_str);
+        // $printer -> setEmphasis(false);
 
-        $printer -> setEmphasis(true);
-        $printer -> text(new item('', '=========='));
+        // $printer -> setEmphasis(true);
+        // $printer -> text(new item('', '=========='));
         
-        $printer -> text($amount_due_str);
-        $printer -> setEmphasis(false);
+        // $printer -> text($amount_due_str);
+        // $printer -> setEmphasis(false);
         
 
         /* Footer */

@@ -67,6 +67,16 @@ class Users_model extends CI_Model {
 		return $query->result();
 	}
 
+	function get_api_datatables()
+	{        
+	    $this->db->from($this->table);
+
+	    $this->db->where('removed', '0');
+	    
+	    $query = $this->db->get();
+	    return $query->result();
+	}
+
 	// check for duplicates in the database table for validation - fullname
     function get_duplicates($lastname, $firstname, $middlename)
     {

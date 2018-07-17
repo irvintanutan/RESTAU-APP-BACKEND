@@ -136,6 +136,8 @@ $route['edit-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax_e
 
 $route['get-transaction-by-receipt/(:num)'] = 'Transactions/Transactions_controller/ajax_get_by_receipt/$1';
 
+$route['get-last-receipt-trans'] = 'Transactions/Transactions_controller/ajax_get_last_receipt_no_trans';
+
 $route['update-transaction'] = 'Transactions/Transactions_controller/ajax_update';
 
 $route['delete-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax_delete/$1';
@@ -300,7 +302,7 @@ $route['delete-trans-detail-pack/(:num)/(:num)'] = 'Trans_details/Trans_details_
 
 $route['print-billout-receipt/(:num)'] = 'Trans_details/Trans_details_controller/set_transaction_receipt/$1/billout/0'; // print billout-type receipt
 
-$route['reprint-trans-receipt/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/set_transaction_receipt/$1/payment/$2'; // reprint payment-type receipt
+$route['reprint-last-trans-receipt/(:num)/(:num)'] = 'Trans_details/Trans_details_controller/set_transaction_receipt/$1/payment/$2'; // reprint payment-type receipt
 
 //======================================== API SECTION =================================================================
 
@@ -313,25 +315,6 @@ $route['showlist-trans-details-api/(:num)'] = 'Trans_details/Trans_details_contr
 
 
 
-
-
-
-
-
-//************************************** TRANSACTIONS ROUTES
-//**************************************
-
-$route['profiles-page/transactions-page/(:num)/(:num)'] = '../transactions/transactions_controller/index/$1/$2';
-
-$route['profiles-page/showlist-transactions/(:num)'] = '../transactions/transactions_controller/ajax_list/$1';
-
-$route['profiles-page/edit-transaction/(:num)'] = '../transactions/transactions_controller/ajax_edit/$1';
-
-$route['profiles-page/add-transaction/(:num)'] = '../transactions/transactions_controller/ajax_add/$1';
-
-$route['profiles-page/update-transaction/(:num)'] = '../transactions/transactions_controller/ajax_update/$1';
-
-$route['profiles-page/delete-transaction/(:num)'] = '../transactions/transactions_controller/ajax_delete/$1';
 
 
 //************************************** NOTIFICATIONS ROUTES
@@ -415,9 +398,11 @@ $route['users-page'] = 'Users/Users_controller/index';
 
 $route['showlist-users'] = 'Users/Users_controller/ajax_list';
 
+$route['showlist-users-api'] = 'Users/Users_controller/ajax_api_list';
+
 $route['edit-user/(:num)'] = 'Users/Users_controller/ajax_edit/$1';
 
-$route['add-user/(:num)'] = 'Users/Users_controller/ajax_add/$1';
+$route['add-user'] = 'Users/Users_controller/ajax_add';
 
 $route['update-user/(:num)'] = 'Users/Users_controller/ajax_update/$1';
 

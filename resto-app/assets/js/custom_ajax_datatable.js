@@ -1614,10 +1614,8 @@ function confirm_trans()
     });
 }
 
-function print_bill_out(id) // ---> calling for the Add Modal form
-{
-    var id = $('[name="trans_id"]').val();
-      
+function print_bill_out(id) // ---> calling for print billout
+{     
       //Ajax Load data from ajax
       $.ajax({
           url : "../edit-transaction/" + id,
@@ -1659,6 +1657,46 @@ function print_bill_out(id) // ---> calling for the Add Modal form
                     }
                 });
               }
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error get data from ajax');
+          }
+      });
+}
+
+function reprint_last_trans_receipt() // ---> calling for the Add Modal form
+{     
+      //Ajax Load data from ajax
+      $.ajax({
+          url : "get-last-receipt-trans",
+          type: "GET",
+          dataType: "JSON",
+          success: function(data)
+          {
+              var trans_id = data.trans_id; // get last transaction id value
+              var receipt_no = data.receipt_no; // get last transaction id value
+
+              // ajax delete data to database
+              $.ajax({
+                  url : "reprint-last-trans-receipt/" + trans_id + "/" + receipt_no,
+                  type: "POST",
+                  dataType: "JSON",
+                  success: function(data)
+                  {
+                      bootbox.dialog({
+                          title  : "Last receipt reprinted Successfully",
+                          message  : "Transaction Receipt"
+                      });
+
+                      setTimeout(function(){ go_to_ongoing_trans(); }, 1200); // delay effect
+                      
+                  },
+                  error: function (jqXHR, textStatus, errorThrown)
+                  {
+                      alert('Error deleting data');
+                  }
+              });
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
@@ -3157,7 +3195,7 @@ function save()
 
     else if(save_method == 'add-user') 
     {
-        url = "Users/Users_controller/ajax_add";
+        url = "add-user";
     }
     else if(save_method == 'update-user') 
     {

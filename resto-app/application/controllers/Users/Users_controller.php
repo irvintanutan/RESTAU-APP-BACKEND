@@ -37,10 +37,17 @@ class Users_controller extends CI_Controller {
 			$row[] = 'U' . $users->user_id;
 
 			// check if the user is admin
-			if ($users->administrator == 0){
-				$row[] = 'Staff';
-			}else{
+			if ($users->administrator == 1)
+			{
 				$row[] = 'Administrator';
+			}
+			else if ($users->cashier == 1)
+			{
+				$row[] = 'Cashier';
+			}
+			else
+			{
+				$row[] = 'Staff';
 			}
 
 			$row[] = $users->username;
@@ -107,12 +114,7 @@ class Users_controller extends CI_Controller {
 		        'date_registered' => date("Y-m-d H:i:s"),
 		        'administrator' => '0',
 				'cashier' => '0',
-				'inventory' => '0',
-				'supplier' => '0',
-				'customer' =>'0',
-				'user' => '0',
-				'report' => '0',
-				'removed' => '0'
+				'staff' => '0'
 			);
 		$insert = $this->users->save($data);
 		echo json_encode(array("status" => TRUE));
@@ -358,5 +360,48 @@ class Users_controller extends CI_Controller {
 			echo json_encode($data);
 			exit();
 		}
+	}	
+
+	// ================================================ API GET REQUEST METHOD ============================================
+
+
+	public function ajax_api_list()
+	{
+		$list = $this->users->get_api_datatables();
+		$data = array();
+		
+		foreach ($list as $users) {
+			
+			$row = array();
+			$row['user_id'] = 'U' . $users->user_id;
+
+			// check if the user is admin
+			if ($users->administrator == 1)
+			{
+				$row['user_type'] = 'Administrator';
+			}
+			else if ($users->cashier == 1)
+			{
+				$row['user_type'] = 'Cashier';
+			}
+			else
+			{
+				$row['user_type'] = 'Staff';
+			}
+
+			$row['username'] = $users->username;
+			$row['password'] = $users->password;
+            $row['lastname'] = $users->lastname;
+            $row['firstname'] = $users->firstname;
+            $row['middlename'] = $users->middlename;
+			// $row[] = $users->contact;
+			// $row[] = $users->email;
+			// $row[] = $users->address;
+			$row['date_registered'] = $users->date_registered;
+		
+			$data[] = $row;
+		}
+		//output to json format
+		echo json_encode($data);
 	}	
 }

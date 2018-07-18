@@ -16,7 +16,7 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 	  $this->load->model('Transactions/Transactions_model','transactions');
 	}
 
-	public function index($child_id)
+	public function index()
 	{
 		// check if logged in and admin
 		if($this->session->userdata('user_id') == '' || $this->session->userdata('administrator') == "0")
@@ -27,8 +27,6 @@ class Pdf_dashboard_report_controller extends CI_Controller {
         // get today's date and yesterday
         $today = date('Y-m-d');
         $yesterday = date('Y-m-d',(strtotime ( '-1 day' , strtotime ( $today) ) ));
-
-		$data['current_date'] = date('l, F j, Y', strtotime(date('Y-m-d')));
 
 		// get daily net sales data -------------------------------------------------------------------------------------------------------------
 
@@ -55,7 +53,7 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 		        $percent_higher_net_sales = ((1 - ($today_net_sales / $yesterday_net_sales)) * 100);
 		    }
 		    
-		    $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ ₱ ' . number_format($yesterday_net_sales, 2) . ' ]';
+		    $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ Php ' . number_format($yesterday_net_sales, 2) . ' ]';
 		}
 		else // if yesterday net sales is lower (higher today)
 		{
@@ -82,10 +80,10 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 		        }
 		    }
 
-		    $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ ₱ ' . number_format($yesterday_net_sales, 2) . ' ]';
+		    $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ Php ' . number_format($yesterday_net_sales, 2) . ' ]';
 		}
 		
-		$today_net_sales_str = '₱ ' . number_format($today_net_sales, 2);
+		$today_net_sales_str = 'Php ' . number_format($today_net_sales, 2);
 
 		// -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -126,8 +124,8 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 		}
 		
 
-		$discounts_rendered_today_str = '₱ ' . number_format($discounts_rendered_today, 2);
-		$discounts_gross_percentage_str = '[ ' . number_format($discounts_gross_percentage, 1) . ' % ]  of the Total Gross Sales [ ₱ ' . number_format($gross_total_today, 2) . ' ]';
+		$discounts_rendered_today_str = 'Php ' . number_format($discounts_rendered_today, 2);
+		$discounts_gross_percentage_str = '[ ' . number_format($discounts_gross_percentage, 1) . ' % ]  of the Total Gross Sales [ Php ' . number_format($gross_total_today, 2) . ' ]';
 
 
 		// ==================================== REPORT ESSENTIALS ========================================================
@@ -137,20 +135,23 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData($child_id); // load and fetch data
+		$data['data'] = $this->LoadData(); // load and fetch data
 		
-		$data['title'] = 'Dashboard Daily Statistics Report';
+		$data['title'] = 'Daily Statistics Report';
+
+		$data['date_today'] = $today;
 
 		$data['current_date'] = date('l, F j, Y', strtotime(date('Y-m-d')));
+
+		$data['current_time'] = date("h:i:s A");
 
 		$data['user_fullname'] = $this->session->userdata('firstname') .' '. $this->session->userdata('lastname');
 
 		// column titles
-		// $data['header'] = array('ID', 'Fullname', 'Relation', 'Age', 'Gender', 'C.Status', 'Education', 'Occupation', 'Income');
-		$data['header'] = array('Fullname', 'Relation', 'Age', 'Gender', 'Occupation');
+		$data['header'] = array('ID', 'Name', 'Type', 'Price', 'Sold', 'Sales');
 
 
-		$data['store'] = $store;
+		// $data['store'] = $store;
 
 		$data['today_net_sales_str'] = $today_net_sales_str;
 		$data['percent_higher_net_sales_str'] = $percent_higher_net_sales_str;
@@ -171,25 +172,74 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 	}
 
 	// Load table data from file
-	public function LoadData($child_id) 
+	public function LoadData() 
 	{
-		$list = $this->family->get_family_list($child_id);
-		$data = array();
-		
-		foreach ($list as $family) 
+		// get best selling list -------------------------------------------------
+
+		$min_price = $this->store->get_store_bs_price(1);
+
+		$best_selling = $this->products->get_best_selling($min_price);
+		$best_selling_prod_array = array();
+		$best_selling_pack_array = array();
+
+		foreach ($best_selling as $bp_products) // different storage for products and package since index is used to get the rank
 		{
+		    $best_selling_prod_array[] = $bp_products->prod_id;
+		    $best_selling_pack_array[] = $bp_products->pack_id;
+		}
+		//------------------------------------------------------------------------
+
+		$list = $this->trans_details->get_reports_sold_today();
+		$data = array();
+
+		foreach ($list as $trans_details) {
 		    $row = array();
-		    $row[] = $family->name;
-		    $row[] = $family->relation;
+		    
+		    if ($trans_details->prod_type == 1) // if prod_type is package
+		    {
+		        $item_id = 'G' . $trans_details->pack_id;
+		        $item_name = $this->packages->get_package_name($trans_details->pack_id);
+		        $item_type = 'PACKAGE';
+		        $item_price = $this->packages->get_package_price($trans_details->pack_id);
 
-		    $row[] = $family->age . ' y.o.';          
-		    $row[] = $family->sex;
-		    // $row[] = $family->status;
+		        if (in_array($trans_details->pack_id, $best_selling_pack_array))
+		        {
+		            $item_sold = '( R: ' . (array_search($trans_details->pack_id, $best_selling_pack_array) + 1) . " ) " . $trans_details->sold;    
+		        }
+		        else
+		        {
+		            $item_sold = $trans_details->sold;
+		        }
+		    }
+		    else if ($trans_details->prod_type == 0) // if prod_type is individual product
+		    {
+		        $item_id = 'P' . $trans_details->prod_id;
+		        $item_name = $this->products->get_product_name($trans_details->prod_id);
+		        $item_type = 'PRODUCT';
+		        $item_price = $this->products->get_product_price($trans_details->prod_id);
 
-		    // $row[] = $family->education;
-		    $row[] = $family->occupation;
-		    // $row[] = 'Php ' . $family->income;
-		
+		        if (in_array($trans_details->prod_id, $best_selling_prod_array))
+		        {
+		            $item_sold = '( R: ' . (array_search($trans_details->prod_id, $best_selling_prod_array) + 1) . " ) " . $trans_details->sold;    
+		        }
+		        else
+		        {
+		            $item_sold = $trans_details->sold;
+		        }
+		    }
+
+		    $row[] = $item_id;
+		    $row[] = $item_name;
+		    $row[] = $item_type;
+
+		    $row[] = $item_price;
+
+		    $row[] = $item_sold;
+
+		    $total_item_sales = ($item_price * $trans_details->sold);
+
+		    $row[] = number_format($total_item_sales, 2);
+
 		    $data[] = $row;
 		}
 

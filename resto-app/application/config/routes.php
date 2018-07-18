@@ -366,7 +366,7 @@ $route['statistics-page'] = 'Statistics/Statistics_controller/index';
 
 $route['reports-page'] = 'reports/reports_controller';
 
-$route['cis-report-active-male'] = 'pdf_reports/pdf_cis_report_controller/index/Male';
+$route['dashboard-report'] = 'Pdf_reports/Pdf_dashboard_report_controller/index';
 
 $route['cis-report-active-female'] = 'pdf_reports/pdf_cis_report_controller/index/Female';
 

@@ -4395,6 +4395,18 @@ function set_report_child()
     set_system_log(log_type, details);
 }
 
+function set_dashboard_pdf()
+{
+    // setting report logs
+    var log_type = 'Report';
+
+    var details = 'Dashboard Daily Report Generated'; 
+    window.open("dashboard-report");
+
+    set_system_log(log_type, details);
+}
+
+
 
 // ========================================== STATISTICS CHARTS =====================================================
 

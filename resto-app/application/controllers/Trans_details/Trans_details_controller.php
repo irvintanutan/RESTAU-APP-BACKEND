@@ -1151,6 +1151,8 @@ class Trans_details_controller extends CI_Controller {
         /* Start the printer */
         $printer = new Printer($connector);
 
+        $printer -> pulse();
+
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
         // $printer -> graphics($logo);

@@ -153,6 +153,9 @@
                     <!--===================================================-->
                     <!-- End Striped Table -->
                     <span>Legend: [ &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
+                    <br><br><br>
+                    <button class="control-label col-md-4 btn btn-dark" onclick="set_dashboard_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate Daily Report</button>
+
 
 
 

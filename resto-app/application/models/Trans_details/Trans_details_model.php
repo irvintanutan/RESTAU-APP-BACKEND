@@ -71,6 +71,33 @@ class Trans_details_model extends CI_Model {
         return $query->result();
     }
 
+    function get_reports_sold_today()
+    {   
+        $this->_get_datatables_query_sold_today();
+
+        $this->db->select('trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, trans_details.prod_type as prod_type, SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $today = date('Y-m-d');
+        $date_from = $today . ' 00:00:00'; // get date today to filter
+        $date_to = $today . ' 23:59:59';
+
+        $this->db->where('trans_details.prod_type !=', 2); // no package-product included
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->group_by('trans_details.prod_id');
+        $this->db->group_by('trans_details.pack_id');
+        $this->db->group_by('trans_details.prod_type');
+        
+        $this->db->order_by('sold', 'DESC');
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function get_api_datatables($trans_id) // api function in getting data list
     {        
         $this->db->from($this->table);
@@ -194,7 +221,7 @@ class Trans_details_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $this->db->select('trans_details.prod_id as prod_id, trans_details.pack_id as pack_id, trans_details.prod_type as prod_type, SUM(trans_details.qty) as sold');
+        $this->db->select('SUM(trans_details.qty) as sold');
          
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
@@ -206,11 +233,11 @@ class Trans_details_model extends CI_Model {
         $this->db->where('transactions.datetime >=', $date_from);
         $this->db->where('transactions.datetime <=', $date_to);
 
-        $this->db->group_by('trans_details.prod_id');
-        $this->db->group_by('trans_details.pack_id');
-        $this->db->group_by('trans_details.prod_type');
+        $query = $this->db->get();
 
-        return $this->db->count_all_results();
+        $row = $query->row();
+
+        return $row->sold;
     }
  
     // public function get_by_id($trans_id, $prod_id)

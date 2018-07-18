@@ -2031,6 +2031,23 @@ $("#discount_pack_id").change(function() // display package's original price whe
 });
 
 
+// ================================================================= STORE CONFIG SECTION =======================================
+
+
+function back_up_db()
+{
+    bootbox.confirm("BACKUP DATABASE?", function(result){
+
+      if (result == true)
+      {
+        window.location.href='myphp-backup.php';
+      }
+
+    });
+}
+
+
+
 // ================================================================== VIEW IMAGE SECTION ==========================================
 
 

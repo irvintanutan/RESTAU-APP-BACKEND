@@ -183,6 +183,8 @@ $route['edit-store-config/(:num)'] = 'Store_config/Store_config_controller/ajax_
 
 $route['update-store-config'] = 'Store_config/Store_config_controller/ajax_update';
 
+// $route['back-up-db'] = 'myphp-backup.php';
+
 //======================================== API SECTION =================================================================
 
 $route['showlist-store-config-api'] = 'Store_config/Store_config_controller/ajax_api_list';

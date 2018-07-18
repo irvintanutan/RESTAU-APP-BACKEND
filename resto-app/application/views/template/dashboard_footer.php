@@ -30,17 +30,17 @@
 	<!--Nifty Admin [ RECOMMENDED ]-->
 	<script src="<?php echo base_url();?>assets/js/nifty.min.js"></script>
 	<!--Sparkline [ OPTIONAL ]-->
-	<script src="<?php echo base_url();?>assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+	<!-- <script src="<?php //echo base_url();?>assets/plugins/sparkline/jquery.sparkline.min.js"></script> -->
 	<!--Skycons [ OPTIONAL ]-->
-	<script src="<?php echo base_url();?>assets/plugins/skycons/skycons.min.js"></script>
+	<!-- <script src="<?php //echo base_url();?>assets/plugins/skycons/skycons.min.js"></script> -->
 	<!--Switchery [ OPTIONAL ]-->
-	<script src="<?php echo base_url();?>assets/plugins/switchery/switchery.min.js"></script>
+	<!-- <script src="<?php //echo base_url();?>assets/plugins/switchery/switchery.min.js"></script> -->
 	<!--Bootstrap Select [ OPTIONAL ]-->
-	<script src="<?php echo base_url();?>assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<!-- <script src="<?php //echo base_url();?>assets/plugins/bootstrap-select/bootstrap-select.min.js"></script> -->
 	<!--Demo script [ DEMONSTRATION ]-->
-	<script src="<?php echo base_url();?>assets/js/demo/nifty-demo.js"></script>
+	<!-- <script src="<?php //echo base_url();?>assets/js/demo/nifty-demo.js"></script> -->
 	<!--DataTables Sample [ SAMPLE ]-->
-	<script src="<?php echo base_url();?>assets/js/demo/tables-datatables.js"></script>
+	<!-- <script src="<?php //echo base_url();?>assets/js/demo/tables-datatables.js"></script> -->
 	<!--DataTables [ OPTIONAL ]-->
 	<script src="<?php echo base_url();?>assets/plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/datatables/media/js/dataTables.bootstrap.js"></script>

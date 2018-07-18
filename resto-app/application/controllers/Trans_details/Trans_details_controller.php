@@ -1356,7 +1356,7 @@ class Trans_details_controller extends CI_Controller {
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
-        $printer -> pulse();
+        // $printer -> pulse();
 
         $printer -> close();
 

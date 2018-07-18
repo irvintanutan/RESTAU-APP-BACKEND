@@ -98,6 +98,19 @@ class Store_config_model extends CI_Model {
         return $row->img;
     }
 
+    function get_store_config_name($conf_id)
+    {
+        $this->db->select('name');
+        $this->db->from($this->table);
+        $this->db->where('conf_id',$conf_id);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->name;
+    }
+
     function get_store_config_password($conf_id)
     {
         $this->db->select('password');

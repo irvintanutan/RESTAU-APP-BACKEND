@@ -49,11 +49,11 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor($user_fullname);
 $pdf->SetTitle($title);
-$pdf->SetSubject('ANC Report');
-$pdf->SetKeywords('child');
+$pdf->SetSubject('Dashboard Report');
+$pdf->SetKeywords('dashboard');
 
 // set default header data
-$pdf->SetHeaderData('anc.jpg', 45, $title, "\r\n" . 'Archdiocesan Nourishment Center - Data Profiling System' . "\r\n" . 'Prepared by: ' . $user_fullname . "\r\n" . 'Date: ' . $current_date . "\r\n" . "\r\n" . 'Child ID: C' . $child->child_id . ' | Date of Registration: ' . date("M j, Y", strtotime($child->date_registered)));
+$pdf->SetHeaderData('../../assets/img/' . $logo_img, 45, $title, "\r\n" . $comp_name . "\r\n" . 'Prepared by: ' . $user_fullname . "\r\n" . 'Date: ' . $current_date . "\r\n" . "\r\n" . 'Child ID: C' . $child->child_id . ' | Date of Registration: ' . date("M j, Y", strtotime($child->date_registered)));
 
 
 

@@ -92,9 +92,10 @@
 
                                     <label class="control-label col-md-4"></label>
 
-                                    <label class="control-label col-md-4"></label>
+                                    
 
                                     <button class="control-label col-md-4 btn btn-info" onclick="edit_store_config(1)" style="font-size: 14px;"><i class="fa fa-pencil-square-o"></i> &nbsp;Edit Store Config</button>
+                                    <button class="control-label col-md-4 btn btn-dark" onclick="back_up_db()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Backup Database</button>
 
                                     <label class="control-label col-md-12"><br></label>
                                     

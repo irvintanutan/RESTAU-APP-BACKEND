@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2018 at 02:10 AM
+-- Generation Time: Jul 19, 2018 at 11:37 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -908,7 +908,23 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000780, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S100', '2018-07-13 23:06:18'),
 (1000781, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S55', '2018-07-13 23:08:53'),
 (1000782, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S38', '2018-07-13 23:09:26'),
-(1000783, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-13 23:32:23');
+(1000783, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-13 23:32:23'),
+(1000784, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S105', '2018-07-19 23:25:19'),
+(1000785, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S102', '2018-07-19 23:25:30'),
+(1000786, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S101', '2018-07-19 23:25:41'),
+(1000787, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S35', '2018-07-19 23:25:48'),
+(1000788, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S33', '2018-07-19 23:25:58'),
+(1000789, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S32', '2018-07-19 23:26:10'),
+(1000790, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S31', '2018-07-19 23:26:20'),
+(1000791, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S30', '2018-07-19 23:26:32'),
+(1000792, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S27', '2018-07-19 23:26:46'),
+(1000793, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S22', '2018-07-19 23:27:02'),
+(1000794, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S20', '2018-07-19 23:27:25'),
+(1000795, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S19', '2018-07-19 23:27:57'),
+(1000796, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S106', '2018-07-19 23:33:53'),
+(1000797, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S107', '2018-07-19 23:34:37'),
+(1000798, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S107', '2018-07-19 23:34:53'),
+(1000799, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-07-19 23:35:54');
 
 -- --------------------------------------------------------
 
@@ -933,9 +949,9 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`pack_id`, `name`, `short_name`, `descr`, `price`, `img`, `sold`, `encoded`, `removed`) VALUES
-(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 81, '2018-05-25 01:21:37', 0),
-(2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2_1_.jpg', 5, '2018-05-29 13:17:08', 0),
-(3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3_1_.jpg', 16, '2018-05-29 15:18:31', 0),
+(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 95, '2018-05-25 01:21:37', 0),
+(2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2_1_.jpg', 6, '2018-05-29 13:17:08', 0),
+(3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3_1_.jpg', 19, '2018-05-29 15:18:31', 0),
 (4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4_1_.jpg', 3, '2018-07-04 16:18:35', 0);
 
 -- --------------------------------------------------------
@@ -1029,16 +1045,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 96, 25, '2018-05-24 18:22:34', 0),
-(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 15, 81, '2018-05-28 14:37:40', 0),
-(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 200, 0, '2018-05-29 13:51:47', 0),
+(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 112, 30, '2018-05-24 18:22:34', 0),
+(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 16, 95, '2018-05-28 14:37:40', 0),
+(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 231, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4_1_.jpg', 4, 0, '2018-05-29 13:55:32', 0),
-(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 9, 0, '2018-05-29 13:56:42', 0),
-(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 23, 0, '2018-05-29 13:57:27', 0),
-(7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 5, 32, '2018-05-29 13:58:22', 0),
+(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 11, 0, '2018-05-29 13:56:42', 0),
+(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 24, 0, '2018-05-29 13:57:27', 0),
+(7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 5, 38, '2018-05-29 13:58:22', 0),
 (8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8_1_.jpg', 1, 0, '2018-05-29 14:56:29', 0),
-(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 3, 123, '2018-05-29 14:58:13', 0),
-(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 4, 349, '2018-05-29 14:59:21', 0),
+(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 4, 145, '2018-05-29 14:58:13', 0),
+(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 5, 410, '2018-05-29 14:59:21', 0),
 (11, 'test insert 1', '', 'test insert 1 descr', 2, '1000.00', '', 0, 0, '2018-05-31 14:33:22', 1),
 (12, 'test insert 2', '', 'test insert 2 descr', 2, '2000.00', '', 0, 0, '2018-05-31 14:33:23', 1),
 (13, 'Plain Rice', 'PlainRice', '1 cup plain rice banay-banay', 4, '20.00', '13_1_.jpg', 5, 0, '2018-07-04 15:30:44', 0);
@@ -1187,50 +1203,6 @@ CREATE TABLE `table_groups` (
   `tbl_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `table_groups`
---
-
-INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
-(8, 2, 3),
-(9, 2, 4),
-(13, 19, 8),
-(14, 20, 7),
-(26, 27, 10),
-(28, 24, 3),
-(29, 24, 4),
-(30, 25, 3),
-(31, 25, 4),
-(32, 28, 3),
-(33, 28, 4),
-(36, 32, 3),
-(37, 32, 4),
-(38, 33, 3),
-(39, 33, 4),
-(42, 35, 3),
-(43, 35, 4),
-(52, 40, 3),
-(53, 40, 4),
-(54, 41, 3),
-(55, 41, 4),
-(67, 48, 3),
-(68, 48, 4),
-(69, 49, 3),
-(70, 49, 4),
-(85, 57, 3),
-(86, 57, 4),
-(104, 84, 1),
-(105, 84, 11),
-(106, 84, 13),
-(107, 85, 15),
-(108, 86, 2),
-(109, 87, 3),
-(110, 87, 4),
-(118, 101, 3),
-(119, 101, 4),
-(120, 102, 3),
-(121, 102, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -1278,22 +1250,22 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (16, '2018-06-27 17:10:11', '0.00', 0, 'CLEARED', 'DINE-IN', '1130.00', '0.00', 'Credit Card', '12121212121212', 'n/a', 'n/a', 103, 108, 0, 1000000),
 (17, '2018-06-27 17:12:45', '140.00', 1, 'CLEARED', 'DINE-IN', '560.00', '0.00', 'Cash Card', '33333333333', 'Jose Rizal', '1212121212', 103, 108, 0, 1000000),
 (18, '2018-06-27 17:13:13', '132.00', 1, 'CLEARED', 'DINE-IN', '528.00', '0.00', 'Cash', 'n/a', 'n/a', '11111111', 103, 108, 0, 1000000),
-(19, '2018-06-27 19:39:10', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
-(20, '2018-06-27 19:39:24', '55.00', 1, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'John Doe', '2222222', 103, 0, 0, 1000000),
+(19, '2018-06-27 19:39:10', '0.00', 0, 'CLEARED', 'DINE-IN', '500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000021),
+(20, '2018-06-27 19:39:24', '55.00', 1, 'CLEARED', 'DINE-IN', '500.00', '455.00', 'Cash', 'n/a', 'n/a', '2222222', 103, 108, 0, 2000020),
 (21, '2018-06-28 10:25:52', '0.00', 0, 'CLEARED', 'DINE-IN', '1700.00', '30.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 1000000),
-(22, '2018-06-28 14:57:03', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
+(22, '2018-06-28 14:57:03', '0.00', 0, 'CLEARED', 'DINE-IN', '1500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000019),
 (24, '2018-06-28 14:57:24', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
 (25, '2018-06-28 14:57:37', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
 (26, '2018-06-28 15:01:18', '120.00', 1, 'CLEARED', 'DINE-IN', '880.00', '0.00', 'Credit Card', '111121212121', 'Emilio Aguinaldo', '21212121212', 103, 108, 0, 1000000),
-(27, '2018-06-28 15:04:24', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
+(27, '2018-06-28 15:04:24', '0.00', 0, 'CLEARED', 'DINE-IN', '2050.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000018),
 (28, '2018-06-28 17:46:38', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
 (29, '2018-06-28 18:12:35', '0.00', 0, 'CLEARED', 'DINE-IN', '1300.00', '70.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 1000000),
-(30, '2018-06-29 21:32:35', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
-(31, '2018-06-29 21:36:17', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
-(32, '2018-06-29 21:38:05', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
-(33, '2018-06-29 21:41:20', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
+(30, '2018-06-29 21:32:35', '0.00', 0, 'CLEARED', 'DINE-IN', '1000.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000017),
+(31, '2018-06-29 21:36:17', '0.00', 0, 'CLEARED', 'DINE-IN', '495.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000016),
+(32, '2018-06-29 21:38:05', '0.00', 0, 'CLEARED', 'DINE-IN', '1500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000015),
+(33, '2018-06-29 21:41:20', '0.00', 0, 'CLEARED', 'DINE-IN', '1500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000014),
 (34, '2018-06-29 21:42:29', '0.00', 0, 'CLEARED', 'DINE-IN', '1500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000007),
-(35, '2018-06-29 21:43:40', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
+(35, '2018-06-29 21:43:40', '0.00', 0, 'CLEARED', 'DINE-IN', '500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000013),
 (36, '2018-06-29 21:44:53', '0.00', 0, 'CLEARED', 'DINE-IN', '500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000006),
 (37, '2018-06-29 21:45:15', '0.00', 0, 'CLEARED', 'DINE-IN', '500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000005),
 (38, '2018-06-29 21:46:12', '0.00', 0, 'CLEARED', 'DINE-IN', '500.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000004),
@@ -1359,11 +1331,13 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (98, '2018-07-13 21:32:40', '0.00', 0, 'CLEARED', 'DINE-IN', '1000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 103, 0, 2000001),
 (99, '2018-07-13 21:33:49', '0.00', 0, 'CLEARED', 'DINE-IN', '1000.00', '570.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 103, 0, 2000001),
 (100, '2018-07-13 23:04:03', '0.00', 0, 'CLEARED', 'TAKE-OUT', '1000.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000002),
-(101, '2018-07-13 23:22:30', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
-(102, '2018-07-13 23:27:47', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000),
+(101, '2018-07-13 23:22:30', '0.00', 0, 'CLEARED', 'TAKE-OUT', '1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000012),
+(102, '2018-07-13 23:27:47', '0.00', 0, 'CLEARED', 'TAKE-OUT', '1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000011),
 (103, '2018-07-13 23:31:02', '0.00', 0, 'CLEARED', 'TAKE-OUT', '1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000009),
 (104, '2018-07-13 23:32:03', '0.00', 0, 'CLEARED', 'DINE-IN', '3550.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000008),
-(105, '2018-07-13 23:34:16', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1000000);
+(105, '2018-07-13 23:34:16', '0.00', 0, 'CLEARED', 'TAKE-OUT', '250.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000010),
+(106, '2018-07-19 23:32:11', '0.00', 0, 'CLEARED', 'TAKE-OUT', '2000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 2000022),
+(107, '2018-07-19 23:32:24', '200.00', 1, 'CLEARED', 'DINE-IN', '1200.00', '0.00', 'Cash Card', '89898989', 'n/a', '12121211', 103, 108, 0, 2000023);
 
 -- --------------------------------------------------------
 
@@ -1907,7 +1881,19 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (104, 0, 4, 1, '1100.00', 1, '1100.00', 0),
 (105, 6, 0, 0, '70.00', 1, '70.00', 0),
 (105, 3, 0, 0, '100.00', 1, '100.00', 0),
-(105, 5, 0, 0, '80.00', 1, '80.00', 0);
+(105, 5, 0, 0, '80.00', 1, '80.00', 0),
+(106, 1, 0, 0, '50.00', 2, '100.00', 0),
+(106, 3, 0, 0, '100.00', 4, '400.00', 0),
+(106, 0, 1, 1, '450.00', 2, '900.00', 0),
+(106, 2, 0, 2, '0.00', 2, '0.00', 1),
+(106, 9, 0, 2, '0.00', 2, '0.00', 1),
+(106, 10, 0, 2, '0.00', 8, '0.00', 1),
+(107, 1, 0, 0, '50.00', 2, '100.00', 0),
+(107, 3, 0, 0, '100.00', 4, '400.00', 0),
+(107, 0, 1, 1, '450.00', 2, '900.00', 0),
+(107, 2, 0, 2, '0.00', 2, '0.00', 1),
+(107, 9, 0, 2, '0.00', 2, '0.00', 1),
+(107, 10, 0, 2, '0.00', 8, '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -2062,7 +2048,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000784;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000800;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2102,12 +2088,12 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 --
 -- AUTO_INCREMENT for table `users`
 --

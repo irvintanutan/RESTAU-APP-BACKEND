@@ -374,7 +374,7 @@ class Trans_details_controller extends CI_Controller {
             }
         }
 
-        $this->set_transaction_receipt($trans_id, "payment", $receipt_no); // print receipt upon clearing out the transaction
+        //$this->set_transaction_receipt($trans_id, "payment", $receipt_no); // print receipt upon clearing out the transaction
 
         $this->table_groups->delete_by_trans_id($trans_id);
 

@@ -105,8 +105,8 @@ class Dashboard_controller extends CI_Controller {
 
         // get menu items sold today -----------------------------------------------------------------------------------------------------------
 
-        $individual_products_sold_today = $this->trans_details->count_all_sold_today_by_prod_type(0);
-        $packages_sold_today = $this->trans_details->count_all_sold_today_by_prod_type(1);
+        $individual_products_sold_today = 1 * ($this->trans_details->count_all_sold_today_by_prod_type(0));
+        $packages_sold_today = 1 * ($this->trans_details->count_all_sold_today_by_prod_type(1));
 
         $total_menu_items_sold_today = $individual_products_sold_today + $packages_sold_today;
 

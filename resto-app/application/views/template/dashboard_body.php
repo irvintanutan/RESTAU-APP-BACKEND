@@ -64,7 +64,7 @@
                                             <p class="h1 text-thin">
                                             <?php echo $today_net_sales_str; ?>     
                                             </p>
-                                            <small><span class="text-semibold" style="font-size: 12px;"><?php echo $percent_higher_net_sales_str ?></small>
+                                            <small><span class="text-semibold" style="font-size: 12px;"><?php echo $percent_net_sales_str ?></small>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                             <i class="fa fa-percent fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo $discounts_rendered_today_str; ?></p>
-                                            <small><span class="text-semibold" style="font-size: 11px;"><?php echo $discounts_gross_percentage_str; ?></small>
+                                            <small><span class="text-semibold" style="font-size: 12px;"><?php echo $discounts_gross_percentage_str; ?></small>
                                         </div>
                                     </div>
                                 </div>

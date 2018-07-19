@@ -39,18 +39,18 @@ class Users_controller extends CI_Controller {
 			// check if the user is admin
 			if ($users->administrator == 1)
 			{
-				$row[] = 'Administrator';
+				$row[] = 'ADMIN';
 			}
 			else if ($users->cashier == 1)
 			{
-				$row[] = 'Cashier';
+				$row[] = 'CASHIER';
 			}
 			else
 			{
-				$row[] = 'Staff';
+				$row[] = 'STAFF';
 			}
 
-			$row[] = $users->username;
+			$row[] = '<b>' . $users->username . '</b>';
 			// $row[] = $users->password;
             $row[] = $users->lastname;
             $row[] = $users->firstname;

@@ -192,7 +192,7 @@ class Trans_details_model extends CI_Model {
         return $query->num_rows();
     }
  
-    public function count_all_sold_today()
+    public function count_all_sold_today() // count all kinds of product/packages
     {
         $this->db->from($this->table);
 
@@ -217,7 +217,7 @@ class Trans_details_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    public function count_all_sold_today_by_prod_type($prod_type)
+    public function count_all_sold_today_by_prod_type($prod_type) // count all times qty of product/packages
     {
         $this->db->from($this->table);
 
@@ -236,8 +236,7 @@ class Trans_details_model extends CI_Model {
         $query = $this->db->get();
 
         $row = $query->row();
-
-        return $row->sold;
+        return $row->sold; 
     }
  
     // public function get_by_id($trans_id, $prod_id)

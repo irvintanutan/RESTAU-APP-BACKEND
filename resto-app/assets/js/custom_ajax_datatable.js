@@ -1190,6 +1190,14 @@ $(document).ready(function()
                     "targets": [ -1 ], //last column
                     "orderable": false, //set not orderable
                 },
+                {
+                      "targets": 1,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 7,
+                      "className": "text-right"
+                }
                 ],
 
                 "rowCallback": function( row, data, index ) {
@@ -1197,7 +1205,7 @@ $(document).ready(function()
                       $node = this.api().row(row).nodes().to$();
 
                   // set color to light cyan if admin  
-                  if (user_type == 'Administrator') {
+                  if (user_type == 'ADMIN') {
                      $node.css('background-color', '#66ffff');
                   }
                   // set color to light gold if super admin

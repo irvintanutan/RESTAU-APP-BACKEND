@@ -1122,7 +1122,7 @@ class Trans_details_controller extends CI_Controller {
         /* Information for the receipt */
         $store_name = wordwrap($store->name, 15, "\n");
         $address = wordwrap($store->address, 25, "\n");
-        $city = $store->city;
+        $city = wordwrap($store->city, 25, "\n");
         $tin = wordwrap($store->tin, 25, "\n");
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $vat = ($store->vat / 100);

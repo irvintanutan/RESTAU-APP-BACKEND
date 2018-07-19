@@ -76,12 +76,12 @@ $pdf->SetFont('helvetica', '', 10);
 $pdf->AddPage();
 
 // $pdf->Cell(20, 10, 'Total Net Sales Today', 0, false, 'L', 0, '', 0, false, 'T', 'M');   
-// $pdf->Cell(130, 10, $today_net_sales_str . ' ( ' . $percent_higher_net_sales_str . ' )', 0, false, 'R', 0, '', 0, false, 'T', 'M'); 
+// $pdf->Cell(130, 10, $today_net_sales_str . ' ( ' . $percent_net_sales_str . ' )', 0, false, 'R', 0, '', 0, false, 'T', 'M'); 
 
 // $pdf->Cell(120, 20, '', 0, false, 'L', 0, '', 0, false, 'T', 'M');
 
 $text = '<h3 align="center">Report Summary</h3>
-<p align="left">1. Total Net Sales: <b color="#006600">' . $today_net_sales_str . ' </b> | ' . $percent_higher_net_sales_str . ' </p>
+<p align="left">1. Total Net Sales: <b color="#006600">' . $today_net_sales_str . ' </b> | ' . $percent_net_sales_str . ' </p>
 <p align="left">2. Total Transactions: <b color="#006600">' . $total_trans_count_today . ' </b> | Dine-In [ ' . $dine_in_today . ' ] | Take-Out [ ' . $dine_in_today . ' ] </p>
 <p align="left">3. Total Menu Items Sold: <b color="#006600">' . $total_menu_items_sold_today . ' </b> | Individual Products [ ' . $individual_products_sold_today . ' ] | Packages [ ' . $packages_sold_today . ' ] </p>
 <p align="left">4. Total Discounts Rendered: <b color="#006600">' . $discounts_rendered_today_str . ' </b> | ' . $discounts_gross_percentage_str . '</p>

@@ -212,6 +212,43 @@ class Products_model extends CI_Model {
 
         return $row->img;
     }
+
+    function get_cat_prod_count($cat_id)
+    {
+        $this->db->select('prod_id');
+        $this->db->from($this->table);
+        $this->db->where('cat_id',$cat_id);
+        
+        return $this->db->count_all_results();
+    }
+
+    function get_total_prod_sold()
+    {
+        $this->db->select('SUM(sold) as total_sold');
+        $this->db->from($this->table);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_total_pack_prod_sold() // get total sold of package products
+    {
+        $this->db->select('SUM(sold_pack) as total_sold');
+        $this->db->from($this->table);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
  
     function count_filtered()
     {

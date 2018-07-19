@@ -11,7 +11,6 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 	  $this->load->model('Packages/Packages_model','packages');
 
 	  $this->load->model('Trans_details/Trans_details_model','trans_details');
-	  $this->load->model('Store_config/Store_config_model','store');
 
 	  $this->load->model('Transactions/Transactions_model','transactions');
 	}
@@ -41,19 +40,19 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 		    {
 		        if ($today_net_sales == 0) // if both today and yesterday is zero
 		        {
-		            $percent_higher_net_sales = 0;    
+		            $percent_net_sales = 0;    
 		        }
 		        else
 		        {
-		            $percent_higher_net_sales = 100;
+		            $percent_net_sales = 100;
 		        }
 		    }
 		    else
 		    {
-		        $percent_higher_net_sales = ((1 - ($today_net_sales / $yesterday_net_sales)) * 100);
+		        $percent_net_sales = ((1 - ($today_net_sales / $yesterday_net_sales)) * 100);
 		    }
 		    
-		    $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ Php ' . number_format($yesterday_net_sales, 2) . ' ]';
+		    $percent_net_sales_str = '[ ' . number_format($percent_net_sales, 1) . ' % ] Lower than yesterday\'s ' . '[ Php ' . number_format($yesterday_net_sales, 2) . ' ]';
 		}
 		else // if yesterday net sales is lower (higher today)
 		{
@@ -61,26 +60,26 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 		    {
 		        if ($yesterday_net_sales == 0) // if both today and yesterday is zero
 		        {
-		            $percent_higher_net_sales = 0;    
+		            $percent_net_sales = 0;    
 		        }
 		        else
 		        {
-		            $percent_higher_net_sales = 100;
+		            $percent_net_sales = 100;
 		        }
 		    }
 		    else
 		    {
 		        if ($yesterday_net_sales == 0) // if both today and yesterday is zero
 		        {
-		            $percent_higher_net_sales = 100;    
+		            $percent_net_sales = 100;    
 		        }
 		        else
 		        {
-		            $percent_higher_net_sales = (($yesterday_net_sales / $today_net_sales) * 100);
+		            $percent_net_sales = (($yesterday_net_sales / $today_net_sales) * 100);
 		        }
 		    }
 
-		    $percent_higher_net_sales_str = '[ ' . number_format($percent_higher_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ Php ' . number_format($yesterday_net_sales, 2) . ' ]';
+		    $percent_net_sales_str = '[ ' . number_format($percent_net_sales, 1) . ' % ] Higher than yesterday\'s ' . '[ Php ' . number_format($yesterday_net_sales, 2) . ' ]';
 		}
 		
 		$today_net_sales_str = 'Php ' . number_format($today_net_sales, 2);
@@ -154,7 +153,7 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 		// $data['store'] = $store;
 
 		$data['today_net_sales_str'] = $today_net_sales_str;
-		$data['percent_higher_net_sales_str'] = $percent_higher_net_sales_str;
+		$data['percent_net_sales_str'] = $percent_net_sales_str;
 
 		$data['total_trans_count_today'] = $total_trans_count_today;
 		$data['dine_in_today'] = $dine_in_today;

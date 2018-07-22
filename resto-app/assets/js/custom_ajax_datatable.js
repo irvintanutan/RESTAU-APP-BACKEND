@@ -1427,10 +1427,7 @@ $("#method").change(function()
     {
         $('[name="card_number"]').val("");
 
-        document.getElementById("cash_amt").disabled = false;
-
-        document.getElementById("card_number").disabled = true;
-        document.getElementById("cust_name").disabled = true;
+        document.getElementById("card_methods").style.display = 'none';
 
         document.getElementById("cash_input_div").style.display = 'block';
         document.getElementById("cash_buttons").style.display = 'block';
@@ -1438,11 +1435,8 @@ $("#method").change(function()
     else if (method == "Credit Card")
     {
         $('[name="cash_amt"]').val("");
-
-        document.getElementById("cash_amt").disabled = true;
         
-        document.getElementById("card_number").disabled = false;
-        document.getElementById("cust_name").disabled = false;
+        document.getElementById("card_methods").style.display = 'block';
 
         document.getElementById("cash_input_div").style.display = 'none';
         document.getElementById("cash_buttons").style.display = 'none';
@@ -1450,16 +1444,15 @@ $("#method").change(function()
     else if (method == "Cash Card")
     {
         $('[name="cash_amt"]').val("");
-
-        document.getElementById("cash_amt").disabled = true;
         
-        document.getElementById("card_number").disabled = false;
-        document.getElementById("cust_name").disabled = false;
+        document.getElementById("card_methods").style.display = 'block';
 
         document.getElementById("cash_input_div").style.display = 'none';
         document.getElementById("cash_buttons").style.display = 'none';
     }
 });
+
+
 
 $("#disc_type_trans_details").change(function()
 {
@@ -1503,11 +1496,23 @@ $("#disc_type_trans_details").change(function()
     }
 });
 
+function set_change_amt()
+{
+
+    var amount_due = parseFloat($('[name="amount_due"]').val());
+    var cash_amt = parseFloat($('[name="cash_amt"]').val());
+
+    var change_amt = (cash_amt - amount_due);
+    $('[name="change_amt"]').val(change_amt);
+}
+
 function exact_amt_cash_input()
 {
     amount_due = parseFloat($('[name="amount_due"]').val());
 
     $('[name="cash_amt"]').val(amount_due);
+
+    set_change_amt();
 }
 
 function add_cash_input(cash_input)
@@ -1522,11 +1527,16 @@ function add_cash_input(cash_input)
     var new_cash = (current_cash + cash_input);
 
     $('[name="cash_amt"]').val(new_cash);
+
+    set_change_amt();
 }
 
 function clear_cash_input()
 {
-    $('[name="cash_amt"]').val("");
+    $('[name="cash_amt"]').val("0");
+    $('[name="change_amt"]').val("0");
+
+    set_change_amt();
 }
 
 $( "form" ).submit(function( event ) { // -------------------------------- EXPIREMENTAL FUNCTION (Fixes dismissed modal when add_cash_input buttons are clicked)

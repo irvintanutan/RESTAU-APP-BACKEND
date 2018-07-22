@@ -205,6 +205,8 @@
                                         </div>
                                     </div>
 
+
+
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Payment Method :</label>
                                         <div class="col-md-9">
@@ -217,30 +219,42 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group" id="cash_input_div">
-                                        <label class="control-label col-md-3">Cash :</label>
-                                        <div class="col-md-6">
-                                            <input id="cash_amt" name="cash_amt" placeholder="Cash Amount" class="form-control" type="number" style="font-size: 15px;" >
-                                            <span class="help-block"></span>
+                                    <div id="cash_input_div">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Cash :</label>
+                                            <div class="col-md-6">
+                                                <input id="cash_amt" name="cash_amt" placeholder="Cash Amount" class="form-control" type="number" style="font-size: 15px;" >
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <button class="btn btn-success col-md-2" id="exact_amt" onclick="exact_amt_cash_input()">EXACT AMT</button>
                                         </div>
-                                        <button class="btn btn-success col-md-2" id="exact_amt" onclick="exact_amt_cash_input()">EXACT AMT</button>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Change :</label>
+                                            <div class="col-md-9">
+                                                <input id="change_amt" name="change_amt" placeholder="Change Amount" class="form-control" type="text" value="0.00" style="font-size: 15px; color: brown; font-weight: bold" readonly>
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Card Number :</label>
-                                        <div class="col-md-9">
-                                            <input id="card_number" name="card_number" placeholder="Card Number" class="form-control" type="text" style="font-size: 15px;" disabled>
-                                            <span class="help-block"></span>
+                                    <div id="card_methods" style="display: none;">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Card Number :</label>
+                                            <div class="col-md-9">
+                                                <input id="card_number" name="card_number" placeholder="Card Number" class="form-control" type="text" style="font-size: 15px;" disabled>
+                                                <span class="help-block"></span>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Customer Name (Optional) :</label>
-                                        <div class="col-md-9">
-                                            <input id="cust_name" name="cust_name" placeholder="Customer Full Name" class="form-control" value=<?php echo "'" . $transaction->cust_name . "'"; ?> type="text" style="font-size: 15px;" disabled>
-                                            <span class="help-block"></span>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Customer Name (Optional) :</label>
+                                            <div class="col-md-9">
+                                                <input id="cust_name" name="cust_name" placeholder="Customer Full Name" class="form-control" value=<?php echo "'" . $transaction->cust_name . "'"; ?> type="text" style="font-size: 15px;" disabled>
+                                                <span class="help-block"></span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </div>    
 
                                     <div id="cash_buttons">
                                         <div class="form-group">

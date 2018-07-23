@@ -4424,6 +4424,27 @@ function set_dashboard_pdf()
     set_system_log(log_type, details);
 }
 
+function set_products_pdf()
+{
+    // setting report logs
+    var log_type = 'Report';
+
+    var details = 'Products Report Generated'; 
+    window.open("products-report");
+
+    set_system_log(log_type, details);
+}
+
+function set_packages_pdf()
+{
+    // setting report logs
+    var log_type = 'Report';
+
+    var details = 'Products Report Generated'; 
+    window.open("products-report");
+
+    set_system_log(log_type, details);
+}
 
 
 // ========================================== STATISTICS CHARTS =====================================================

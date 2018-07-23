@@ -208,7 +208,8 @@ class Discounts_controller extends CI_Controller {
             $row['name'] = $discounts->name;
             $row['descr'] = $discounts->descr;
 
-            $row['encoded'] = $discounts->encoded;
+            $row['less_p'] = $discounts->less_p;
+            $row['less_c'] = $discounts->less_c;
  
             $data[] = $row;
         }

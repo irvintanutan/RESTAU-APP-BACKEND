@@ -61,7 +61,11 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i> - No assigned items &nbsp; | &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
+                    <div class="col-md-8">
+                        <span>Legend: [ &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i> - No assigned items &nbsp; | &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
+                    </div>
+                    <button class="control-label col-md-4 btn btn-mint" onclick="set_products_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate PDF Report</button>
+                    <hr>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

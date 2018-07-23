@@ -152,9 +152,10 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
-                    <br><br><br>
-                    <button class="control-label col-md-4 btn btn-dark" onclick="set_dashboard_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate Daily Report</button>
+                    <div class="col-md-8">
+                        <span>Legend: [ &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
+                    </div>
+                    <button class="control-label col-md-4 btn btn-mint" onclick="set_dashboard_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate Daily PDF Report</button>
 
 
 
@@ -175,8 +176,7 @@
                 </div>
                 <!--=================================================== -->
                 <!-- End page content-->
-                <hr style="background-color: #cccccc; height:1px;">
-                <hr>
+                <br>
                 <hr>
 
             </div>

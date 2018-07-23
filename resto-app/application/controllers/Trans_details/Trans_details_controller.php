@@ -574,6 +574,7 @@ class Trans_details_controller extends CI_Controller {
         $details_data['gross_total'] = $gross_total;
         $details_data['discount'] = $discount;
         $details_data['net_total'] = $net_total;
+        $details_data['is_billout_printed'] = $transactions_data->is_billout_printed;
 
 
         // ------------------------------------------- Products/Package ---------------------------------
@@ -1088,13 +1089,18 @@ class Trans_details_controller extends CI_Controller {
             $table_str = 'n/a';
         }
 
-        // printing receipts
+        // printing payment type receipts
         if ($print_type == "payment")
         {
             $this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_no);
         }
-        else // billout recipts
+        else // billout receipts
         {
+            $data = array(
+                    'is_billout_printed' => 1, // set is_billout_printed to true when bill out is printed
+                );
+            $this->transactions->update(array('trans_id' => $trans_id), $data);
+
             $this->print_bill_out_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $discount, $disc_type_name);
         }
         

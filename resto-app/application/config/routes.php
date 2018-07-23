@@ -368,22 +368,9 @@ $route['reports-page'] = 'reports/reports_controller';
 
 $route['dashboard-report'] = 'Pdf_reports/Pdf_dashboard_report_controller/index';
 
-$route['cis-report-active-female'] = 'pdf_reports/pdf_cis_report_controller/index/Female';
+$route['products-report'] = 'Pdf_reports/Pdf_products_report_controller/index';
 
-$route['cis-report-graduated-male'] = 'pdf_reports/pdf_grad_report_controller/index/Male';
-
-$route['cis-report-graduated-female'] = 'pdf_reports/pdf_grad_report_controller/index/Female';
-
-// monthly checkup report
-
-$route['monthly-report-male/(:num)/(:num)'] = 'pdf_reports/pdf_monthly_report_controller/index/Male/$1/$2';
-
-$route['monthly-report-female/(:num)/(:num)'] = 'pdf_reports/pdf_monthly_report_controller/index/Female/$1/$2';
-
-// child profile report
-
-$route['child-report/(:num)'] = 'pdf_reports/pdf_child_report_controller/index/$1';
-
+$route['packages-report'] = 'Pdf_reports/Pdf_packages_report_controller/index';
 
 
 //************************************** HVI ROUTES

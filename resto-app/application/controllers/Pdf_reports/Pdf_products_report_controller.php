@@ -30,19 +30,19 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		// get products data -------------------------------------------------------------------------------------------------------------
 
-        $total_producs = $this->products->count_all();
+        $total_products = $this->products->count_all();
 
 		$categories = $this->categories->get_categories();
 
-        if ($categories->num_rows() != 0)
+        if (sizeOf($categories) != 0)
         {
             $categories_data = array();
 
-            foreach ($categories->result() as $categories_list) 
+            foreach ($categories as $categories_list) 
             {
             	$cat_id = $categories_list->cat_id;
             	$cat_name = $categories_list->name;
-            	$cat_prod_count = $this->categories->get_cat_prod_count($cat_id)
+            	$cat_prod_count = $this->products->get_cat_prod_count($cat_id);
                 $categories_data[] = $cat_name . ' [' . $cat_prod_count . ']';
             }
 
@@ -50,12 +50,14 @@ class Pdf_products_report_controller extends CI_Controller {
         }
         else
         {
-            $categories_str = 'n/a';
+            $categories_str = 'None';
         }
 
 		$total_products_sold = $this->products->get_total_prod_sold();
 
 		$total_pack_prod_sold = $this->products->get_total_pack_prod_sold();
+
+		$total_menu_sales = $this->trans_details->get_total_menu_sales(0); // total sales of package type menu
 
 
 
@@ -68,7 +70,7 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData(); // load and fetch data
 		
-		$data['title'] = 'Daily Statistics Report';
+		$data['title'] = 'Products List';
 
 		$data['date_today'] = $today;
 
@@ -88,6 +90,8 @@ class Pdf_products_report_controller extends CI_Controller {
 		$data['total_products_sold'] = $total_products_sold;
 		$data['total_pack_prod_sold'] = $total_pack_prod_sold;
 
+		$data['total_menu_sales'] = $total_menu_sales;
+
 		$this->load->library('MYPDF');
 		$this->load->view('reports/makepdf_products_view', $data);
 	}
@@ -100,67 +104,42 @@ class Pdf_products_report_controller extends CI_Controller {
 		$min_price = $this->store->get_store_bs_price(1);
 
 		$best_selling = $this->products->get_best_selling($min_price);
-		$best_selling_prod_array = array();
-		$best_selling_pack_array = array();
+		$best_selling_array = array();
 
-		foreach ($best_selling as $bp_products) // different storage for products and package since index is used to get the rank
+		foreach ($best_selling as $bp_products) 
 		{
-		    $best_selling_prod_array[] = $bp_products->prod_id;
-		    $best_selling_pack_array[] = $bp_products->pack_id;
+		    $best_selling_array[] = $bp_products->prod_id;
 		}
 		//------------------------------------------------------------------------
 
-		$list = $this->trans_details->get_reports_sold_today();
+		$list = $this->products->get_products();
 		$data = array();
 
-		foreach ($list as $trans_details) {
-		    $row = array();
+		foreach ($list as $products) {
 		    
-		    if ($trans_details->prod_type == 1) // if prod_type is package
+		    $row = array();
+		    $row[] = 'P' . $products->prod_id;
+
+		    $row[] = $products->name;
+		    $row[] = $products->short_name; // 12 char short name
+		    // $row[] = $products->descr;
+
+		    $row[] = $this->categories->get_category_name($products->cat_id); // get name instead of id
+
+		    $row[] = $products->price;
+		
+
+		    if (in_array($products->prod_id, $best_selling_array))
 		    {
-		        $item_id = 'G' . $trans_details->pack_id;
-		        $item_name = $this->packages->get_package_name($trans_details->pack_id);
-		        $item_type = 'PACKAGE';
-		        $item_price = $this->packages->get_package_price($trans_details->pack_id);
-
-		        if (in_array($trans_details->pack_id, $best_selling_pack_array))
-		        {
-		            $item_sold = '( R: ' . (array_search($trans_details->pack_id, $best_selling_pack_array) + 1) . " ) " . $trans_details->sold;    
-		        }
-		        else
-		        {
-		            $item_sold = $trans_details->sold;
-		        }
+		        $item_sold = '( R: ' . (array_search($products->prod_id, $best_selling_array) + 1) . " ) " . $products->sold;    
 		    }
-		    else if ($trans_details->prod_type == 0) // if prod_type is individual product
+		    else
 		    {
-		        $item_id = 'P' . $trans_details->prod_id;
-		        $item_name = $this->products->get_product_name($trans_details->prod_id);
-		        $item_type = 'PRODUCT';
-		        $item_price = $this->products->get_product_price($trans_details->prod_id);
-
-		        if (in_array($trans_details->prod_id, $best_selling_prod_array))
-		        {
-		            $item_sold = '( R: ' . (array_search($trans_details->prod_id, $best_selling_prod_array) + 1) . " ) " . $trans_details->sold;    
-		        }
-		        else
-		        {
-		            $item_sold = $trans_details->sold;
-		        }
+		        $item_sold = $products->sold;
 		    }
-
-		    $row[] = $item_id;
-		    $row[] = $item_name;
-		    $row[] = $item_type;
-
-		    $row[] = $item_price;
 
 		    $row[] = $item_sold;
-
-		    $total_item_sales = ($item_price * $trans_details->sold);
-
-		    $row[] = number_format($total_item_sales, 2);
-
+		
 		    $data[] = $row;
 		}
 

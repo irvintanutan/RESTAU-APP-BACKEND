@@ -132,6 +132,19 @@ class Trans_details_model extends CI_Model {
         return $row->gross;
     }
 
+    function get_total_menu_sales($prod_type)
+    {
+        $this->db->select('SUM(total) as sales');
+        $this->db->from($this->table);
+        $this->db->where('prod_type',$prod_type);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales;
+    }
+
     // get trans_details of a transaction then copy to trans_details_refund table
     function copy_to_trans_details_refund($trans_id)
     {

@@ -183,6 +183,26 @@
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
+                                    <div class="form-group">   
+                                        <label class="control-label col-md-3">Cashier</label>
+                                        <div class="col-md-9">
+                                            <select name="administrator" class="form-control" >
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">   
+                                        <label class="control-label col-md-3">Waiter</label>
+                                        <div class="col-md-9">
+                                            <select name="administrator" class="form-control" >
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
                                     <!-- <hr>
                                     <div class="form-group">   
                                         <label class="control-label col-md-3">Reports Module:</label>

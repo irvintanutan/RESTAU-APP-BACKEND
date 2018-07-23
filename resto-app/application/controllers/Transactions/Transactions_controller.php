@@ -513,7 +513,7 @@ class Transactions_controller extends CI_Controller {
 
             $gross_total = $this->trans_details->get_trans_gross($trans_id);
 
-            //$this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
+            $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
         }
 

@@ -1712,7 +1712,7 @@ function reprint_last_trans_receipt() // ---> calling for the Add Modal form
                   },
                   error: function (jqXHR, textStatus, errorThrown)
                   {
-                      alert('Error deleting data');
+                      // alert('Error printing data');
                   }
               });
           },
@@ -4440,8 +4440,8 @@ function set_packages_pdf()
     // setting report logs
     var log_type = 'Report';
 
-    var details = 'Products Report Generated'; 
-    window.open("products-report");
+    var details = 'Packages Report Generated'; 
+    window.open("packages-report");
 
     set_system_log(log_type, details);
 }

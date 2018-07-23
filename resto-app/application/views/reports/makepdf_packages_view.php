@@ -137,6 +137,8 @@ $pdf->writeHTML($text, true, 0, true, 0);
 // $pdf->writeHTML($text, true, 0, true, 0);
 
 // print colored table
+// set font
+$pdf->SetFont('helvetica', '', 8);
 $pdf->ColoredTable_packages($header, $data);
 
 

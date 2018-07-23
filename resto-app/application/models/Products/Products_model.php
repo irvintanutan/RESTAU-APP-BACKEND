@@ -218,6 +218,8 @@ class Products_model extends CI_Model {
         $this->db->select('prod_id');
         $this->db->from($this->table);
         $this->db->where('cat_id',$cat_id);
+
+        $this->db->where('removed', '0');
         
         return $this->db->count_all_results();
     }

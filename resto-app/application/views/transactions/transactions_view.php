@@ -68,7 +68,7 @@
                                 if ($trans_status == 'CLEARED'){ // if transaction status is cleared, enable reprint and refund buttons
                             ?>
                             <div class="col-md-12">
-                                <button class="btn btn-dark col-md-2" onclick="print_last_receipt()"><i class="fa fa-print"></i> &nbsp;REPRINT LAST RECEIPT</button>
+                                <button class="btn btn-dark col-md-2" onclick="reprint_last_trans_receipt()"><i class="fa fa-print"></i> &nbsp;REPRINT LAST RECEIPT</button>
                                 <button class="btn btn-warning col-md-2" onclick="set_refund_transaction()"><i class="fa fa-reply"></i> &nbsp;REFUND TRANSACTION</button>
                             </div>
                             <?php

@@ -373,7 +373,7 @@ class Users_controller extends CI_Controller {
 		foreach ($list as $users) {
 			
 			$row = array();
-			$row['user_id'] = 'U' . $users->user_id;
+			$row['user_id'] = $users->user_id;
 
 			// check if the user is admin
 			if ($users->administrator == 1)

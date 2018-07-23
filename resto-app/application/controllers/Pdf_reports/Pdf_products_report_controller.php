@@ -90,7 +90,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		$data['total_products_sold'] = $total_products_sold;
 		$data['total_pack_prod_sold'] = $total_pack_prod_sold;
 
-		$data['total_menu_sales'] = $total_menu_sales;
+		$data['total_menu_sales'] = 'Php ' . number_format($total_menu_sales, 2);
 
 		$this->load->library('MYPDF');
 		$this->load->view('reports/makepdf_products_view', $data);

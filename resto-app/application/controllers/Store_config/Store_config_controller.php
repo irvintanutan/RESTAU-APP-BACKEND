@@ -253,6 +253,7 @@ class Store_config_controller extends CI_Controller {
             $row['vat'] = $store->vat;
             $row['bs_price'] = $store->bs_price;
             $row['img'] = $store->img;
+            $row['password'] = $store->password;
  
             $data[] = $row;
         }

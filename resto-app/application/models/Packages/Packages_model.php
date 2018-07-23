@@ -109,6 +109,8 @@ class Packages_model extends CI_Model {
 
         $this->db->where('removed', '0');
 
+        $this->db->order_by("name", "asc");
+
         $query = $this->db->get();
 
         return $query->result();
@@ -177,6 +179,20 @@ class Packages_model extends CI_Model {
         $row = $query->row();
 
         return $row->img;
+    }
+
+    function get_total_pack_sold()
+    {
+        $this->db->select('SUM(sold) as total_sold');
+        $this->db->from($this->table);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
     }
  
     function count_filtered()

@@ -32,9 +32,9 @@ class Pdf_packages_report_controller extends CI_Controller {
 
         $total_packages = $this->packages->count_all();
 
-		$total_packages_sold = $this->packages->get_total_prod_sold();
+		$total_packages_sold = $this->packages->get_total_pack_sold();
 
-		$total_pack_prod_sold = $this->packages->get_total_pack_prod_sold();
+		$total_pack_prod_sold = $this->products->get_total_pack_prod_sold();
 
 		$total_menu_sales = $this->trans_details->get_total_menu_sales(1); // total sales of package type menu
 
@@ -68,7 +68,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		$data['total_packages_sold'] = $total_packages_sold;
 		$data['total_pack_prod_sold'] = $total_pack_prod_sold;
 
-		$data['total_menu_sales'] = $total_menu_sales;
+		$data['total_menu_sales'] = 'Php ' . number_format($total_menu_sales, 2);
 
 		$this->load->library('MYPDF');
 		$this->load->view('reports/makepdf_packages_view', $data);
@@ -120,7 +120,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		}
 		
 		//output to json format
-		echo json_encode($data);
+		return $data;
 	}
 
 }

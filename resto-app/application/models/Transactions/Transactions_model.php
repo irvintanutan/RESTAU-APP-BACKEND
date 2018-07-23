@@ -115,11 +115,14 @@ class Transactions_model extends CI_Model {
 
     function get_last_receipt_transaction_data() // function to get the last receipt number to increment in every receipt generation
     {
-        $this->db->select_max('receipt_no');
+        $this->db->select('receipt_no, trans_id');
         $this->db->from($this->table);
+
+        $this->db->order_by("receipt_no", "desc");
+        $this->db->limit(1);
         
         $query = $this->db->get();
-        return $query->result();
+        return $query->row();
     }
 
     // get monthly net sales specified by month and year

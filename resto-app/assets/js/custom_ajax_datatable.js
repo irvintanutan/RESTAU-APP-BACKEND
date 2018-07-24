@@ -2064,6 +2064,21 @@ function back_up_db()
     });
 }
 
+function toggle_pw_mask() // password mask/unmask toggle button
+{
+    if (document.getElementById("pw_mask").style.display == 'block')
+    {
+      document.getElementById("pw_mask").style.display = 'none';
+      document.getElementById("pw_unmask").style.display = 'block';
+    }
+    else
+    {
+      document.getElementById("pw_mask").style.display = 'block';
+      document.getElementById("pw_unmask").style.display = 'none';
+    }
+
+}
+
 
 
 // ================================================================== VIEW IMAGE SECTION ==========================================
@@ -2150,6 +2165,8 @@ function edit_privileges(id) // for customer table
         {
             $('[name="user_id"]').val(data.user_id);
             $('[name="administrator"]').val(data.administrator).prop('selected', true);
+            $('[name="cashier"]').val(data.cashier).prop('selected', true);
+            $('[name="staff"]').val(data.staff).prop('selected', true);
             $('[name="current_administrator"]').val(data.administrator);
             
             //$('[name="report"]').val(data.report).prop('selected', true);
@@ -2760,6 +2777,8 @@ function edit_store_config(id)
             $('[name="name"]').val(data.name);
             $('[name="address"]').val(data.address);
             $('[name="city"]').val(data.city);
+            $('[name="telephone"]').val(data.telephone);
+            $('[name="mobile"]').val(data.mobile);
             $('[name="tin"]').val(data.tin);
             $('[name="vat"]').val(data.vat);
             $('[name="bs_price"]').val(data.bs_price);

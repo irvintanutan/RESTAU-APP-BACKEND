@@ -139,6 +139,8 @@ class Store_config_controller extends CI_Controller {
                 'name' => $this->input->post('name'),
                 'address' => $this->input->post('address'),
                 'city' => $this->input->post('city'),
+                'telephone' => $this->input->post('telephone'),
+                'mobile' => $this->input->post('mobile'),
                 'tin' => $this->input->post('tin'),
                 'vat' => $this->input->post('vat'),
                 'bs_price' => $this->input->post('bs_price'),
@@ -183,6 +185,20 @@ class Store_config_controller extends CI_Controller {
         {
             $data['inputerror'][] = 'city';
             $data['error_string'][] = 'Store city is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('telephone') == '')
+        {
+            $data['inputerror'][] = 'telephone';
+            $data['error_string'][] = 'Store telephone is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('mobile') == '')
+        {
+            $data['inputerror'][] = 'mobile';
+            $data['error_string'][] = 'Store mobile is required';
             $data['status'] = FALSE;
         }
 

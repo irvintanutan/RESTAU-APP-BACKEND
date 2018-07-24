@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 23, 2018 at 09:02 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: localhost
+-- Generation Time: Jul 24, 2018 at 06:00 PM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -950,7 +948,24 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000822, 'TORRES, JIK', 'Report', 'Products%20Report%20Generated', '2018-07-23 20:23:03'),
 (1000823, 'TORRES, JIK', 'Report', 'Products%20Report%20Generated', '2018-07-23 20:23:23'),
 (1000824, 'TORRES, JIK', 'Report', 'Packages%20Report%20Generated', '2018-07-23 20:25:35'),
-(1000825, 'TORRES, JIK', 'Report', 'Products%20Report%20Generated', '2018-07-23 20:37:00');
+(1000825, 'TORRES, JIK', 'Report', 'Products%20Report%20Generated', '2018-07-23 20:37:00'),
+(1000826, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-24 12:39:45'),
+(1000827, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:53:19'),
+(1000828, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:53:24'),
+(1000829, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:53:29'),
+(1000830, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:53:33'),
+(1000831, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:53:40'),
+(1000832, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:53:44'),
+(1000833, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:53:57'),
+(1000834, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-24 12:54:05'),
+(1000835, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U108', '2018-07-24 12:54:14'),
+(1000836, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U108', '2018-07-24 12:54:19'),
+(1000837, 'TORRES, JIK', 'Add', 'New%20user%20added:%20janedoe', '2018-07-24 12:55:08'),
+(1000838, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-24 12:55:17'),
+(1000839, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-24 12:55:24'),
+(1000840, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-07-24 13:03:28'),
+(1000841, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-24 14:02:47'),
+(1000842, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-24 14:03:53');
 
 -- --------------------------------------------------------
 
@@ -1168,6 +1183,8 @@ CREATE TABLE `store_config` (
   `name` varchar(45) NOT NULL,
   `address` varchar(45) NOT NULL,
   `city` varchar(45) NOT NULL,
+  `telephone` varchar(45) NOT NULL,
+  `mobile` varchar(45) NOT NULL,
   `tin` varchar(45) NOT NULL,
   `vat` int(11) NOT NULL,
   `bs_price` decimal(10,2) NOT NULL,
@@ -1179,8 +1196,8 @@ CREATE TABLE `store_config` (
 -- Dumping data for table `store_config`
 --
 
-INSERT INTO `store_config` (`conf_id`, `name`, `address`, `city`, `tin`, `vat`, `bs_price`, `img`, `password`) VALUES
-(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png', 'jiktorres');
+INSERT INTO `store_config` (`conf_id`, `name`, `address`, `city`, `telephone`, `mobile`, `tin`, `vat`, `bs_price`, `img`, `password`) VALUES
+(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', '(082) 234-8398', '+63 9922 803 1290', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png', 'jiktorres');
 
 -- --------------------------------------------------------
 
@@ -2003,8 +2020,9 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `lastname`, `firstname`,
 (106, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', '2018-02-04 02:31:33', 0, 0, 0, 1),
 (107, 'srmafel_inting', 'fsilgc', 'Inting', 'Ma. Felina ', 'Saban', '09232838367', 'srmafel_inting@yahoo.com', 'JS Francisco Village, Talomo , Davao City', '2018-02-06 16:19:07', 1, 0, 0, 1),
 (108, 'um_developer', 'jiktorres', 'TORRES', 'JIK', 'ABAS', '+639228031290', 'jikiboi03@gmail.com', 'Sasa, Davao City', '2018-02-07 14:06:29', 1, 0, 0, 0),
-(109, 'xanderford', 'xanderford', 'Ford', 'Xander', 'Marlou', '09989898988', 'xander@gmail.com', 'Brgy Barrio Patay, Davao City', '2018-03-12 23:23:04', 0, 0, 0, 0),
-(110, 'as', 'as', 'as', 'as', 'as', 'as', 'as', 'as', '2018-07-23 19:55:06', 0, 0, 0, 1);
+(109, 'xanderford', 'xanderford', 'Ford', 'Xander', 'Marlou', '09989898988', 'xander@gmail.com', 'Brgy Barrio Patay, Davao City', '2018-03-12 23:23:04', 0, 0, 1, 0),
+(110, 'as', 'as', 'as', 'as', 'as', 'as', 'as', 'as', '2018-07-23 19:55:06', 0, 0, 0, 1),
+(111, 'janedoe', 'janedoe', 'DOE', 'JANE', 'SMITH', '090909090', 'jane@gmail.com', 'Sasa, Davao City', '2018-07-24 12:55:08', 0, 1, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -2117,7 +2135,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000826;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000843;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2167,8 +2185,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;COMMIT;
-
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

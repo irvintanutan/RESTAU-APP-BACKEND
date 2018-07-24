@@ -76,15 +76,25 @@
 
                                     <label class="control-label col-md-4">TIN: <h4><?php echo $store->tin; ?></h4></label>
 
-                                    <label class="control-label col-md-4">VAT: <h4><?php echo $store->vat; ?></h4></label>
-
-                                    <label class="control-label col-md-4">Best Selling Minimum Price: <h4>₱ <?php echo number_format($store->bs_price, 2, '.', ','); ?></h4></label>
                                     
+                                    <label class="control-label col-md-4">TELEPHONE: <h4><?php echo $store->telephone; ?></h4></label>
+
+                                    <label class="control-label col-md-4">MOBILE: <h4><?php echo $store->mobile; ?></h4></label>
+
 
                                     <label class="control-label col-md-12"><h4><?php echo "<hr>" ?></h4></label>
 
 
-                                    <label class="control-label col-md-12">Manager's Password: <h4><?php echo $store->password; ?></h4></label>
+                                    
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-8" id="pw_unmask" style="display: none;">Manager's Password: <h4><?php echo $store->password; ?></h4></label>
+                                        <label class="control-label col-md-8" id="pw_mask" style="display: block;">Manager's Password: <h4>****************</h4></label>
+                                        <button class="control-label col-md-2 btn btn-primary" title="mask/unmask password" onclick="toggle_pw_mask()" style="font-size: 14px;"><i class="fa fa-eye"></i></button>
+                                    </div>
+
+                                    <label class="control-label col-md-4">VAT: <h4><?php echo $store->vat; ?></h4></label>
+
+                                    <label class="control-label col-md-4">Best Selling Minimum Price: <h4>₱ <?php echo number_format($store->bs_price, 2, '.', ','); ?></h4></label>
 
 
                                     <label class="control-label col-md-12"><h4><?php echo "<hr>" ?></h4></label>
@@ -183,6 +193,22 @@
                                         <label class="control-label col-md-3">City :</label>
                                         <div class="col-md-9">
                                             <input name="city" placeholder="Branch City / Municipality" class="form-control" value="" type="text">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Telephone # :</label>
+                                        <div class="col-md-9">
+                                            <input name="telephone" placeholder="Company Telephone #" class="form-control" value="" type="text">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Mobile # :</label>
+                                        <div class="col-md-9">
+                                            <input name="mobile" placeholder="Company Mobile #" class="form-control" value="" type="text">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

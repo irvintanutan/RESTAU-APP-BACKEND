@@ -112,9 +112,9 @@ class Users_controller extends CI_Controller {
 		        'email' => $this->input->post('email'),
 		        'address' => $this->input->post('address'),
 		        'date_registered' => date("Y-m-d H:i:s"),
-		        'administrator' => '0',
-				'cashier' => '0',
-				'staff' => '0'
+		        'administrator' => 0,
+				'cashier' => 0,
+				'staff' => 0
 			);
 		$insert = $this->users->save($data);
 		echo json_encode(array("status" => TRUE));
@@ -180,10 +180,11 @@ class Users_controller extends CI_Controller {
             {
 				$data = array(
 					'administrator' => $this->input->post('administrator'),
-					
-					
-					//'report' => $this->input->post('report')
-					  	);
+
+					'cashier' => $this->input->post('cashier'),
+
+					'staff' => $this->input->post('staff')
+					);
 				$this->users->update(array('user_id' => $this->input->post('user_id')), $data);
 				echo json_encode(array("status" => TRUE));	
             }
@@ -194,7 +195,9 @@ class Users_controller extends CI_Controller {
 			$data = array(
 				'administrator' => $this->input->post('administrator'),
 				
-				//'report' => $this->input->post('report')
+				'cashier' => $this->input->post('cashier'),
+
+				'staff' => $this->input->post('staff')
 			  	);
 			$this->users->update(array('user_id' => $this->input->post('user_id')), $data);
 			echo json_encode(array("status" => TRUE));

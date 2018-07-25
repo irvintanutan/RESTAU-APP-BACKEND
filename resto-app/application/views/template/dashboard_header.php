@@ -78,7 +78,7 @@ Detailed information and more samples can be found in the document.
             <!--================================-->
             <div class="navbar-header">
               <a href="<?php echo base_url();?>dashboard" class="navbar-brand">
-                <img src="<?php echo base_url();?>assets/img/logo.png" alt="ANC - DPS" class="brand-icon">
+                <img src="<?php echo base_url();?>assets/img/logo.png" alt="InnoTechSolutions" class="brand-icon">
                 <div class="brand-title">
                   <span class="brand-text" style="margin-left: 2px;">InnoTechSolutions
                   </span>
@@ -396,8 +396,30 @@ Detailed information and more samples can be found in the document.
                     <div class="pad-all bord-btm">
                       <p class="text-lg text-muted text-thin mar-btm">
                         <strong>
-                          <?php echo $this->session->userdata('firstname').' '.$this->session->userdata('lastname'); ?>
+                          <?php
+                            // check if the user is admin
+                            if ($this->session->userdata('administrator') == 1)
+                            {
+                              $account_type = 'ADMIN';
+                            }
+                            else if ($this->session->userdata('cashier') == 1)
+                            {
+                              $account_type = 'CASHIER';
+                            }
+                            else
+                            {
+                              $account_type = 'STAFF';
+                            }
+
+                            echo '[ ' . $account_type . ' ACCOUNT ]';
+                          ?>
                         </strong>
+                      </p>
+                      <p>
+                        <?php echo $this->session->userdata('lastname').', '.$this->session->userdata('firstname').' '.$this->session->userdata('middlename'); ?>
+                      </p>
+                      <p>
+                        <?php echo $this->session->userdata('email'); ?>
                       </p>
                     </div>
                     <!-- User dropdown menu -->
@@ -419,11 +441,17 @@ Detailed information and more samples can be found in the document.
                     </ul> -->
                     <!-- Dropdown footer -->
                     <div class="pad-all text-right">
-                      <a href="<?php echo base_url('user-logout'); ?>" class="btn btn-primary">
+                      <button type="button" class="btn btn-dark col-md-6" data-dismiss="modal"><i class="fa fa-print"></i> S-Reading</button>
+                        <button type="button" class="btn btn-success col-md-6" data-dismiss="modal"><i class="fa fa-print"></i> X-Reading</button>
+                    </div>
+                    <br>
+                    <div class="pad-all text-right">  
+                      <a href="<?php echo base_url('user-logout'); ?>" class="btn btn-primary col-md-12">
                         <i class="fa fa-sign-out fa-fw">
                         </i> Logout
                       </a>
                     </div>
+                    <br><br>
                   </div>
                 </li>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->

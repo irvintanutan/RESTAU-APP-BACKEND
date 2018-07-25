@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once(APPPATH.'vendor/mike42/autoload.php');
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
+
 class Dashboard_controller extends CI_Controller {
 
     public function __construct()
@@ -239,5 +243,140 @@ class Dashboard_controller extends CI_Controller {
                 );
         //output to json format
         echo json_encode($output);
+    }
+
+    public function print_readings($pos_no, $cashier, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_no)
+    {
+
+        /* Open the printer; this will change depending on how it is connected */
+        $connector = new WindowsPrintConnector("epsontmu");
+        $printer = new Printer($connector);
+
+        // $logo = EscposImage::load("cafe.png", false);
+
+
+        // fetch config data
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+
+
+        /* Information for the receipt */
+        $store_name = wordwrap($store->name, 15, "\n");
+        $address = wordwrap($store->address, 25, "\n");
+        $city = wordwrap($store->city, 25, "\n");
+        $tin = wordwrap($store->tin, 25, "\n");
+        $telephone = wordwrap('Tel#: ' . $store->telephone, 25, "\n");
+        $mobile = wordwrap('Cel#: ' . $store->mobile, 25, "\n");
+        $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
+        $vat = ($store->vat / 100);
+
+        $items = $line_items;
+        
+        $total_sales = ($gross_total / (1 + $vat));
+
+        $vat_amount = ($gross_total - $total_sales);
+
+        $amount_due = ($gross_total - $discount);
+
+
+        // string variables
+        $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
+        $vat_str = new item('Vat', number_format($vat_amount, 2));
+
+        $discount_str = new item('Less: ' . $disc_type_name, "-" . number_format($discount, 2));
+
+        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));
+        $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
+        $change_amt_str = new item('CHANGE           Php', number_format($change_amt, 2));
+
+        
+
+        /* Start the printer */
+        $printer = new Printer($connector);
+
+        $printer -> pulse();
+
+        /* Print top logo */
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        // $printer -> graphics($logo);
+
+        /* Name of shop */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($store_name . "\n");
+        $printer -> selectPrintMode();
+        $printer -> text($address . "\n");
+        $printer -> text($city . "\n");
+        $printer -> text($telephone . "\n");
+        $printer -> text($mobile . "\n");
+        $printer -> text($tin . "\n");
+
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+        $printer -> text($table_str . "\n");
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+
+        /* Title of receipt */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($order_type . "\n");
+        $printer -> selectPrintMode();
+
+        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer -> text(new item('Transaction#: ' . $trans_id, ''));
+        $printer -> text(new item('Receipt#: ' . $receipt_no, ''));
+        $printer -> text(new item('Staff: ' . $staff_username, ''));
+        $printer -> text(new item('Cashier: ' . $cashier_username, ''));
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        /* Items */
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', 'Php'));
+        $printer -> setEmphasis(false);
+        foreach ($items as $item) {
+            $printer -> text($item);
+        }
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        $printer -> setEmphasis(true);
+        $printer -> text($total_sales_str);
+        /* Tax and total */
+        $printer -> text($vat_str);
+
+
+        if ($discount != 0) // print only if there is a discount (not zero)
+        {
+            $printer -> text($discount_str);
+        }
+
+        $printer -> setEmphasis(false);
+
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', '=========='));
+        
+        $printer -> text($amount_due_str);
+
+        // ------------------------------------------ PAYMENT RECEIPT PRINTS --------------------------------------------------
+
+        $printer -> text($cash_amt_str);
+        $printer -> text($change_amt_str);        
+
+        $printer -> setEmphasis(false);
+        
+        // --------------------------------------------------------------------------------------------------------------------
+
+        /* Footer */
+        $printer -> feed();
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $printer -> text($date . "\n");
+
+        $printer -> feed();
+        $printer -> text("Innotech Solutions\n");
+        $printer -> text("Thank You Come Again\n");
+        $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
+        
+        /* Cut the receipt and open the cash drawer */
+        $printer -> cut();
+        $printer -> pulse();
+
+        $printer -> close();
     }
 }

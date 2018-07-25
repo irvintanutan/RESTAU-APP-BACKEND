@@ -169,7 +169,7 @@
                             <h3 class="modal-title">Users Form</h3>
                         </div>
                         <div class="modal-body form">
-                            <form action="#" id="form_privileges" class="form-horizontal" style="font-size: 15px;>
+                            <form action="#" id="form_privileges" class="form-horizontal" style="font-size: 15px;">
                                  <input type="hidden" value="" name="user_id"/>
                                  <input type="hidden" value="" name="current_administrator"/>
                                  <div class="form-body">
@@ -203,17 +203,6 @@
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
-                                    <!-- <hr>
-                                    <div class="form-group">   
-                                        <label class="control-label col-md-3">Reports Module:</label>
-                                        <div class="col-md-9">
-                                            <select name="report" class="form-control" >
-                                                <option value="0">No</option>
-                                                <option value="1">Yes</option>                                    
-                                            </select>
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div> -->
                                 </div> 
                             </form>
                         </div>

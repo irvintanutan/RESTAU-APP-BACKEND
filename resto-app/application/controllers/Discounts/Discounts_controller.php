@@ -11,7 +11,7 @@ class Discounts_controller extends CI_Controller {
 
     public function index()						
     {
-        if($this->session->userdata('user_id') == '')
+        if($this->session->userdata('administrator') == '0')
         {
             redirect('error500');
         }

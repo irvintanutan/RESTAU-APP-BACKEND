@@ -58,7 +58,7 @@
                                  <div class="col-sm-6 col-md-3">
                                     <div class="panel panel-dark panel-colorful">
                                         <div class="panel-body text-center">
-                                            <p class="text-uppercase mar-btm text-sm">Total Net Sales Today</p>
+                                            <p class="text-uppercase mar-btm text-md">Total Net Sales Today</p>
                                             <i class="fa fa-money fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin">
@@ -76,7 +76,7 @@
                                 <div class="col-sm-6 col-md-3">
                                     <div class="panel panel-danger panel-colorful">
                                         <div class="panel-body text-center">
-                                            <p class="text-uppercase mar-btm text-sm">Total Transactions Today</p>
+                                            <p class="text-uppercase mar-btm text-md">Total Transactions Today</p>
                                             <i class="fa fa-qrcode fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo $total_trans_count_today; ?> </p>
@@ -92,7 +92,7 @@
                                 <div class="col-sm-6 col-md-3">
                                     <div class="panel panel-warning panel-colorful">
                                         <div class="panel-body text-center">
-                                            <p class="text-uppercase mar-btm text-sm">Total Menu Items Sold Today</p>
+                                            <p class="text-uppercase mar-btm text-md">Total Menu Items Sold Today</p>
                                             <i class="fa fa-cutlery fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo $total_menu_items_sold_today; ?> </p>
@@ -108,7 +108,7 @@
                                 <div class="col-sm-6 col-md-3">
                                     <div class="panel panel-success panel-colorful">
                                         <div class="panel-body text-center">
-                                            <p class="text-uppercase mar-btm text-sm">Total Discounts Rendered Today</p>
+                                            <p class="text-uppercase mar-btm text-md">Total Discounts Rendered Today</p>
                                             <i class="fa fa-percent fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo $discounts_rendered_today_str; ?></p>

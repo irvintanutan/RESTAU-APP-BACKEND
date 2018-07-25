@@ -41,13 +41,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					'username' => $row->username,
 					'lastname' => $row->lastname,
 					'firstname' => $row->firstname,
+					'middlename' => $row->middlename,
+					'email' => $row->email,
 					'administrator' => $row->administrator,
 					'cashier' => $row->cashier,
-					'inventory' => $row->inventory,
-					'supplier' => $row->supplier,
-					'customer' => $row->customer,
-					'user' => $row->user,
-					'report' => $row->report);
+					'staff' => $row->staff);
 
 					$this->session->set_userdata($new_array);
 				}

@@ -1130,6 +1130,8 @@ class Trans_details_controller extends CI_Controller {
         $address = wordwrap($store->address, 25, "\n");
         $city = wordwrap($store->city, 25, "\n");
         $tin = wordwrap($store->tin, 25, "\n");
+        $telephone = wordwrap('Tel#: ' . $store->telephone, 25, "\n");
+        $mobile = wordwrap('Cel#: ' . $store->mobile, 25, "\n");
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $vat = ($store->vat / 100);
 
@@ -1169,6 +1171,8 @@ class Trans_details_controller extends CI_Controller {
         $printer -> selectPrintMode();
         $printer -> text($address . "\n");
         $printer -> text($city . "\n");
+        $printer -> text($telephone . "\n");
+        $printer -> text($mobile . "\n");
         $printer -> text($tin . "\n");
 
         $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");

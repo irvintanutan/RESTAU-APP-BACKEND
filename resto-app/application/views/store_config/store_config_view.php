@@ -38,7 +38,7 @@
 
 
                         <div class="panel-heading">
-                            <h3 class="panel-title"><b><?php echo $store->name; ?></b></h3>
+                            <h3 class="panel-title"><b><?php echo $store->name . ' [ Branch #: ' . $store->branch_id . ' ]'; ?></b></h3>
                         </div>
 
                         <div class="panel-body col-md-12">

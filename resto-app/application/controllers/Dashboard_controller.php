@@ -245,7 +245,7 @@ class Dashboard_controller extends CI_Controller {
         echo json_encode($output);
     }
 
-    public function print_readings($pos_no, $cashier, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_no)
+    public function print_readings($reading_no, $pos_no, $cashier_username, $trans_count, $gross_sales, $trans_cancel_count, $refund_count, $refund_sales, $total_sales, $discounts_list, $total_discounts, $net_sales, $vat_sales, $vat_amount, $vat_exempt, $receipt_start_no, $receipt_end_no)
     {
 
         /* Open the printer; this will change depending on how it is connected */
@@ -260,6 +260,7 @@ class Dashboard_controller extends CI_Controller {
 
 
         /* Information for the receipt */
+        $branch_id = wordwrap($store->branch_id, 15, "\n");
         $store_name = wordwrap($store->name, 15, "\n");
         $address = wordwrap($store->address, 25, "\n");
         $city = wordwrap($store->city, 25, "\n");

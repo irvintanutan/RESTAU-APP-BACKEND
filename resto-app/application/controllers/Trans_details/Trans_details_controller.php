@@ -101,12 +101,12 @@ class Trans_details_controller extends CI_Controller {
         $this->load->helper('url');
 
         // copy items from trans_details to trans_details_refund table
-        $this->trans_details->copy_to_trans_details_refund($trans_id);
+        // $this->trans_details->copy_to_trans_details_refund($trans_id);
 
 
         $transactions_data = $this->transactions->get_by_id($trans_id);
 
-        $gross_total = $this->trans_details_refund->get_trans_gross($trans_id);
+        // $gross_total = $this->trans_details_refund->get_trans_gross($trans_id);
 
         $managers_password = $this->store->get_store_config_password(1); // get manager's password
         

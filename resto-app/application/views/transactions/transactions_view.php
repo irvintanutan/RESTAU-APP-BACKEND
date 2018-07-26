@@ -1,3 +1,5 @@
+<meta http-equiv="refresh" content="5" /> <!-- REFRESH TRANSACTIONS PAGE EVERY 5 SECONDS -->
+
             <!--CONTENT CONTAINER-->
             <!--===================================================-->
             <div id="content-container">

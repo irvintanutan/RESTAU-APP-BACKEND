@@ -192,7 +192,7 @@ class Transactions_model extends CI_Model {
         $date_from = $date . ' 00:00:00'; // get date today to filter
         $date_to = $date . ' 23:59:59';
 
-        $this->db->where('order_type', $order_type); // transaction status should be cleared (paid by customer already)
+        $this->db->where('order_type', $order_type);
         $this->db->where('datetime >=', $date_from);
         $this->db->where('datetime <=', $date_to);
         

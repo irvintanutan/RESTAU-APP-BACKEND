@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 24, 2018 at 06:00 PM
+-- Generation Time: Jul 26, 2018 at 06:06 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -965,7 +965,74 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000839, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-24 12:55:24'),
 (1000840, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-07-24 13:03:28'),
 (1000841, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-24 14:02:47'),
-(1000842, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-24 14:03:53');
+(1000842, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-24 14:03:53'),
+(1000843, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 09:25:39'),
+(1000844, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-25 11:27:37'),
+(1000845, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-25 11:27:57'),
+(1000846, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-25 11:28:12'),
+(1000847, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-25 11:30:44'),
+(1000848, 'TORRES, JIK', 'Update', 'Store%20config%20updated', '2018-07-25 11:30:52'),
+(1000849, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:39:20'),
+(1000850, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:39:29'),
+(1000851, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-25 11:42:57'),
+(1000852, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:44:59'),
+(1000853, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:45:03'),
+(1000854, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:45:11'),
+(1000855, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:47:04'),
+(1000856, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:47:10'),
+(1000857, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:47:16'),
+(1000858, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U111', '2018-07-25 11:47:23'),
+(1000859, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-25 11:47:29'),
+(1000860, 'TORRES, JIK', 'Update', 'User%20record%20updated%20U109', '2018-07-25 11:47:33'),
+(1000861, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 11:48:38'),
+(1000862, 'n/a, n/a', 'Login', 'System user login as Administrator', '2018-07-25 11:48:50'),
+(1000863, 'n/a, n/a', 'Logout', 'System user logout as Administrator', '2018-07-25 11:49:35'),
+(1000864, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 11:49:37'),
+(1000865, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 11:57:08'),
+(1000866, 'Ford, Xander', 'Login', 'System user login as Staff', '2018-07-25 11:57:15'),
+(1000867, 'Ford, Xander', 'Logout', 'System user logout as Staff', '2018-07-25 11:58:20'),
+(1000868, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 12:05:12'),
+(1000869, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 12:05:17'),
+(1000870, 'Ford, Xander', 'Login', 'System user login as Staff', '2018-07-25 12:05:25'),
+(1000871, 'Ford, Xander', 'Logout', 'System user logout as Staff', '2018-07-25 12:05:35'),
+(1000872, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 12:05:42'),
+(1000873, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-07-25 12:44:00'),
+(1000874, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 12:44:01'),
+(1000875, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 12:44:16'),
+(1000876, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 12:44:26'),
+(1000877, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-07-25 12:46:42'),
+(1000878, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 12:46:43'),
+(1000879, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 12:48:02'),
+(1000880, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 12:48:10'),
+(1000881, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 12:49:37'),
+(1000882, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 12:53:26'),
+(1000883, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 12:53:39'),
+(1000884, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 12:53:49'),
+(1000885, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 12:54:25'),
+(1000886, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 12:54:32'),
+(1000887, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 12:56:03'),
+(1000888, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 12:56:26'),
+(1000889, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 12:56:28'),
+(1000890, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 12:56:34'),
+(1000891, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-07-25 13:08:58'),
+(1000892, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 13:09:01'),
+(1000893, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 13:09:04'),
+(1000894, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 13:09:19'),
+(1000895, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 13:28:25'),
+(1000896, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-07-25 14:02:01'),
+(1000897, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 14:02:02'),
+(1000898, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-07-25 14:09:29'),
+(1000899, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 14:09:37'),
+(1000900, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-07-25 14:09:44'),
+(1000901, 'Ford, Xander', 'Login', 'System user login as Staff', '2018-07-25 14:09:50'),
+(1000902, 'Ford, Xander', 'Logout', 'System user logout as Staff', '2018-07-25 14:10:03'),
+(1000903, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-07-25 14:10:11'),
+(1000904, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-07-25 14:36:04'),
+(1000905, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 14:36:06'),
+(1000906, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 17:44:02'),
+(1000907, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 17:47:14'),
+(1000908, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-26 09:12:19'),
+(1000909, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-26 13:09:37');
 
 -- --------------------------------------------------------
 
@@ -1180,6 +1247,7 @@ INSERT INTO `prod_discounts` (`pd_id`, `prod_id`, `remarks`, `date_start`, `date
 
 CREATE TABLE `store_config` (
   `conf_id` int(11) NOT NULL,
+  `branch_id` int(4) NOT NULL,
   `name` varchar(45) NOT NULL,
   `address` varchar(45) NOT NULL,
   `city` varchar(45) NOT NULL,
@@ -1196,8 +1264,33 @@ CREATE TABLE `store_config` (
 -- Dumping data for table `store_config`
 --
 
-INSERT INTO `store_config` (`conf_id`, `name`, `address`, `city`, `telephone`, `mobile`, `tin`, `vat`, `bs_price`, `img`, `password`) VALUES
-(1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', '(082) 234-8398', '+63 9922 803 1290', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png', 'jiktorres');
+INSERT INTO `store_config` (`conf_id`, `branch_id`, `name`, `address`, `city`, `telephone`, `mobile`, `tin`, `vat`, `bs_price`, `img`, `password`) VALUES
+(1, 1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', '(082) 234-8398', '+63 9228 031 290', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png', 'jiktorres');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `s_readings`
+--
+
+CREATE TABLE `s_readings` (
+  `pos_no` int(11) NOT NULL,
+  `cashier` varchar(45) NOT NULL,
+  `trans_count` int(11) NOT NULL,
+  `gross_sales` decimal(10,2) NOT NULL,
+  `trans_cancel_count` int(11) NOT NULL,
+  `refund_count` int(11) NOT NULL,
+  `refund_sales` decimal(10,2) NOT NULL,
+  `total_sales` decimal(10,2) NOT NULL,
+  `total_discounts` decimal(10,2) NOT NULL,
+  `net_sales` decimal(10,2) NOT NULL,
+  `vat_sales` decimal(10,2) NOT NULL,
+  `vat_amount` decimal(10,2) NOT NULL,
+  `vat_exempt` decimal(10,2) NOT NULL,
+  `receipt_start_no` int(11) NOT NULL,
+  `receipt_end_no` int(11) NOT NULL,
+  `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1390,7 +1483,7 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (106, '2018-07-19 23:32:11', '0.00', 0, 'CLEARED', 'TAKE-OUT', '2000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000022),
 (107, '2018-07-19 23:32:24', '200.00', 1, 'CLEARED', 'DINE-IN', '1200.00', '0.00', 'Cash Card', '89898989', 'n/a', '12121211', 103, 108, 0, 0, 2000023),
 (108, '2018-07-23 15:32:00', '0.00', 0, 'CLEARED', 'DINE-IN', '500.00', '270.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000024),
-(109, '2018-07-23 15:45:30', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 1, 1, 1000000),
+(109, '2018-07-23 15:45:30', '0.00', 0, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 1, 1000000),
 (110, '2018-07-23 15:53:19', '0.00', 0, 'CLEARED', 'DINE-IN', '1000.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 1, 2000025),
 (111, '2018-07-23 20:36:50', '0.00', 0, 'CLEARED', 'DINE-IN', '1000.00', '470.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 103, 0, 0, 2000001),
 (112, '2018-07-23 20:37:02', '0.00', 0, 'CLEARED', 'TAKE-OUT', '500.00', '200.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 103, 0, 0, 2000002),
@@ -2024,6 +2117,31 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `lastname`, `firstname`,
 (110, 'as', 'as', 'as', 'as', 'as', 'as', 'as', 'as', '2018-07-23 19:55:06', 0, 0, 0, 1),
 (111, 'janedoe', 'janedoe', 'DOE', 'JANE', 'SMITH', '090909090', 'jane@gmail.com', 'Sasa, Davao City', '2018-07-24 12:55:08', 0, 1, 0, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `x_readings`
+--
+
+CREATE TABLE `x_readings` (
+  `pos_no` int(11) NOT NULL,
+  `cashier` varchar(45) NOT NULL,
+  `trans_count` int(11) NOT NULL,
+  `gross_sales` decimal(10,2) NOT NULL,
+  `trans_cancel_count` int(11) NOT NULL,
+  `refund_count` int(11) NOT NULL,
+  `refund_sales` decimal(10,2) NOT NULL,
+  `total_sales` decimal(10,2) NOT NULL,
+  `total_discounts` decimal(10,2) NOT NULL,
+  `net_sales` decimal(10,2) NOT NULL,
+  `vat_sales` decimal(10,2) NOT NULL,
+  `vat_amount` decimal(10,2) NOT NULL,
+  `vat_exempt` decimal(10,2) NOT NULL,
+  `receipt_start_no` int(11) NOT NULL,
+  `receipt_end_no` int(11) NOT NULL,
+  `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -2135,7 +2253,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000843;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000910;
 --
 -- AUTO_INCREMENT for table `packages`
 --

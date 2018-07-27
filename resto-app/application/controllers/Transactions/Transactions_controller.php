@@ -44,6 +44,9 @@ class Transactions_controller extends CI_Controller {
         $data['trans_status'] = 'ONGOING';
 
         $data['title'] = '<i class="fa fa-qrcode" style="color: green;"></i> Transactions - <span class="label-success badge" style="color: green; font-size:25px; padding: .5%">&nbsp;&nbsp;<b> [ ONGOING ] </b>&nbsp;&nbsp;</span>';
+
+        $data['refresh_meta_tag'] = '<meta http-equiv="refresh" content="5" />';
+
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -68,6 +71,8 @@ class Transactions_controller extends CI_Controller {
 
         $data['title'] = '<i class="fa fa-qrcode" style="color: gray;"></i> Transactions - <span class="label-dark badge" style="color: white; font-size:25px; padding: .5%">&nbsp;&nbsp;<b> [ CLEARED ] </b>&nbsp;&nbsp;</span>';
 
+        $data['refresh_meta_tag'] = '';
+
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
         $this->load->view('template/dashboard_navigation');
@@ -91,6 +96,34 @@ class Transactions_controller extends CI_Controller {
         $data['trans_status'] = 'CANCELLED';
 
         $data['title'] = '<i class="fa fa-qrcode" style="color: red;"></i> Transactions - <span class="label-danger badge" style="color: white; font-size:25px; padding: .5%">&nbsp;&nbsp;<b> [ CANCELLED ] </b>&nbsp;&nbsp;</span>';
+
+        $data['refresh_meta_tag'] = '';
+
+        $this->load->view('template/dashboard_header',$data);
+        $this->load->view('transactions/transactions_view',$data);
+        $this->load->view('template/dashboard_navigation');
+        $this->load->view('template/dashboard_footer');
+
+    }
+
+    public function index_refunded() // index of cancelled transactions
+    {
+        if($this->session->userdata('staff') == '1')
+        {
+            redirect('error500');
+        }
+
+        $this->load->helper('url');
+
+        $managers_password = $this->store->get_store_config_password(1); // get manager's password
+        
+        $data['managers_password'] = $managers_password;
+
+        $data['trans_status'] = 'REFUNDED';
+
+        $data['title'] = '<i class="fa fa-qrcode" style="color: orange;"></i> Transactions - <span class="label-warning badge" style="color: white; font-size:25px; padding: .5%">&nbsp;&nbsp;<b> [ REFUNDED ] </b>&nbsp;&nbsp;</span>';
+
+        $data['refresh_meta_tag'] = '';
 
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('transactions/transactions_view',$data);
@@ -537,65 +570,36 @@ class Transactions_controller extends CI_Controller {
             {
                 // insert new transaction ------------------------------------------------
 
-                // $discount = $details['discount'];
-                // $disc_type = $details['disc_type']; // discount type id
-
                 $order_type = $details['order_type'];
 
-                // $method = $details['method'];
-
                 $cash_amt = (-1 * $details['cash_amt']);
-
-                // $card_number = $details['card_number'];
-                // $cust_name = $details['cust_name'];
 
                 $user_id = $details['user_id'];
                 $staff_username = $this->users->get_username($user_id);
 
                 $cashier_id = $details['cashier_id'];
-                $cashier_username = $this->users->get_username($cashier);
-                
-                $amount_due = (-1 * $details['amount_due']);
+                $cashier_username = $this->users->get_username($cashier_id);
 
                 $receipt_no = $details['receipt_no'];
 
 
-                // if ($method == 'Cash') // if method is Cash
-                // {
-                //     $cash_amt = $cash_amt;
-                // }
-                // else // if Credit Card or Cash Card
-                // {
-                //     $cash_amt = $amount_due; // if method is not cash, set cash as amount due (result: no change amount)
-                // }
-
-                // if ($card_number == '') // set as n/a if empty
-                // {
-                //     $card_number = 'n/a';
-                // }
-
-                // if ($cust_name == '') // set as n/a if empty
-                // {
-                //     $cust_name = 'n/a';
-                // }
-
                 $data = array(
                         'datetime' => date("Y-m-d H:i:s"),
 
-                        'discount' => $discount,
-                        'disc_type' => $disc_type,
+                        'discount' => 0,
+                        'disc_type' => 0,
 
-                        'status' => 'CLEARED',
+                        'status' => 'REFUNDED',
 
                         'order_type' => $order_type,
 
-                        'method' => $method,
+                        'method' => 'Cash',
 
                         'cash_amt' => $cash_amt,
-                        'change_amt' => ($cash_amt - $amount_due),
+                        'change_amt' => 0,
 
-                        'card_number' => $card_number,
-                        'cust_name' => $cust_name,
+                        'card_number' => 'n/a',
+                        'cust_name' => 'n/a',
 
                         'user_id' => $user_id,
                         'cashier_id' => $cashier_id,
@@ -644,7 +648,7 @@ class Transactions_controller extends CI_Controller {
                     'price' => $prod_price,
                     'qty' => $prod_qty,
 
-                    'total' => $prod_total
+                    'total' => (-1 * $prod_total)
                 );
                 $this->trans_details->save($data_products);
 
@@ -686,7 +690,7 @@ class Transactions_controller extends CI_Controller {
                     'price' => $pack_price,
                     'qty' => $pack_qty,
 
-                    'total' => $pack_total
+                    'total' => (-1 * $pack_total)
                 );
                 $this->trans_details->save($data_packages);
 
@@ -728,67 +732,10 @@ class Transactions_controller extends CI_Controller {
 
             // get each table for table_groups -------------------------------------------------------------
 
-            $line_tables = array();
-
-            foreach ($transaction['tables'] as $tables)
-            {
-                // insert new table to table_groups -------------------------------------------------------
-                $tbl_id = $tables['tbl_id'];
-
-                if ($tbl_id != 0)
-                {
-                    $tbl_name = $this->tables->get_table_name($tbl_id);    
-                }
-                else
-                {
-                    $tbl_name = 'No Table';
-                }
-                
-
-                $data_tables = array(
-                    'trans_id' => $trans_id,
-                    'tbl_id' => $tbl_id,
-                );
-                $this->table_groups->save($data_tables);
-
-                $line_tables[] = $tbl_name;
-            }
-
-            if (sizeof($line_tables) != 0)
-            {
-                $table_str = implode(', ', $line_tables);
-            }
-            else
-            {
-                $table_str = 'n/a';
-            }
-
+            $table_str = 'n/a';
         }
 
-        echo json_encode(array("status" => TRUE));
-        
-        
-        $this->table_groups->delete_by_trans_id($trans_id);
-
-        $trans_details_items = $this->trans_details->get_trans_detail_items($trans_id); // get all trans_details items (products, packages, package products)
-
-        foreach ($trans_details_items as $items) // update sold of each items
-        {
-            $qty = $items->qty; // get qty to use as sold value to update
-
-            if ($items->prod_type == 0) // if prod_type is individual product
-            {
-                $this->products->update_sold_prod($items->prod_id, $qty);
-            }
-            else if ($items->prod_type == 1) // if prod_type is package
-            {
-                $this->packages->update_sold_pack($items->pack_id, $qty);
-            }
-            else if ($items->prod_type == 2) // if prod_type is package product
-            {
-                $this->products->update_sold_pack_prod($items->prod_id, $qty);
-            }
-        }
+        $this->print_refund_receipt($line_items, $trans_id, $staff_username, $cashier_username, $cash_amt, $receipt_no);
 
         echo json_encode(array("status" => TRUE));
     }
@@ -809,27 +756,12 @@ class Transactions_controller extends CI_Controller {
 
         /* Information for the receipt */
         $store_name = wordwrap("KITCHEN", 15, "\n");
-        // $address = wordwrap($store->address, 25, "\n");
-        // $city = $store->city;
-        // $tin = wordwrap($store->tin, 25, "\n");
+        
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $vat = ($store->vat / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
 
         $items = $line_items;
         
-        // $total_sales = ($gross_total / (1 + $vat));
-
-        // $vat_amount = ($gross_total - $total_sales);
-
-        // $amount_due = $gross_total;
-
-
-        // // string variables
-        // $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
-        // $vat_str = new item('Vat', number_format($vat_amount, 2));
-        // $amount_due_str = new item('Amount Due     Php', number_format($amount_due, 2));
-        
-
         /* Start the printer */
         $printer = new Printer($connector);
 
@@ -841,9 +773,6 @@ class Transactions_controller extends CI_Controller {
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
         $printer -> text($store_name . "\n");
         $printer -> selectPrintMode();
-        // $printer -> text($address . "\n");
-        // $printer -> text($city . "\n");
-        // $printer -> text($tin . "\n");
 
         $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
         $printer -> text($table_str . "\n");
@@ -869,37 +798,119 @@ class Transactions_controller extends CI_Controller {
         }
 
         $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
-
-        // $printer -> setEmphasis(true);
-        // $printer -> text($total_sales_str);
-        // /* Tax and total */
-        // $printer -> text($vat_str);
-        // $printer -> setEmphasis(false);
-
-        // $printer -> setEmphasis(true);
-        // $printer -> text(new item('', '=========='));
         
-        // $printer -> text($amount_due_str);
-        // $printer -> setEmphasis(false);
+        /* Footer */
+        $printer -> feed();
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $printer -> text($date . "\n");
+
+        $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
         
+        /* Cut the receipt and open the cash drawer */
+        $printer -> cut();
+
+        $printer -> close();
+
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function print_refund_receipt($line_items, $trans_id, $staff_username, $cashier_username, $cash_amt, $receipt_no)
+    {
+
+        /* Open the printer; this will change depending on how it is connected */
+        $connector = new WindowsPrintConnector("epsontmu");
+        $printer = new Printer($connector);
+
+        // $logo = EscposImage::load("cafe.png", false);
+
+
+        // fetch config data
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+
+
+        /* Information for the receipt */
+        $store_name = wordwrap($store->name, 15, "\n");
+        $address = wordwrap($store->address, 25, "\n");
+        $city = wordwrap($store->city, 25, "\n");
+        $tin = wordwrap($store->tin, 25, "\n");
+        $telephone = wordwrap('Tel#: ' . $store->telephone, 25, "\n");
+        $mobile = wordwrap('Cel#: ' . $store->mobile, 25, "\n");
+        $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
+        $vat = ($store->vat / 100);
+
+        $items = $line_items;
+
+        $amount_due_str = new item('Amount Due       Php', number_format($cash_amt, 2));
+        $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
+
+        /* Start the printer */
+        $printer = new Printer($connector);
+
+        /* Print top logo */
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        // $printer -> graphics($logo);
+
+        /* Name of shop */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($store_name . "\n");
+        $printer -> selectPrintMode();
+        $printer -> text($address . "\n");
+        $printer -> text($city . "\n");
+        $printer -> text($telephone . "\n");
+        $printer -> text($mobile . "\n");
+        $printer -> text($tin . "\n");
+
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+        /* Title of receipt */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text('REFUND RECEIPT' . "\n");
+        $printer -> selectPrintMode();
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+
+        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer -> text(new item('Transaction#: ' . $trans_id, ''));
+        $printer -> text(new item('Receipt#: ' . $receipt_no, ''));
+        $printer -> text(new item('Staff: ' . $staff_username, ''));
+        $printer -> text(new item('Cashier: ' . $cashier_username, ''));
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        /* Items */
+        $printer -> setEmphasis(true);
+        $printer -> text(new item('', 'Php'));
+        $printer -> setEmphasis(false);
+        foreach ($items as $item) {
+            $printer -> text($item);
+        }
+
+        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+
+        $printer -> setEmphasis(true);
+        
+        $printer -> text($amount_due_str);
+
+        // ------------------------------------------ PAYMENT RECEIPT PRINTS --------------------------------------------------
+
+        $printer -> text($cash_amt_str);
+
+        $printer -> setEmphasis(false);
+        
+        // --------------------------------------------------------------------------------------------------------------------
 
         /* Footer */
         $printer -> feed();
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
         $printer -> text($date . "\n");
 
-        // $printer -> feed();
-        // $printer -> text("Innotech Solutions\n");
-        // $printer -> text("Thank You Come Again\n");
+        $printer -> feed();
+        $printer -> text("Innotech Solutions\n");
+        $printer -> text("Thank You Come Again\n");
         $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
-        // $printer -> pulse();
-
+        
         $printer -> close();
-
-        echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_api_reset_trans($trans_id) // reset trans_details of a checked out transaction (add, update qty, delete line items)

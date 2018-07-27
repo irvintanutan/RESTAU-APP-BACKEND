@@ -69,9 +69,13 @@ class Transactions_model extends CI_Model {
         {
             $this->db->where('status','CLEARED'); // if data is part of the object by ID       
         }
-        else // cancelled - 2
+        else if ($trans_status == 2)
         {
             $this->db->where('status','CANCELLED'); // if data is part of the object by ID       
+        }
+        else if ($trans_status == 3)
+        {
+            $this->db->where('status','REFUNDED'); // if data is part of the object by ID       
         }
         
         $query = $this->db->get();
@@ -135,7 +139,9 @@ class Transactions_model extends CI_Model {
         $date_from = $year . '-' . $month . '-01 00:00:00';
         $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $status = array('CLEARED', 'REFUNDED');
+        $this->db->where_in('status', $status);
+
         $this->db->where('datetime >=', $date_from);
         $this->db->where('datetime <=', $date_to);
         
@@ -154,7 +160,9 @@ class Transactions_model extends CI_Model {
         $date_from = $date . ' 00:00:00'; // get date today to filter
         $date_to = $date . ' 23:59:59';
 
-        $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $status = array('CLEARED', 'REFUNDED');
+        $this->db->where_in('status', $status);
+
         $this->db->where('datetime >=', $date_from);
         $this->db->where('datetime <=', $date_to);
         
@@ -213,9 +221,13 @@ class Transactions_model extends CI_Model {
         {
             $this->db->where('status','CLEARED'); // if data is part of the object by ID       
         }
-        else // cancelled - 2
+        else if ($trans_status == 2)
         {
             $this->db->where('status','CANCELLED'); // if data is part of the object by ID       
+        }
+        else if ($trans_status == 3)
+        {
+            $this->db->where('status','REFUNDED'); // if data is part of the object by ID       
         }
 
         $query = $this->db->get();
@@ -234,9 +246,13 @@ class Transactions_model extends CI_Model {
         {
             $this->db->where('status','CLEARED'); // if data is part of the object by ID       
         }
-        else // cancelled - 2
+        else if ($trans_status == 2)
         {
             $this->db->where('status','CANCELLED'); // if data is part of the object by ID       
+        }
+        else if ($trans_status == 3)
+        {
+            $this->db->where('status','REFUNDED'); // if data is part of the object by ID       
         }
 
         return $this->db->count_all_results();

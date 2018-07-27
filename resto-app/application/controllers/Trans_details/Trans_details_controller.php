@@ -694,6 +694,158 @@ class Trans_details_controller extends CI_Controller {
         echo json_encode($output);
     }
 
+    public function ajax_api_list_by_receipt_no($receipt_no) // get all that belongs to this ID via foreign key
+    {
+        // ------------------------------------------- Details ----------------------------------------
+
+        $transactions_data = $this->transactions->get_by_receipt_no($receipt_no);
+
+        if ($transactions_data == null)
+        {
+            echo json_encode(null); // if receipt no is not found
+        }
+        else
+        {
+            $trans_id = $transactions_data->trans_id;
+
+            $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+            $details_data = array();
+
+            $details_data['order_type'] = $transactions_data->order_type;
+            $details_data['user_id'] = $transactions_data->user_id;
+
+            $details_data['status'] = $transactions_data->status;
+
+            $discount = $transactions_data->discount;
+
+            $net_total = $gross_total - $discount;
+
+            $details_data['gross_total'] = $gross_total;
+            $details_data['discount'] = $discount;
+            $details_data['net_total'] = $net_total;
+            $details_data['is_billout_printed'] = $transactions_data->is_billout_printed;
+            $details_data['is_billout_printed'] = $transactions_data->receipt_no;
+
+
+            // ------------------------------------------- Products/Package ---------------------------------
+
+            $list = $this->trans_details->get_api_datatables($trans_id);
+            $prod_data = array();
+            $pack_data = array();
+            
+            foreach ($list as $trans_details) {
+
+                if ($trans_details->prod_type == 1) // if prod_type is package
+                {
+                    $row = array();
+
+                    $item_id = $trans_details->pack_id;
+                    $item_name = $this->packages->get_package_name($trans_details->pack_id);
+                    $item_short_name = $this->packages->get_package_short_name($trans_details->pack_id);
+                    $img = $this->packages->get_package_img($trans_details->pack_id);
+
+                    $row['pack_id'] = $item_id;
+                    $row['name'] = $item_name;
+                    $row['short_name'] = $item_short_name;
+                    $row['img'] = $img;
+
+                    $row['price'] = $trans_details->price;
+                    $row['qty'] = $trans_details->qty;
+                    $row['total'] = $trans_details->total;
+
+
+                    // get package product list ---------------------------------------------------------
+                    $pack_prod_data = array();
+
+                    $pack_products = $this->pack_details->get_pack_detail_products($item_id);
+
+                    // get each product of the package -----------------------------------------------------              
+                    
+                    foreach ($pack_products as $pack_products_list)
+                    {
+                        $pack_prod_row = array();
+
+                        $pack_prod_id = $pack_products_list->prod_id;
+                        $pack_prod_name = $this->products->get_product_name($pack_prod_id);
+                        $pack_prod_short_name = $this->products->get_product_short_name($pack_prod_id);
+                        $pack_prod_qty = ($pack_products_list->qty * $trans_details->qty); // multiply package product qty by pack_qty
+
+                        $pack_prod_row['pack_prod_id'] = $pack_prod_id;
+                        $pack_prod_row['pack_prod_name'] = $pack_prod_name;
+                        $pack_prod_row['pack_prod_short_name'] = $pack_prod_short_name;
+                        $pack_prod_row['pack_prod_qty'] = $pack_prod_qty;
+
+                        $pack_prod_data[] = $pack_prod_row;
+                    }
+
+                    $row['package_products'] = $pack_prod_data;
+
+
+                    $pack_data[] = $row;
+
+                }
+                else if ($trans_details->prod_type == 0) // if prod_type is individual product
+                {
+                    $row = array();
+
+                    $item_id = $trans_details->prod_id;
+                    $item_name = $this->products->get_product_name($trans_details->prod_id);
+                    $item_short_name = $this->products->get_product_short_name($trans_details->prod_id);
+                    $cat_id = $this->products->get_product_cat_id($trans_details->prod_id);
+                    $img = $this->products->get_product_img($trans_details->prod_id);
+
+                    $row['prod_id'] = $item_id;
+                    $row['name'] = $item_name;
+                    $row['short_name'] = $item_short_name;
+                    $row['cat_id'] = $cat_id;
+                    $row['img'] = $img;
+
+                    $row['price'] = $trans_details->price;
+                    $row['qty'] = $trans_details->qty;
+                    $row['total'] = $trans_details->total;
+
+                    $prod_data[] = $row;
+                }
+            }
+
+            // ------------------------------------------- Tables ---------------------------------
+
+            $tables = $this->table_groups->get_table_group_tables($trans_id);
+            $tables_data = array();
+
+            if ($tables->num_rows() != 0)
+            {
+                foreach ($tables->result() as $tables_list) 
+                {
+                    $row = array();
+
+                    $row['table_id'] = $tables_list->tbl_id;
+
+                    if ($tables_list->tbl_id == 0)
+                    {
+                        $row['name'] = 'No Table';
+                    }
+                    else
+                    {
+                        $row['name'] = $this->tables->get_table_name($tables_list->tbl_id);
+                    }
+
+                    $tables_data[] = $row;
+                }
+            }
+            
+            $output = array(
+                            "details" => $details_data,
+                            "products" => $prod_data,
+                            "packages" => $pack_data,
+                            "tables" => $tables_data,
+                    );
+            //output to json format
+            echo json_encode($output);
+        }
+    }
+
 
     // ================================================ API POST REQUEST METHOD ============================================
 
@@ -1241,7 +1393,6 @@ class Trans_details_controller extends CI_Controller {
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
-        $printer -> pulse();
 
         $printer -> close();
     }
@@ -1261,9 +1412,7 @@ class Trans_details_controller extends CI_Controller {
 
         /* Information for the receipt */
         $store_name = wordwrap("BILL OUT", 15, "\n");
-        // $address = wordwrap($store->address, 25, "\n");
-        // $city = $store->city;
-        // $tin = wordwrap($store->tin, 25, "\n");
+
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $vat = ($store->vat / 100);
 
@@ -1275,18 +1424,13 @@ class Trans_details_controller extends CI_Controller {
 
         $amount_due = ($gross_total - $discount);
 
-
         // string variables
         $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
         $vat_str = new item('Vat', number_format($vat_amount, 2));
 
         $discount_str = new item('Less: ' . $disc_type_name, "-" . number_format($discount, 2));
 
-        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));
-        // $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
-        // $change_amt_str = new item('CHANGE           Php', number_format($change_amt, 2));
-
-        
+        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));        
 
         /* Start the printer */
         $printer = new Printer($connector);
@@ -1299,9 +1443,6 @@ class Trans_details_controller extends CI_Controller {
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
         $printer -> text($store_name . "\n");
         $printer -> selectPrintMode();
-        // $printer -> text($address . "\n");
-        // $printer -> text($city . "\n");
-        // $printer -> text($tin . "\n");
 
         $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
         $printer -> text($table_str . "\n");
@@ -1347,10 +1488,7 @@ class Trans_details_controller extends CI_Controller {
         
         $printer -> text($amount_due_str);
 
-        // ------------------------------------------ PAYMENT RECEIPT PRINTS --------------------------------------------------
-
-        // $printer -> text($cash_amt_str);
-        // $printer -> text($change_amt_str);        
+        // ------------------------------------------ PAYMENT RECEIPT PRINTS -------------------------------------------------- 
 
         $printer -> setEmphasis(false);
         
@@ -1358,17 +1496,11 @@ class Trans_details_controller extends CI_Controller {
 
         /* Footer */
         $printer -> feed();
-        // $printer -> setJustification(Printer::JUSTIFY_CENTER);
-        // $printer -> text($date . "\n");
 
-        // $printer -> feed();
-        // $printer -> text("Innotech Solutions\n");
-        // $printer -> text("Thank You Come Again\n");
         $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
-        // $printer -> pulse();
 
         $printer -> close();
 

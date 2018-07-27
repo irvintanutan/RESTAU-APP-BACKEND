@@ -340,6 +340,10 @@ $(document).ready(function()
             {
               url = 'showlist-transactions/2';
             }
+            else if (trans_status == 'REFUNDED') // - 2
+            {
+              url = 'showlist-transactions/3';
+            }
 
             table = $('#transactions-table').DataTable({ 
          
@@ -1241,6 +1245,12 @@ function go_to_cancelled_trans() // ---> calling for rgo back page
 {
     window.location.href='../transactions-page-cancelled';
 }
+
+function go_to_refunded_trans() // ---> calling for rgo back page
+{
+    window.location.href='../transactions-page-refunded';
+}
+
 
 
 

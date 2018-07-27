@@ -310,11 +310,14 @@
 
                                                 <!--Submenu-->
                                                 <ul class="collapse">
-                                                    <li><a href="<?php echo base_url();?>transactions-page">Ongoing</a>
-                                                    </li>                                            
-                                                    <li><a href="<?php echo base_url();?>transactions-page-cleared">Cleared</a>
+                                                    <li><a href="<?php echo base_url();?>transactions-page">Ongoing<i class="label label-success pull-right"></i></a>
                                                     </li>
-                                                    <li><a href="<?php echo base_url();?>transactions-page-cancelled">Cancelled</a>
+                                                    <li class="list-divider"></li>                                            
+                                                    <li><a href="<?php echo base_url();?>transactions-page-cleared">Cleared<i class="label label-dark pull-right"></i></a>
+                                                    </li>
+                                                    <li><a href="<?php echo base_url();?>transactions-page-cancelled">Cancelled<i class="label label-danger pull-right"></i></a>
+                                                    </li>
+                                                    <li><a href="<?php echo base_url();?>transactions-page-refunded">Refunded<i class="label label-warning pull-right"></i></a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -330,11 +333,14 @@
 
                                                 <!--Submenu-->
                                                 <ul class="collapse">
-                                                    <li><a href="<?php echo base_url();?>transactions-page">Ongoing</a>
-                                                    </li>                                            
-                                                    <li><a href="<?php echo base_url();?>transactions-page-cleared">Cleared</a>
+                                                    <li><a href="<?php echo base_url();?>transactions-page">Ongoing<i class="label label-success pull-right"></i></a>
                                                     </li>
-                                                    <li><a href="<?php echo base_url();?>transactions-page-cancelled">Cancelled</a>
+                                                    <li class="list-divider"></li>                                            
+                                                    <li><a href="<?php echo base_url();?>transactions-page-cleared">Cleared<i class="label label-dark pull-right"></i></a>
+                                                    </li>
+                                                    <li><a href="<?php echo base_url();?>transactions-page-cancelled">Cancelled<i class="label label-danger pull-right"></i></a>
+                                                    </li>
+                                                    <li><a href="<?php echo base_url();?>transactions-page-refunded">Refunded<i class="label label-warning pull-right"></i></a>
                                                     </li>
                                                 </ul>
                                             </li>

@@ -128,6 +128,8 @@ $route['transactions-page-cleared'] = 'Transactions/Transactions_controller/inde
 
 $route['transactions-page-cancelled'] = 'Transactions/Transactions_controller/index_cancelled';
 
+$route['transactions-page-refunded'] = 'Transactions/Transactions_controller/index_refunded';
+
 $route['showlist-transactions/(:num)'] = 'Transactions/Transactions_controller/ajax_list/$1';
 
 $route['add-transaction'] = 'Transactions/Transactions_controller/ajax_add';
@@ -147,6 +149,8 @@ $route['delete-transaction/(:num)'] = 'Transactions/Transactions_controller/ajax
 $route['showlist-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_list';
 
 $route['add-transactions-api'] = 'Transactions/Transactions_controller/ajax_api_add_trans';
+
+$route['add-transactions-refund-api'] = 'Transactions/Transactions_controller/ajax_api_add_refund_trans';
 
 $route['reset-transactions-api/(:num)'] = 'Transactions/Transactions_controller/ajax_api_reset_trans/$1';
 
@@ -311,6 +315,8 @@ $route['reprint-last-trans-receipt/(:num)/(:num)'] = 'Trans_details/Trans_detail
 $route['set-payment-api'] = 'Trans_details/Trans_details_controller/ajax_set_payment_api';
 
 $route['showlist-trans-details-api/(:num)'] = 'Trans_details/Trans_details_controller/ajax_api_list/$1';
+
+$route['showlist-trans-details-by-receipt-no-api/(:num)'] = 'Trans_details/Trans_details_controller/ajax_api_list_by_receipt_no/$1';
 
 
 

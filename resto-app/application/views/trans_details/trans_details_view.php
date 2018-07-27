@@ -44,6 +44,10 @@
                     ?>
                     <button class="btn btn-default col-md-11" align="right" onclick="go_to_cancelled_trans()"><i class="fa fa-reply"></i> &nbsp;CANCELLED TRANSACTIONS</button>
                     <?php
+                        } else if ($transaction->status == 'REFUNDED'){
+                    ?>
+                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_refunded_trans()"><i class="fa fa-reply"></i> &nbsp;REFUNDED TRANSACTIONS</button>
+                    <?php
                         }
                     ?>
                 </div>
@@ -65,7 +69,9 @@
 
                                 else if ($transaction->status == 'CANCELLED'){ $status = '<label class="control-label label-danger col-md-2 badge">STATUS <h4 style="color: white;">[ CANCELLED ]</h4>'; }
 
-                                else if ($transaction->status == 'CLEARED'){ $status = '<label class="control-label col-md-2 badge">STATUS <h4 style="color: white;">[ CLEARED ]</h4>'; } echo $status; ?></h4></label>
+                                else if ($transaction->status == 'CLEARED'){ $status = '<label class="control-label col-md-2 badge">STATUS <h4 style="color: white;">[ CLEARED ]</h4>'; }
+
+                                else if ($transaction->status == 'REFUNDED'){ $status = '<label class="control-label label-warning col-md-2 badge">STATUS <h4 style="color: white;">[ REFUNDED ]</h4>'; } echo $status; ?></h4></label>
 
                                 <label class="control-label col-md-2">ORDER TYPE <h4><?php echo $transaction->order_type; ?></h4></label>
                                 <label class="control-label col-md-2">DISCOUNT TYPE <h4><?php if ($transaction->disc_type == 0){ echo 'n/a'; }else{ echo $this->discounts->get_discount_name($transaction->disc_type); } ?></h4></label>

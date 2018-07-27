@@ -1,4 +1,4 @@
-<meta http-equiv="refresh" content="5" /> <!-- REFRESH TRANSACTIONS PAGE EVERY 5 SECONDS -->
+<?php echo $refresh_meta_tag; ?> <!-- REFRESH TRANSACTIONS PAGE EVERY 5 SECONDS -->
 
             <!--CONTENT CONTAINER-->
             <!--===================================================-->

@@ -255,6 +255,34 @@ class Dashboard_controller extends CI_Controller {
         // $logo = EscposImage::load("cafe.png", false);
 
 
+        // ======================================== DATA FETCH SECTION ==========================================================
+
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+
+        $pos_no = 1;
+        $cashier_username = $this->session->userdata('username');
+        $cashier_id = $this->session->userdata('user_id');
+        $today = date('Y-m-d');
+
+        // ------------------------- COUNTS -------------------------------------------------------------------------------
+        $trans_count_dine_in = $this->transactions->get_count_trans_shift($today, 'DINE-IN', $cashier_id);
+        $trans_count_take_out = $this->transactions->get_count_trans_shift($today, 'TAKE-OUT', $cashier_id);
+
+        $trans_count_total = ($trans_count_dine_in + $trans_count_take_out);
+
+        $trans_count_cancelled =
+
+
+        // ------------------------- AMOUNT -------------------------------------------------------------------------------
+        $net_sales = $this->transactions->get_daily_net_sales_shift($today, $cashier_id);
+        $discounts_rendered = $this->transactions->get_daily_discounts_rendered_shift($today, $cashier_id, $disc_id);
+        $gross_sales = $discounts_rendered + $net_sales;
+
+
+
+
+        // ========================================= PRINTING SECTION ===========================================================
+
         // fetch config data
         $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
 

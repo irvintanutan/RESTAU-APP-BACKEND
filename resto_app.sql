@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 27, 2018 at 06:27 PM
--- Server version: 5.7.22-0ubuntu0.16.04.1
--- PHP Version: 7.0.30-0ubuntu0.16.04.1
+-- Host: 127.0.0.1
+-- Generation Time: Jul 29, 2018 at 11:44 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -1033,7 +1035,11 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000907, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-25 17:47:14'),
 (1000908, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-26 09:12:19'),
 (1000909, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-26 13:09:37'),
-(1000910, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-27 10:01:17');
+(1000910, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-27 10:01:17'),
+(1000911, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-27 20:51:46'),
+(1000912, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-29 22:33:24'),
+(1000913, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-29 22:33:45'),
+(1000914, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-07-29 22:34:59');
 
 -- --------------------------------------------------------
 
@@ -1345,9 +1351,7 @@ CREATE TABLE `table_groups` (
 --
 
 INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
-(6, 109, 10),
-(7, 119, 3),
-(8, 119, 4);
+(6, 109, 10);
 
 -- --------------------------------------------------------
 
@@ -1496,7 +1500,8 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (116, '2018-07-23 20:59:10', '0.00', 0, 'CLEARED', 'TAKE-OUT', '500.00', '120.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 109, 0, 0, 2000006),
 (117, '2018-07-27 15:07:43', '0.00', 0, 'REFUNDED', 'DINE-IN', '-2000.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 1200000),
 (118, '2018-07-27 15:12:12', '0.00', 0, 'REFUNDED', 'DINE-IN', '-2000.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 1200000),
-(119, '2018-07-27 17:52:28', '0.00', 0, 'CLEARED', 'TAKE-OUT', '2000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000026);
+(119, '2018-07-27 17:52:28', '0.00', 0, 'CLEARED', 'TAKE-OUT', '2000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000026),
+(120, '2018-07-27 19:40:46', '0.00', 0, 'REFUNDED', 'DINE-IN', '-1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 1200000);
 
 -- --------------------------------------------------------
 
@@ -2099,7 +2104,13 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (119, 0, 1, 1, '450.00', 2, '900.00', 0),
 (119, 2, 0, 2, '0.00', 2, '0.00', 1),
 (119, 9, 0, 2, '0.00', 2, '0.00', 1),
-(119, 10, 0, 2, '0.00', 8, '0.00', 1);
+(119, 10, 0, 2, '0.00', 8, '0.00', 1),
+(120, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(120, 3, 0, 0, '100.00', 4, '-400.00', 0),
+(120, 0, 1, 1, '450.00', 2, '-900.00', 0),
+(120, 2, 0, 2, '0.00', 2, '0.00', 1),
+(120, 9, 0, 2, '0.00', 2, '0.00', 1),
+(120, 10, 0, 2, '0.00', 8, '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -2277,7 +2288,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000911;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000915;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2317,17 +2328,18 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

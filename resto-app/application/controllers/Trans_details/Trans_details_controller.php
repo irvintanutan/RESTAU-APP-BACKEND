@@ -725,7 +725,7 @@ class Trans_details_controller extends CI_Controller {
             $details_data['discount'] = $discount;
             $details_data['net_total'] = $net_total;
             $details_data['is_billout_printed'] = $transactions_data->is_billout_printed;
-            $details_data['is_billout_printed'] = $transactions_data->receipt_no;
+            $details_data['receipt_no'] = $transactions_data->receipt_no;
 
 
             // ------------------------------------------- Products/Package ---------------------------------

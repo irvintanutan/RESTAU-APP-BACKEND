@@ -171,6 +171,29 @@ class Transactions_model extends CI_Model {
         return $query->row()->total;
     }
 
+    // get shift net sales
+    public function get_daily_net_sales_shift($date, $cashier_id) // disregarded refund status
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $status = array('CLEARED');
+        $this->db->where_in('status', $status);
+
+        $this->db->where('cashier_id', $cashier_id);
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total;
+    }
+
     // get daily net sales
     public function get_daily_discounts_rendered($date)
     {
@@ -190,6 +213,28 @@ class Transactions_model extends CI_Model {
         return $query->row()->discount;
     }
 
+    // get daily net sales
+    public function get_daily_discounts_rendered_shift($date, $cashier_id, $disc_id)
+    {
+        $this->db->select('SUM(discount) AS discount');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('cashier_id', $cashier_id);
+        $this->db->where('disc_id', $disc_id);
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->discount;
+    }
+
     // get daily transaction count based on order type
     public function get_count_trans_today($date, $order_type)
     {
@@ -201,6 +246,26 @@ class Transactions_model extends CI_Model {
         $date_to = $date . ' 23:59:59';
 
         $this->db->where('order_type', $order_type);
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count;
+    }
+
+    // get current shift transaction count based on order type
+    public function get_count_trans_shift($date, $order_type, $cashier_id)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $this->db->where('order_type', $order_type);
+        $this->db->where('cashier_id', $cashier_id);
         $this->db->where('datetime >=', $date_from);
         $this->db->where('datetime <=', $date_to);
         

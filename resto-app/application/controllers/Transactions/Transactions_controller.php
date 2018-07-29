@@ -577,7 +577,7 @@ class Transactions_controller extends CI_Controller {
                 $user_id = $details['user_id'];
                 $staff_username = $this->users->get_username($user_id);
 
-                $cashier_id = $details['cashier_id'];
+                $cashier_id = $this->session->userdata('user_id');
                 $cashier_username = $this->users->get_username($cashier_id);
 
                 $receipt_no = $details['receipt_no'];

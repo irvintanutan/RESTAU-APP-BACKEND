@@ -18,6 +18,8 @@ class Dashboard_controller extends CI_Controller {
         $this->load->model('Store_config/Store_config_model','store');
 
         $this->load->model('Transactions/Transactions_model','transactions');
+        $this->load->model('Readings/S_readings_model','s_readings');
+        $this->load->model('Readings/X_readings_model','x_readings');
 
     }
 
@@ -245,20 +247,8 @@ class Dashboard_controller extends CI_Controller {
         echo json_encode($output);
     }
 
-    public function print_readings($reading_no, $pos_no, $cashier_username, $trans_count, $gross_sales, $trans_cancel_count, $refund_count, $refund_sales, $total_sales, $discounts_list, $total_discounts, $net_sales, $vat_sales, $vat_amount, $vat_exempt, $receipt_start_no, $receipt_end_no)
+    public function set_s_reading()
     {
-
-        /* Open the printer; this will change depending on how it is connected */
-        $connector = new WindowsPrintConnector("epsontmu");
-        $printer = new Printer($connector);
-
-        // $logo = EscposImage::load("cafe.png", false);
-
-
-        // ======================================== DATA FETCH SECTION ==========================================================
-
-        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
-
         $pos_no = 1;
         $cashier_username = $this->session->userdata('username');
         $cashier_id = $this->session->userdata('user_id');
@@ -270,54 +260,196 @@ class Dashboard_controller extends CI_Controller {
 
         $trans_count_total = ($trans_count_dine_in + $trans_count_take_out);
 
-        $trans_count_cancelled =
+        $trans_count_cleared = $this->transactions->get_count_trans_shift_status($today, 'CLEARED', $cashier_id);
+        $trans_count_cancelled = $this->transactions->get_count_trans_shift_status($today, 'CANCELLED', $cashier_id);
+        $trans_count_refunded = $this->transactions->get_count_trans_shift_status($today, 'REFUNDED', $cashier_id);
 
+        $void_items_count = 0;
 
         // ------------------------- AMOUNT -------------------------------------------------------------------------------
         $net_sales = $this->transactions->get_daily_net_sales_shift($today, $cashier_id);
-        $discounts_rendered = $this->transactions->get_daily_discounts_rendered_shift($today, $cashier_id, $disc_id);
-        $gross_sales = $discounts_rendered + $net_sales;
+        $discounts_rendered_sc = $this->transactions->get_daily_discounts_rendered_shift($today, $cashier_id, 1);
+        $discounts_rendered_pwd = $this->transactions->get_daily_discounts_rendered_shift($today, $cashier_id, 2);
+        $discounts_rendered_promo = $this->transactions->get_daily_discounts_rendered_shift($today, $cashier_id, 0);
+
+        $discounts_rendered_total = ($discounts_rendered_sc + $discounts_rendered_pwd + $discounts_rendered_promo);
+        $gross_sales = $discounts_rendered_total + $net_sales;
+
+        $cancelled_sales = $this->transactions->get_daily_sales_by_status_shift($today, $cashier_id, 'CANCELLED');
+        $refunded_sales = $this->transactions->get_daily_sales_by_status_shift($today, $cashier_id, 'REFUNDED');
+
+        $vat_sales = 0;
+        $vat_amount = 0;
+        $vat_exempt = 0;
 
 
+        // ------------------------- RANGE --------------------------------------------------------------------------------
+        $start_rcpt_no = $this->transactions->get_start_rcpt($today, $cashier_id);
+        $end_rcpt_no = $this->transactions->get_end_rcpt($today, $cashier_id);
 
+
+        // ------------------- STRING CONVERSION --------------------------------------------------------------------------
+        $net_sales_str = number_format($net_sales, 2);
+        $disc_sc_str = number_format($discounts_rendered_sc, 2);
+        $disc_pwd_str = number_format($discounts_rendered_pwd, 2);
+        $disc_promo_str = number_format($discounts_rendered_promo, 2);
+        $disc_total_str = number_format($discounts_rendered_total, 2);
+        $gross_sales_str = number_format($gross_sales, 2);
+
+        $cancelled_sales_str = number_format($cancelled_sales, 2);
+        $refunded_sales_str = number_format($refunded_sales, 2);
+
+        $vat_sales_str = number_format($vat_sales, 2);
+        $vat_amount_str = number_format($vat_amount, 2);
+        $vat_exempt_str = number_format($vat_exempt, 2);
+
+        // insert data
+        $data = array(
+                'pos_no' => $this->input->post('pos_no'),
+                'cashier_username' => $this->input->post('cashier_username'),
+                'trans_count_dine_in' => $this->input->post('trans_count_dine_in'),
+                'trans_count_take_out' => $this->input->post('trans_count_take_out'),
+                'trans_count_total' => $this->input->post('trans_count_total'),
+                'trans_count_cleared' => $this->input->post('trans_count_cleared'),
+                'trans_count_cancelled' => $this->input->post('trans_count_cancelled'),
+                'trans_count_refunded' => $this->input->post('trans_count_refunded'),
+                'void_items_count' => $this->input->post('void_items_count'),
+                'net_sales' => $this->input->post('net_sales'),
+                'discounts_rendered_sc' => $this->input->post('discounts_rendered_sc'),
+                'discounts_rendered_pwd' => $this->input->post('discounts_rendered_pwd'),
+                'discounts_rendered_promo' => $this->input->post('discounts_rendered_promo'),
+                'discounts_rendered_total' => $this->input->post('discounts_rendered_total'),
+                'gross_sales' => $this->input->post('gross_sales'),
+                'cancelled_sales' => $this->input->post('cancelled_sales'),
+                'refunded_sales' => $this->input->post('refunded_sales'),
+                'vat_sales' => $this->input->post('vat_sales'),
+                'vat_amount' => $this->input->post('vat_amount'),
+                'vat_exempt' => $this->input->post('vat_exempt'),
+                'start_rcpt_no' => $this->input->post('start_rcpt_no'),
+                'end_rcpt_no' => $this->input->post('end_rcpt_no')
+
+            );
+        $reading_no = $this->s_readings->save($data);
+
+
+        $this->print_readings('S-READING', $reading_no, $pos_no, $cashier_username, $trans_count_dine_in, $trans_count_take_out, $trans_count_total, $trans_count_cleared, $trans_count_cancelled, $trans_count_refunded, $void_items_count, $net_sales_str, $disc_sc_str, $disc_pwd_str, $disc_promo_str, $disc_total_str, $gross_sales_str, $cancelled_sales_str, $refunded_sales_str, $vat_sales_str, $vat_amount_str, $vat_exempt_str, $start_rcpt_no, $end_rcpt_no);
+
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function set_x_reading()
+    {
+        $pos_no = 1;
+        $cashier_username = $this->session->userdata('username');
+        $cashier_id = $this->session->userdata('user_id');
+        $today = date('Y-m-d');
+
+        // ------------------------- COUNTS -------------------------------------------------------------------------------
+        $trans_count_dine_in = $this->transactions->get_count_trans_today($today, 'DINE-IN');
+        $trans_count_take_out = $this->transactions->get_count_trans_today($today, 'TAKE-OUT');
+
+        $trans_count_total = ($trans_count_dine_in + $trans_count_take_out);
+
+        $trans_count_cleared = $this->transactions->get_count_trans_today_status($today, 'CLEARED');
+        $trans_count_cancelled = $this->transactions->get_count_trans_today_status($today, 'CANCELLED');
+        $trans_count_refunded = $this->transactions->get_count_trans_today_status($today, 'REFUNDED');
+
+        $void_items_count = 0;
+
+        // ------------------------- AMOUNT -------------------------------------------------------------------------------
+        $net_sales = $this->transactions->get_daily_net_sales($today);
+        $discounts_rendered_sc = $this->transactions->get_daily_discounts_rendered_type($today, 1);
+        $discounts_rendered_pwd = $this->transactions->get_daily_discounts_rendered_type($today, 2);
+        $discounts_rendered_promo = $this->transactions->get_daily_discounts_rendered_type($today, 0);
+
+        $discounts_rendered_total = ($discounts_rendered_sc + $discounts_rendered_pwd + $discounts_rendered_promo);
+        $gross_sales = $discounts_rendered_total + $net_sales;
+
+        $cancelled_sales = $this->transactions->get_daily_sales_by_status($today, 'CANCELLED');
+        $refunded_sales = $this->transactions->get_daily_sales_by_status($today, 'REFUNDED');
+
+        $vat_sales = 0;
+        $vat_amount = 0;
+        $vat_exempt = 0;
+
+
+        // ------------------------- RANGE --------------------------------------------------------------------------------
+        $start_rcpt_no = $this->transactions->get_start_rcpt($today, 0);
+        $end_rcpt_no = $this->transactions->get_end_rcpt($today, 0);
+
+
+        // ------------------- STRING CONVERSION --------------------------------------------------------------------------
+        $net_sales_str = number_format($net_sales, 2);
+        $disc_sc_str = number_format($discounts_rendered_sc, 2);
+        $disc_pwd_str = number_format($discounts_rendered_pwd, 2);
+        $disc_promo_str = number_format($discounts_rendered_promo, 2);
+        $disc_total_str = number_format($discounts_rendered_total, 2);
+        $gross_sales_str = number_format($gross_sales, 2);
+
+        $cancelled_sales_str = number_format($cancelled_sales, 2);
+        $refunded_sales_str = number_format($refunded_sales, 2);
+
+        $vat_sales_str = number_format($vat_sales, 2);
+        $vat_amount_str = number_format($vat_amount, 2);
+        $vat_exempt_str = number_format($vat_exempt, 2);
+
+        // insert data
+        $data = array(
+                'pos_no' => $this->input->post('pos_no'),
+                'cashier_username' => $this->input->post('cashier_username'),
+                'trans_count_dine_in' => $this->input->post('trans_count_dine_in'),
+                'trans_count_take_out' => $this->input->post('trans_count_take_out'),
+                'trans_count_total' => $this->input->post('trans_count_total'),
+                'trans_count_cleared' => $this->input->post('trans_count_cleared'),
+                'trans_count_cancelled' => $this->input->post('trans_count_cancelled'),
+                'trans_count_refunded' => $this->input->post('trans_count_refunded'),
+                'void_items_count' => $this->input->post('void_items_count'),
+                'net_sales' => $this->input->post('net_sales'),
+                'discounts_rendered_sc' => $this->input->post('discounts_rendered_sc'),
+                'discounts_rendered_pwd' => $this->input->post('discounts_rendered_pwd'),
+                'discounts_rendered_promo' => $this->input->post('discounts_rendered_promo'),
+                'discounts_rendered_total' => $this->input->post('discounts_rendered_total'),
+                'gross_sales' => $this->input->post('gross_sales'),
+                'cancelled_sales' => $this->input->post('cancelled_sales'),
+                'refunded_sales' => $this->input->post('refunded_sales'),
+                'vat_sales' => $this->input->post('vat_sales'),
+                'vat_amount' => $this->input->post('vat_amount'),
+                'vat_exempt' => $this->input->post('vat_exempt'),
+                'start_rcpt_no' => $this->input->post('start_rcpt_no'),
+                'end_rcpt_no' => $this->input->post('end_rcpt_no')
+
+            );
+        $reading_no = $this->x_readings->save($data);
+
+        $this->print_readings('X-READING', $reading_no, $pos_no, $cashier_username, $trans_count_dine_in, $trans_count_take_out, $trans_count_total, $trans_count_cleared, $trans_count_cancelled, $trans_count_refunded, $void_items_count, $net_sales_str, $disc_sc_str, $disc_pwd_str, $disc_promo_str, $disc_total_str, $gross_sales_str, $cancelled_sales_str, $refunded_sales_str, $vat_sales_str, $vat_amount_str, $vat_exempt_str, $start_rcpt_no, $end_rcpt_no);
+
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function print_readings($reading_type, $reading_no, $pos_no, $cashier_username, $trans_count_dine_in, $trans_count_take_out, $trans_count_total, $trans_count_cleared, $trans_count_cancelled, $trans_count_refunded, $void_items_count, $net_sales_str, $disc_sc_str, $disc_pwd_str, $disc_promo_str, $disc_total_str, $gross_sales_str, $cancelled_sales_str, $refunded_sales_str, $vat_sales_str, $vat_amount_str, $vat_exempt_str, $start_rcpt_no, $end_rcpt_no)
+    {
+
+        /* Open the printer; this will change depending on how it is connected */
+        $connector = new WindowsPrintConnector("epsontmu");
+        $printer = new Printer($connector);
+
+        // $logo = EscposImage::load("cafe.png", false);
 
         // ========================================= PRINTING SECTION ===========================================================
 
         // fetch config data
         $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
 
-
         /* Information for the receipt */
-        $branch_id = wordwrap($store->branch_id, 15, "\n");
-        $store_name = wordwrap($store->name, 15, "\n");
+        $branch_id = $store->branch_id;
+        $store_name = wordwrap($store->name . ' B#: ' . $branch_id, 25, "\n");
         $address = wordwrap($store->address, 25, "\n");
         $city = wordwrap($store->city, 25, "\n");
         $tin = wordwrap($store->tin, 25, "\n");
         $telephone = wordwrap('Tel#: ' . $store->telephone, 25, "\n");
         $mobile = wordwrap('Cel#: ' . $store->mobile, 25, "\n");
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
-        $vat = ($store->vat / 100);
-
-        $items = $line_items;
-        
-        $total_sales = ($gross_total / (1 + $vat));
-
-        $vat_amount = ($gross_total - $total_sales);
-
-        $amount_due = ($gross_total - $discount);
-
-
-        // string variables
-        $total_sales_str = new item('Total Sales', number_format($total_sales, 2));
-        $vat_str = new item('Vat', number_format($vat_amount, 2));
-
-        $discount_str = new item('Less: ' . $disc_type_name, "-" . number_format($discount, 2));
-
-        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));
-        $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
-        $change_amt_str = new item('CHANGE           Php', number_format($change_amt, 2));
-
-        
+        $today = date('Y-m-d');
 
         /* Start the printer */
         $printer = new Printer($connector);
@@ -329,9 +461,7 @@ class Dashboard_controller extends CI_Controller {
         // $printer -> graphics($logo);
 
         /* Name of shop */
-        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
         $printer -> text($store_name . "\n");
-        $printer -> selectPrintMode();
         $printer -> text($address . "\n");
         $printer -> text($city . "\n");
         $printer -> text($telephone . "\n");
@@ -339,58 +469,63 @@ class Dashboard_controller extends CI_Controller {
         $printer -> text($tin . "\n");
 
         $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
-        $printer -> text($table_str . "\n");
-        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
-
         /* Title of receipt */
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-        $printer -> text($order_type . "\n");
+        $printer -> text($reading_type . "\n");
         $printer -> selectPrintMode();
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
 
         $printer -> setJustification(Printer::JUSTIFY_LEFT);
-        $printer -> text(new item('Transaction#: ' . $trans_id, ''));
-        $printer -> text(new item('Receipt#: ' . $receipt_no, ''));
-        $printer -> text(new item('Staff: ' . $staff_username, ''));
+        $printer -> text(new item($reading_type . '#: ' . $reading_no, ''));
+        $printer -> text(new item('POS#: ' . $pos_no, ''));
         $printer -> text(new item('Cashier: ' . $cashier_username, ''));
+        $printer -> text(new item('Date: ' . $today, ''));
 
-        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("COUNT", 30, '=', STR_PAD_BOTH) . "\n");
 
+        $printer -> text(new item('TotalTrans: ', $trans_count_total));
+        $printer -> text(new item('DineIn: ', $trans_count_dine_in));
+        $printer -> text(new item('TakeOut: ', $trans_count_take_out));
+        $printer -> text(str_pad("", 35, '-', STR_PAD_BOTH) . "\n");
+        $printer -> text(new item('Cleared: ', $trans_count_cleared));
+        $printer -> text(new item('Cancelled: ', $trans_count_cancelled));
+        $printer -> text(new item('Refunded: ', $trans_count_refunded));
+        $printer -> text(str_pad("", 35, '-', STR_PAD_BOTH) . "\n");
+        $printer -> text(new item('VoidItems: ', $void_items_count));
+
+        $printer -> text(str_pad("VALUE", 30, '=', STR_PAD_BOTH) . "\n");
+        
         /* Items */
         $printer -> setEmphasis(true);
         $printer -> text(new item('', 'Php'));
         $printer -> setEmphasis(false);
-        foreach ($items as $item) {
-            $printer -> text($item);
-        }
 
-        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(new item('GrossSales: ', $gross_sales_str));
+        $printer -> text(str_pad("", 35, '-', STR_PAD_BOTH) . "\n");
+        $printer -> text(new item('DiscountSC: ', $disc_sc_str));
+        $printer -> text(new item('DiscountPWD: ', $disc_pwd_str));
+        $printer -> text(new item('DiscountPromo: ', $disc_promo_str));
+        $printer -> text(new item('DiscountTotal: ', $disc_total_str));
+        $printer -> text(str_pad("", 35, '-', STR_PAD_BOTH) . "\n");
+        $printer -> text(new item('Cancelled: ', $cancelled_sales_str));
+        $printer -> text(new item('Refunded: ', $refunded_sales_str));
 
-        $printer -> setEmphasis(true);
-        $printer -> text($total_sales_str);
-        /* Tax and total */
-        $printer -> text($vat_str);
-
-
-        if ($discount != 0) // print only if there is a discount (not zero)
-        {
-            $printer -> text($discount_str);
-        }
-
-        $printer -> setEmphasis(false);
+        $printer -> text(str_pad("", 35, '-', STR_PAD_BOTH) . "\n");
 
         $printer -> setEmphasis(true);
-        $printer -> text(new item('', '=========='));
-        
-        $printer -> text($amount_due_str);
-
-        // ------------------------------------------ PAYMENT RECEIPT PRINTS --------------------------------------------------
-
-        $printer -> text($cash_amt_str);
-        $printer -> text($change_amt_str);        
-
+        $printer -> text(new item('NetSales: ', $net_sales_str));
         $printer -> setEmphasis(false);
-        
-        // --------------------------------------------------------------------------------------------------------------------
+
+        $printer -> text(str_pad("VAT", 32, '=', STR_PAD_BOTH) . "\n");
+
+        $printer -> text(new item('VATSales: ', $vat_sales_str));
+        $printer -> text(new item('VATAmount: ', $vat_amount_str));
+        $printer -> text(new item('VATExcempt: ', $vat_exempt_str));
+
+        $printer -> text(str_pad("RECEIPT", 28, '=', STR_PAD_BOTH) . "\n");
+
+        $printer -> text(new item('StartRcpt: ', $start_rcpt_no));
+        $printer -> text(new item('EndRecpt: ', $end_rcpt_no));
 
         /* Footer */
         $printer -> feed();
@@ -398,13 +533,10 @@ class Dashboard_controller extends CI_Controller {
         $printer -> text($date . "\n");
 
         $printer -> feed();
-        $printer -> text("Innotech Solutions\n");
-        $printer -> text("Thank You Come Again\n");
         $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
-        $printer -> pulse();
 
         $printer -> close();
     }

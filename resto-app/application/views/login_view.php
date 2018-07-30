@@ -35,7 +35,7 @@
 			<div class="cls-brand">
 				<a class="box-inline" href="index.html">
 					<!-- <img alt="Nifty Admin" src="img/logo.png" class="brand-icon"> -->
-					<span class="brand-title">e-Lending | <span class="text-thin"> Lending Manager App</span></span>
+					<span class="brand-title">Resto App | <span class="text-thin"> POS</span></span>
 				</a>
 			</div>
 		</div>

@@ -441,8 +441,8 @@ Detailed information and more samples can be found in the document.
                     </ul> -->
                     <!-- Dropdown footer -->
                     <div class="pad-all text-right">
-                      <button type="button" class="btn btn-dark col-md-6" data-dismiss="modal"><i class="fa fa-print"></i> S-Reading</button>
-                        <button type="button" class="btn btn-success col-md-6" data-dismiss="modal"><i class="fa fa-print"></i> X-Reading</button>
+                      <button type="button" class="btn btn-dark col-md-6" onclick="print_s_reading()"><i class="fa fa-print"></i> S-Reading</button>
+                        <button type="button" class="btn btn-success col-md-6" onclick="print_x_reading()"><i class="fa fa-print"></i> X-Reading</button>
                     </div>
                     <br>
                     <div class="pad-all text-right">  

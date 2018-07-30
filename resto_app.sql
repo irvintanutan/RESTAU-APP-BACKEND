@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 29, 2018 at 11:44 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: localhost
+-- Generation Time: Jul 30, 2018 at 05:47 PM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -1039,7 +1037,9 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000911, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-27 20:51:46'),
 (1000912, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-29 22:33:24'),
 (1000913, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-29 22:33:45'),
-(1000914, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-07-29 22:34:59');
+(1000914, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-07-29 22:34:59'),
+(1000915, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-30 09:09:12'),
+(1000916, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-30 14:58:43');
 
 -- --------------------------------------------------------
 
@@ -1281,21 +1281,30 @@ INSERT INTO `store_config` (`conf_id`, `branch_id`, `name`, `address`, `city`, `
 --
 
 CREATE TABLE `s_readings` (
+  `reading_no` int(11) NOT NULL,
   `pos_no` int(11) NOT NULL,
-  `cashier` varchar(45) NOT NULL,
-  `trans_count` int(11) NOT NULL,
-  `gross_sales` decimal(10,2) NOT NULL,
-  `trans_cancel_count` int(11) NOT NULL,
-  `refund_count` int(11) NOT NULL,
-  `refund_sales` decimal(10,2) NOT NULL,
-  `total_sales` decimal(10,2) NOT NULL,
-  `total_discounts` decimal(10,2) NOT NULL,
+  `cashier_username` varchar(45) NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `trans_count_dine_in` int(11) NOT NULL,
+  `trans_count_take_out` int(11) NOT NULL,
+  `trans_count_total` int(11) NOT NULL,
+  `trans_count_cleared` int(11) NOT NULL,
+  `trans_count_cancelled` int(11) NOT NULL,
+  `trans_count_refunded` int(11) NOT NULL,
+  `void_items_count` int(11) NOT NULL,
   `net_sales` decimal(10,2) NOT NULL,
+  `discounts_rendered_sc` decimal(10,2) NOT NULL,
+  `discounts_rendered_pwd` decimal(10,2) NOT NULL,
+  `discounts_rendered_promo` decimal(10,2) NOT NULL,
+  `discounts_rendered_total` decimal(10,2) NOT NULL,
+  `gross_sales` decimal(10,2) NOT NULL,
+  `cancelled_sales` decimal(10,2) NOT NULL,
+  `refunded_sales` decimal(10,2) NOT NULL,
   `vat_sales` decimal(10,2) NOT NULL,
   `vat_amount` decimal(10,2) NOT NULL,
   `vat_exempt` decimal(10,2) NOT NULL,
-  `receipt_start_no` int(11) NOT NULL,
-  `receipt_end_no` int(11) NOT NULL,
+  `start_rcpt_no` int(11) NOT NULL,
+  `end_rcpt_no` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2159,21 +2168,30 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `lastname`, `firstname`,
 --
 
 CREATE TABLE `x_readings` (
+  `reading_no` int(11) NOT NULL,
   `pos_no` int(11) NOT NULL,
-  `cashier` varchar(45) NOT NULL,
-  `trans_count` int(11) NOT NULL,
-  `gross_sales` decimal(10,2) NOT NULL,
-  `trans_cancel_count` int(11) NOT NULL,
-  `refund_count` int(11) NOT NULL,
-  `refund_sales` decimal(10,2) NOT NULL,
-  `total_sales` decimal(10,2) NOT NULL,
-  `total_discounts` decimal(10,2) NOT NULL,
+  `cashier_username` varchar(45) NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `trans_count_dine_in` int(11) NOT NULL,
+  `trans_count_take_out` int(11) NOT NULL,
+  `trans_count_total` int(11) NOT NULL,
+  `trans_count_cleared` int(11) NOT NULL,
+  `trans_count_cancelled` int(11) NOT NULL,
+  `trans_count_refunded` int(11) NOT NULL,
+  `void_items_count` int(11) NOT NULL,
   `net_sales` decimal(10,2) NOT NULL,
+  `discounts_rendered_sc` decimal(10,2) NOT NULL,
+  `discounts_rendered_pwd` decimal(10,2) NOT NULL,
+  `discounts_rendered_promo` decimal(10,2) NOT NULL,
+  `discounts_rendered_total` decimal(10,2) NOT NULL,
+  `gross_sales` decimal(10,2) NOT NULL,
+  `cancelled_sales` decimal(10,2) NOT NULL,
+  `refunded_sales` decimal(10,2) NOT NULL,
   `vat_sales` decimal(10,2) NOT NULL,
   `vat_amount` decimal(10,2) NOT NULL,
   `vat_exempt` decimal(10,2) NOT NULL,
-  `receipt_start_no` int(11) NOT NULL,
-  `receipt_end_no` int(11) NOT NULL,
+  `start_rcpt_no` int(11) NOT NULL,
+  `end_rcpt_no` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2242,6 +2260,12 @@ ALTER TABLE `store_config`
   ADD PRIMARY KEY (`conf_id`);
 
 --
+-- Indexes for table `s_readings`
+--
+ALTER TABLE `s_readings`
+  ADD PRIMARY KEY (`reading_no`);
+
+--
 -- Indexes for table `tables`
 --
 ALTER TABLE `tables`
@@ -2266,6 +2290,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `x_readings`
+--
+ALTER TABLE `x_readings`
+  ADD PRIMARY KEY (`reading_no`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -2288,7 +2318,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000915;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000917;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2320,6 +2350,11 @@ ALTER TABLE `prod_discounts`
 ALTER TABLE `store_config`
   MODIFY `conf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `s_readings`
+--
+ALTER TABLE `s_readings`
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
@@ -2338,8 +2373,12 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;COMMIT;
-
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+--
+-- AUTO_INCREMENT for table `x_readings`
+--
+ALTER TABLE `x_readings`
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

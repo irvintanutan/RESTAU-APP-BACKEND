@@ -2090,6 +2090,68 @@ function toggle_pw_mask() // password mask/unmask toggle button
 }
 
 
+// ================================================================= READINGS SECTION =======================================
+
+
+function print_s_reading()
+{
+    bootbox.confirm("Print S-READING?", function(result){
+
+      if (result == true)
+      {
+        // ajax delete data to database
+        $.ajax({
+            url : "print-s-reading",
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Report';
+
+                var details = 'S-Reading printed successfully'; 
+
+                set_system_log(log_type, details);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Go to Dashboard to proceed');
+            }
+        });
+      }
+
+    });
+}
+
+function print_x_reading()
+{
+    bootbox.confirm("Print X-READING?", function(result){
+
+      if (result == true)
+      {
+        // ajax delete data to database
+        $.ajax({
+            url : "print-x-reading",
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Report';
+
+                var details = 'X-Reading printed successfully'; 
+
+                set_system_log(log_type, details);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Go to Dashboard to proceed');
+            }
+        });
+      }
+
+    });
+}
+
+
 
 // ================================================================== VIEW IMAGE SECTION ==========================================
 

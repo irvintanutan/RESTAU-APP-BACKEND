@@ -168,7 +168,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get shift net sales
@@ -191,7 +191,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get daily net sales
@@ -210,11 +210,11 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->discount;
+        return $query->row()->discount + 0;
     }
 
     // get daily net sales by discount type
-    public function get_daily_discounts_rendered_type($date, $disc_id)
+    public function get_daily_discounts_rendered_type($date, $disc_type)
     {
         $this->db->select('SUM(discount) AS discount');    
         
@@ -225,14 +225,14 @@ class Transactions_model extends CI_Model {
 
         $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
 
-        if ($disc_id != 0)
+        if ($disc_type != 0)
         {
-            $this->db->where('disc_id', $disc_id); // can be SC or PWD
+            $this->db->where('disc_type', $disc_type); // can be SC or PWD
         }
         else
         {
-            $this->db->where('disc_id !=', 1); // not equal to SC
-            $this->db->where('disc_id !=', 2); // not equal to PWD
+            $this->db->where('disc_type !=', 1); // not equal to SC
+            $this->db->where('disc_type !=', 2); // not equal to PWD
         }
 
         $this->db->where('datetime >=', $date_from);
@@ -240,11 +240,11 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->discount;
+        return $query->row()->discount + 0;
     }
 
     // get daily net sales
-    public function get_daily_discounts_rendered_shift($date, $cashier_id, $disc_id)
+    public function get_daily_discounts_rendered_shift($date, $cashier_id, $disc_type)
     {
         $this->db->select('SUM(discount) AS discount');    
         
@@ -256,14 +256,14 @@ class Transactions_model extends CI_Model {
         $this->db->where('status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
         $this->db->where('cashier_id', $cashier_id);
 
-        if ($disc_id != 0)
+        if ($disc_type != 0)
         {
-            $this->db->where('disc_id', $disc_id); // can be SC or PWD
+            $this->db->where('disc_type', $disc_type); // can be SC or PWD
         }
         else
         {
-            $this->db->where('disc_id !=', 1); // not equal to SC
-            $this->db->where('disc_id !=', 2); // not equal to PWD
+            $this->db->where('disc_type !=', 1); // not equal to SC
+            $this->db->where('disc_type !=', 2); // not equal to PWD
         }
 
         $this->db->where('datetime >=', $date_from);
@@ -271,7 +271,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->discount;
+        return $query->row()->discount + 0;
     }
 
      // get daily net sales by status
@@ -291,7 +291,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get daily net sales
@@ -312,7 +312,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get daily transaction count based on order type
@@ -413,7 +413,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->receipt_no;
+        return $query->row()->receipt_no + 0;
     }
 
     // get current shift end receipt
@@ -426,13 +426,17 @@ class Transactions_model extends CI_Model {
         $date_from = $date . ' 00:00:00'; // get date today to filter
         $date_to = $date . ' 23:59:59';
 
-        $this->db->where('cashier_id', $cashier_id);
+        if ($cashier_id != 0) // if zero, consider as x reading (daily)
+        {
+            $this->db->where('cashier_id', $cashier_id);    
+        }
+
         $this->db->where('datetime >=', $date_from);
         $this->db->where('datetime <=', $date_to);
         
         $query = $this->db->get();
 
-        return $query->row()->receipt_no;
+        return $query->row()->receipt_no + 0;
     }
  
     function count_filtered($trans_status)

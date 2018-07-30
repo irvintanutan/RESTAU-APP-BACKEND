@@ -305,34 +305,35 @@ class Dashboard_controller extends CI_Controller {
 
         // insert data
         $data = array(
-                'pos_no' => $this->input->post('pos_no'),
-                'cashier_username' => $this->input->post('cashier_username'),
-                'trans_count_dine_in' => $this->input->post('trans_count_dine_in'),
-                'trans_count_take_out' => $this->input->post('trans_count_take_out'),
-                'trans_count_total' => $this->input->post('trans_count_total'),
-                'trans_count_cleared' => $this->input->post('trans_count_cleared'),
-                'trans_count_cancelled' => $this->input->post('trans_count_cancelled'),
-                'trans_count_refunded' => $this->input->post('trans_count_refunded'),
-                'void_items_count' => $this->input->post('void_items_count'),
-                'net_sales' => $this->input->post('net_sales'),
-                'discounts_rendered_sc' => $this->input->post('discounts_rendered_sc'),
-                'discounts_rendered_pwd' => $this->input->post('discounts_rendered_pwd'),
-                'discounts_rendered_promo' => $this->input->post('discounts_rendered_promo'),
-                'discounts_rendered_total' => $this->input->post('discounts_rendered_total'),
-                'gross_sales' => $this->input->post('gross_sales'),
-                'cancelled_sales' => $this->input->post('cancelled_sales'),
-                'refunded_sales' => $this->input->post('refunded_sales'),
-                'vat_sales' => $this->input->post('vat_sales'),
-                'vat_amount' => $this->input->post('vat_amount'),
-                'vat_exempt' => $this->input->post('vat_exempt'),
-                'start_rcpt_no' => $this->input->post('start_rcpt_no'),
-                'end_rcpt_no' => $this->input->post('end_rcpt_no')
+                'pos_no' => $pos_no,
+                'cashier_username' => $cashier_username,
+                'date' => $today,
+                'trans_count_dine_in' => $trans_count_dine_in,
+                'trans_count_take_out' => $trans_count_take_out,
+                'trans_count_total' => $trans_count_total,
+                'trans_count_cleared' => $trans_count_cleared,
+                'trans_count_cancelled' => $trans_count_cancelled,
+                'trans_count_refunded' => $trans_count_refunded,
+                'void_items_count' => $void_items_count,
+                'net_sales' => $net_sales,
+                'discounts_rendered_sc' => $discounts_rendered_sc,
+                'discounts_rendered_pwd' => $discounts_rendered_pwd,
+                'discounts_rendered_promo' => $discounts_rendered_promo,
+                'discounts_rendered_total' => $discounts_rendered_total,
+                'gross_sales' => $gross_sales,
+                'cancelled_sales' => $cancelled_sales,
+                'refunded_sales' => $refunded_sales,
+                'vat_sales' => $vat_sales,
+                'vat_amount' => $vat_amount,
+                'vat_exempt' => $vat_exempt,
+                'start_rcpt_no' => $start_rcpt_no,
+                'end_rcpt_no' => $end_rcpt_no
 
             );
         $reading_no = $this->s_readings->save($data);
 
 
-        $this->print_readings('S-READING', $reading_no, $pos_no, $cashier_username, $trans_count_dine_in, $trans_count_take_out, $trans_count_total, $trans_count_cleared, $trans_count_cancelled, $trans_count_refunded, $void_items_count, $net_sales_str, $disc_sc_str, $disc_pwd_str, $disc_promo_str, $disc_total_str, $gross_sales_str, $cancelled_sales_str, $refunded_sales_str, $vat_sales_str, $vat_amount_str, $vat_exempt_str, $start_rcpt_no, $end_rcpt_no);
+        //$this->print_readings('S-READING', $reading_no, $pos_no, $cashier_username, $trans_count_dine_in, $trans_count_take_out, $trans_count_total, $trans_count_cleared, $trans_count_cancelled, $trans_count_refunded, $void_items_count, $net_sales_str, $disc_sc_str, $disc_pwd_str, $disc_promo_str, $disc_total_str, $gross_sales_str, $cancelled_sales_str, $refunded_sales_str, $vat_sales_str, $vat_amount_str, $vat_exempt_str, $start_rcpt_no, $end_rcpt_no);
 
         echo json_encode(array("status" => TRUE));
     }
@@ -395,28 +396,29 @@ class Dashboard_controller extends CI_Controller {
 
         // insert data
         $data = array(
-                'pos_no' => $this->input->post('pos_no'),
-                'cashier_username' => $this->input->post('cashier_username'),
-                'trans_count_dine_in' => $this->input->post('trans_count_dine_in'),
-                'trans_count_take_out' => $this->input->post('trans_count_take_out'),
-                'trans_count_total' => $this->input->post('trans_count_total'),
-                'trans_count_cleared' => $this->input->post('trans_count_cleared'),
-                'trans_count_cancelled' => $this->input->post('trans_count_cancelled'),
-                'trans_count_refunded' => $this->input->post('trans_count_refunded'),
-                'void_items_count' => $this->input->post('void_items_count'),
-                'net_sales' => $this->input->post('net_sales'),
-                'discounts_rendered_sc' => $this->input->post('discounts_rendered_sc'),
-                'discounts_rendered_pwd' => $this->input->post('discounts_rendered_pwd'),
-                'discounts_rendered_promo' => $this->input->post('discounts_rendered_promo'),
-                'discounts_rendered_total' => $this->input->post('discounts_rendered_total'),
-                'gross_sales' => $this->input->post('gross_sales'),
-                'cancelled_sales' => $this->input->post('cancelled_sales'),
-                'refunded_sales' => $this->input->post('refunded_sales'),
-                'vat_sales' => $this->input->post('vat_sales'),
-                'vat_amount' => $this->input->post('vat_amount'),
-                'vat_exempt' => $this->input->post('vat_exempt'),
-                'start_rcpt_no' => $this->input->post('start_rcpt_no'),
-                'end_rcpt_no' => $this->input->post('end_rcpt_no')
+                'pos_no' => $pos_no,
+                'cashier_username' => $cashier_username,
+                'date' => $today,
+                'trans_count_dine_in' => $trans_count_dine_in,
+                'trans_count_take_out' => $trans_count_take_out,
+                'trans_count_total' => $trans_count_total,
+                'trans_count_cleared' => $trans_count_cleared,
+                'trans_count_cancelled' => $trans_count_cancelled,
+                'trans_count_refunded' => $trans_count_refunded,
+                'void_items_count' => $void_items_count,
+                'net_sales' => $net_sales,
+                'discounts_rendered_sc' => $discounts_rendered_sc,
+                'discounts_rendered_pwd' => $discounts_rendered_pwd,
+                'discounts_rendered_promo' => $discounts_rendered_promo,
+                'discounts_rendered_total' => $discounts_rendered_total,
+                'gross_sales' => $gross_sales,
+                'cancelled_sales' => $cancelled_sales,
+                'refunded_sales' => $refunded_sales,
+                'vat_sales' => $vat_sales,
+                'vat_amount' => $vat_amount,
+                'vat_exempt' => $vat_exempt,
+                'start_rcpt_no' => $start_rcpt_no,
+                'end_rcpt_no' => $end_rcpt_no
 
             );
         $reading_no = $this->x_readings->save($data);
@@ -539,5 +541,34 @@ class Dashboard_controller extends CI_Controller {
         $printer -> cut();
 
         $printer -> close();
+    }
+}
+
+/* A wrapper to do organise item names & prices into columns */
+class item
+{
+    private $name;
+    private $price;
+    private $dollarSign;
+
+    public function __construct($name = '', $price = '', $dollarSign = false)
+    {
+        $this -> name = $name;
+        $this -> price = $price;
+        $this -> dollarSign = $dollarSign;
+    }
+
+    public function __toString()
+    {
+        $rightCols = 10;
+        $leftCols = 25;
+        if ($this -> dollarSign) {
+            $leftCols = $leftCols / 2 - $rightCols / 2;
+        }
+        $left = str_pad($this -> name, $leftCols) ;
+
+        $sign = ($this -> dollarSign ? 'Php ' : '');
+        $right = str_pad($sign . $this -> price, $rightCols, ' ', STR_PAD_LEFT);
+        return "$left$right\n";
     }
 }

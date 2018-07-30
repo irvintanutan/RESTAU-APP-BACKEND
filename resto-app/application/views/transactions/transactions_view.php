@@ -71,7 +71,6 @@
                             ?>
                             <div class="col-md-12">
                                 <button class="btn btn-dark col-md-2" onclick="reprint_last_trans_receipt()"><i class="fa fa-print"></i> &nbsp;REPRINT LAST RECEIPT</button>
-                                <button class="btn btn-warning col-md-2" onclick="set_refund_transaction()"><i class="fa fa-reply"></i> &nbsp;REFUND TRANSACTION</button>
                             </div>
                             <?php
                                 }
@@ -80,7 +79,10 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i><i style = "color: #cccccc;" class="fa fa-square"></i> - Dine-In &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i><i style = "color: #ffff99;" class="fa fa-square"></i> - Take-Out &nbsp; ]</span>
+                    <div class="col-md-8">
+                        <span>Legend: [ &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i><i style = "color: #cccccc;" class="fa fa-square"></i> - Dine-In &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i><i style = "color: #ffff99;" class="fa fa-square"></i> - Take-Out &nbsp; ]</span>
+                    </div>
+                    <button class="control-label col-md-4 btn btn-mint" onclick="set_dashboard_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate Daily PDF Report</button>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

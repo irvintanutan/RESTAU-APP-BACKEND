@@ -92,6 +92,17 @@ class Transactions_model extends CI_Model {
         return $query->result();
     }
 
+    function get_all_trans_by_status($status)
+    {        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+        $this->db->order_by("trans_id", "desc");
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function get_trans_status($trans_id)
     {
         $this->db->select('status');
@@ -127,6 +138,20 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
         return $query->row();
+    }
+
+    // get monthly net sales specified by month and year
+    public function get_total_net_sales_by_status($status)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total;
     }
 
     // get monthly net sales specified by month and year
@@ -192,6 +217,19 @@ class Transactions_model extends CI_Model {
         $query = $this->db->get();
 
         return $query->row()->total + 0;
+    }
+
+    public function get_total_discounts_rendered_by_status($status)
+    {
+        $this->db->select('SUM(discount) AS discount');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+        
+        $query = $this->db->get();
+
+        return $query->row()->discount + 0;
     }
 
     // get daily net sales
@@ -313,6 +351,21 @@ class Transactions_model extends CI_Model {
         $query = $this->db->get();
 
         return $query->row()->total + 0;
+    }
+
+    // get daily transaction count based on order type
+    public function get_count_trans_total($status, $order_type)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('order_type', $order_type);
+        $this->db->where('status', $status);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count;
     }
 
     // get daily transaction count based on order type

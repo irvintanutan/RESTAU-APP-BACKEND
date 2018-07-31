@@ -4446,6 +4446,17 @@ function set_dashboard_pdf()
     set_system_log(log_type, details);
 }
 
+function set_transactions_pdf(status)
+{
+    // setting report logs
+    var log_type = 'Report';
+
+    var details = 'Transactions Report Generated'; 
+    window.open("transactions-report/" + status);
+
+    set_system_log(log_type, details);
+}
+
 function set_products_pdf()
 {
     // setting report logs
@@ -4472,6 +4483,155 @@ function set_packages_pdf()
 // ========================================== STATISTICS CHARTS =====================================================
 
 
+// ------------------------------------ PIE CHARTS ------------------------------------------------------------------
+
+// check if div exist (execute if in dashboard page only)
+if (document.getElementById("container-products-category")) 
+{
+    var children_count = parseInt($('[name="children_count"]').val()); // active only
+
+    var children_active_male = parseInt($('[name="children_active_male"]').val());
+    var children_active_female = parseInt($('[name="children_active_female"]').val());
+
+    var children_graduated_male = parseInt($('[name="children_graduated_male"]').val());
+    var children_graduated_female = parseInt($('[name="children_graduated_female"]').val());
+
+    var graduated_count = (children_graduated_male + children_graduated_female);
+    var total_children_count = (children_count + graduated_count);
+
+    var percent_active = parseInt((children_count / total_children_count) * 100);
+    var percent_graduated = parseInt((graduated_count / total_children_count) * 100);
+
+    var colors = Highcharts.getOptions().colors,
+
+        categories = ['Active', 'Graduated'],
+
+        data = [{
+            y: percent_active,
+            color: colors[0],
+            drilldown: {
+                name: 'Active genders',
+                categories: ['Male - ' + children_active_male, 'Female - ' + children_active_female],
+                data: [parseInt((children_active_male / total_children_count) * 100), parseInt((children_active_female / total_children_count) * 100)],
+                color: colors[0]
+            }
+        }, {
+            y: percent_graduated,
+            color: colors[1],
+            drilldown: {
+                name: 'Graduated genders',
+                categories: ['Male - ' + children_graduated_male, 'Female - ' + children_graduated_female],
+                data: [parseInt((children_graduated_male / total_children_count) * 100), parseInt((children_graduated_female / total_children_count) * 100)],
+                color: colors[1]
+            }
+        }],
+
+        child_count_data = [],
+        gender_count_data = [],
+        i,
+        j,
+        dataLen = data.length,
+        drillDataLen,
+        brightness;
+
+
+    // Build the data arrays
+    for (i = 0; i < dataLen; i += 1) {
+
+        // add browser data
+        child_count_data.push({
+            name: categories[i],
+            y: data[i].y,
+            color: data[i].color
+        });
+
+        // add version data
+        drillDataLen = data[i].drilldown.data.length;
+        for (j = 0; j < drillDataLen; j += 1) {
+            brightness = 0.2 - (j / drillDataLen) / 5;
+            gender_count_data.push({
+                name: data[i].drilldown.categories[j],
+                y: data[i].drilldown.data[j],
+                color: Highcharts.Color(data[i].color).brighten(brightness).get()
+            });
+        }
+    }
+
+    // Create the chart
+    Highcharts.chart('container-gender', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Total Children Count: ' + total_children_count
+        },
+        subtitle: {
+            text: 'Active: ' + (children_active_male + children_active_female) 
+            + ' MA: ' + parseInt((children_active_male / children_count) * 100) + '%'
+            + ' FA: ' + parseInt((children_active_female / children_count) * 100) + '%'
+            + ' | ' 
+            + 'Graduated: ' + (children_graduated_male + children_graduated_female)
+            + ' MG: ' + parseInt((children_graduated_male / graduated_count) * 100) + '%'
+            + ' FG: ' + parseInt((children_graduated_female / graduated_count) * 100) + '%'
+        },
+        yAxis: {
+            title: {
+                text: 'Total children count'
+            }
+        },
+        plotOptions: {
+            pie: {
+                shadow: false,
+                center: ['50%', '50%']
+            }
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        series: [{
+            name: 'Children',
+            data: child_count_data,
+            size: '60%',
+            dataLabels: {
+                formatter: function () {
+                    return this.y > 5 ? this.point.name : null;
+                },
+                color: '#ffffff',
+                distance: -30
+            }
+        }, {
+            name: 'Gender',
+            data: gender_count_data,
+            size: '80%',
+            innerSize: '60%',
+            dataLabels: {
+                formatter: function () {
+                    // display only if larger than 1
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' +
+                        this.y + '%' : null;
+                }
+            },
+            id: 'gender'
+        }],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 400
+                },
+                chartOptions: {
+                    series: [{
+                        id: 'gender',
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }]
+                }
+            }]
+        }
+    });
+}
+
+// ------------------------------------ LINE CHARTS -----------------------------------------------------------------
 
 // check if div exist (execute if in dashboard page only) // chart for registration count
 if (document.getElementById("container-current-net-sales")) 

@@ -33,13 +33,13 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor($user_fullname);
-$pdf->SetTitle($title);
-$pdf->SetSubject('Packages Report');
-$pdf->SetKeywords('dashboard');
+$pdf->SetTitle($title . ' - ' . $status);
+$pdf->SetSubject('Transactions Report');
+$pdf->SetKeywords('transactions');
 
 
 // set default header data
-$pdf->SetHeaderData('../../assets/img/' . $logo_img, 35, $title, $comp_name . "\r\n" . 'Prepared by: ' . $user_fullname . "\r\n" . 'Date: ' . $current_date . "\r\n" . 'Time: ' . $current_time . "\r\n");
+$pdf->SetHeaderData('../../assets/img/' . $logo_img, 35, $title . ' ( ' . $current_date . " )", $comp_name . "\r\n" . 'Prepared by: ' . $user_fullname . "\r\n" . 'Date: ' . $current_date . "\r\n" . 'Time: ' . $current_time . "\r\n");
 
 
 
@@ -81,10 +81,10 @@ $pdf->AddPage();
 // $pdf->Cell(120, 20, '', 0, false, 'L', 0, '', 0, false, 'T', 'M');
 
 $text = '<h3 align="center">Report Summary</h3>
-<p align="left">1. Total Packages: <b color="#006600">' . $total_packages . '</b>
-<p align="left">2. Total Packages Sold: <b color="#006600">' . $total_packages_sold . '</b>
-<p align="left">3. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b>
-<p align="left">4. Total Package Sales: <b color="#006600">' . $total_menu_sales . '</b>
+<p align="left">1. Total Net Sales: <b color="#006600">' . $total_net_sales_str . ' </b></p>
+<p align="left">2. Total Transactions: <b color="#006600">' . $total_trans_count . ' </b> | Dine-In [ ' . $dine_in_total . ' ] | Take-Out [ ' . $take_out_total . ' ] </p>
+<p align="left">3. Total Menu Items Sold: <b color="#006600">' . $total_menu_items_sold . ' </b> | Individual Products [ ' . $individual_products_sold . ' ] | Packages [ ' . $packages_sold . ' ] </p>
+<p align="left">4. Total Discounts Rendered: <b color="#006600">' . $discounts_rendered_total_str . ' </b> | ' . $discounts_gross_percentage_str . '</p>
 <hr>'
 ;
 $pdf->writeHTML($text, true, 0, true, 0);
@@ -137,9 +137,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 // $pdf->writeHTML($text, true, 0, true, 0);
 
 // print colored table
-// set font
-$pdf->SetFont('helvetica', '', 8);
-$pdf->ColoredTable_packages($header, $data);
+$pdf->ColoredTable_transactions($header, $data);
 
 
 
@@ -166,7 +164,7 @@ $pdf->ColoredTable_packages($header, $data);
 // ---------------------------------------------------------
 
 // close and output PDF document
-$pdf->Output('packages.pdf', 'I');
+$pdf->Output('transactions' . $status . '.pdf', 'I');
 
 //============================================================+
 // END OF FILE

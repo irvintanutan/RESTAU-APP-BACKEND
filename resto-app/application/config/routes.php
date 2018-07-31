@@ -384,6 +384,8 @@ $route['products-report'] = 'Pdf_reports/Pdf_products_report_controller/index';
 
 $route['packages-report'] = 'Pdf_reports/Pdf_packages_report_controller/index';
 
+$route['transactions-report/(:any)'] = 'Pdf_reports/Pdf_transactions_report_controller/index/$1';
+
 
 //************************************** HVI ROUTES
 //**************************************

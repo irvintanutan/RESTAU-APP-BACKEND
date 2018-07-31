@@ -11,6 +11,8 @@ class Statistics_controller extends CI_Controller {
         $this->load->model('Products/Products_model','products');
         $this->load->model('Packages/Packages_model','packages');
         $this->load->model('Pack_details/Pack_details_model','pack_details');
+        $this->load->model('Categories/Categories_model','categories');
+
         $this->load->model('Tables/Tables_model','tables');
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
@@ -25,6 +27,35 @@ class Statistics_controller extends CI_Controller {
         {
             redirect('error500');
         }
+
+        // ========================= FOR CATEGORY PRODUCTS CHART ==================================================
+
+        $categories = $this->cetegories->get_categories();
+
+        $cat_array = array();
+
+        $row = array();
+        $row[] = 0;
+        $row[] = 'Packages';
+
+        $cat_prod_count = $this->packages->count_all();
+        $row[] = $cat_prod_count;
+
+        $cat_array[] = $row
+
+        foreach ($categories as $packages) {
+            
+            $row = array();
+            $row[] = $categories->cat_id;
+            $row[] = $categories->name;
+
+            $cat_prod_count = $this->products->get_cat_prod_count($cat_id);
+            $row[] = $cat_prod_count;
+
+            $cat_array[] = $row;
+        }
+
+        $data['cat_array'] = $cat_array;
 
 
 

@@ -164,7 +164,7 @@ $pdf->ColoredTable_dashboard($header, $data);
 // ---------------------------------------------------------
 
 // close and output PDF document
-$pdf->Output('cis.pdf', 'I');
+$pdf->Output('dashboard.pdf', 'I');
 
 //============================================================+
 // END OF FILE

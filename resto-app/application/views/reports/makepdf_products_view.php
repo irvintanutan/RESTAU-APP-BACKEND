@@ -165,7 +165,7 @@ $pdf->ColoredTable_products($header, $data);
 // ---------------------------------------------------------
 
 // close and output PDF document
-$pdf->Output('cis.pdf', 'I');
+$pdf->Output('products.pdf', 'I');
 
 //============================================================+
 // END OF FILE

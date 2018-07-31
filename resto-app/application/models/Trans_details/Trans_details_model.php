@@ -251,6 +251,23 @@ class Trans_details_model extends CI_Model {
         $row = $query->row();
         return $row->sold; 
     }
+
+    public function count_all_sold_status_by_prod_type($prod_type, $status) // count all times qty of product/packages
+    {
+        $this->db->from($this->table);
+
+        $this->db->select('SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
+        $this->db->where('transactions.status', $status);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+        return $row->sold; 
+    }
  
     // public function get_by_id($trans_id, $prod_id)
     // {

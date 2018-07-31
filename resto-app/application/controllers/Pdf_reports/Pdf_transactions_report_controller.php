@@ -13,6 +13,8 @@ class Pdf_transactions_report_controller extends CI_Controller {
 	  $this->load->model('Trans_details/Trans_details_model','trans_details');
 
 	  $this->load->model('Transactions/Transactions_model','transactions');
+
+	  $this->load->model('Users/Users_model','users');
 	}
 
 	public function index($status)
@@ -96,7 +98,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		$data['user_fullname'] = $this->session->userdata('firstname') .' '. $this->session->userdata('lastname');
 
 		// column titles
-		$data['header'] = array('TransID', 'DateTime', 'O.Type', 'S.Gross', 'S.Discount', 'TotalDue', 'P.Method', 'Staff');
+		$data['header'] = array('TransID', 'DateTime', 'O.Type', 'S.Gross', 'S.Discount', 'TotalDue', 'P.Method', 'Staff', 'Receipt#');
 
 
 		$data['status'] = $status;
@@ -128,7 +130,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row = array();
 
 		    $row[] = 'S' . $transactions->trans_id;
-		    $row[] = $transactions->datetime;
+		    $row[] = substr($transactions->datetime,0,10);
 
 		    $row[] = $transactions->order_type;
 
@@ -144,6 +146,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row[] = $transactions->method;
 
 		    $row[] = $this->users->get_username($transactions->user_id);
+		    $row[] = $transactions->receipt_no;
 
 		    // $row[] = $transactions->status;
 

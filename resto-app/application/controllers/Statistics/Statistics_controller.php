@@ -30,27 +30,31 @@ class Statistics_controller extends CI_Controller {
 
         // ========================= FOR CATEGORY PRODUCTS CHART ==================================================
 
-        $categories = $this->cetegories->get_categories();
+        $cat_list = $this->categories->get_categories();
 
         $cat_array = array();
 
         $row = array();
-        $row[] = 0;
-        $row[] = 'Packages';
+        $row['cat_id'] = 0;
+        $row['name'] = 'Packages';
 
         $cat_prod_count = $this->packages->count_all();
-        $row[] = $cat_prod_count;
+        $row['cat_prod_count'] = $cat_prod_count;
+        $cat_prod_sales = $this->trans_details->get_sales_pack();
+        $row['cat_prod_sales'] = $cat_prod_sales;
 
-        $cat_array[] = $row
+        $cat_array[] = $row;
 
-        foreach ($categories as $packages) {
+        foreach ($cat_list as $categories) {
             
             $row = array();
-            $row[] = $categories->cat_id;
-            $row[] = $categories->name;
+            $row['cat_id'] = $categories->cat_id;
+            $row['name'] = $categories->name;
 
-            $cat_prod_count = $this->products->get_cat_prod_count($cat_id);
-            $row[] = $cat_prod_count;
+            $cat_prod_count = $this->products->get_cat_prod_count($categories->cat_id);
+            $row['cat_prod_count'] = $cat_prod_count;
+            $cat_prod_sales = $this->trans_details->get_sales_by_cat($categories->cat_id);
+            $row['cat_prod_sales'] = $cat_prod_sales;
 
             $cat_array[] = $row;
         }

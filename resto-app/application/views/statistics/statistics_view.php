@@ -37,15 +37,24 @@
                         <div id="page-content" class="panel panel-light panel-colorful col-md-12">
                         
                             <div class="panel-heading">
-                                <h3 class="panel-title">Product Categories</h3>
+                                <h3 class="panel-title">Product Categories Sales</h3>
                             </div>
                             <br>
 
+                            <div id="container-products-category" style="width: 80%; height: 100%; margin: 0 auto"></div>
+
                             <?php
-                                foreach ()
+                                $cat_index = -1; // initialize index to use
+
+                                foreach ($cat_array as $categories)
                                 {
-                                    echo '<input type="hidden" value="' . $ . '" name="' . $ . '"/>'
+                                    $cat_index++;
+
+                                    echo '<input type="hidden" value="' . $categories['name'] . '" name="cat_name' . $cat_index . '"/>';
+                                    echo '<input type="hidden" value="' . $categories['cat_prod_count'] . '" name="cat_prod_count' . $cat_index . '"/>';
+                                    echo '<input type="hidden" value="' . $categories['cat_prod_sales'] . '" name="cat_prod_sales' . $cat_index . '"/>';
                                 }
+                                echo '<input type="hidden" value="' . $cat_index . '" name="cat_index"/>'; // send index value to use
                             ?>
 
                             

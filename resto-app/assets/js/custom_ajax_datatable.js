@@ -4488,146 +4488,91 @@ function set_packages_pdf()
 // check if div exist (execute if in dashboard page only)
 if (document.getElementById("container-products-category")) 
 {
-    var children_count = parseInt($('[name="children_count"]').val()); // active only
+    var cat_index = parseInt($('[name="cat_index"]').val());
+    
+    var cat_name = new Array();
+    var cat_prod_count = new Array();
+    var cat_prod_sales = new Array();
 
-    var children_active_male = parseInt($('[name="children_active_male"]').val());
-    var children_active_female = parseInt($('[name="children_active_female"]').val());
+    var chart_data = new Array();
 
-    var children_graduated_male = parseInt($('[name="children_graduated_male"]').val());
-    var children_graduated_female = parseInt($('[name="children_graduated_female"]').val());
+    var cat_total_sales = 0;
 
-    var graduated_count = (children_graduated_male + children_graduated_female);
-    var total_children_count = (children_count + graduated_count);
+    for (i = 0; i <= cat_index; i++) { 
+        cat_name[i] = $('[name="cat_name' + i + '"]').val();
+        cat_prod_count[i] = parseInt($('[name="cat_prod_count' + i + '"]').val());
+        cat_prod_sales[i] = parseFloat($('[name="cat_prod_sales' + i + '"]').val());
+        // alert(cat_name[i] + ':' + cat_prod_count[i] + ':Php' + cat_prod_sales[i]);
 
-    var percent_active = parseInt((children_count / total_children_count) * 100);
-    var percent_graduated = parseInt((graduated_count / total_children_count) * 100);
+        cat_total_sales += cat_prod_sales[i];
 
-    var colors = Highcharts.getOptions().colors,
+        var row_chart_data = new Object();
 
-        categories = ['Active', 'Graduated'],
-
-        data = [{
-            y: percent_active,
-            color: colors[0],
-            drilldown: {
-                name: 'Active genders',
-                categories: ['Male - ' + children_active_male, 'Female - ' + children_active_female],
-                data: [parseInt((children_active_male / total_children_count) * 100), parseInt((children_active_female / total_children_count) * 100)],
-                color: colors[0]
-            }
-        }, {
-            y: percent_graduated,
-            color: colors[1],
-            drilldown: {
-                name: 'Graduated genders',
-                categories: ['Male - ' + children_graduated_male, 'Female - ' + children_graduated_female],
-                data: [parseInt((children_graduated_male / total_children_count) * 100), parseInt((children_graduated_female / total_children_count) * 100)],
-                color: colors[1]
-            }
-        }],
-
-        child_count_data = [],
-        gender_count_data = [],
-        i,
-        j,
-        dataLen = data.length,
-        drillDataLen,
-        brightness;
-
-
-    // Build the data arrays
-    for (i = 0; i < dataLen; i += 1) {
-
-        // add browser data
-        child_count_data.push({
-            name: categories[i],
-            y: data[i].y,
-            color: data[i].color
-        });
-
-        // add version data
-        drillDataLen = data[i].drilldown.data.length;
-        for (j = 0; j < drillDataLen; j += 1) {
-            brightness = 0.2 - (j / drillDataLen) / 5;
-            gender_count_data.push({
-                name: data[i].drilldown.categories[j],
-                y: data[i].drilldown.data[j],
-                color: Highcharts.Color(data[i].color).brighten(brightness).get()
-            });
+        row_chart_data['name'] = cat_name[i];
+        row_chart_data['y'] = cat_prod_sales[i];
+        if (i == 0)
+        {
+          row_chart_data['sliced'] = true;
+          row_chart_data['selected'] = true;  
         }
+        chart_data[i] = row_chart_data;
     }
+    console.log(chart_data);
+    // var percent_active = parseInt((children_count / total_children_count) * 100);
+    // var percent_graduated = parseInt((graduated_count / total_children_count) * 100);
+
+    // var colors = Highcharts.getOptions().colors,
 
     // Create the chart
-    Highcharts.chart('container-gender', {
+    Highcharts.chart('container-products-category', {
         chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
             type: 'pie'
         },
         title: {
-            text: 'Total Children Count: ' + total_children_count
+            text: 'Browser market shares January, 2015 to May, 2015'
         },
-        subtitle: {
-            text: 'Active: ' + (children_active_male + children_active_female) 
-            + ' MA: ' + parseInt((children_active_male / children_count) * 100) + '%'
-            + ' FA: ' + parseInt((children_active_female / children_count) * 100) + '%'
-            + ' | ' 
-            + 'Graduated: ' + (children_graduated_male + children_graduated_female)
-            + ' MG: ' + parseInt((children_graduated_male / graduated_count) * 100) + '%'
-            + ' FG: ' + parseInt((children_graduated_female / graduated_count) * 100) + '%'
-        },
-        yAxis: {
-            title: {
-                text: 'Total children count'
-            }
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
         },
         plotOptions: {
             pie: {
-                shadow: false,
-                center: ['50%', '50%']
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
             }
-        },
-        tooltip: {
-            valueSuffix: '%'
         },
         series: [{
-            name: 'Children',
-            data: child_count_data,
-            size: '60%',
-            dataLabels: {
-                formatter: function () {
-                    return this.y > 5 ? this.point.name : null;
-                },
-                color: '#ffffff',
-                distance: -30
-            }
-        }, {
-            name: 'Gender',
-            data: gender_count_data,
-            size: '80%',
-            innerSize: '60%',
-            dataLabels: {
-                formatter: function () {
-                    // display only if larger than 1
-                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' +
-                        this.y + '%' : null;
-                }
-            },
-            id: 'gender'
-        }],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 400
-                },
-                chartOptions: {
-                    series: [{
-                        id: 'gender',
-                        dataLabels: {
-                            enabled: false
-                        }
-                    }]
-                }
-            }]
-        }
+            name: 'Brands',
+            colorByPoint: true,
+            data: chart_data
+            // data: [{
+            //     name: 'Microsoft Internet Explorer',
+            //     y: 56.33
+            // }, {
+            //     name: 'Chrome',
+            //     y: 24.03,
+            //     sliced: true,
+            //     selected: true
+            // }, {
+            //     name: 'Firefox',
+            //     y: 10.38
+            // }, {
+            //     name: 'Safari',
+            //     y: 4.77
+            // }, {
+            //     name: 'Opera',
+            //     y: 0.91
+            // }, {
+            //     name: 'Proprietary or Undetectable',
+            //     y: 0.2
+            // }]
+        }]
     });
 }
 

@@ -98,6 +98,43 @@ class Trans_details_model extends CI_Model {
         return $query->result();
     }
 
+    function get_sales_by_cat($cat_id)
+    {   
+        $this->db->select('SUM(trans_details.total) as sales');
+
+        $this->db->from($this->table);
+         
+        $this->db->join('products', 'products.prod_id = trans_details.prod_id');
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('products.cat_id', $cat_id);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales + 0;
+    }
+
+    function get_sales_pack()
+    {   
+        $this->db->select('SUM(trans_details.total) as sales');
+
+        $this->db->from($this->table);
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('trans_details.pack_id !=', 0);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales + 0;
+    }
+
     function get_api_datatables($trans_id) // api function in getting data list
     {        
         $this->db->from($this->table);

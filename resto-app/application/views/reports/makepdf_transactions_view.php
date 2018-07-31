@@ -39,7 +39,7 @@ $pdf->SetKeywords('transactions');
 
 
 // set default header data
-$pdf->SetHeaderData('../../assets/img/' . $logo_img, 35, $title . ' ( ' . $current_date . " )", $comp_name . "\r\n" . 'Prepared by: ' . $user_fullname . "\r\n" . 'Date: ' . $current_date . "\r\n" . 'Time: ' . $current_time . "\r\n");
+$pdf->SetHeaderData('../../assets/img/' . $logo_img, 35, $title . ' ( ' . $status . " )", $comp_name . "\r\n" . 'Prepared by: ' . $user_fullname . "\r\n" . 'Date: ' . $current_date . "\r\n" . 'Time: ' . $current_time . "\r\n");
 
 
 
@@ -75,93 +75,42 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 $pdf->AddPage();
 
-// $pdf->Cell(20, 10, 'Total Net Sales Today', 0, false, 'L', 0, '', 0, false, 'T', 'M');   
-// $pdf->Cell(130, 10, $today_net_sales_str . ' ( ' . $percent_net_sales_str . ' )', 0, false, 'R', 0, '', 0, false, 'T', 'M'); 
+if ($status == 'CLEARED')
+{
+	$text = '<h3 align="center">Report Summary</h3>
+	<p align="left">1. Total Net Sales: <b color="#006600">' . $total_net_sales_str . ' </b> (Note: refunds not included)</p> 
+	<p align="left">2. Total Transactions: <b color="#006600">' . $total_trans_count . ' </b> | Dine-In [ ' . $dine_in_total . ' ] | Take-Out [ ' . $take_out_total . ' ] </p>
+	<p align="left">3. Total Menu Items Sold: <b color="#006600">' . $total_menu_items_sold . ' </b> | Individual Products [ ' . $individual_products_sold . ' ] | Packages [ ' . $packages_sold . ' ] </p>
+	<p align="left">4. Total Discounts Rendered: <b color="#006600">' . $discounts_rendered_total_str . ' </b> | ' . $discounts_gross_percentage_str . '</p>
+	<hr>'
+	;	
+}
+else if ($status == 'REFUNDED')
+{
+	$text = '<h3 align="center">Report Summary</h3>
+	<p align="left">1. Total Net Sales: <b color="#006600">' . $total_net_sales_str . ' </b></p> 
+	<p align="left">2. Total Transactions: <b color="#006600">' . $total_trans_count . ' </b> | Dine-In [ ' . $dine_in_total . ' ] | Take-Out [ ' . $take_out_total . ' ] </p>
+	<p align="left">3. Total Menu Items: <b color="#006600">' . $total_menu_items_sold . ' </b> | Individual Products [ ' . $individual_products_sold . ' ] | Packages [ ' . $packages_sold . ' ] </p>
+	<p align="left">4. Total Discounts Rendered: <b color="#006600">' . $discounts_rendered_total_str . ' </b> | ' . $discounts_gross_percentage_str . '</p>
+	<hr>'
+	;
+}
+else if ($status == 'CANCELLED')
+{
+	$text = '<h3 align="center">Report Summary</h3>
+	<p align="left">1. Total Transactions: <b color="#006600">' . $total_trans_count . ' </b> | Dine-In [ ' . $dine_in_total . ' ] | Take-Out [ ' . $take_out_total . ' ] </p>
+	<p align="left">2. Total Menu Items: <b color="#006600">' . $total_menu_items_sold . ' </b> | Individual Products [ ' . $individual_products_sold . ' ] | Packages [ ' . $packages_sold . ' ] </p>
+	<hr>'
+	;
+}
 
-// $pdf->Cell(120, 20, '', 0, false, 'L', 0, '', 0, false, 'T', 'M');
-
-$text = '<h3 align="center">Report Summary</h3>
-<p align="left">1. Total Net Sales: <b color="#006600">' . $total_net_sales_str . ' </b></p>
-<p align="left">2. Total Transactions: <b color="#006600">' . $total_trans_count . ' </b> | Dine-In [ ' . $dine_in_total . ' ] | Take-Out [ ' . $take_out_total . ' ] </p>
-<p align="left">3. Total Menu Items Sold: <b color="#006600">' . $total_menu_items_sold . ' </b> | Individual Products [ ' . $individual_products_sold . ' ] | Packages [ ' . $packages_sold . ' ] </p>
-<p align="left">4. Total Discounts Rendered: <b color="#006600">' . $discounts_rendered_total_str . ' </b> | ' . $discounts_gross_percentage_str . '</p>
-<hr>'
-;
 $pdf->writeHTML($text, true, 0, true, 0);
-// data loading
-// $data = $pdf->LoadData();
 
-// // to get age in mos.
-// $birthday = new DateTime($child->dob);
+// set font
+$pdf->SetFont('helvetica', '', 9);
 
-// // current
-// $diff = $birthday->diff(new DateTime());
-// $months = $diff->format('%m') + 12 * $diff->format('%y') . ' mos';
-
-// // registered
-// $diff_reg = $birthday->diff(new DateTime($child->date_registered));
-// $months_reg = $diff_reg->format('%m') + 12 * $diff_reg->format('%y') . ' mos';
-
-
-// $text = '<p align="center">
-
-// <img id="image1" src="' . $imglink . '" style="width:1000px; max-height: 900px; margin-left:20px;">
-
-// <br />
-
-// <h1>' . $child->lastname . ', ' . $child->firstname . ' ' . $child->middlename . '</h1>
-// <hr />
-// </p>
-
-
-// <b>Date of Birth: ' . date("M j, Y", strtotime($child->dob)) . '</b> | <b>Place of Birth: ' . $child->pob . '</b>
-// <br /><br />
-// <b>Registered Age in Mos: ' . $months_reg . '</b> | <b>Sex: ' . $child->sex . '</b> | <b color="#006600">CURRENT Age in Mos: ' . $months . '</b>
-// <br /><br />
-// <b>INITIAL RECORD Height: ' . $child->height . ' cm | Weight: ' . $child->weight . ' kg</b> 
-// | 
-// <b color="#006600">LATEST RECORD Height: ' . $latest_height . ' cm | Weight: ' . $latest_weight . ' kg</b>
-// <br /><br />
-// <b>Religion: ' . $child->religion . '</b>
-// <br />
-// <b>Disability: ' . $child->disability . '</b>
-// <br />
-// <b>Contact: ' . $child->contact . '</b>
-// <br />
-// <b>School: ' . $child->school . '</b> | <b>Grade Level: ' . $child->grade_level . '</b>
-// <br />
-// <b>Home Address: ' . $child->address . '</b>
-// <br /><br />
-// <hr />
-// <p align="center"><b color="#003366">FAMILY BACKGROUND</b></p><hr />';
-// $pdf->writeHTML($text, true, 0, true, 0);
-
-// print colored table
 $pdf->ColoredTable_transactions($header, $data);
 
-
-
-
-// $pdf->Cell(0, 30, '_____________________________________', 0, false, 'R', 0, '', 0, false, 'T', 'M' );
-// $pdf->Cell(0, 40, 'Signature over printed name              ', 0, false, 'R', 0, '', 0, false, 'T', 'M' );
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// *** set signature appearance ***
-
-
-
-// // define active area for signature appearance
-// $pdf->setSignatureAppearance(180, 60, 15, 15);
-
-// // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// // *** set an empty signature appearance ***
-// $pdf->addEmptySignatureAppearance(180, 80, 15, 15);
-
-// ---------------------------------------------------------
-
-// ---------------------------------------------------------
 
 // close and output PDF document
 $pdf->Output('transactions' . $status . '.pdf', 'I');

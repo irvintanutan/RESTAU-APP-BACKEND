@@ -4493,6 +4493,7 @@ if (document.getElementById("container-products-category"))
     var cat_name = new Array();
     var cat_prod_count = new Array();
     var cat_prod_sales = new Array();
+    var cat_prod_sold = new Array();
 
     var chart_data = new Array();
 
@@ -4502,26 +4503,43 @@ if (document.getElementById("container-products-category"))
         cat_name[i] = $('[name="cat_name' + i + '"]').val();
         cat_prod_count[i] = parseInt($('[name="cat_prod_count' + i + '"]').val());
         cat_prod_sales[i] = parseFloat($('[name="cat_prod_sales' + i + '"]').val());
+        cat_prod_sold[i] = parseInt($('[name="cat_prod_sold' + i + '"]').val());
+
         // alert(cat_name[i] + ':' + cat_prod_count[i] + ':Php' + cat_prod_sales[i]);
 
         cat_total_sales += cat_prod_sales[i];
 
         var row_chart_data = new Object();
 
-        row_chart_data['name'] = cat_name[i];
+        row_chart_data['name'] = '<b>' + cat_name[i] + '</b>';
+        row_chart_data['details'] = '[ <i>sold: ' + cat_prod_sold[i] + ' | sales: ₱ ' + cat_prod_sales[i].toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</i> ]';
         row_chart_data['y'] = cat_prod_sales[i];
-        if (i == 0)
-        {
-          row_chart_data['sliced'] = true;
-          row_chart_data['selected'] = true;  
-        }
+        // if (i == 0)
+        // {
+        //   row_chart_data['sliced'] = true;
+        //   row_chart_data['selected'] = true;  
+        // }
         chart_data[i] = row_chart_data;
     }
-    console.log(chart_data);
-    // var percent_active = parseInt((children_count / total_children_count) * 100);
-    // var percent_graduated = parseInt((graduated_count / total_children_count) * 100);
+    // console.log(chart_data);
 
-    // var colors = Highcharts.getOptions().colors,
+    // Radialize the colors
+    Highcharts.setOptions({
+        colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+            return {
+                radialGradient: {
+                    cx: 0.5,
+                    cy: 0.3,
+                    r: 0.7
+                },
+                stops: [
+                    [0, color],
+                    [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                ]
+            };
+        })
+    });
+
 
     // Create the chart
     Highcharts.chart('container-products-category', {
@@ -4529,13 +4547,14 @@ if (document.getElementById("container-products-category"))
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            type: 'pie'
+            type: 'pie',
+
         },
         title: {
-            text: 'Browser market shares January, 2015 to May, 2015'
+            text: 'Product categories sales data ( Total: ₱ ' + cat_total_sales.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' )'
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            pointFormat: '{series.name} Percentage: <b>{point.percentage:.1f}%</b><br>{point.details}'
         },
         plotOptions: {
             pie: {
@@ -4544,35 +4563,93 @@ if (document.getElementById("container-products-category"))
                 dataLabels: {
                     enabled: false
                 },
-                showInLegend: true
+                showInLegend: true,
+
+                // dataLabels: {
+                //   enabled: true,
+                //   useHTML:true,
+                //   formatter: function() {
+                //     return '<div class="datalabel">' +this.series.name +'</b><br/>'+
+                //             this.point.details +'</div>';
+                //   }
+                // },
             }
         },
         series: [{
-            name: 'Brands',
+            name: 'Sales',
             colorByPoint: true,
             data: chart_data
-            // data: [{
-            //     name: 'Microsoft Internet Explorer',
-            //     y: 56.33
-            // }, {
-            //     name: 'Chrome',
-            //     y: 24.03,
-            //     sliced: true,
-            //     selected: true
-            // }, {
-            //     name: 'Firefox',
-            //     y: 10.38
-            // }, {
-            //     name: 'Safari',
-            //     y: 4.77
-            // }, {
-            //     name: 'Opera',
-            //     y: 0.91
-            // }, {
-            //     name: 'Proprietary or Undetectable',
-            //     y: 0.2
-            // }]
         }]
+    });
+}
+
+// ------------------------------------- BAR CHARTS -----------------------------------------------------------------
+
+// check if div exist (execute if in dashboard page only)
+if (document.getElementById("container-top-selling-menu-items")) 
+{
+    var bs_index = parseInt($('[name="bs_index"]').val());
+    
+    var menu_id = new Array();
+    var menu_name = new Array();
+    var menu_sold = new Array();
+    var menu_sales = new Array();
+
+    var chart_data = new Array();
+
+    var menu_total_sold = 0;
+
+    for (i = 0; i <= bs_index; i++) { 
+        menu_id[i] = $('[name="menu_id' + i + '"]').val();
+        menu_name[i] = $('[name="menu_name' + i + '"]').val();
+        menu_sold[i] = parseInt($('[name="menu_sold' + i + '"]').val());
+        menu_sales[i] = parseFloat($('[name="menu_sales' + i + '"]').val());
+
+        menu_total_sold += menu_sold[i];
+
+        var row_chart_data = new Object();
+
+        row_chart_data['name'] = '<b>' + menu_id[i] + ': ' + menu_name[i] + '</b>';
+        row_chart_data['details'] = '[ <i>sales: Php ' + menu_sales[i].toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</i> ]';
+        row_chart_data['y'] = menu_sold[i];
+        
+        chart_data[i] = row_chart_data;
+    }
+
+    Highcharts.chart('container-top-selling-menu-items', {
+
+        chart: {
+            type: 'column'
+        },
+
+        title: {
+            text: 'Total menu items sold of top selling products/packages ( Total: ' + menu_total_sold + ' )'
+        },
+
+        xAxis: {
+            categories: menu_name
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Number of sold menu items'
+            }
+        },
+
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    this.point.details;
+            }
+        },
+
+        series: [{
+            name: 'Menu Items Sold',
+            data: chart_data
+          }]
     });
 }
 
@@ -4699,6 +4776,150 @@ if (document.getElementById("container-interests-prev"))
             name: 'Monthly Total Interest',
             data: [prev_jan, prev_feb, prev_mar, prev_apr, prev_may, prev_jun, 
             prev_jul, prev_aug, prev_sep, prev_oct, prev_nov, prev_dec]
+        }]
+    });
+}
+
+// ------------------------------------ SEMI DONUT CHARTS ---------------------------------------------------------------
+
+// check if div exist (execute if in dashboard page only)
+if (document.getElementById("container-users-cashier")) 
+{
+    var cashier_index = parseInt($('[name="cashier_index"]').val());
+    
+    var cashier_id = new Array();
+    var cashier_user_name = new Array();
+    var cashier_trans_count = new Array();
+    var cashier_net_sales = new Array();
+
+    var chart_data = new Array();
+
+    var cashier_total_trans = 0;
+
+    for (i = 0; i <= cashier_index; i++) { 
+        cashier_id[i] = $('[name="cashier_id' + i + '"]').val();
+        cashier_user_name[i] = $('[name="cashier_user_name' + i + '"]').val();
+        cashier_trans_count[i] = parseInt($('[name="cashier_trans_count' + i + '"]').val());
+        cashier_net_sales[i] = parseFloat($('[name="cashier_net_sales' + i + '"]').val());
+
+        cashier_total_trans += cashier_trans_count[i];
+
+        var row_chart_data = new Object();
+
+        row_chart_data['name'] = '<b>' + cashier_user_name[i] + '</b>';
+        row_chart_data['details'] = '[ <i>transactions: ' + cashier_trans_count[i] + ' | sales: ₱ ' + cashier_net_sales[i].toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</i> ]';
+        row_chart_data['y'] = cashier_trans_count[i];
+
+        chart_data[i] = row_chart_data;
+    }
+
+    Highcharts.chart('container-users-cashier', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        title: {
+            text: 'Cashier<br>transactions<br>',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 40
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.details}'
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%'],
+                showInLegend: true
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Cashier transactions',
+            innerSize: '50%',
+            data: chart_data
+        }]
+    });
+}
+
+// check if div exist (execute if in dashboard page only)
+if (document.getElementById("container-users-staff")) 
+{
+    var staff_index = parseInt($('[name="staff_index"]').val());
+    
+    var staff_id = new Array();
+    var staff_user_name = new Array();
+    var staff_trans_count = new Array();
+    var staff_net_sales = new Array();
+
+    var chart_data = new Array();
+
+    var staff_total_trans = 0;
+
+    for (i = 0; i <= staff_index; i++) { 
+        staff_id[i] = $('[name="staff_id' + i + '"]').val();
+        staff_user_name[i] = $('[name="staff_user_name' + i + '"]').val();
+        staff_trans_count[i] = parseInt($('[name="staff_trans_count' + i + '"]').val());
+        staff_net_sales[i] = parseFloat($('[name="staff_net_sales' + i + '"]').val());
+
+        staff_total_trans += staff_trans_count[i];
+
+        var row_chart_data = new Object();
+
+        row_chart_data['name'] = '<b>' + staff_user_name[i] + '</b>';
+        row_chart_data['details'] = '[ <i>transactions: ' + staff_trans_count[i] + ' | sales: ₱ ' + staff_net_sales[i].toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</i> ]';
+        row_chart_data['y'] = staff_trans_count[i];
+
+        chart_data[i] = row_chart_data;
+    }
+
+    Highcharts.chart('container-users-staff', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        title: {
+            text: 'Staff<br>transactions<br>2017',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 40
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.details}'
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%'],
+                showInLegend: true
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Staff transactions',
+            innerSize: '50%',
+            data: chart_data
         }]
     });
 }

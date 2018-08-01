@@ -112,6 +112,28 @@ class Users_model extends CI_Model {
         return $query;
     }
 
+    function get_cashier_users()
+    {        
+        $this->db->from($this->table);
+
+        $this->db->where('cashier', 1);
+        $this->db->where('removed', 0);
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_staff_users()
+    {        
+        $this->db->from($this->table);
+
+        $this->db->where('staff', 1);
+        $this->db->where('removed', 0);
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 	function count_filtered()
 	{
 		$this->_get_datatables_query();

@@ -353,6 +353,62 @@ class Transactions_model extends CI_Model {
         return $query->row()->total + 0;
     }
 
+    // get transaction count based on user_id
+    public function get_count_trans_cashier($cashier_id)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('cashier_id', $cashier_id);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count;
+    }
+
+    // get transaction count based on user_id
+    public function get_count_trans_staff($staff_id)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('user_id', $staff_id);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count;
+    }
+
+    // get total net sales by user_id
+    public function get_total_net_sales_by_cashier($cashier_id)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('cashier_id', $cashier_id);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total;
+    }
+
+    // get total net sales by user_id
+    public function get_total_net_sales_by_staff($user_id)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('user_id', $user_id);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total;
+    }
+
     // get daily transaction count based on order type
     public function get_count_trans_total($status, $order_type)
     {

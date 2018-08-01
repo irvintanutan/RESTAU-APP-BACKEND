@@ -135,6 +135,43 @@ class Trans_details_model extends CI_Model {
         return $row->sales + 0;
     }
 
+    function get_sold_by_cat($cat_id)
+    {   
+        $this->db->select('SUM(trans_details.qty) as sold');
+
+        $this->db->from($this->table);
+         
+        $this->db->join('products', 'products.prod_id = trans_details.prod_id');
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('products.cat_id', $cat_id);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sold + 0;
+    }
+
+    function get_sold_pack()
+    {   
+        $this->db->select('SUM(trans_details.qty) as sold');
+
+        $this->db->from($this->table);
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('trans_details.pack_id !=', 0);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sold + 0;
+    }
+
     function get_api_datatables($trans_id) // api function in getting data list
     {        
         $this->db->from($this->table);
@@ -182,11 +219,46 @@ class Trans_details_model extends CI_Model {
         return $row->sales;
     }
 
-    // get trans_details of a transaction then copy to trans_details_refund table
-    function copy_to_trans_details_refund($trans_id)
+    function get_total_prod_sales($prod_id)
     {
-        $query = $this->db->query("insert into trans_details_refund (trans_id, prod_id, pack_id, prod_type, price, qty, total, part_of) select trans_id, prod_id, pack_id, prod_type, price, qty, total, part_of from trans_details where trans_id = " . $trans_id . " and (trans_id, prod_id, pack_id) NOT IN (select trans_id, prod_id, pack_id from trans_details_refund);");
+        $this->db->select('SUM(total) as sales');
+        $this->db->from($this->table);
+        
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('prod_id',$prod_id);
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        $this->db->where('trans_details.prod_type', 0);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales;
     }
+
+    function get_total_pack_sales($pack_id)
+    {
+        $this->db->select('SUM(total) as sales');
+        $this->db->from($this->table);
+        
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('pack_id',$pack_id);
+        $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales;
+    }
+
+    // get trans_details of a transaction then copy to trans_details_refund table
+    // function copy_to_trans_details_refund($trans_id)
+    // {
+    //     $query = $this->db->query("insert into trans_details_refund (trans_id, prod_id, pack_id, prod_type, price, qty, total, part_of) select trans_id, prod_id, pack_id, prod_type, price, qty, total, part_of from trans_details where trans_id = " . $trans_id . " and (trans_id, prod_id, pack_id) NOT IN (select trans_id, prod_id, pack_id from trans_details_refund);");
+    // }
 
     // check if the parent data has children in FK
     // function check_if_found($trans_id)

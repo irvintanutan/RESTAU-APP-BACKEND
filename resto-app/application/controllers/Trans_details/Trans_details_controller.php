@@ -392,14 +392,24 @@ class Trans_details_controller extends CI_Controller {
             $cust_name = 'n/a';
         }
 
+        $disc_type = $this->input->post('disc_type');
+        $discount = $this->input->post('discount');
+        $cust_disc_id = $this->input->post('cust_disc_id');
+
+        if ($disc_type == 0)
+        {
+            $discount = 0;
+            $cust_disc_id = 'n/a';
+        }
+
         $this->_validate_discount();
 
         $data = array(
-                'disc_type' => $this->input->post('disc_type'),
+                'disc_type' => $disc_type,
 
-                'discount' => $this->input->post('discount'),
+                'discount' => $discount,
 
-                'cust_disc_id' => $this->input->post('cust_disc_id'),
+                'cust_disc_id' => $cust_disc_id,
                 
                 'cust_name' => $cust_name
             );
@@ -514,31 +524,34 @@ class Trans_details_controller extends CI_Controller {
             $data['error_string'][] = 'Discount type is required';
             $data['status'] = FALSE;
         }
+        
+        if($this->input->post('disc_type') != 0)
+        {
+            if($this->input->post('discount') == '')
+            {
+                $data['inputerror'][] = 'discount';
+                $data['error_string'][] = 'Actual discount amount is required';
+                $data['status'] = FALSE;
+            }
+            else if($this->input->post('discount') <= 0)
+            {
+                $data['inputerror'][] = 'discount';
+                $data['error_string'][] = 'Actual discount amount should be greater than zero';
+                $data['status'] = FALSE;
+            }
+            else if($this->input->post('discount') > $this->input->post('gross_total'))
+            {
+                $data['inputerror'][] = 'discount';
+                $data['error_string'][] = 'Discount amount should be equal or less than gross_total';
+                $data['status'] = FALSE;
+            }
 
-        if($this->input->post('discount') == '')
-        {
-            $data['inputerror'][] = 'discount';
-            $data['error_string'][] = 'Actual discount amount is required';
-            $data['status'] = FALSE;
-        }
-        else if($this->input->post('discount') <= 0)
-        {
-            $data['inputerror'][] = 'discount';
-            $data['error_string'][] = 'Actual discount amount should be greater than zero';
-            $data['status'] = FALSE;
-        }
-        else if($this->input->post('discount') > $this->input->post('gross_total'))
-        {
-            $data['inputerror'][] = 'discount';
-            $data['error_string'][] = 'Discount amount should be equal or less than gross_total';
-            $data['status'] = FALSE;
-        }
-
-        if($this->input->post('cust_disc_id') == '')
-        {
-            $data['inputerror'][] = 'cust_disc_id';
-            $data['error_string'][] = 'Customer ID number is required';
-            $data['status'] = FALSE;
+            if($this->input->post('cust_disc_id') == '')
+            {
+                $data['inputerror'][] = 'cust_disc_id';
+                $data['error_string'][] = 'Customer ID number is required';
+                $data['status'] = FALSE;
+            }
         }
 
         if($data['status'] === FALSE)

@@ -331,6 +331,7 @@
                                                       echo '<option value="'.$row->disc_id.'">'.$row->name.'</option>';
                                                     }
                                                 ?>
+                                                <option value="0">Remove Discount</option>
                                             </select>
                                             <span class="help-block"></span>
                                         </div>
@@ -363,7 +364,16 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Customer Name (Optional) :</label>
                                         <div class="col-md-9">
-                                            <input name="cust_name" placeholder="Customer Full Name" class="form-control" value=<?php echo "'" . $transaction->cust_name . "'"; ?> type="text" style="font-size: 15px;">
+                                            <input name="cust_name" placeholder="Customer Full Name" class="form-control" value=<?php if ($transaction->cust_name != 'n/a')
+                                            {
+                                                echo "'" . $transaction->cust_name . "'";
+                                            }
+                                            else
+                                            {
+                                                echo "''";
+                                            }
+
+                                             ?> type="text" style="font-size: 15px;">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

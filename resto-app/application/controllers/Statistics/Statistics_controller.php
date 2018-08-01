@@ -19,6 +19,7 @@ class Statistics_controller extends CI_Controller {
         $this->load->model('Table_groups/Table_groups_model','table_groups');
 
         $this->load->model('Users/Users_model','users');
+        $this->load->model('Store_config/Store_config_model','store');
     }
 
     public function index()
@@ -42,6 +43,9 @@ class Statistics_controller extends CI_Controller {
         $row['cat_prod_count'] = $cat_prod_count;
         $cat_prod_sales = $this->trans_details->get_sales_pack();
         $row['cat_prod_sales'] = $cat_prod_sales;
+        $cat_prod_sold = $this->trans_details->get_sold_pack();
+        $row['cat_prod_sold'] = $cat_prod_sold;
+
 
         $cat_array[] = $row;
 
@@ -55,6 +59,8 @@ class Statistics_controller extends CI_Controller {
             $row['cat_prod_count'] = $cat_prod_count;
             $cat_prod_sales = $this->trans_details->get_sales_by_cat($categories->cat_id);
             $row['cat_prod_sales'] = $cat_prod_sales;
+            $cat_prod_sold = $this->trans_details->get_sold_by_cat($categories->cat_id);
+            $row['cat_prod_sold'] = $cat_prod_sold;
 
             $cat_array[] = $row;
         }
@@ -62,6 +68,84 @@ class Statistics_controller extends CI_Controller {
         $data['cat_array'] = $cat_array;
 
 
+        // ========================= FOR TOP SELLING MENU CHART ==================================================
+
+
+        $min_price = $this->store->get_store_bs_price(1);
+        $bs_list = $this->products->get_best_selling($min_price);
+
+        $bs_array = array();
+
+        foreach ($bs_list as $bs_menu) {
+            
+            $row = array();
+
+            if ($bs_menu->pack_id == 0)
+            {
+                $menu_id = 'P' . $bs_menu->prod_id;
+                $menu_name = $this->products->get_product_short_name($bs_menu->prod_id);
+                $menu_sales = $this->trans_details->get_total_prod_sales($bs_menu->prod_id);
+            }
+            else //  package menu item
+            {
+                $menu_id = 'G' . $bs_menu->pack_id;
+                $menu_name = $this->packages->get_package_short_name($bs_menu->pack_id);
+                $menu_sales = $this->trans_details->get_total_pack_sales($bs_menu->pack_id);
+            }
+
+            $row['menu_id'] = $menu_id;
+            $row['menu_name'] = $menu_name;
+            $row['menu_sold'] = $bs_menu->sold;
+            $row['menu_sales'] = $menu_sales;
+
+            $bs_array[] = $row;
+        }
+
+        $data['bs_array'] = $bs_array;
+
+
+        // ========================= FOR CASHIER EMPLOYEE CHART ====================================================
+
+
+        $cashier_list = $this->users->get_cashier_users();
+
+        $cashier_array = array();
+
+        foreach ($cashier_list as $cashier) {
+            
+            $row = array();
+
+            $row['cashier_id'] = 'U' . $cashier->user_id;
+            $row['cashier_user_name'] = $this->users->get_username($cashier->user_id);
+            $row['cashier_trans_count'] = $this->transactions->get_count_trans_cashier($cashier->user_id);
+            $row['cashier_net_sales'] = $this->transactions->get_total_net_sales_by_cashier($cashier->user_id);
+
+            $cashier_array[] = $row;
+        }
+
+        $data['cashier_array'] = $cashier_array;
+
+
+        // ========================= FOR STAFF EMPLOYEE CHART =====================================================
+
+
+        $staff_list = $this->users->get_staff_users();
+
+        $staff_array = array();
+
+        foreach ($staff_list as $staff) {
+            
+            $row = array();
+
+            $row['staff_id'] = 'U' . $staff->user_id;
+            $row['staff_user_name'] = $this->users->get_username($staff->user_id);
+            $row['staff_trans_count'] = $this->transactions->get_count_trans_staff($staff->user_id);
+            $row['staff_net_sales'] = $this->transactions->get_total_net_sales_by_staff($staff->user_id);
+
+            $staff_array[] = $row;
+        }
+
+        $data['staff_array'] = $staff_array;
 
 
         // ========================= FOR MONTHLY NET SALES CHART ==================================================

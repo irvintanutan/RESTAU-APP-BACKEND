@@ -38,7 +38,15 @@
                             <h3 class="panel-title">Products Information Table</h3>
                         </div>
                         <div class="panel-body">
-                            <button class="btn btn-success" onclick="add_product()"><i class="fa fa-plus-square"></i> &nbsp;Add New Product</button>
+                            <?php
+                                if ($this->session->userdata('administrator') == '1')
+                                {
+                            ?>
+                                    <button class="btn btn-success" onclick="add_product()"><i class="fa fa-plus-square"></i> &nbsp;Add New Product</button>
+                            <?php
+                                }
+                            ?>
+
                             <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
                             <br><br>
                             <table id="products-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -65,7 +73,14 @@
                     <div class="col-md-8">
                         <span>Legend: [ &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i> - No assigned items &nbsp; | &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
                     </div>
-                    <button class="control-label col-md-4 btn btn-mint" onclick="set_products_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate PDF Report</button>
+                    <?php
+                        if ($this->session->userdata('administrator') == '1')
+                        {
+                    ?>
+                            <button class="control-label col-md-4 btn btn-mint" onclick="set_products_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate PDF Report</button>
+                    <?php
+                        }
+                    ?>
                     <hr>
                 </div>
                 <!--===================================================-->

@@ -38,7 +38,14 @@
                             <h3 class="panel-title">Tables Information Table</h3>
                         </div>
                         <div class="panel-body">
-                            <button class="btn btn-success" onclick="add_table()"><i class="fa fa-plus-square"></i> &nbsp;Add New Table</button>
+                            <?php
+                                if ($this->session->userdata('administrator') == '1')
+                                {
+                            ?>
+                                    <button class="btn btn-success" onclick="add_table()"><i class="fa fa-plus-square"></i> &nbsp;Add New Table</button>
+                            <?php
+                                }
+                            ?>
                             <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
                             <br><br>
                             <table id="tables-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">

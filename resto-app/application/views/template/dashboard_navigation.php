@@ -114,7 +114,7 @@
                                                 <a href="<?php echo base_url();?>items-page">
                                                     <i class="fa fa-archive"></i>
                                                     <strong><span class="menu-title">Items</span></strong>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
                                             </li>
 
@@ -124,7 +124,7 @@
                                                 <a href="<?php echo base_url();?>items-page">
                                                     <i class="fa fa-archive"></i>
                                                     <span class="menu-title">Items</span>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
                                             </li>
 
@@ -137,7 +137,7 @@
 
                                     <!--Menu list item-->
                                     
-                                    <?php if($this->session->userdata('administrator') == '1'): ?>
+                                    <?php if($this->session->userdata('administrator') == '1' || $this->session->userdata('cashier') == '1'): ?>
 
                                         <?php if($this->uri->segment(1) == 'products-page' || $this->uri->segment(1) == 'packages-page'){ ?>
 
@@ -254,7 +254,7 @@
                                                 <a href="#">
                                                     <i class="fa fa-tags"></i>
                                                     <strong><span class="menu-title">Discounts</span></strong>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
 
                                                 <!--Submenu-->
@@ -274,7 +274,7 @@
                                                 <a href="#">
                                                     <i class="fa fa-tags"></i>
                                                     <span class="menu-title">Discounts</span>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
 
                                                 <!--Submenu-->
@@ -375,7 +375,7 @@
                                                 <a href="<?php echo base_url();?>users-page">
                                                     <i class="fa fa-user-circle"></i>
                                                     <strong><span class="menu-title">Users</span></strong>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                     
                                                 </a>
                                             </li>
@@ -386,7 +386,7 @@
                                                 <a href="<?php echo base_url();?>users-page">
                                                     <i class="fa fa-user-circle"></i>
                                                     <span class="menu-title">Users</span>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                     
                                                 </a>
                                             </li>
@@ -430,7 +430,7 @@
                                                 <a href="<?php echo base_url();?>reports-page">
                                                     <i class="fa fa-file"></i>
                                                     <strong><span class="menu-title">Reports</span></strong>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
                                             </li>
 
@@ -440,7 +440,7 @@
                                                 <a href="<?php echo base_url();?>reports-page">
                                                     <i class="fa fa-file"></i>
                                                     <span class="menu-title">Reports</span>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
                                             </li>
 
@@ -460,7 +460,7 @@
                                                 <a href="<?php echo base_url();?>store-config-page">
                                                     <i class="fa fa-cogs"></i>
                                                     <strong><span class="menu-title">Store Config</span></strong>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
                                             </li>
 
@@ -470,7 +470,7 @@
                                                 <a href="<?php echo base_url();?>store-config-page">
                                                     <i class="fa fa-cogs"></i>
                                                     <span class="menu-title">Store Config</span>
-                                                    <span class="label label-danger pull-right">Admin</span>
+                                                    <span class="label label-default pull-right">admin</span>
                                                 </a>
                                             </li>
 
@@ -479,54 +479,7 @@
                                     <?php endif ?>
                                     
 
-                                    <!--Menu list item-->
                                     
-
-                                    <?php if($this->uri->segment(1) == 'notifications-page'){ ?>
-
-                                        <li class="active-link">
-                                            <a href="#">
-                                                <i class="fa fa-bell"></i>
-                                                <strong><span class="menu-title">Notifications</span></strong>
-                                                <i class="arrow"></i>
-                                            </a>
-                                        
-                                            <!--Submenu-->
-                                            <ul class="collapse">
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-monthly-page">No Monthly Checkup</a>
-                                                </li>                                            
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-quarterly-page">No HVI (Quarterly)</a>
-                                                </li>
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-deworming-page">No Deworming</a>
-                                                </li>
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-severe-page">Severe Malnutrition</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                    <?php }else{ ?>
-
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-bell"></i>
-                                                <span class="menu-title">Notifications</span>
-                                                <i class="arrow"></i>
-                                            </a>
-                                        
-                                            <!--Submenu-->
-                                            <ul class="collapse">
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-monthly-page">No Monthly Checkup</a>
-                                                </li>                                            
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-quarterly-page">No HVI (Quarterly)</a>
-                                                </li>
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-deworming-page">No Deworming</a>
-                                                </li>
-                                                <li><a href="<?php echo base_url();?>notifications-page/notifications-severe-page">Severe Malnutrition</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                    <?php } ?>
 
 
                                     

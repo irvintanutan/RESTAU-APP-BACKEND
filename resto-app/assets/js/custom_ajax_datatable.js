@@ -4820,7 +4820,7 @@ if (document.getElementById("container-users-cashier"))
             plotShadow: false
         },
         title: {
-            text: 'Cashier<br>transactions<br>',
+            text: 'Cashier<br>transactions<br> ( Total: ' + cashier_total_trans + ' )',
             align: 'center',
             verticalAlign: 'middle',
             y: 40
@@ -4891,7 +4891,7 @@ if (document.getElementById("container-users-staff"))
             plotShadow: false
         },
         title: {
-            text: 'Staff<br>transactions<br>2017',
+            text: 'Staff<br>transactions<br> ( Total: ' + staff_total_trans + ' )',
             align: 'center',
             verticalAlign: 'middle',
             y: 40

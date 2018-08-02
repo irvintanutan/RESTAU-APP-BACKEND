@@ -16,10 +16,10 @@ class Products_controller extends CI_Controller {
 
     public function index()						
     {
-        if($this->session->userdata('administrator') == '0')
-        {
-            redirect('error500');
-        }
+        // if($this->session->userdata('administrator') == '0')
+        // {
+        //     redirect('error500');
+        // }
 
         $this->load->helper('url');
 
@@ -79,13 +79,26 @@ class Products_controller extends CI_Controller {
 
             $row[] = $products->encoded;
 
-            //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="View" onclick="view_product('."'".$products->prod_id."'".')"><i class="fa fa-eye"></i> </a>
+            if($this->session->userdata('administrator') == '0')
+            {
+                //add html for action
+                $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="View" onclick="view_product('."'".$products->prod_id."'".')" disabled><i class="fa fa-eye"></i> </a>
 
-            <a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_product('."'".$products->prod_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
-                      
-                      <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_product('."'".$products->prod_id."'".', '."'".$products->name."'".')"><i class="fa fa-trash"></i></a>';
+                <a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_product('."'".$products->prod_id."'".')" disabled><i class="fa fa-pencil-square-o"></i></a>
+                          
+                          <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_product('."'".$products->prod_id."'".', '."'".$products->name."'".')" disabled><i class="fa fa-trash"></i></a>';
 
+            }
+            else
+            {
+                //add html for action
+                $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="View" onclick="view_product('."'".$products->prod_id."'".')"><i class="fa fa-eye"></i> </a>
+
+                <a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_product('."'".$products->prod_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
+                          
+                          <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_product('."'".$products->prod_id."'".', '."'".$products->name."'".')"><i class="fa fa-trash"></i></a>';                
+            }
+            
 
             // get number of rows found / check if it has details data
             $row[] = $this->prod_details->check_if_found($products->prod_id)->num_rows();

@@ -83,10 +83,14 @@
                         <span>Legend: [ &nbsp; <i style = "color: #ffffff;" class="fa fa-square"></i><i style = "color: #cccccc;" class="fa fa-square"></i> - Dine-In &nbsp; | &nbsp; <i style = "color: #ffffcc;" class="fa fa-square"></i><i style = "color: #ffff99;" class="fa fa-square"></i> - Take-Out &nbsp; ]</span>
                     </div>
                     <?php
-                        if ($trans_status != 'ONGOING'){ // if transaction status is cleared, enable reprint and refund buttons
+                        if ($trans_status != 'ONGOING') // if transaction status is cleared, enable reprint and refund buttons
+                        { 
+                            if ($this->session->userdata('administrator') == '1')
+                            {
                     ?>
-                        <button class="control-label col-md-4 btn btn-mint" <?php echo 'onclick="set_transactions_pdf('."'".$trans_status."'".')"'; ?>style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate Daily PDF Report</button>
+                                <button class="control-label col-md-4 btn btn-mint" <?php echo 'onclick="set_transactions_pdf('."'".$trans_status."'".')"'; ?>style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate Daily PDF Report</button>
                     <?php 
+                            }
                         } 
                     ?>
                 </div>

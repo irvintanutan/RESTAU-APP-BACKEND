@@ -61,7 +61,11 @@
                     </div>
                     <!--===================================================-->
                     <!-- End Striped Table -->
-                    <span>Legend: [ &nbsp; <i style = "color: #cccccc;" class="fa fa-square"></i> - Normal Users &nbsp; | &nbsp; <i style = "color: #66ffff;" class="fa fa-square"></i> - Administrators &nbsp; | &nbsp; <i style = "color: #ffff66;" class="fa fa-square"></i> - Super Administrator &nbsp; ]</span>
+                    <div class="col-md-8">
+                        <span>Legend: [ &nbsp; <i style = "color: #cccccc;" class="fa fa-square"></i> - Normal Users &nbsp; | &nbsp; <i style = "color: #66ffff;" class="fa fa-square"></i> - Administrators &nbsp; | &nbsp; <i style = "color: #ffff66;" class="fa fa-square"></i> - Super Administrator &nbsp; ]</span>
+                    </div>
+                    <button class="control-label col-md-4 btn btn-mint" onclick="set_users_pdf()" style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate PDF Report</button>
+                    <hr>
                 </div>
                 <!--===================================================-->
                 <!--End page content-->

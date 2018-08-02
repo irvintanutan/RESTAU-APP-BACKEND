@@ -12,7 +12,7 @@ class Tables_controller extends CI_Controller {
 
     public function index()						
     {
-        if($this->session->userdata('staff') == '1')
+        if($this->session->userdata('cashier') == '0')
         {
             redirect('error500');
         }
@@ -76,10 +76,21 @@ class Tables_controller extends CI_Controller {
 
             $row[] = $tables->encoded;
 
-            //add html for action
-            $row[] = '<a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_table('."'".$tables->tbl_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
-                      
-                      <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_table('."'".$tables->tbl_id."'".', '."'".$tables->name."'".')"><i class="fa fa-trash"></i></a>';
+            if($this->session->userdata('administrator') == '0')
+            {
+                //add html for action
+                $row[] = '<a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_table('."'".$tables->tbl_id."'".')" disabled><i class="fa fa-pencil-square-o"></i></a>
+                          
+                          <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_table('."'".$tables->tbl_id."'".', '."'".$tables->name."'".')" disabled><i class="fa fa-trash"></i></a>';
+            }
+            else
+            {
+                //add html for action
+                $row[] = '<a class="btn btn-sm btn-info" href="javascript:void(0)" title="Edit" onclick="edit_table('."'".$tables->tbl_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
+                          
+                          <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_table('."'".$tables->tbl_id."'".', '."'".$tables->name."'".')"><i class="fa fa-trash"></i></a>';
+            }
+
  
             $data[] = $row;
         }

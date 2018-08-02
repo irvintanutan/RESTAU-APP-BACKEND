@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 31, 2018 at 12:16 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: localhost
+-- Generation Time: Aug 02, 2018 at 06:00 PM
+-- Server version: 5.7.23-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -1058,7 +1056,85 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1000930, 'TORRES, JIK', 'Add', 'New%20transaction%20payment%20added:%20S122', '2018-07-30 23:30:07'),
 (1000931, 'TORRES, JIK', 'Report', 'S-Reading%20printed%20successfully', '2018-07-30 23:31:01'),
 (1000932, 'TORRES, JIK', 'Report', 'X-Reading%20printed%20successfully', '2018-07-30 23:40:26'),
-(1000933, 'TORRES, JIK', 'Report', 'X-Reading%20printed%20successfully', '2018-07-30 23:43:19');
+(1000933, 'TORRES, JIK', 'Report', 'X-Reading%20printed%20successfully', '2018-07-30 23:43:19'),
+(1000934, ', ', 'Report', 'Transactions%20Report%20Generated', '2018-07-31 14:23:42'),
+(1000935, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-31 14:23:44'),
+(1000936, 'TORRES, JIK', 'Report', 'Transactions%20Report%20Generated', '2018-07-31 14:23:50'),
+(1000937, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-07-31 18:06:19'),
+(1000938, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-01 09:15:32'),
+(1000939, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-01 13:49:01'),
+(1000940, 'TORRES, JIK', 'Report', 'Products%20Report%20Generated', '2018-08-01 13:49:57'),
+(1000941, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-01 13:55:26'),
+(1000942, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-01 13:55:28'),
+(1000943, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:15:35'),
+(1000944, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:15:57'),
+(1000945, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:16:22'),
+(1000946, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:16:35'),
+(1000947, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:16:51'),
+(1000948, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:17:42'),
+(1000949, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:17:48'),
+(1000950, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:18:03'),
+(1000951, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:18:43');
+INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time`) VALUES
+(1000952, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:30:50'),
+(1000953, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:31:20'),
+(1000954, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:33:20'),
+(1000955, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:33:33'),
+(1000956, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:58:05'),
+(1000957, 'TORRES, JIK', 'Add', 'New%20transaction%20discount%20added:%20S123', '2018-08-01 17:58:15'),
+(1000958, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-01 17:59:22'),
+(1000959, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 09:10:23'),
+(1000960, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 14:21:17'),
+(1000961, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 15:01:01'),
+(1000962, 'TORRES, JIK', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 15:01:52'),
+(1000963, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-02 15:01:59'),
+(1000964, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-02 16:19:39'),
+(1000965, 'Torres, Jiki', 'Login', 'System user login as Staff', '2018-08-02 16:19:47'),
+(1000966, 'Torres, Jiki', 'Login', 'System user login as Staff', '2018-08-02 16:20:06'),
+(1000967, 'Torres, Jiki', 'Login', 'System user login as Staff', '2018-08-02 16:20:22'),
+(1000968, 'Ford, Xander', 'Login', 'System user login as Staff', '2018-08-02 16:21:04'),
+(1000969, 'Ford, Xander', 'Logout', 'System user logout as Staff', '2018-08-02 16:21:18'),
+(1000970, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-08-02 16:21:27'),
+(1000971, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-08-02 16:22:24'),
+(1000972, 'Torres, Jiki', 'Login', 'System user login as Staff', '2018-08-02 16:22:32'),
+(1000973, 'Ford, Xander', 'Login', 'System user login as Staff', '2018-08-02 16:25:02'),
+(1000974, 'Ford, Xander', 'Logout', 'System user logout as Staff', '2018-08-02 16:25:07'),
+(1000975, 'Torres, Jiki', 'Login', 'System user login as Staff', '2018-08-02 16:25:17'),
+(1000976, 'Torres, Jiki', 'Logout', 'System user logout as Staff', '2018-08-02 16:27:30'),
+(1000977, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 16:27:31'),
+(1000978, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-02 16:32:40'),
+(1000979, 'Torres, Jiki', 'Login', 'System user login as Staff', '2018-08-02 16:32:55'),
+(1000980, 'Torres, Jiki', 'Report', 'Packages%20Report%20Generated', '2018-08-02 16:53:44'),
+(1000981, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 16:53:49'),
+(1000982, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-02 16:53:53'),
+(1000983, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 16:53:54'),
+(1000984, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-02 16:54:51'),
+(1000985, 'Torres, Jiki', 'Login', 'System user login as Staff', '2018-08-02 16:55:01'),
+(1000986, 'Torres, Jiki', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 16:57:10'),
+(1000987, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 16:57:20'),
+(1000988, 'TORRES, JIK', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 16:58:37'),
+(1000989, 'TORRES, JIK', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 16:58:47'),
+(1000990, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-02 16:58:51'),
+(1000991, 'Ford, Xander', 'Login', 'System user login as Staff', '2018-08-02 16:59:01'),
+(1000992, 'Ford, Xander', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-02 16:59:05'),
+(1000993, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-08-02 16:59:15'),
+(1000994, 'DOE, JANE', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-02 16:59:17'),
+(1000995, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-08-02 16:59:29'),
+(1000996, 'DOE, JANE', 'Report', 'S-Reading%20printed%20successfully', '2018-08-02 17:01:01'),
+(1000997, 'DOE, JANE', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 17:01:45'),
+(1000998, 'DOE, JANE', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 17:02:09'),
+(1000999, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-08-02 17:04:36'),
+(1001000, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 17:04:37'),
+(1001001, 'TORRES, JIK', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 17:04:43'),
+(1001002, 'TORRES, JIK', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 17:04:46'),
+(1001003, 'TORRES, JIK', 'Report', 'Transactions%20Report%20Generated', '2018-08-02 17:04:50'),
+(1001004, 'TORRES, JIK', 'Report', 'Products%20Report%20Generated', '2018-08-02 17:04:57'),
+(1001005, 'TORRES, JIK', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-02 17:06:10'),
+(1001006, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-02 17:06:14'),
+(1001007, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-08-02 17:06:25'),
+(1001008, 'DOE, JANE', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-02 17:06:33'),
+(1001009, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-08-02 17:06:45'),
+(1001010, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-02 17:06:46');
 
 -- --------------------------------------------------------
 
@@ -1083,7 +1159,7 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`pack_id`, `name`, `short_name`, `descr`, `price`, `img`, `sold`, `encoded`, `removed`) VALUES
-(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 101, '2018-05-25 01:21:37', 0),
+(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 103, '2018-05-25 01:21:37', 0),
 (2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2_1_.jpg', 6, '2018-05-29 13:17:08', 0),
 (3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3_1_.jpg', 21, '2018-05-29 15:18:31', 0),
 (4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4_1_.jpg', 3, '2018-07-04 16:18:35', 0);
@@ -1179,16 +1255,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 120, 30, '2018-05-24 18:22:34', 0),
-(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 16, 101, '2018-05-28 14:37:40', 0),
-(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 247, 0, '2018-05-29 13:51:47', 0),
+(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 122, 30, '2018-05-24 18:22:34', 0),
+(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 16, 103, '2018-05-28 14:37:40', 0),
+(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 251, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4_1_.jpg', 6, 0, '2018-05-29 13:55:32', 0),
 (5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 15, 0, '2018-05-29 13:56:42', 0),
 (6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 28, 0, '2018-05-29 13:57:27', 0),
 (7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 8, 42, '2018-05-29 13:58:22', 0),
 (8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8_1_.jpg', 1, 0, '2018-05-29 14:56:29', 0),
-(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 6, 155, '2018-05-29 14:58:13', 0),
-(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 8, 434, '2018-05-29 14:59:21', 0),
+(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 6, 157, '2018-05-29 14:58:13', 0),
+(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 8, 442, '2018-05-29 14:59:21', 0),
 (11, 'test insert 1', '', 'test insert 1 descr', 2, '1000.00', '', 0, 0, '2018-05-31 14:33:22', 1),
 (12, 'test insert 2', '', 'test insert 2 descr', 2, '2000.00', '', 0, 0, '2018-05-31 14:33:23', 1),
 (13, 'Plain Rice', 'PlainRice', '1 cup plain rice banay-banay', 4, '20.00', '13_1_.jpg', 5, 0, '2018-07-04 15:30:44', 0);
@@ -1339,7 +1415,8 @@ INSERT INTO `s_readings` (`reading_no`, `pos_no`, `cashier_username`, `date`, `t
 (5, 1, 'um_developer', '2018-07-30', 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', 0, 0, '2018-07-30 23:01:57'),
 (6, 1, 'um_developer', '2018-07-30', 1, 0, 1, 1, 0, 0, 0, '1000.00', '0.00', '0.00', '0.00', '0.00', '1000.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000025, 2000025, '2018-07-30 23:05:28'),
 (7, 1, 'um_developer', '2018-07-30', 1, 0, 1, 1, 0, 0, 0, '1120.00', '0.00', '280.00', '0.00', '280.00', '1400.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 2000028, '2018-07-30 23:27:37'),
-(8, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 2000029, '2018-07-30 23:31:01');
+(8, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 2000029, '2018-07-30 23:31:01'),
+(9, 1, 'janedoe', '2018-08-02', 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', 0, 0, '2018-08-02 17:01:01');
 
 -- --------------------------------------------------------
 
@@ -1387,6 +1464,14 @@ CREATE TABLE `table_groups` (
   `trans_id` int(11) NOT NULL,
   `tbl_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_groups`
+--
+
+INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
+(1, 123, 3),
+(2, 123, 4);
 
 -- --------------------------------------------------------
 
@@ -1538,7 +1623,8 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (119, '2018-07-27 17:52:28', '0.00', 0, 'CLEARED', 'TAKE-OUT', '2000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000026),
 (120, '2018-07-27 19:40:46', '0.00', 0, 'REFUNDED', 'DINE-IN', '-1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 1200000),
 (121, '2018-07-30 23:23:59', '280.00', 2, 'CLEARED', 'DINE-IN', '1500.00', '380.00', 'Cash', 'n/a', 'n/a', '343434', 103, 108, 0, 0, 2000028),
-(122, '2018-07-30 23:28:52', '100.00', 1, 'CLEARED', 'DINE-IN', '2000.00', '700.00', 'Cash', 'n/a', 'n/a', '98998', 103, 108, 0, 0, 2000029);
+(122, '2018-07-30 23:28:52', '100.00', 1, 'CLEARED', 'DINE-IN', '2000.00', '700.00', 'Cash', 'n/a', 'n/a', '98998', 103, 108, 0, 0, 2000029),
+(123, '2018-08-01 17:15:13', '0.00', 0, 'CLEARED', 'TAKE-OUT', '2000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000030);
 
 -- --------------------------------------------------------
 
@@ -2159,7 +2245,13 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (122, 0, 1, 1, '450.00', 2, '900.00', 0),
 (122, 2, 0, 2, '0.00', 2, '0.00', 1),
 (122, 9, 0, 2, '0.00', 2, '0.00', 1),
-(122, 10, 0, 2, '0.00', 8, '0.00', 1);
+(122, 10, 0, 2, '0.00', 8, '0.00', 1),
+(123, 1, 0, 0, '50.00', 2, '100.00', 0),
+(123, 3, 0, 0, '100.00', 4, '400.00', 0),
+(123, 0, 1, 1, '450.00', 2, '900.00', 0),
+(123, 2, 0, 2, '0.00', 2, '0.00', 1),
+(123, 9, 0, 2, '0.00', 2, '0.00', 1),
+(123, 10, 0, 2, '0.00', 8, '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -2191,12 +2283,12 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `username`, `password`, `lastname`, `firstname`, `middlename`, `contact`, `email`, `address`, `date_registered`, `administrator`, `cashier`, `staff`, `removed`) VALUES
 (101, 'super_admin', 'alphabravocharliedelta', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '2017-10-10 19:34:33', 1, 0, 0, 0),
 (102, 'nelda', 'kallay1975', 'NELDA', 'PAGSAC', 'BAGUIOHANON', '2969754', 'celinemariepagsac@gmail.com', 'Bl. 27, Lot 4, Gallera de Oro, Bago, Davao City', '2017-10-10 19:38:54', 1, 0, 0, 1),
-(103, 'jiktorres', 'jiktorres', 'Torres', 'Jiki', 'Zyrus', '09228031290', 'jiki@gmail.com', 'Sasa, Davao City', '2017-10-10 19:40:32', 0, 0, 0, 1),
+(103, 'jiktorres', 'jiktorres', 'Torres', 'Jiki', 'Zyrus', '09228031290', 'jiki@gmail.com', 'Sasa, Davao City', '2017-10-10 19:40:32', 0, 1, 1, 0),
 (104, 'ladysheen', 'ladysheen', 'GIlbang', 'Lady Sheen', 'Acolentaba', '09888787878', 'lsg@gmail.com', 'Catalunan Grande, Davao City', '2017-10-10 19:41:30', 0, 0, 0, 1),
 (105, 'ivyybi', 'ivyybi', 'Ybiernas', 'Ivy', 'Villegas', '0909898897', 'ybi@gmail.com', 'Mawab, Compostela Valley', '2017-10-10 19:52:08', 0, 0, 0, 1),
 (106, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', '2018-02-04 02:31:33', 0, 0, 0, 1),
 (107, 'srmafel_inting', 'fsilgc', 'Inting', 'Ma. Felina ', 'Saban', '09232838367', 'srmafel_inting@yahoo.com', 'JS Francisco Village, Talomo , Davao City', '2018-02-06 16:19:07', 1, 0, 0, 1),
-(108, 'um_developer', 'jiktorres', 'TORRES', 'JIK', 'ABAS', '+639228031290', 'jikiboi03@gmail.com', 'Sasa, Davao City', '2018-02-07 14:06:29', 1, 0, 0, 0),
+(108, 'um_developer', 'jiktorres', 'TORRES', 'JIK', 'ABAS', '+639228031290', 'jikiboi03@gmail.com', 'Sasa, Davao City', '2018-02-07 14:06:29', 1, 1, 0, 0),
 (109, 'xanderford', 'xanderford', 'Ford', 'Xander', 'Marlou', '09989898988', 'xander@gmail.com', 'Brgy Barrio Patay, Davao City', '2018-03-12 23:23:04', 0, 0, 1, 0),
 (110, 'as', 'as', 'as', 'as', 'as', 'as', 'as', 'as', '2018-07-23 19:55:06', 0, 0, 0, 1),
 (111, 'janedoe', 'janedoe', 'DOE', 'JANE', 'SMITH', '090909090', 'jane@gmail.com', 'Sasa, Davao City', '2018-07-24 12:55:08', 0, 1, 0, 0);
@@ -2369,7 +2461,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000934;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001011;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2404,7 +2496,7 @@ ALTER TABLE `store_config`
 -- AUTO_INCREMENT for table `s_readings`
 --
 ALTER TABLE `s_readings`
-  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tables`
 --
@@ -2414,12 +2506,12 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -2429,8 +2521,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `x_readings`
 --
 ALTER TABLE `x_readings`
-  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
-
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

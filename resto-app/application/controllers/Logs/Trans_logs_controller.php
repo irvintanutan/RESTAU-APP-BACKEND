@@ -34,7 +34,7 @@ class Trans_logs_controller extends CI_Controller {
         foreach ($list as $trans_logs) {
             $no++;
             $row = array();
-            $row[] = 'L' . $trans_logs->log_id;
+            $row[] = 'TL' . $trans_logs->log_id;
             
             $row[] = $trans_logs->log_type;
             $row[] = str_replace("%20", " ", $trans_logs->details);

@@ -779,9 +779,6 @@ class Transactions_controller extends CI_Controller {
         $vat = ($store->vat / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
 
         $items = $line_items;
-        
-        /* Start the printer */
-        $printer = new Printer($connector);
 
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
@@ -860,9 +857,6 @@ class Transactions_controller extends CI_Controller {
 
         $amount_due_str = new item('Amount Due       Php', number_format($cash_amt, 2));
         $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
-
-        /* Start the printer */
-        $printer = new Printer($connector);
 
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);

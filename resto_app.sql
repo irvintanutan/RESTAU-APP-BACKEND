@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 03, 2018 at 07:51 PM
--- Server version: 5.7.23-0ubuntu0.16.04.1
--- PHP Version: 7.0.30-0ubuntu0.16.04.1
+-- Host: 127.0.0.1
+-- Generation Time: Aug 03, 2018 at 09:59 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -1146,7 +1148,44 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1001019, 'um_developer', 'Add', 'New%20transaction%20discount%20added:%20S126', '2018-08-03 18:47:37'),
 (1001020, 'um_developer', 'Delete', 'Transaction%20detail%20product%20voided%20T126:%20P1', '2018-08-03 18:53:15'),
 (1001021, 'um_developer', 'Delete', 'Transaction%20detail%20package%20voided%20T126:%20G1', '2018-08-03 18:58:54'),
-(1001022, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-03 19:21:50');
+(1001022, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-03 19:21:50'),
+(1001023, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-03 20:07:19'),
+(1001024, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-03 20:07:37'),
+(1001025, 'um_developer', 'Add', 'New%20transaction%20payment%20added:%20S126', '2018-08-03 20:08:08'),
+(1001026, 'um_developer', 'Add', 'New%20transaction%20discount%20added:%20S125', '2018-08-03 20:32:34'),
+(1001027, 'um_developer', 'Add', 'New%20transaction%20payment%20added:%20S125', '2018-08-03 20:34:18'),
+(1001028, 'um_developer', 'Add', 'New%20transaction%20payment%20added:%20S124', '2018-08-03 20:35:00'),
+(1001029, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-03 20:35:25'),
+(1001030, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-08-03 20:35:44'),
+(1001031, 'janedoe', 'Report', 'S-Reading%20printed%20successfully', '2018-08-03 20:35:57'),
+(1001032, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-08-03 20:37:18'),
+(1001033, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-03 20:37:23'),
+(1001034, 'um_developer', 'Report', 'S-Reading%20printed%20successfully', '2018-08-03 20:38:48'),
+(1001035, 'um_developer', 'Report', 'X-Reading%20printed%20successfully', '2018-08-03 20:43:11'),
+(1001036, 'TORRES, JIK', 'Logout', 'System user logout as Administrator', '2018-08-03 20:45:30'),
+(1001037, 'DOE, JANE', 'Login', 'System user login as Staff', '2018-08-03 20:45:46'),
+(1001038, 'janedoe', 'Report', 'S-Reading%20printed%20successfully', '2018-08-03 20:45:52'),
+(1001039, 'janedoe', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-03 20:53:05'),
+(1001040, 'DOE, JANE', 'Logout', 'System user logout as Staff', '2018-08-03 20:55:04'),
+(1001041, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-03 20:55:08'),
+(1001042, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-03 20:55:17'),
+(1001043, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-03 20:55:52'),
+(1001044, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-03 20:56:48'),
+(1001045, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-03 20:58:42'),
+(1001046, 'um_developer', 'Delete', 'Transaction%20detail%20package%20voided%20T141:%20G3', '2018-08-03 21:12:44'),
+(1001047, 'um_developer', 'Delete', 'Transaction%20detail%20package%20voided%20T141:%20G1', '2018-08-03 21:13:20'),
+(1001048, 'um_developer', 'Delete', 'Transaction%20detail%20package%20voided%20T141:%20G4', '2018-08-03 21:14:24'),
+(1001049, 'um_developer', 'Delete', 'Transaction%20has%20been%20cancelled', '2018-08-03 21:15:03'),
+(1001050, 'um_developer', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-08-03 21:18:03'),
+(1001051, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-03 21:18:20'),
+(1001052, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-03 21:18:51'),
+(1001053, 'um_developer', 'Report', 'S-Reading%20printed%20successfully', '2018-08-03 21:24:36'),
+(1001054, 'um_developer', 'Report', 'S-Reading%20printed%20successfully', '2018-08-03 21:25:37'),
+(1001055, 'um_developer', 'Report', 'X-Reading%20printed%20successfully', '2018-08-03 21:25:50'),
+(1001056, 'um_developer', 'Report', 'X-Reading%20printed%20successfully', '2018-08-03 21:30:31'),
+(1001057, 'um_developer', 'Report', 'S-Reading%20printed%20successfully', '2018-08-03 21:36:39'),
+(1001058, 'um_developer', 'Report', 'X-Reading%20printed%20successfully', '2018-08-03 21:40:46'),
+(1001059, 'um_developer', 'Add', 'New%20transaction%20payment%20added:%20S143', '2018-08-03 21:41:28');
 
 -- --------------------------------------------------------
 
@@ -1171,10 +1210,10 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`pack_id`, `name`, `short_name`, `descr`, `price`, `img`, `sold`, `encoded`, `removed`) VALUES
-(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 107, '2018-05-25 01:21:37', 0),
-(2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2_1_.jpg', 6, '2018-05-29 13:17:08', 0),
+(1, 'Family Bundle 1', 'FamlyBundle1', 'Sample package descr', '500.00', '1_1_.jpg', 112, '2018-05-25 01:21:37', 0),
+(2, 'Family Bundle 2', 'FamlyBundle2', 'Sample descr pack 1', '1000.00', '2_1_.jpg', 7, '2018-05-29 13:17:08', 0),
 (3, 'Barkada Package', 'BrkdaPackage', 'Family package X 2', '1000.00', '3_1_.jpg', 21, '2018-05-29 15:18:31', 0),
-(4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4_1_.jpg', 3, '2018-07-04 16:18:35', 0);
+(4, 'Lechon Bundle 1', 'LechonBndle1', 'Lechon Bundle with Lamas', '1200.00', '4_1_.jpg', 4, '2018-07-04 16:18:35', 0);
 
 -- --------------------------------------------------------
 
@@ -1267,16 +1306,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 126, 30, '2018-05-24 18:22:34', 0),
-(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 16, 107, '2018-05-28 14:37:40', 0),
-(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 259, 0, '2018-05-29 13:51:47', 0),
+(1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 131, 35, '2018-05-24 18:22:34', 0),
+(2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 16, 112, '2018-05-28 14:37:40', 0),
+(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 272, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4_1_.jpg', 6, 0, '2018-05-29 13:55:32', 0),
-(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 17, 0, '2018-05-29 13:56:42', 0),
-(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 28, 0, '2018-05-29 13:57:27', 0),
+(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 18, 0, '2018-05-29 13:56:42', 0),
+(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 29, 0, '2018-05-29 13:57:27', 0),
 (7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 8, 42, '2018-05-29 13:58:22', 0),
 (8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8_1_.jpg', 1, 0, '2018-05-29 14:56:29', 0),
-(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 6, 161, '2018-05-29 14:58:13', 0),
-(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 8, 458, '2018-05-29 14:59:21', 0),
+(9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 7, 168, '2018-05-29 14:58:13', 0),
+(10, 'Chicken Rice Meal', 'ChknRiceMeal', 'Fried chicken cut with rice', 3, '70.00', '10_1_.jpg', 8, 483, '2018-05-29 14:59:21', 0),
 (11, 'test insert 1', '', 'test insert 1 descr', 2, '1000.00', '', 0, 0, '2018-05-31 14:33:22', 1),
 (12, 'test insert 2', '', 'test insert 2 descr', 2, '2000.00', '', 0, 0, '2018-05-31 14:33:23', 1),
 (13, 'Plain Rice', 'PlainRice', '1 cup plain rice banay-banay', 4, '20.00', '13_1_.jpg', 5, 0, '2018-07-04 15:30:44', 0);
@@ -1428,7 +1467,13 @@ INSERT INTO `s_readings` (`reading_no`, `pos_no`, `cashier_username`, `date`, `t
 (6, 1, 'um_developer', '2018-07-30', 1, 0, 1, 1, 0, 0, 0, '1000.00', '0.00', '0.00', '0.00', '0.00', '1000.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000025, 2000025, '2018-07-30 23:05:28'),
 (7, 1, 'um_developer', '2018-07-30', 1, 0, 1, 1, 0, 0, 0, '1120.00', '0.00', '280.00', '0.00', '280.00', '1400.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 2000028, '2018-07-30 23:27:37'),
 (8, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 2000029, '2018-07-30 23:31:01'),
-(9, 1, 'janedoe', '2018-08-02', 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', 0, 0, '2018-08-02 17:01:01');
+(9, 1, 'janedoe', '2018-08-02', 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', 0, 0, '2018-08-02 17:01:01'),
+(10, 1, 'janedoe', '2018-08-03', 3, 7, 10, 0, 0, 10, 0, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '-4900.00', '0.00', '0.00', '0.00', 1200000, 2000032, '2018-08-03 20:35:56'),
+(11, 1, 'um_developer', '2018-08-03', 1, 4, 5, 4, 1, 0, 0, '4500.00', '100.00', '100.00', '0.00', '200.00', '4700.00', '1660.00', '0.00', '0.00', '0.00', '0.00', 2000031, 2000035, '2018-08-03 20:38:47'),
+(12, 1, 'janedoe', '2018-08-03', 3, 7, 10, 0, 0, 10, 0, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '-4900.00', '0.00', '0.00', '0.00', 1200000, 2000032, '2018-08-03 20:45:52'),
+(13, 1, 'um_developer', '2018-08-03', 1, 4, 5, 4, 1, 0, 0, '4500.00', '100.00', '100.00', '0.00', '200.00', '4700.00', '1660.00', '0.00', '0.00', '0.00', '0.00', 2000031, 2000035, '2018-08-03 21:24:35'),
+(14, 1, 'um_developer', '2018-08-03', 1, 4, 5, 4, 1, 0, 5, '4500.00', '100.00', '100.00', '0.00', '200.00', '4700.00', '1660.00', '0.00', '0.00', '0.00', '0.00', 2000031, 2000035, '2018-08-03 21:25:37'),
+(15, 1, 'um_developer', '2018-08-03', 1, 4, 5, 4, 1, 0, 5, '4500.00', '100.00', '100.00', '0.00', '200.00', '4700.00', '1660.00', '0.00', '0.00', '0.00', '0.00', 2000031, 2000035, '2018-08-03 21:36:38');
 
 -- --------------------------------------------------------
 
@@ -1483,12 +1528,7 @@ CREATE TABLE `table_groups` (
 
 INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
 (1, 123, 3),
-(2, 123, 4),
-(3, 124, 3),
-(4, 124, 4),
-(5, 125, 3),
-(6, 125, 4),
-(21, 126, 0);
+(2, 123, 4);
 
 -- --------------------------------------------------------
 
@@ -1642,14 +1682,27 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (121, '2018-07-30 23:23:59', '280.00', 2, 'CLEARED', 'DINE-IN', '1500.00', '380.00', 'Cash', 'n/a', 'n/a', '343434', 103, 108, 0, 0, 2000028),
 (122, '2018-07-30 23:28:52', '100.00', 1, 'CLEARED', 'DINE-IN', '2000.00', '700.00', 'Cash', 'n/a', 'n/a', '98998', 103, 108, 0, 0, 2000029),
 (123, '2018-08-01 17:15:13', '0.00', 0, 'CLEARED', 'TAKE-OUT', '2000.00', '600.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000030),
-(124, '2018-08-03 17:34:17', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 0, 1000000),
-(125, '2018-08-03 17:34:51', '0.00', 0, 'ONGOING', 'TAKE-OUT', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 0, 0, 0, 1000000),
-(126, '2018-08-03 17:36:59', '100.00', 2, 'ONGOING', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', '54545454', 103, 0, 0, 0, 1000000),
+(124, '2018-08-03 17:34:17', '0.00', 0, 'CLEARED', 'TAKE-OUT', '1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000035),
+(125, '2018-08-03 17:34:51', '100.00', 1, 'CLEARED', 'TAKE-OUT', '2000.00', '700.00', 'Cash', 'n/a', 'n/a', '6656565', 103, 108, 0, 0, 2000034),
+(126, '2018-08-03 17:36:59', '100.00', 2, 'CLEARED', 'DINE-IN', '400.00', '0.00', 'Cash', 'n/a', 'n/a', '54545454', 103, 108, 0, 0, 2000033),
 (127, '2018-08-03 17:42:40', '0.00', 0, 'CLEARED', 'TAKE-OUT', '1500.00', '100.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000032),
 (128, '2018-08-03 17:58:53', '0.00', 0, 'CANCELLED', 'TAKE-OUT', '2000.00', '340.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000031),
 (129, '2018-08-03 18:10:09', '0.00', 0, 'REFUNDED', 'DINE-IN', '-2000.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 1200000),
 (130, '2018-08-03 19:25:28', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '0.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
-(131, '2018-08-03 19:26:55', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '0.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032);
+(131, '2018-08-03 19:26:55', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '0.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
+(132, '2018-08-03 20:09:53', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '0.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
+(133, '2018-08-03 20:14:07', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '0.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
+(134, '2018-08-03 20:17:40', '0.00', 0, 'REFUNDED', 'DINE-IN', '-1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 1200000),
+(135, '2018-08-03 20:22:34', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '0.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
+(136, '2018-08-03 20:23:26', '0.00', 0, 'REFUNDED', 'DINE-IN', '-1400.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 1200000),
+(137, '2018-08-03 20:25:04', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '0.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
+(138, '2018-08-03 20:28:10', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '-100.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
+(139, '2018-08-03 20:49:12', '0.00', 0, 'CLEARED', 'DINE-IN', '1260.00', '910.00', 'Cash', 'n/a', 'n/a', 'n/a', 111, 111, 0, 0, 2000001),
+(140, '2018-08-03 20:58:27', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 109, 0, 0, 0, 1000000),
+(141, '2018-08-03 21:04:40', '100.00', 2, 'CLEARED', 'TAKE-OUT', '1000.00', '100.00', 'Cash', 'n/a', 'n/a', '87887', 109, 108, 0, 1, 2000037),
+(142, '2018-08-03 21:30:04', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '-100.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
+(143, '2018-08-03 21:35:59', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '450.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 108, 0, 0, 2000036),
+(144, '2018-08-03 21:49:54', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 109, 0, 0, 0, 1000000);
 
 -- --------------------------------------------------------
 
@@ -2320,7 +2373,63 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (131, 0, 1, 1, '450.00', 1, '-450.00', 0),
 (131, 2, 0, 2, '0.00', 1, '0.00', 1),
 (131, 9, 0, 2, '0.00', 1, '0.00', 1),
-(131, 10, 0, 2, '0.00', 4, '0.00', 1);
+(131, 10, 0, 2, '0.00', 4, '0.00', 1),
+(132, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(132, 3, 0, 0, '100.00', 4, '-400.00', 0),
+(132, 0, 1, 1, '450.00', 2, '-900.00', 0),
+(132, 2, 0, 2, '0.00', 2, '0.00', 1),
+(132, 9, 0, 2, '0.00', 2, '0.00', 1),
+(132, 10, 0, 2, '0.00', 8, '0.00', 1),
+(133, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(133, 3, 0, 0, '100.00', 4, '-400.00', 0),
+(133, 0, 1, 1, '450.00', 2, '-900.00', 0),
+(133, 2, 0, 2, '0.00', 2, '0.00', 1),
+(133, 9, 0, 2, '0.00', 2, '0.00', 1),
+(133, 10, 0, 2, '0.00', 8, '0.00', 1),
+(134, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(134, 3, 0, 0, '100.00', 4, '-400.00', 0),
+(134, 0, 1, 1, '450.00', 2, '-900.00', 0),
+(134, 2, 0, 2, '0.00', 2, '0.00', 1),
+(134, 9, 0, 2, '0.00', 2, '0.00', 1),
+(134, 10, 0, 2, '0.00', 8, '0.00', 1),
+(135, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(135, 3, 0, 0, '100.00', 4, '-400.00', 0),
+(135, 0, 1, 1, '450.00', 2, '-900.00', 0),
+(135, 2, 0, 2, '0.00', 2, '0.00', 1),
+(135, 9, 0, 2, '0.00', 2, '0.00', 1),
+(135, 10, 0, 2, '0.00', 8, '0.00', 1),
+(136, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(136, 3, 0, 0, '100.00', 4, '-400.00', 0),
+(136, 0, 1, 1, '450.00', 2, '-900.00', 0),
+(136, 2, 0, 2, '0.00', 2, '0.00', 1),
+(136, 9, 0, 2, '0.00', 2, '0.00', 1),
+(136, 10, 0, 2, '0.00', 8, '0.00', 1),
+(137, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(137, 3, 0, 0, '100.00', 4, '-400.00', 0),
+(137, 0, 1, 1, '450.00', 2, '-900.00', 0),
+(137, 2, 0, 2, '0.00', 2, '0.00', 1),
+(137, 9, 0, 2, '0.00', 2, '0.00', 1),
+(137, 10, 0, 2, '0.00', 8, '0.00', 1),
+(138, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(139, 6, 0, 0, '70.00', 1, '70.00', 0),
+(139, 5, 0, 0, '80.00', 1, '80.00', 0),
+(139, 9, 0, 0, '150.00', 1, '150.00', 0),
+(139, 1, 0, 0, '50.00', 1, '50.00', 0),
+(140, 0, 1, 1, '500.00', 1, '500.00', 0),
+(140, 2, 0, 2, '0.00', 1, '0.00', 1),
+(140, 9, 0, 2, '0.00', 1, '0.00', 1),
+(140, 10, 0, 2, '0.00', 4, '0.00', 1),
+(141, 0, 2, 1, '1000.00', 1, '1000.00', 0),
+(141, 1, 0, 2, '0.00', 5, '0.00', 2),
+(141, 10, 0, 2, '0.00', 5, '0.00', 2),
+(141, 9, 0, 2, '0.00', 2, '0.00', 2),
+(142, 1, 0, 0, '50.00', 2, '-100.00', 0),
+(143, 0, 1, 1, '450.00', 1, '450.00', 0),
+(143, 2, 0, 2, '0.00', 1, '0.00', 1),
+(143, 9, 0, 2, '0.00', 1, '0.00', 1),
+(143, 10, 0, 2, '0.00', 4, '0.00', 1),
+(143, 0, 4, 1, '1100.00', 1, '1100.00', 0),
+(144, 3, 0, 0, '100.00', 1, '100.00', 0);
 
 -- --------------------------------------------------------
 
@@ -2355,7 +2464,42 @@ INSERT INTO `trans_logs` (`log_id`, `user_fullname`, `log_type`, `details`, `dat
 (1000012, 'um_developer', 'Void', 'Item void S126 by U108 - Package: G1', '2018-08-03 18:58:54'),
 (1000013, 'xanderford', 'UpdateOrder', 'Transaction updated S126 by U109', '2018-08-03 19:00:05'),
 (1000014, 'janedoe', 'Refund', 'Transaction refunded S131 RCPT#: 2000032', '2018-08-03 19:26:56'),
-(1000015, 'xanderford', 'Void', 'Item void S126 by U108 - Product: P1', '2018-08-03 19:41:17');
+(1000015, 'xanderford', 'Void', 'Item void S126 by U108 - Product: P1', '2018-08-03 19:41:17'),
+(1000016, 'um_developer', 'Payment', 'Transaction payment S126 RCPT#: 2000033', '2018-08-03 20:08:08'),
+(1000017, 'janedoe', 'Refund', 'Transaction refunded S132 RCPT#: 2000032', '2018-08-03 20:09:54'),
+(1000018, 'janedoe', 'Refund', 'Transaction refunded S133 RCPT#: 2000032', '2018-08-03 20:14:07'),
+(1000019, 'janedoe', 'Refund', 'Transaction refunded S134 RCPT#: 1200000', '2018-08-03 20:17:41'),
+(1000020, 'janedoe', 'Refund', 'Transaction refunded S135 RCPT#: 2000032', '2018-08-03 20:22:34'),
+(1000021, 'janedoe', 'Refund', 'Transaction refunded S136 RCPT#: 1200000', '2018-08-03 20:23:27'),
+(1000022, 'janedoe', 'Refund', 'Transaction refunded S137 RCPT#: 2000032', '2018-08-03 20:25:04'),
+(1000023, 'janedoe', 'Refund', 'Transaction refunded S138 RCPT#: 2000032', '2018-08-03 20:28:10'),
+(1000024, 'um_developer', 'Discount', 'Transaction discounted S125 by U108', '2018-08-03 20:32:34'),
+(1000025, 'um_developer', 'Payment', 'Transaction payment S125 RCPT#: 2000034', '2018-08-03 20:34:18'),
+(1000026, 'um_developer', 'Payment', 'Transaction payment S124 RCPT#: 2000035', '2018-08-03 20:34:59'),
+(1000027, 'xanderford', 'SetOrder', 'New transaction added S140 by U109', '2018-08-03 20:58:28'),
+(1000028, 'I', 'I', 'I', '2018-08-03 20:58:43'),
+(1000029, 'I', 'I', 'I', '2018-08-03 21:00:37'),
+(1000030, 'I', 'I', 'I', '2018-08-03 21:02:31'),
+(1000031, 'xanderford', 'UpdateOrder', 'Transaction updated S140 by U109', '2018-08-03 21:02:34'),
+(1000032, 'xanderford', 'UpdateOrder', 'Transaction updated S140 by U109', '2018-08-03 21:04:05'),
+(1000033, 'I', 'I', 'I', '2018-08-03 21:04:12'),
+(1000034, 'xanderford', 'UpdateOrder', 'Transaction updated S140 by U109', '2018-08-03 21:04:14'),
+(1000035, 'xanderford', 'SetOrder', 'New transaction added S141 by U109', '2018-08-03 21:04:41'),
+(1000036, 'xanderford', 'Void', 'Item void S141 by U109 - G4', '2018-08-03 21:05:39'),
+(1000037, 'xanderford', 'Void', 'Item void S141 by U109 - Package: G1', '2018-08-03 21:07:56'),
+(1000038, 'um_developer', 'Void', 'Item void S141 by U108 - Package: G3', '2018-08-03 21:12:44'),
+(1000039, 'um_developer', 'Void', 'Item void S141 by U108 - Package: G1', '2018-08-03 21:13:20'),
+(1000040, 'um_developer', 'Void', 'Item void S141 by U108 - Package: G4', '2018-08-03 21:14:23'),
+(1000041, 'um_developer', 'Cancel', 'Transaction cancelled S140 by U108', '2018-08-03 21:15:03'),
+(1000042, 'janedoe', 'Refund', 'Transaction refunded S142 RCPT#: 2000032', '2018-08-03 21:30:04'),
+(1000043, 'xanderford', 'SetOrder', 'New transaction added S143 by U109', '2018-08-03 21:36:00'),
+(1000044, 'um_developer', 'Payment', 'Transaction payment S143 RCPT#: 2000036', '2018-08-03 21:41:28'),
+(1000045, 'xanderford', 'SetOrder', 'New transaction added S144 by U109', '2018-08-03 21:49:55'),
+(1000046, 'um_developer', 'Void', 'Item void S144 by U108 - Product: P6', '2018-08-03 21:50:41'),
+(1000047, 'um_developer', 'Void', 'Item void S144 by U108 - Package: G3', '2018-08-03 21:51:26'),
+(1000048, 'um_developer', 'Cancel', 'Transaction cancelled S144 by U108', '2018-08-03 21:52:32'),
+(1000049, 'um_developer', 'Discount', 'Transaction discounted S141 by U108', '2018-08-03 21:53:39'),
+(1000050, 'um_developer', 'Payment', 'Transaction payment S141 RCPT#: 2000037', '2018-08-03 21:54:39');
 
 -- --------------------------------------------------------
 
@@ -2440,7 +2584,11 @@ INSERT INTO `x_readings` (`reading_no`, `pos_no`, `cashier_username`, `date`, `t
 (2, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 0, '2018-07-30 23:37:12'),
 (3, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 0, '2018-07-30 23:38:45'),
 (4, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 0, '2018-07-30 23:40:25'),
-(5, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 2000029, '2018-07-30 23:43:19');
+(5, 1, 'um_developer', '2018-07-30', 2, 0, 2, 2, 0, 0, 0, '2420.00', '100.00', '280.00', '0.00', '380.00', '2800.00', '0.00', '0.00', '0.00', '0.00', '0.00', 2000028, 2000029, '2018-07-30 23:43:19'),
+(6, 1, 'um_developer', '2018-08-03', 4, 11, 15, 4, 1, 10, 0, '-400.00', '100.00', '100.00', '0.00', '200.00', '-200.00', '1660.00', '-4900.00', '0.00', '0.00', '0.00', 1200000, 2000035, '2018-08-03 20:43:11'),
+(7, 1, 'um_developer', '2018-08-03', 6, 12, 18, 5, 2, 10, 8, '-50.00', '100.00', '100.00', '0.00', '200.00', '150.00', '1660.00', '-4900.00', '0.00', '0.00', '0.00', 1000000, 2000035, '2018-08-03 21:25:50'),
+(8, 1, 'um_developer', '2018-08-03', 6, 13, 19, 5, 2, 11, 8, '-150.00', '100.00', '100.00', '0.00', '200.00', '50.00', '1660.00', '-5000.00', '0.00', '0.00', '0.00', 1000000, 2000035, '2018-08-03 21:30:31'),
+(9, 1, 'um_developer', '2018-08-03', 7, 13, 20, 5, 2, 11, 8, '-150.00', '100.00', '100.00', '0.00', '200.00', '50.00', '1660.00', '-5000.00', '0.00', '0.00', '0.00', 1000000, 2000035, '2018-08-03 21:40:45');
 
 --
 -- Indexes for dumped tables
@@ -2571,7 +2719,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001023;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001060;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2606,7 +2754,7 @@ ALTER TABLE `store_config`
 -- AUTO_INCREMENT for table `s_readings`
 --
 ALTER TABLE `s_readings`
-  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `tables`
 --
@@ -2616,17 +2764,17 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 --
 -- AUTO_INCREMENT for table `trans_logs`
 --
 ALTER TABLE `trans_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000016;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000051;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -2636,7 +2784,8 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `x_readings`
 --
 ALTER TABLE `x_readings`
-  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

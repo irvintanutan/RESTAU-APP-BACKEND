@@ -1389,12 +1389,6 @@ function set_cancel(id) // ---> calling for the Add Modal form
                                 dataType: "JSON",
                                 success: function(data)
                                 {
-                                    var log_type = 'Delete';
-
-                                    var details = 'Transaction has been cancelled'; 
-
-                                    set_system_log_one(log_type, details);
-
                                     bootbox.dialog({
                                         title  : "Transaction Cancelled Successfully",
                                         message  : "Transaction Cancellation"
@@ -1604,12 +1598,6 @@ function confirm_trans()
 
                 if(save_method == 'set-payment') 
                 {
-                    log_type = 'Add';
-
-                    details = 'New transaction payment added: S' + $('[name="trans_id"]').val();
-
-                    set_system_log_one(log_type, details);
-
                     bootbox.dialog({
                         title  : "Payment Processed Successfully",
                         message  : "Transaction Payment"
@@ -1619,12 +1607,6 @@ function confirm_trans()
                 }
                 if(save_method == 'set-discount') 
                 {
-                    log_type = 'Add';
-
-                    details = 'New transaction discount added: S' + $('[name="trans_id"]').val();
-
-                    set_system_log_one(log_type, details);
-
                     reload_page();
                 }
             }
@@ -1786,19 +1768,7 @@ function delete_trans_detail_prod(idone, idtwo)
                                 dataType: "JSON",
                                 success: function(data)
                                 {
-                                    var log_type = 'Delete';
-
-                                    var details = 'Transaction detail product voided T' + idone 
-                                    + ': P' + idtwo; 
-
-                                    set_system_log_one(log_type, details);
-
-                                    // refresh transaction details page
-                                    window.location.href=$('[name="trans_id"]').val();
-
-                                    //if success reload ajax table
-                                    $('#modal_form').modal('hide');
-                                    reload_table();
+                                    reload_page();
                                 },
                                 error: function (jqXHR, textStatus, errorThrown)
                                 {
@@ -1873,19 +1843,8 @@ function delete_trans_detail_pack(idone, idtwo)
                                 dataType: "JSON",
                                 success: function(data)
                                 {
-                                    var log_type = 'Delete';
-
-                                    var details = 'Transaction detail package voided T' + idone 
-                                    + ': G' + idtwo; 
-
                                     // refresh transaction details page
-                                    window.location.href=$('[name="trans_id"]').val();
-
-                                    set_system_log_one(log_type, details);
-
-                                    //if success reload ajax table
-                                    $('#modal_form').modal('hide');
-                                    reload_table();
+                                    reload_page();
                                 },
                                 error: function (jqXHR, textStatus, errorThrown)
                                 {

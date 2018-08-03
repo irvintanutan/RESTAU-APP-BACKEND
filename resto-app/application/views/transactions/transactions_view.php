@@ -88,7 +88,7 @@
                             if ($this->session->userdata('administrator') == '1')
                             {
                     ?>
-                                <button class="control-label col-md-4 btn btn-mint" <?php echo 'onclick="set_transactions_pdf('."'".$trans_status."'".')"'; ?>style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate Daily PDF Report</button>
+                                <button class="control-label col-md-4 btn btn-mint" <?php echo 'onclick="set_transactions_pdf('."'".$trans_status."'".')"'; ?>style="font-size: 14px;"><i class="fa fa-database"></i> &nbsp;Generate PDF Report</button>
                     <?php 
                             }
                         } 

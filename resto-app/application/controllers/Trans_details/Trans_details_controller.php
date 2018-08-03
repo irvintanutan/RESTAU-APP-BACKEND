@@ -1365,11 +1365,6 @@ class Trans_details_controller extends CI_Controller {
         $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
         $change_amt_str = new item('CHANGE           Php', number_format($change_amt, 2));
 
-        
-
-        /* Start the printer */
-        $printer = new Printer($connector);
-
         $printer -> pulse();
 
         /* Print top logo */
@@ -1489,10 +1484,7 @@ class Trans_details_controller extends CI_Controller {
 
         $discount_str = new item('Less: ' . $disc_type_name, "-" . number_format($discount, 2));
 
-        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));        
-
-        /* Start the printer */
-        $printer = new Printer($connector);
+        $amount_due_str = new item('Amount Due       Php', number_format($amount_due, 2));
 
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);

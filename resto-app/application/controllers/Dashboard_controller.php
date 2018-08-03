@@ -21,6 +21,8 @@ class Dashboard_controller extends CI_Controller {
         $this->load->model('Readings/S_readings_model','s_readings');
         $this->load->model('Readings/X_readings_model','x_readings');
 
+        $this->load->model('Logs/Trans_logs_model','trans_logs');
+
     }
 
     public function index()
@@ -264,7 +266,7 @@ class Dashboard_controller extends CI_Controller {
         $trans_count_cancelled = $this->transactions->get_count_trans_shift_status($today, 'CANCELLED', $cashier_id);
         $trans_count_refunded = $this->transactions->get_count_trans_shift_status($today, 'REFUNDED', $cashier_id);
 
-        $void_items_count = 0;
+        $void_items_count = $this->trans_logs->get_total_void_shift($today, $cashier_username);
 
         // ------------------------- AMOUNT -------------------------------------------------------------------------------
         $net_sales = $this->transactions->get_daily_net_sales_shift($today, $cashier_id);
@@ -333,7 +335,7 @@ class Dashboard_controller extends CI_Controller {
         $reading_no = $this->s_readings->save($data);
 
 
-        //$this->print_readings('S-READING', $reading_no, $pos_no, $cashier_username, $trans_count_dine_in, $trans_count_take_out, $trans_count_total, $trans_count_cleared, $trans_count_cancelled, $trans_count_refunded, $void_items_count, $net_sales_str, $disc_sc_str, $disc_pwd_str, $disc_promo_str, $disc_total_str, $gross_sales_str, $cancelled_sales_str, $refunded_sales_str, $vat_sales_str, $vat_amount_str, $vat_exempt_str, $start_rcpt_no, $end_rcpt_no);
+        $this->print_readings('S-READING', $reading_no, $pos_no, $cashier_username, $trans_count_dine_in, $trans_count_take_out, $trans_count_total, $trans_count_cleared, $trans_count_cancelled, $trans_count_refunded, $void_items_count, $net_sales_str, $disc_sc_str, $disc_pwd_str, $disc_promo_str, $disc_total_str, $gross_sales_str, $cancelled_sales_str, $refunded_sales_str, $vat_sales_str, $vat_amount_str, $vat_exempt_str, $start_rcpt_no, $end_rcpt_no);
 
         echo json_encode(array("status" => TRUE));
     }
@@ -355,7 +357,7 @@ class Dashboard_controller extends CI_Controller {
         $trans_count_cancelled = $this->transactions->get_count_trans_today_status($today, 'CANCELLED');
         $trans_count_refunded = $this->transactions->get_count_trans_today_status($today, 'REFUNDED');
 
-        $void_items_count = 0;
+        $void_items_count = $this->trans_logs->get_total_void_today($today);
 
         // ------------------------- AMOUNT -------------------------------------------------------------------------------
         $net_sales = $this->transactions->get_daily_net_sales($today);
@@ -444,19 +446,14 @@ class Dashboard_controller extends CI_Controller {
 
         /* Information for the receipt */
         $branch_id = $store->branch_id;
-        $store_name = wordwrap($store->name . ' B#: ' . $branch_id, 25, "\n");
-        $address = wordwrap($store->address, 25, "\n");
-        $city = wordwrap($store->city, 25, "\n");
-        $tin = wordwrap($store->tin, 25, "\n");
-        $telephone = wordwrap('Tel#: ' . $store->telephone, 25, "\n");
-        $mobile = wordwrap('Cel#: ' . $store->mobile, 25, "\n");
+        $store_name = wordwrap($store->name . ' B#: ' . $branch_id, 35, "\n");
+        $address = wordwrap($store->address, 35, "\n");
+        $city = wordwrap($store->city, 35, "\n");
+        $tin = wordwrap($store->tin, 35, "\n");
+        $telephone = wordwrap('Tel#: ' . $store->telephone, 35, "\n");
+        $mobile = wordwrap('Cel#: ' . $store->mobile, 35, "\n");
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $today = date('Y-m-d');
-
-        /* Start the printer */
-        $printer = new Printer($connector);
-
-        $printer -> pulse();
 
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
@@ -475,6 +472,7 @@ class Dashboard_controller extends CI_Controller {
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
         $printer -> text($reading_type . "\n");
         $printer -> selectPrintMode();
+
         $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
 
         $printer -> setJustification(Printer::JUSTIFY_LEFT);
@@ -483,7 +481,7 @@ class Dashboard_controller extends CI_Controller {
         $printer -> text(new item('Cashier: ' . $cashier_username, ''));
         $printer -> text(new item('Date: ' . $today, ''));
 
-        $printer -> text(str_pad("COUNT", 30, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("COUNT", 35, '=', STR_PAD_BOTH) . "\n");
 
         $printer -> text(new item('TotalTrans: ', $trans_count_total));
         $printer -> text(new item('DineIn: ', $trans_count_dine_in));
@@ -495,7 +493,7 @@ class Dashboard_controller extends CI_Controller {
         $printer -> text(str_pad("", 35, '-', STR_PAD_BOTH) . "\n");
         $printer -> text(new item('VoidItems: ', $void_items_count));
 
-        $printer -> text(str_pad("VALUE", 30, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("VALUE", 35, '=', STR_PAD_BOTH) . "\n");
         
         /* Items */
         $printer -> setEmphasis(true);
@@ -518,13 +516,13 @@ class Dashboard_controller extends CI_Controller {
         $printer -> text(new item('NetSales: ', $net_sales_str));
         $printer -> setEmphasis(false);
 
-        $printer -> text(str_pad("VAT", 32, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("VAT", 35, '=', STR_PAD_BOTH) . "\n");
 
         $printer -> text(new item('VATSales: ', $vat_sales_str));
         $printer -> text(new item('VATAmount: ', $vat_amount_str));
         $printer -> text(new item('VATExcempt: ', $vat_exempt_str));
 
-        $printer -> text(str_pad("RECEIPT", 28, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("RECEIPT", 35, '=', STR_PAD_BOTH) . "\n");
 
         $printer -> text(new item('StartRcpt: ', $start_rcpt_no));
         $printer -> text(new item('EndRecpt: ', $end_rcpt_no));
@@ -539,6 +537,8 @@ class Dashboard_controller extends CI_Controller {
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
+
+        $printer -> pulse();
 
         $printer -> close();
     }

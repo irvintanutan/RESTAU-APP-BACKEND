@@ -86,4 +86,42 @@ class Trans_logs_model extends CI_Model {
         return $this->db->insert_id();
     }
     
+    public function get_total_void_shift($date, $username)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Void');
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_void_today($date)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date . ' 00:00:00'; // get date today to filter
+        $date_to = $date . ' 23:59:59';
+
+        $this->db->where('log_type', 'Void');
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
 }

@@ -349,9 +349,19 @@ $route['notifications-page/notifications-severe-page'] = 'notifications/notifica
 //************************************** LOGS ROUTES
 //**************************************
 
+// system
 $route['logs-page'] = 'Logs/Logs_controller';
 
 $route['showlist-logs'] = 'Logs/Logs_controller/ajax_list';
+
+// trans
+$route['trans-logs-page'] = 'Logs/Trans_logs_controller';
+
+$route['showlist-trans-logs'] = 'Logs/Trans_logs_controller/ajax_list';
+
+//======================================== API SECTION =================================================================
+
+$route['add-trans-logs'] = 'Logs/Trans_logs_controller/ajax_add_api';
 
 
 //************************************** SCHEDULES ROUTES

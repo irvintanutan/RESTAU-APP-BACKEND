@@ -42,7 +42,7 @@
                             
                             <button class="btn btn-default" onclick="reload_table()"><i class="fa fa-refresh"></i> &nbsp;Reload</button>
                             <br><br>
-                            <table id="logs-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="logs-table" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 14px;">
                                 <thead>
                                     <tr>
                                         <th>Log ID</th>

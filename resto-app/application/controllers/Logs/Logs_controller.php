@@ -58,11 +58,11 @@ class Logs_controller extends CI_Controller {
  
     public function ajax_add($log_type, $details)
     {
-        $user_fullname = $this->session->userdata('lastname') . ', ' . $this->session->userdata('firstname');
+        $username = $this->session->userdata('username');
 
         $data = array(
 
-                'user_fullname' => $user_fullname,
+                'user_fullname' => $username,
                 'log_type' => $log_type,
                 'details' => $details
             );

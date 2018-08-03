@@ -18,7 +18,6 @@ class Trans_details_controller extends CI_Controller {
         $this->load->model('Tables/Tables_model','tables');
 
         $this->load->model('Trans_details/Trans_details_model','trans_details');
-        $this->load->model('Trans_details_refund/Trans_details_refund_model','trans_details_refund');
         $this->load->model('Table_groups/Table_groups_model','table_groups');
 
         $this->load->model('Users/Users_model','users');
@@ -28,6 +27,8 @@ class Trans_details_controller extends CI_Controller {
 
         $this->load->model('Pack_discounts/Pack_discounts_model','pack_discounts');
         $this->load->model('Prod_discounts/Prod_discounts_model','prod_discounts');
+
+        $this->load->model('Logs/Trans_logs_model','trans_logs');
     }
 
     public function index($trans_id)						
@@ -378,6 +379,15 @@ class Trans_details_controller extends CI_Controller {
 
         $this->table_groups->delete_by_trans_id($trans_id);
 
+
+        // add transaction to trans_logs record --------------------------------------------------------
+
+        $log_type = 'Payment';
+
+        $details = 'Transaction payment S' . $trans_id . ' RCPT#: ' . $receipt_no;
+
+        $this->add_trans_log($log_type, $details, $this->session->userdata('username'));
+
         echo json_encode(array("status" => TRUE));
     }
 
@@ -415,6 +425,15 @@ class Trans_details_controller extends CI_Controller {
             );
         $this->transactions->update(array('trans_id' => $trans_id), $data);
 
+
+        // add transaction to trans_logs record --------------------------------------------------------
+
+        $log_type = 'Discount';
+
+        $details = 'Transaction discounted S' . $trans_id . ' by U' . $this->session->userdata('user_id');
+
+        $this->add_trans_log($log_type, $details, $this->session->userdata('username'));
+
         echo json_encode(array("status" => TRUE));
     }
 
@@ -428,6 +447,15 @@ class Trans_details_controller extends CI_Controller {
         $this->transactions->update(array('trans_id' => $trans_id), $data);
 
         $this->table_groups->delete_by_trans_id($trans_id);
+
+        // add transaction to trans_logs record --------------------------------------------------------
+
+        $log_type = 'Cancel';
+
+        $details = 'Transaction cancelled S' . $trans_id . ' by U' . $this->session->userdata('user_id');
+
+        $this->add_trans_log($log_type, $details, $this->session->userdata('username'));
+
 
         echo json_encode(array("status" => TRUE));
     }
@@ -456,12 +484,30 @@ class Trans_details_controller extends CI_Controller {
     public function ajax_delete_prod($trans_id, $prod_id)
     {
         $this->trans_details->delete_by_id_prod($trans_id, $prod_id);
+
+        // add transaction to trans_logs record --------------------------------------------------------
+
+        $log_type = 'Void';
+
+        $details = 'Item void S' . $trans_id . ' by U' . $this->session->userdata('user_id') . ' - Product: P' . $prod_id;
+
+        $this->add_trans_log($log_type, $details, $this->session->userdata('username'));
+
         echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_delete_pack($trans_id, $pack_id)
     {
         $this->trans_details->delete_by_id_pack($trans_id, $pack_id);
+
+        // add transaction to trans_logs record --------------------------------------------------------
+
+        $log_type = 'Void';
+
+        $details = 'Item void S' . $trans_id . ' by U' . $this->session->userdata('user_id') . ' - Package: G' . $pack_id;
+
+        $this->add_trans_log($log_type, $details, $this->session->userdata('username'));
+
         echo json_encode(array("status" => TRUE));
     }
 
@@ -1518,6 +1564,17 @@ class Trans_details_controller extends CI_Controller {
         $printer -> close();
 
         echo json_encode(array("status" => TRUE));
+    }
+
+    public function add_trans_log($log_type, $details, $user_name)
+    {
+        $data = array(
+
+                'user_fullname' => $user_name,
+                'log_type' => $log_type,
+                'details' => $details
+            );
+        $insert = $this->trans_logs->save($data);
     }
  }
 

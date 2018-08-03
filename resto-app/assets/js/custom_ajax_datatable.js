@@ -1135,10 +1135,9 @@ $(document).ready(function()
                 }               
             });           
     }
-    
-    else if(tableID == "schedules-table")
+    else if(tableID == "trans-logs-table")
     {
-            table = $('#schedules-table').DataTable({ 
+            table = $('#trans-logs-table').DataTable({ 
          
                 "processing": true, //Feature control the processing indicator.
                 "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -1146,7 +1145,7 @@ $(document).ready(function()
          
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "showlist-schedules",
+                    "url": "showlist-trans-logs",
                     "type": "POST",
                 },
          
@@ -1159,21 +1158,31 @@ $(document).ready(function()
                 ],
 
                 "rowCallback": function( row, data, index ) {
-                  var log_type = data[6],
+                  var log_type = data[1],
                       $node = this.api().row(row).nodes().to$();
 
                   // set color based on log type
-                  if (log_type == 'Today') {
+                  if (log_type == 'Payment') {
                      $node.css('background-color', '#99ff99');
-                  }      
-                  else if (log_type == 'Ended') {
-                     $node.css('background-color', '#cccccc');
                   }
-                  
+                  else if (log_type == 'UpdateOrder') {
+                     $node.css('background-color', '#99ffff');
+                  }
+                  else if (log_type == 'Cancel') {
+                     $node.css('background-color', '#ffcc99');
+                  }
+                  else if (log_type == 'Void') {
+                     $node.css('background-color', '#ff99ff');
+                  }
+                  else if (log_type == 'Refund') {
+                     $node.css('background-color', '#ffcc33');
+                  }
+                  else if (log_type == 'Discount') {
+                     $node.css('background-color', '#999999');
+                  }
                 }               
             });           
     }
-
     else if(tableID == "users-table")
     {
             table = $('#users-table').DataTable({ 
@@ -1766,7 +1775,7 @@ function delete_trans_detail_prod(idone, idtwo)
 
                       if (result == managers_password) 
                       {
-                        bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
+                        bootbox.confirm("ARE YOU SURE YOU WANT TO VOID THIS ITEM?", function(result){
 
                           if (result == true)
                           {
@@ -1853,7 +1862,7 @@ function delete_trans_detail_pack(idone, idtwo)
 
                       if (result == managers_password) 
                       {
-                        bootbox.confirm("ARE YOU SURE YOU WANT TO DELETE THIS DATA?", function(result){
+                        bootbox.confirm("ARE YOU SURE YOU WANT TO VOID THIS ITEM?", function(result){
 
                           if (result == true)
                           {

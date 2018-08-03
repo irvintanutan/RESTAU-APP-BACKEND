@@ -399,22 +399,40 @@
 
                                     <!--Menu list item-->
 
-                                    <?php if($this->uri->segment(1) == 'logs-page'){ ?>
+                                    <?php if($this->uri->segment(1) == 'logs-page' || $this->uri->segment(1) == 'trans-logs-page'){ ?>
 
                                         <li class="active-link">
-                                            <a href="<?php echo base_url();?>logs-page">
+                                            <a href="#">
                                                 <i class="fa fa-history"></i>
-                                                <strong><span class="menu-title">System Logs</span></strong>
+                                                <strong><span class="menu-title">Logs</span></strong>
+                                                <i class="arrow"></i>
                                             </a>
+
+                                            <!--Submenu-->
+                                            <ul class="collapse">
+                                                <li><a href="<?php echo base_url();?>logs-page">System Logs</a>
+                                                </li>                                            
+                                                <li><a href="<?php echo base_url();?>trans-logs-page">Transaction Logs</a>
+                                                </li>
+                                            </ul>
                                         </li>
 
                                     <?php }else{ ?>
 
                                         <li>
-                                            <a href="<?php echo base_url();?>logs-page">
+                                            <a href="#">
                                                 <i class="fa fa-history"></i>
-                                                <span class="menu-title">System Logs</span>
+                                                <span class="menu-title">Logs</span>
+                                                <i class="arrow"></i>
                                             </a>
+
+                                            <!--Submenu-->
+                                            <ul class="collapse">
+                                                <li><a href="<?php echo base_url();?>logs-page">System Logs</a>
+                                                </li>                                            
+                                                <li><a href="<?php echo base_url();?>trans-logs-page">Transaction Logs</a>
+                                                </li>
+                                            </ul>
                                         </li>
 
                                     <?php } ?>

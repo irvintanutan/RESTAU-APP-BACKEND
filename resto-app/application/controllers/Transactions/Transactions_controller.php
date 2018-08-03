@@ -26,6 +26,8 @@ class Transactions_controller extends CI_Controller {
 
         $this->load->model('Pack_discounts/Pack_discounts_model','pack_discounts');
         $this->load->model('Prod_discounts/Prod_discounts_model','prod_discounts');
+
+        $this->load->model('Logs/Trans_logs_model','trans_logs');
     }
 
     public function index() // index of ongoing transactions
@@ -548,6 +550,14 @@ class Transactions_controller extends CI_Controller {
 
             $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
+
+            // add transaction to trans_logs record --------------------------------------------------------
+
+            $log_type = 'SetOrder';
+
+            $details = 'New transaction added S' . $trans_id . ' by U' . $user_id;
+
+            $this->add_trans_log($log_type, $details, $staff_username);
         }
 
         
@@ -577,7 +587,7 @@ class Transactions_controller extends CI_Controller {
                 $user_id = $details['user_id'];
                 $staff_username = $this->users->get_username($user_id);
 
-                $cashier_id = $this->session->userdata('user_id');
+                $cashier_id = $details['cashier_id'];
                 $cashier_username = $this->users->get_username($cashier_id);
 
                 $receipt_no = $details['receipt_no'];
@@ -736,6 +746,14 @@ class Transactions_controller extends CI_Controller {
         }
 
         $this->print_refund_receipt($line_items, $trans_id, $staff_username, $cashier_username, $cash_amt, $receipt_no);
+
+        // add transaction to trans_logs record --------------------------------------------------------
+
+        $log_type = 'Refund';
+
+        $details = 'Transaction refunded S' . $trans_id . ' RCPT#: ' . $receipt_no;
+
+        $this->add_trans_log($log_type, $details, $cashier_username);
 
         echo json_encode(array("status" => TRUE));
     }
@@ -925,6 +943,8 @@ class Transactions_controller extends CI_Controller {
             foreach ($transaction['details'] as $details)
             {
                 // insert new transaction ------------------------------------------------
+                $user_id = $details['user_id'];
+                $staff_username = $this->users->get_username($user_id);
 
                 $data = array(
 
@@ -1046,8 +1066,28 @@ class Transactions_controller extends CI_Controller {
 
         }
 
+        // add transaction to trans_logs record --------------------------------------------------------
+
+        $log_type = 'UpdateOrder';
+
+        $details = 'Transaction updated S' . $trans_id . ' by U' . $user_id;
+
+        $this->add_trans_log($log_type, $details, $staff_username);
+
         echo json_encode(array("status" => TRUE));
     }
+
+    public function add_trans_log($log_type, $details, $user_name)
+    {
+        $data = array(
+
+                'user_fullname' => $user_name,
+                'log_type' => $log_type,
+                'details' => $details
+            );
+        $insert = $this->trans_logs->save($data);
+    }
+
  }
 
  /* A wrapper to do organise item names & prices into columns */

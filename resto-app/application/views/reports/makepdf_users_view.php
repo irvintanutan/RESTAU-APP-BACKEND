@@ -76,8 +76,9 @@ $pdf->SetFont('helvetica', '', 10);
 $pdf->AddPage();
 
 $text = '<h3 align="center">Report Summary</h3>
-<p align="left">1. Total Users: <b color="#006600">' . $total_users . ' </b> | ' . $total_users_str . ' </p>
-<p align="left">2. Total Void Menu Items: <b color="#006600">' . $void_total . '</p>'
+<p align="left">1. Total Users: <b color="#006600">' . $total_users . ' </b></p>
+<p align="left">2. Total Assigned User Privileges: <b color="#006600">' . $total_user_privileges . ' </b> | ' . $total_users_str . ' </p>
+<p align="left">3. Total Voided Menu Items: <b color="#006600">' . $void_total . '</p>'
 ;
 $pdf->writeHTML($text, true, 0, true, 0);
 
@@ -88,7 +89,7 @@ $pdf->ColoredTable_users($header, $data);
 
 
 // close and output PDF document
-$pdf->Output('transactions' . $status . '.pdf', 'I');
+$pdf->Output('users.pdf', 'I');
 
 //============================================================+
 // END OF FILE

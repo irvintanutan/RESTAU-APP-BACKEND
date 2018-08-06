@@ -350,7 +350,7 @@ class MYPDF extends TCPDF
         $this->SetLineWidth(0.3);
         $this->SetFont('', 'B');
         // Header
-        $w = array(20, 20, 20, 15, 15, 15, 15, 15, 15, 10, 10, 10);
+        $w = array(15, 25, 20, 10, 10, 10, 15, 15, 15, 15, 15, 15);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);

@@ -44,7 +44,9 @@ class Pdf_users_report_controller extends CI_Controller {
 		$cashier_users = $this->users->get_user_type_count('cashier');
 		$staff_users = $this->users->get_user_type_count('staff');
 
-		$total_users = $admin_users + $cashier_users + $staff_users;
+		$total_user_privileges = $admin_users + $cashier_users + $staff_users;
+
+		$total_users = $this->users->count_all();
 
 		// -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -77,6 +79,7 @@ class Pdf_users_report_controller extends CI_Controller {
 		$data['header'] = array('UserID', 'UserName', 'UserType', 'A', 'C', 'S', 'Staff', 'Cashier', 'Total', 'Void', 'Cancel', 'Refund');
 
 		$data['total_users'] = $total_users;
+		$data['total_user_privileges'] = $total_user_privileges;
 		$data['total_users_str'] = 'Admin [ ' . $admin_users . ' ] | Cashier [ ' . $cashier_users . ' ] | Staff [ ' . $staff_users . ' ]';
 
 		$data['void_total'] = $void_total;

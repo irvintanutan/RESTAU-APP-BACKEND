@@ -384,15 +384,15 @@ $route['statistics-page'] = 'Statistics/Statistics_controller/index';
 //************************************** REPORTS (TCPDF) ROUTES
 //**************************************
 
-// cis report
-
-$route['reports-page'] = 'reports/reports_controller';
+$route['reports-page'] = 'Reports/Reports_controller';
 
 $route['dashboard-report'] = 'Pdf_reports/Pdf_dashboard_report_controller/index';
 
 $route['products-report'] = 'Pdf_reports/Pdf_products_report_controller/index';
 
 $route['packages-report'] = 'Pdf_reports/Pdf_packages_report_controller/index';
+
+$route['users-report'] = 'Pdf_reports/Pdf_users_report_controller/index';
 
 $route['transactions-report/(:any)'] = 'Pdf_reports/Pdf_transactions_report_controller/index/$1';
 

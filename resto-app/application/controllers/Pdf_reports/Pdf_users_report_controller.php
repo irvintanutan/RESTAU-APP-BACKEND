@@ -15,6 +15,7 @@ class Pdf_users_report_controller extends CI_Controller {
 	  $this->load->model('Transactions/Transactions_model','transactions');
 
 	  $this->load->model('Users/Users_model','users');
+	  $this->load->model('Logs/Trans_logs_model','trans_logs');
 	}
 
 	public function index()
@@ -30,20 +31,26 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		// get daily transaction count data ----------------------------------------------------------------------------------------------------
 
-		$dine_in_total = $this->transactions->get_count_trans_total($status, 'DINE-IN');
-		$take_out_total = $this->transactions->get_count_trans_total($status, 'TAKE-OUT');
+		// $dine_in_total = $this->transactions->get_count_trans_total($status, 'DINE-IN');
+		// $take_out_total = $this->transactions->get_count_trans_total($status, 'TAKE-OUT');
 
-		$total_trans_count = $dine_in_total + $take_out_total;
+		// $total_trans_count = $dine_in_total + $take_out_total;
 
 		// -------------------------------------------------------------------------------------------------------------------------------------
 
 		// users count  ----------------------------------------------------------------------------------------------------
 
-		$admin_users = 0;
-		$cashier_users = 0;
-		$staff_users = 0;
+		$admin_users = $this->users->get_user_type_count('administrator');
+		$cashier_users = $this->users->get_user_type_count('cashier');
+		$staff_users = $this->users->get_user_type_count('staff');
 
 		$total_users = $admin_users + $cashier_users + $staff_users;
+
+		// -------------------------------------------------------------------------------------------------------------------------------------
+
+		// void count  ----------------------------------------------------------------------------------------------------
+
+		$void_total = $this->trans_logs->get_total_void();
 
 		// -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -54,9 +61,9 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData($status); // load and fetch data
+		$data['data'] = $this->LoadData(); // load and fetch data
 		
-		$data['title'] = 'Transactions Report';
+		$data['title'] = 'Users Report';
 
 		$data['date_today'] = $today;
 
@@ -67,12 +74,15 @@ class Pdf_users_report_controller extends CI_Controller {
 		$data['user_fullname'] = $this->session->userdata('firstname') .' '. $this->session->userdata('lastname');
 
 		// column titles
-		$data['header'] = array('UserID', 'UserName', 'UserType', 'Staff', 'Cashier', 'Total', 'Void', 'Cancelled', 'Refunded');
+		$data['header'] = array('UserID', 'UserName', 'UserType', 'A', 'C', 'S', 'Staff', 'Cashier', 'Total', 'Void', 'Cancel', 'Refund');
 
-		$data['total_trans_count'] = $total_trans_count;
+		$data['total_users'] = $total_users;
+		$data['total_users_str'] = 'Admin [ ' . $admin_users . ' ] | Cashier [ ' . $cashier_users . ' ] | Staff [ ' . $staff_users . ' ]';
+
+		$data['void_total'] = $void_total;
 
 		$this->load->library('MYPDF');
-		$this->load->view('reports/makepdf_transactions_view', $data);
+		$this->load->view('reports/makepdf_users_view', $data);
 	}
 
 	// Load table data from file
@@ -84,26 +94,68 @@ class Pdf_users_report_controller extends CI_Controller {
 		foreach ($list as $users) {
 		    $row = array();
 
-		    $row[] = 'U' . $users->trans_id;
+		    $row[] = 'U' . $users->user_id;
 		    $row[] = $users->username;
 
-		    $row[] = $user_type;
+		    // check if the user is admin
+			if ($users->administrator == 1)
+			{
+				$row[] = 'ADMIN';
+			}
+			else if ($users->cashier == 1)
+			{
+				$row[] = 'CASHIER';
+			}
+			else
+			{
+				$row[] = 'STAFF';
+			}
 
-		    $gross = $this->trans_details->get_trans_gross($users->trans_id);
-		    $discount = $users->discount;
-		    $total_due = ($gross - $discount);
 
-		    $row[] = $gross;
-		    $row[] = $discount;
-		    // $row[] = $users->disc_type;
-		    $row[] = number_format($total_due, 2);
+		    $is_admin = $users->administrator;
+		    $is_cashier = $users->cashier;
+		    $is_staff = $users->staff;
+
+		    if ($is_admin == 1)
+	    	{ 
+	    		$row[] = 'Y'; 
+	    	}
+		    else
+		    { 
+		    	$row[] = 'N'; 
+		    }
+
+		    if ($is_cashier == 1)
+		    { 
+		    	$row[] = 'Y'; 
+			}
+		    else
+		    { 
+		    	$row[] = 'N'; 
+			}
+
+		    if ($is_staff == 1)
+		    { 
+		    	$row[] = 'Y'; 
+		    }
+		    else
+		    { 
+		    	$row[] = 'N'; 
+		    }
+
+		    $staff_trans_count = $this->transactions->get_count_trans_staff($users->user_id);
+		    $cashier_trans_count = $this->transactions->get_count_trans_cashier($users->user_id);
+		    $total_trans_count = ($staff_trans_count + $cashier_trans_count);
+
+		    $row[] = $staff_trans_count;
+		    $row[] = $cashier_trans_count;
+		    $row[] = $total_trans_count;
+
+		    $row[] = $this->trans_logs->get_total_void_by_user($users->username);
 		    
-		    $row[] = $users->method;
+		    $row[] = $this->trans_logs->get_total_cancelled_by_user($users->username);
 
-		    $row[] = $this->users->get_username($users->user_id);
-		    $row[] = $users->receipt_no;
-
-		    // $row[] = $users->status;
+		    $row[] = $this->trans_logs->get_total_refunded_by_user($users->username);
 
 		    $data[] = $row;
 		}

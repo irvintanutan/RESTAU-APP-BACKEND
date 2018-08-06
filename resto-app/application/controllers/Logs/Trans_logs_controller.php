@@ -39,7 +39,7 @@ class Trans_logs_controller extends CI_Controller {
             $row[] = $trans_logs->log_type;
             $row[] = str_replace("%20", " ", $trans_logs->details);
 
-            $row[] = $trans_logs->user_fullname;
+            $row[] = '<b>' . $trans_logs->user_fullname . '</b>';
 
             $row[] = $trans_logs->date_time;            
  

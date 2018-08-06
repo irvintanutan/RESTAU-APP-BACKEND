@@ -4447,6 +4447,17 @@ function set_packages_pdf()
     set_system_log(log_type, details);
 }
 
+function set_users_pdf()
+{
+    // setting report logs
+    var log_type = 'Report';
+
+    var details = 'Users Report Generated'; 
+    window.open("users-report");
+
+    set_system_log(log_type, details);
+}
+
 
 // ========================================== STATISTICS CHARTS =====================================================
 

@@ -151,7 +151,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get monthly net sales specified by month and year
@@ -172,7 +172,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get daily net sales
@@ -364,7 +364,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->trans_count;
+        return $query->row()->trans_count + 0;
     }
 
     // get transaction count based on user_id
@@ -378,7 +378,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->trans_count;
+        return $query->row()->trans_count + 0;
     }
 
     // get total net sales by user_id
@@ -392,7 +392,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get total net sales by user_id
@@ -406,7 +406,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->total;
+        return $query->row()->total + 0;
     }
 
     // get daily transaction count based on order type
@@ -421,7 +421,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->trans_count;
+        return $query->row()->trans_count + 0;
     }
 
     // get daily transaction count based on order type
@@ -440,7 +440,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->trans_count;
+        return $query->row()->trans_count + 0;
     }
 
     // get daily transaction count based on status
@@ -459,7 +459,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->trans_count;
+        return $query->row()->trans_count + 0;
     }
 
     // get current shift transaction count based on order type
@@ -479,7 +479,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->trans_count;
+        return $query->row()->trans_count + 0;
     }
 
     // get current shift transaction count based on status
@@ -499,7 +499,7 @@ class Transactions_model extends CI_Model {
         
         $query = $this->db->get();
 
-        return $query->row()->trans_count;
+        return $query->row()->trans_count + 0;
     }
 
     // get current shift beginning receipt

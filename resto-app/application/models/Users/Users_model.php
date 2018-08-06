@@ -134,6 +134,16 @@ class Users_model extends CI_Model {
         return $query->result();
     }
 
+    function get_user_type_count($user_type) // get count based on user_type
+    {        
+        $this->db->from($this->table);
+
+        $this->db->where($user_type, 1);
+        $this->db->where('removed', 0);
+
+        return $this->db->count_all_results();
+    }
+
 	function count_filtered()
 	{
 		$this->_get_datatables_query();
@@ -173,6 +183,32 @@ class Users_model extends CI_Model {
 		$row = $query->row();
 
 		return $row->administrator;
+	}
+
+	// check if the user is cashier ('1')
+	public function get_user_cashier($user_id)
+	{
+		$this->db->select('cashier');
+		$this->db->from($this->table);
+		$this->db->where('user_id',$user_id);
+		$query = $this->db->get();
+
+		$row = $query->row();
+
+		return $row->cashier;
+	}
+
+	// check if the user is staff ('1')
+	public function get_user_staff($user_id)
+	{
+		$this->db->select('staff');
+		$this->db->from($this->table);
+		$this->db->where('user_id',$user_id);
+		$query = $this->db->get();
+
+		$row = $query->row();
+
+		return $row->staff;
 	}
 
 	// get username

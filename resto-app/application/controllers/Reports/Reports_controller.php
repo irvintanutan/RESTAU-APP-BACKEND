@@ -6,8 +6,8 @@ class Reports_controller extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('cis/cis_model','cis');
-        $this->load->model('barangays/barangays_model','barangays');
+        // $this->load->model('cis/cis_model','cis');
+        // $this->load->model('barangays/barangays_model','barangays');
     }
 
    public function index()						/** Note: ayaw ilisi ang sequence sa page load sa page **/
@@ -20,10 +20,8 @@ class Reports_controller extends CI_Controller {
         
         $this->load->helper('url');
 
-        // get children list for dropdown
-        $data['cis'] = $this->cis->get_all_children_list();
         											
-        $data['title'] = 'Generate Document Reports';					
+        $data['title'] = '<i class="fa fa-file"></i> Generate Document Reports';					
         $this->load->view('template/dashboard_header',$data);
         $this->load->view('reports/reports_view',$data);   //Kani lang ang ilisi kung mag dungag mo ug Page
         $this->load->view('template/dashboard_navigation');

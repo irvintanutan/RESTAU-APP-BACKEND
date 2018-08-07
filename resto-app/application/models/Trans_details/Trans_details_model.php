@@ -146,6 +146,7 @@ class Trans_details_model extends CI_Model {
 
         $this->db->where('transactions.status', 'CLEARED'); // transaction status should be cleared (paid by customer already)
         $this->db->where('products.cat_id', $cat_id);
+        $this->db->where('trans_details.prod_type', 0);
 
         $query = $this->db->get();
 
@@ -370,7 +371,11 @@ class Trans_details_model extends CI_Model {
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
         $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
-        $this->db->where('transactions.status', $status);
+        
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('transactions.status', $status);
+        }
 
         $query = $this->db->get();
 
@@ -387,7 +392,11 @@ class Trans_details_model extends CI_Model {
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
         $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
-        $this->db->where('transactions.status', $status);
+        
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('transactions.status', $status);
+        }
 
         $date_from = $year . '-' . '01' . '-01 00:00:00';
         $date_to = $year . '-' . '12' . '-31 23:59:59';
@@ -410,7 +419,11 @@ class Trans_details_model extends CI_Model {
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
         $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
-        $this->db->where('transactions.status', $status);
+        
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('transactions.status', $status);
+        }
 
         $date_from = $year . '-' . $month . '-01 00:00:00';
         $date_to = $year . '-' . $month . '-31 23:59:59';
@@ -433,7 +446,11 @@ class Trans_details_model extends CI_Model {
         $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
         $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
-        $this->db->where('transactions.status', $status);
+        
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('transactions.status', $status);
+        }
 
         $date_from = $date_from . ' 00:00:00';
         $date_to = $date_to . ' 23:59:59';

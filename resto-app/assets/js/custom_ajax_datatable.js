@@ -4503,7 +4503,7 @@ function set_report_users()
     { 
         if (users_report_type == "users-all")
         {
-            window.open("users-report"); //  if transaction status is set to 'ALL'  
+            window.open("users-report-type/All"); //  if transaction status is set to 'ALL'  
         }
         else if (users_report_type == "users-admin")
         {
@@ -4524,7 +4524,7 @@ function set_report_users()
 
         if (users_report_type == "users-all")
         {
-            window.open("users-report-annual/" + year); //  if transaction status is set to 'ALL'  
+            window.open("users-report-type-annual/All/" + year); //  if transaction status is set to 'ALL'  
         }
         else if (users_report_type == "users-admin")
         {
@@ -4546,7 +4546,7 @@ function set_report_users()
 
         if (users_report_type == "users-all")
         {
-            window.open("users-report-monthly/" + year + "/" + month); //  if transaction status is set to 'ALL'  
+            window.open("users-report-type-monthly/All/" + year + "/" + month); //  if transaction status is set to 'ALL'  
         }
         else if (users_report_type == "users-admin")
         {
@@ -4577,7 +4577,7 @@ function set_report_users()
         {
             if (users_report_type == "users-all")
             {
-                window.open("users-report-custom/" + date_from + "/" + date_to); //  if transaction status is set to 'ALL'  
+                window.open("users-report-type-custom/All/" + date_from + "/" + date_to); //  if transaction status is set to 'ALL'  
             }
             else if (users_report_type == "users-admin")
             {
@@ -4593,22 +4593,6 @@ function set_report_users()
             }
         }
     }
-
-    set_system_log(log_type, details);
-}
-
-// set / generate report based on selected type - Monthly Checkup
-function set_report_child()
-{
-
-    // fetch report type value
-    var report_type_child = $('[name="report_type_child"]').val();
-
-    // setting report logs
-    var log_type = 'Report';
-
-    var details = 'Child Profile Report generated: C' + report_type_child; 
-    window.open("child-report/" + report_type_child);
 
     set_system_log(log_type, details);
 }
@@ -4663,7 +4647,7 @@ function set_users_pdf()
     var log_type = 'Report';
 
     var details = 'Users Report Generated'; 
-    window.open("users-report");
+    window.open("users-report-type/All");
 
     set_system_log(log_type, details);
 }

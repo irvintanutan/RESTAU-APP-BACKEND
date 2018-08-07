@@ -65,7 +65,7 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData($user_type); // load and fetch data
 		
-		$data['title'] = $user_type . ' Users Report';
+		$data['title'] = 'Users Report ( ' . strtoupper($user_type) . ' )';
 
 		$data['date_today'] = $today;
 
@@ -135,7 +135,7 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData_annual($user_type, $year); // load and fetch data
 		
-		$data['title'] = $user_type . ' Users Report Annual ( ' . $year . ' )';
+		$data['title'] = 'Annual ( ' . $year . ' ) Users Report ( ' . strtoupper($user_type) . ' )';
 
 		$data['date_today'] = $today;
 
@@ -196,6 +196,9 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		// -------------------------------------------------------------------------------------------------------------------------------------
 
+		$dateObj   = DateTime::createFromFormat('!m', $month);
+		$monthName = $dateObj->format('F'); // March
+
 		// ==================================== REPORT ESSENTIALS ========================================================
 
 
@@ -205,7 +208,7 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData_monthly($user_type, $year, $month); // load and fetch data
 		
-		$data['title'] = $user_type . ' Users Report Monthly ( ' . $month . ' - ' . $year . ' )';
+		$data['title'] = 'Monthly ( ' . $monthName . ' - ' . $year . ' ) Users Report ( ' . strtoupper($user_type) . ' )';
 
 		$data['date_today'] = $today;
 
@@ -275,7 +278,7 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData_custom($user_type, $date_from, $date_to); // load and fetch data
 		
-		$data['title'] = $user_type . ' Users Report Custom Date ( ' . $date_from . ' - ' .$date_to ' )';
+		$data['title'] = 'Custom ( ' . $date_from . ' - ' . $date_to . ' ) Users Report ( ' . strtoupper($user_type) . ' )';
 
 		$data['date_today'] = $today;
 
@@ -374,15 +377,15 @@ class Pdf_users_report_controller extends CI_Controller {
 		    {
 		    	$data[] = $row;
 		    }
-		    else if ($user_type == 'Admin' && $is_admin == 1)
+		    else if ($user_type == 'administrator' && $is_admin == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Cashier' && $is_cashier == 1)
+		    else if ($user_type == 'cashier' && $is_cashier == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Staff' && $is_staff == 1)
+		    else if ($user_type == 'staff' && $is_staff == 1)
 		    {
 		    	$data[] = $row;	
 		    }
@@ -468,15 +471,15 @@ class Pdf_users_report_controller extends CI_Controller {
 		    {
 		    	$data[] = $row;
 		    }
-		    else if ($user_type == 'Admin' && $is_admin == 1)
+		    else if ($user_type == 'administrator' && $is_admin == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Cashier' && $is_cashier == 1)
+		    else if ($user_type == 'cashier' && $is_cashier == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Staff' && $is_staff == 1)
+		    else if ($user_type == 'staff' && $is_staff == 1)
 		    {
 		    	$data[] = $row;	
 		    }
@@ -561,15 +564,15 @@ class Pdf_users_report_controller extends CI_Controller {
 		    {
 		    	$data[] = $row;
 		    }
-		    else if ($user_type == 'Admin' && $is_admin == 1)
+		    else if ($user_type == 'administrator' && $is_admin == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Cashier' && $is_cashier == 1)
+		    else if ($user_type == 'cashier' && $is_cashier == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Staff' && $is_staff == 1)
+		    else if ($user_type == 'staff' && $is_staff == 1)
 		    {
 		    	$data[] = $row;	
 		    }
@@ -654,15 +657,15 @@ class Pdf_users_report_controller extends CI_Controller {
 		    {
 		    	$data[] = $row;
 		    }
-		    else if ($user_type == 'Admin' && $is_admin == 1)
+		    else if ($user_type == 'administrator' && $is_admin == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Cashier' && $is_cashier == 1)
+		    else if ($user_type == 'cashier' && $is_cashier == 1)
 		    {
 		    	$data[] = $row;	
 		    }
-		    else if ($user_type == 'Staff' && $is_staff == 1)
+		    else if ($user_type == 'staff' && $is_staff == 1)
 		    {
 		    	$data[] = $row;	
 		    }

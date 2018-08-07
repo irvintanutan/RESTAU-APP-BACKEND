@@ -183,7 +183,7 @@
                                         
                                         <br><br><hr>
                                         <div class="col-md-8"></div>
-                                        <button type="button" id="generate_report" onclick="set_report_users()" class="btn btn-dark col-md-4" style="font-size: 15px;" disabled><i class="fa fa-file"></i> &nbsp;Generate Report</button>
+                                        <button type="button" id="generate_report" onclick="set_report_users()" class="btn btn-dark col-md-4" style="font-size: 15px;"><i class="fa fa-file"></i> &nbsp;Generate Report</button>
                                     </div>
                                 </form>
                             </div>

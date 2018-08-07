@@ -75,7 +75,17 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 $pdf->AddPage();
 
-if ($status == 'CLEARED')
+if ($status == 'ALL')
+{
+	$text = '<h3 align="center">Report Summary</h3>
+	<p align="left">1. Total Net Sales: <b color="#006600">' . $total_net_sales_str . ' </b></p> 
+	<p align="left">2. Total Transactions: <b color="#006600">' . $total_trans_count . ' </b> | Dine-In [ ' . $dine_in_total . ' ] | Take-Out [ ' . $take_out_total . ' ] </p>
+	<p align="left">3. Total Menu Items Sold: <b color="#006600">' . $total_menu_items_sold . ' </b> | Individual Products [ ' . $individual_products_sold . ' ] | Packages [ ' . $packages_sold . ' ] </p>
+	<p align="left">4. Total Discounts Rendered: <b color="#006600">' . $discounts_rendered_total_str . ' </b> | ' . $discounts_gross_percentage_str . '</p>
+	<hr>'
+	;	
+}
+else if ($status == 'CLEARED')
 {
 	$text = '<h3 align="center">Report Summary</h3>
 	<p align="left">1. Total Net Sales: <b color="#006600">' . $total_net_sales_str . ' </b> (Note: refunds not included)</p> 

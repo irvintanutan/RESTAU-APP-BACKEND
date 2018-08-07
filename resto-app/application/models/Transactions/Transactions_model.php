@@ -213,7 +213,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
         
         $query = $this->db->get();
 
@@ -226,7 +229,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $year . '-' . '01' . '-01 00:00:00';
         $date_to = $year . '-' . '12' . '-31 23:59:59';
@@ -245,7 +251,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $year . '-' . $month . '-01 00:00:00';
         $date_to = $year . '-' . $month . '-31 23:59:59';
@@ -264,7 +273,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $date_from . ' 00:00:00';
         $date_to = $date_to . ' 23:59:59';
@@ -348,7 +360,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
         
         $query = $this->db->get();
 
@@ -361,7 +376,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $year . '-' . '01' . '-01 00:00:00';
         $date_to = $year . '-' . '12' . '-31 23:59:59';
@@ -380,7 +398,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $year . '-' . $month . '-01 00:00:00';
         $date_to = $year . '-' . $month . '-31 23:59:59';
@@ -399,7 +420,10 @@ class Transactions_model extends CI_Model {
         
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $date_from . ' 00:00:00';
         $date_to = $date_to . ' 23:59:59';
@@ -711,7 +735,11 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('order_type', $order_type);
-        $this->db->where('status', $status);
+
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
         
         $query = $this->db->get();
 
@@ -726,7 +754,11 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('order_type', $order_type);
-        $this->db->where('status', $status);
+        
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $year . '-' . '01' . '-01 00:00:00';
         $date_to = $year . '-' . '12' . '-31 23:59:59';
@@ -747,7 +779,11 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('order_type', $order_type);
-        $this->db->where('status', $status);
+        
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $year . '-' . $month . '-01 00:00:00';
         $date_to = $year . '-' . $month . '-31 23:59:59';
@@ -768,7 +804,11 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('order_type', $order_type);
-        $this->db->where('status', $status);
+        
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
 
         $date_from = $date_from . ' 00:00:00';
         $date_to = $date_to . ' 23:59:59';

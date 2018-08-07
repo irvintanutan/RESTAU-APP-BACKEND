@@ -427,22 +427,22 @@ $route['menu-top-selling-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_packag
 
 
 // users ----------------------------------------------
-$route['users-report'] = 'Pdf_reports/Pdf_users_report_controller/index';
+// $route['users-report'] = 'Pdf_reports/Pdf_users_report_controller/index';
 
-$route['users-report-annual/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index_annual/$1';
+// $route['users-report-annual/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index_annual/$1';
 
-$route['users-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2';
+// $route['users-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2';
 
-$route['users-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2';
+// $route['users-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2';
 
 
 $route['users-report-type/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1';
 
-$route['users-report-type-annual/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2';
+$route['users-report-type-annual/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index_annual/$1/$2';
 
-$route['users-report-type-monthly/(:any)/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2/$3';
+$route['users-report-type-monthly/(:any)/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index_monthly/$1/$2/$3';
 
-$route['users-report-type- /(:any)/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2/$3';
+$route['users-report-type-custom/(:any)/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index_custom/$1/$2/$3';
 
 
 

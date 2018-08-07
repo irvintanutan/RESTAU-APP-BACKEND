@@ -98,7 +98,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		$data['user_fullname'] = $this->session->userdata('firstname') .' '. $this->session->userdata('lastname');
 
 		// column titles
-		$data['header'] = array('TransID', 'DateTime', 'O.Type', 'S.Gross', 'S.Discount', 'TotalDue', 'P.Method', 'Staff', 'Receipt#');
+		$data['header'] = array('TransID', 'Status', 'Date', 'O.Type', 'S.Gross', 'Discount', 'TotalDue', 'Staff', 'Receipt#');
 
 
 		$data['status'] = $status;
@@ -133,7 +133,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 
 		// get total net sales data -------------------------------------------------------------------------------------------------------------
 
-		$total_net_sales = $this->transactions->get_total_net_sales_by_status_annual($status);
+		$total_net_sales = $this->transactions->get_total_net_sales_by_status_annual($status, $year);
 		
 		$total_net_sales_str = 'Php ' . number_format($total_net_sales, 2);
 
@@ -190,7 +190,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData_annual($status, $year); // load and fetch data
 		
-		$data['title'] = 'Transactions Report Annual ( ' . $year . ' )';
+		$data['title'] = 'Annual ( ' . $year . ' ) Transactions Report';
 
 		$data['date_today'] = $today;
 
@@ -201,7 +201,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		$data['user_fullname'] = $this->session->userdata('firstname') .' '. $this->session->userdata('lastname');
 
 		// column titles
-		$data['header'] = array('TransID', 'DateTime', 'O.Type', 'S.Gross', 'S.Discount', 'TotalDue', 'P.Method', 'Staff', 'Receipt#');
+		$data['header'] = array('TransID', 'Status', 'Date', 'O.Type', 'S.Gross', 'Discount', 'TotalDue', 'Staff', 'Receipt#');
 
 
 		$data['status'] = $status;
@@ -282,6 +282,8 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		$discounts_rendered_total_str = 'Php ' . number_format($discounts_rendered_total, 2);
 		$discounts_gross_percentage_str = '[ ' . number_format($discounts_gross_percentage, 1) . ' % ]  of the Total Gross Sales [ Php ' . number_format($gross_total, 2) . ' ]';
 
+		$dateObj   = DateTime::createFromFormat('!m', $month);
+		$monthName = $dateObj->format('F'); // March
 
 
 		// ==================================== REPORT ESSENTIALS ========================================================
@@ -293,7 +295,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData_monthly($status, $year, $month); // load and fetch data
 		
-		$data['title'] = 'Transactions Report Monthly ( ' . $month . ' - ' $year ' )';
+		$data['title'] = 'Monthly ( ' . $monthName . ' ' . $year . ' ) Transactions Report';
 
 		$data['date_today'] = $today;
 
@@ -304,7 +306,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		$data['user_fullname'] = $this->session->userdata('firstname') .' '. $this->session->userdata('lastname');
 
 		// column titles
-		$data['header'] = array('TransID', 'DateTime', 'O.Type', 'S.Gross', 'S.Discount', 'TotalDue', 'P.Method', 'Staff', 'Receipt#');
+		$data['header'] = array('TransID', 'Status', 'Date', 'O.Type', 'S.Gross', 'Discount', 'TotalDue', 'Staff', 'Receipt#');
 
 
 		$data['status'] = $status;
@@ -396,7 +398,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 
 		$data['data'] = $this->LoadData_custom($status, $date_from, $date_to); // load and fetch data
 		
-		$data['title'] = 'Transactions Report Custom Date ( ' . $date_from . ' - ' .$date_to ' )';
+		$data['title'] = 'Custom ( ' . $date_from . ' - ' . $date_to . ' ) Transactions Report';
 
 		$data['date_today'] = $today;
 
@@ -407,7 +409,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		$data['user_fullname'] = $this->session->userdata('firstname') .' '. $this->session->userdata('lastname');
 
 		// column titles
-		$data['header'] = array('TransID', 'DateTime', 'O.Type', 'S.Gross', 'S.Discount', 'TotalDue', 'P.Method', 'Staff', 'Receipt#');
+		$data['header'] = array('TransID', 'Status', 'Date', 'O.Type', 'S.Gross', 'Discount', 'TotalDue', 'Staff', 'Receipt#');
 
 
 		$data['status'] = $status;
@@ -439,6 +441,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row = array();
 
 		    $row[] = 'S' . $transactions->trans_id;
+		    $row[] = $transactions->status;
 		    $row[] = substr($transactions->datetime,0,10);
 
 		    $row[] = $transactions->order_type;
@@ -452,12 +455,8 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    // $row[] = $transactions->disc_type;
 		    $row[] = number_format($total_due, 2);
 		    
-		    $row[] = $transactions->method;
-
 		    $row[] = $this->users->get_username($transactions->user_id);
 		    $row[] = $transactions->receipt_no;
-
-		    // $row[] = $transactions->status;
 
 		    $data[] = $row;
 		}
@@ -475,6 +474,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row = array();
 
 		    $row[] = 'S' . $transactions->trans_id;
+		    $row[] = $transactions->status;
 		    $row[] = substr($transactions->datetime,0,10);
 
 		    $row[] = $transactions->order_type;
@@ -488,12 +488,8 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    // $row[] = $transactions->disc_type;
 		    $row[] = number_format($total_due, 2);
 		    
-		    $row[] = $transactions->method;
-
 		    $row[] = $this->users->get_username($transactions->user_id);
 		    $row[] = $transactions->receipt_no;
-
-		    // $row[] = $transactions->status;
 
 		    $data[] = $row;
 		}
@@ -511,6 +507,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row = array();
 
 		    $row[] = 'S' . $transactions->trans_id;
+		    $row[] = $transactions->status;
 		    $row[] = substr($transactions->datetime,0,10);
 
 		    $row[] = $transactions->order_type;
@@ -524,12 +521,8 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    // $row[] = $transactions->disc_type;
 		    $row[] = number_format($total_due, 2);
 		    
-		    $row[] = $transactions->method;
-
 		    $row[] = $this->users->get_username($transactions->user_id);
 		    $row[] = $transactions->receipt_no;
-
-		    // $row[] = $transactions->status;
 
 		    $data[] = $row;
 		}
@@ -547,6 +540,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row = array();
 
 		    $row[] = 'S' . $transactions->trans_id;
+		    $row[] = $transactions->status;
 		    $row[] = substr($transactions->datetime,0,10);
 
 		    $row[] = $transactions->order_type;
@@ -560,12 +554,8 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    // $row[] = $transactions->disc_type;
 		    $row[] = number_format($total_due, 2);
 		    
-		    $row[] = $transactions->method;
-
 		    $row[] = $this->users->get_username($transactions->user_id);
 		    $row[] = $transactions->receipt_no;
-
-		    // $row[] = $transactions->status;
 
 		    $data[] = $row;
 		}

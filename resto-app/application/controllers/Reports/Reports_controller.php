@@ -20,6 +20,15 @@ class Reports_controller extends CI_Controller {
         
         $this->load->helper('url');
 
+        // get today's date and yesterday
+        $today = date('Y-m-d');
+        $current_year = date('Y');
+        $current_month = date('m');
+
+
+        $data['today'] = $today;
+        $data['current_year'] = $current_year;
+        $data['current_month'] = $current_month;
         											
         $data['title'] = '<i class="fa fa-file"></i> Generate Document Reports';					
         $this->load->view('template/dashboard_header',$data);

@@ -440,7 +440,7 @@ class Trans_details_controller extends CI_Controller {
     public function ajax_set_cancel($trans_id) // set cancel function
     {
         $status = 'CANCELLED';
-        $cashier_id = $this->session->userdata('user_id')
+        $cashier_id = $this->session->userdata('user_id');
 
         $data = array(
                 'status' => $status,

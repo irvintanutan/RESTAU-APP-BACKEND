@@ -96,7 +96,74 @@ class Transactions_model extends CI_Model {
     {        
         $this->db->from($this->table);
 
-        $this->db->where('status', $status);
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
+        
+        $this->db->order_by("trans_id", "desc");
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_all_trans_by_status_annual($status, $year)
+    {        
+        $this->db->from($this->table);
+
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $this->db->order_by("trans_id", "desc");
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_all_trans_by_status_monthly($status, $year, $month)
+    {        
+        $this->db->from($this->table);
+
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $this->db->order_by("trans_id", "desc");
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_all_trans_by_status_custom($status, $date_from, $date_to)
+    {        
+        $this->db->from($this->table);
+
+        if ($status != 'ALL') //  if transaction status is not set to 'ALL'
+        {
+            $this->db->where('status', $status);   
+        }
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
         $this->db->order_by("trans_id", "desc");
         
         $query = $this->db->get();
@@ -140,7 +207,6 @@ class Transactions_model extends CI_Model {
         return $query->row();
     }
 
-    // get monthly net sales specified by month and year
     public function get_total_net_sales_by_status($status)
     {
         $this->db->select('SUM(cash_amt - change_amt) AS total');    
@@ -148,6 +214,63 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('status', $status);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_net_sales_by_status_annual($status, $year)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_net_sales_by_status_monthly($status, $year, $month)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_net_sales_by_status_custom($status, $date_from, $date_to)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
         
         $query = $this->db->get();
 
@@ -226,6 +349,63 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('status', $status);
+        
+        $query = $this->db->get();
+
+        return $query->row()->discount + 0;
+    }
+
+    public function get_total_discounts_rendered_by_status_annual($status, $year)
+    {
+        $this->db->select('SUM(discount) AS discount');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->discount + 0;
+    }
+
+    public function get_total_discounts_rendered_by_status_monthly($status, $year, $month)
+    {
+        $this->db->select('SUM(discount) AS discount');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->discount + 0;
+    }
+
+    public function get_total_discounts_rendered_by_status_custom($status, $date_from, $date_to)
+    {
+        $this->db->select('SUM(discount) AS discount');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('status', $status);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
         
         $query = $this->db->get();
 
@@ -366,6 +546,63 @@ class Transactions_model extends CI_Model {
 
         return $query->row()->trans_count + 0;
     }
+    // get transaction count based on user_id
+    public function get_count_trans_cashier_annual($cashier_id, $year)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('cashier_id', $cashier_id);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+    // get transaction count based on user_id
+    public function get_count_trans_cashier_monthly($cashier_id, $year, $month)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('cashier_id', $cashier_id);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+    // get transaction count based on user_id
+    public function get_count_trans_cashier_custom($cashier_id, $date_from, $date_to)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('cashier_id', $cashier_id);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
 
     // get transaction count based on user_id
     public function get_count_trans_staff($staff_id)
@@ -375,6 +612,63 @@ class Transactions_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('user_id', $staff_id);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+    // get transaction count based on user_id
+    public function get_count_trans_staff_annual($staff_id, $year)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('user_id', $staff_id);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+    // get transaction count based on user_id
+    public function get_count_trans_staff_monthly($staff_id, $year, $month)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('user_id', $staff_id);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+    // get transaction count based on user_id
+    public function get_count_trans_staff_custom($staff_id, $date_from, $date_to)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('user_id', $staff_id);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
         
         $query = $this->db->get();
 
@@ -418,6 +712,69 @@ class Transactions_model extends CI_Model {
 
         $this->db->where('order_type', $order_type);
         $this->db->where('status', $status);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+
+    // get all transaction count based on order type
+    public function get_count_trans_total_annual($status, $order_type, $year)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('order_type', $order_type);
+        $this->db->where('status', $status);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+
+    // get all transaction count based on order type
+    public function get_count_trans_total_monthly($status, $order_type, $year, $month)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('order_type', $order_type);
+        $this->db->where('status', $status);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->trans_count + 0;
+    }
+
+    // get all transaction count based on order type
+    public function get_count_trans_total_custom($status, $order_type, $date_from, $date_to)
+    {
+        $this->db->select('COUNT(trans_id) AS trans_count');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('order_type', $order_type);
+        $this->db->where('status', $status);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
         
         $query = $this->db->get();
 

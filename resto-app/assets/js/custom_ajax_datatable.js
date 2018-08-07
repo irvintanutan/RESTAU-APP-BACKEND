@@ -4247,141 +4247,351 @@ $("#report_type").change(function()
 {
    var report_type = $('[name="report_type"]').val();
 
-   if (report_type == "null")
+   if (report_type == "alltime")
    {
-       document.getElementById("generate_report").disabled = true;
+       document.getElementById("year_month_div").style.display = 'none';
+       document.getElementById("custom_range_div").style.display = 'none';
+   }
+   else if (report_type == "annual")
+   {
+       document.getElementById("year_month_div").style.display = 'block';
+       document.getElementById("month_div").style.display = 'none';
+       document.getElementById("custom_range_div").style.display = 'none';
+
+       $('[name="year"]').val($('[name="current_year"]').val()).prop('selected', true);
+   }
+   else if (report_type == "monthly")
+   {
+       document.getElementById("year_month_div").style.display = 'block';
+       document.getElementById("month_div").style.display = 'block';
+       document.getElementById("custom_range_div").style.display = 'none';
+
+       $('[name="month"]').val($('[name="current_month"]').val()).prop('selected', true);
+       $('[name="year"]').val($('[name="current_year"]').val()).prop('selected', true);
    }
    else
    {
-       document.getElementById("generate_report").disabled = false;
+       document.getElementById("year_month_div").style.display = 'none';
+       document.getElementById("custom_range_div").style.display = 'block';
    } 
 });
 
-// enable / disable generate Monthly reports button
-$("#report_type_monthly").change(function()
+// set / generate report based on selected type --------------------------------------------- TRANSACTIONS
+function set_report_transactions()
 {
-   var report_type_monthly = $('[name="report_type_monthly"]').val();
-   var month_selection = $('[name="month_selection"]').val();
-   var year_selection = $('[name="year_selection"]').val();
-
-   if (report_type_monthly == "null" || month_selection == "null" || year_selection == "null")
-   {
-       document.getElementById("generate_report_monthly").disabled = true;
-   }
-   else
-   {
-       document.getElementById("generate_report_monthly").disabled = false;
-   } 
-});
-
-// enable / disable generate CIS reports button
-$("#report_type_child").change(function()
-{
-   var report_type_child = $('[name="report_type_child"]').val();
-
-   if (report_type_child == "null")
-   {
-       document.getElementById("generate_report_child").disabled = true;
-   }
-   else
-   {
-       document.getElementById("generate_report_child").disabled = false;
-   } 
-});
-
-// enable / disable generate Monthly reports button
-$("#month_selection").change(function()
-{
-   var report_type_monthly = $('[name="report_type_monthly"]').val();
-   var month_selection = $('[name="month_selection"]').val();
-   var year_selection = $('[name="year_selection"]').val();
-
-   if (report_type_monthly == "null" || month_selection == "null" || year_selection == "null")
-   {
-       document.getElementById("generate_report_monthly").disabled = true;
-   }
-   else
-   {
-       document.getElementById("generate_report_monthly").disabled = false;
-   }
-});
-
-// enable / disable generate Monthly reports button
-$("#year_selection").change(function()
-{
-   var report_type_monthly = $('[name="report_type_monthly"]').val();
-   var month_selection = $('[name="month_selection"]').val();
-   var year_selection = $('[name="year_selection"]').val();
-
-   if (report_type_monthly == "null" || month_selection == "null" || year_selection == "null")
-   {
-       document.getElementById("generate_report_monthly").disabled = true;
-   }
-   else
-   {
-       document.getElementById("generate_report_monthly").disabled = false;
-   }
-});
-
-// set / generate report based on selected type - CIS
-function set_report()
-{
-
-    // fetch report type value
     var report_type = $('[name="report_type"]').val();
-
+    var trans_report_type = $('[name="trans_report_type"]').val();
     // setting report logs
     var log_type = 'Report';
+    var details = 'Transactions Report Generated';
 
-    if (report_type == "cis-active-male")
-    {
-        var details = 'CIS Active - Male Report generated'; 
-        window.open("cis-report-active-male");
+    if (report_type == "alltime")
+    { 
+        if (trans_report_type == "trans-all")
+        {
+            window.open("transactions-report/ALL"); //  if transaction status is set to 'ALL'  
+        }
+        else if (trans_report_type == "trans-cleared")
+        {
+            window.open("transactions-report/CLEARED");
+        }
+        else if (trans_report_type == "trans-cancelled")
+        {
+            window.open("transactions-report/CANCELLED");
+        }
+        else if (trans_report_type == "trans-refunded")
+        {
+            window.open("transactions-report/REFUNDED");
+        }
     }
-    else if (report_type == "cis-active-female")
+    else if (report_type == "annual")
     {
-        var details = 'CIS Active - Female Report generated'; 
-        window.open("cis-report-active-female");
+        var year = $('[name="year"]').val(); // get selected year
+
+        if (trans_report_type == "trans-all")
+        {
+            window.open("transactions-report-annual/ALL/" + year); //  if transaction status is set to 'ALL'  
+        }
+        else if (trans_report_type == "trans-cleared")
+        {
+            window.open("transactions-report-annual/CLEARED/" + year);
+        }
+        else if (trans_report_type == "trans-cancelled")
+        {
+            window.open("transactions-report-annual/CANCELLED/" + year);
+        }
+        else if (trans_report_type == "trans-refunded")
+        {
+            window.open("transactions-report-annual/REFUNDED/" + year);
+        }
     }
-    else if (report_type == "cis-graduated-male")
+    else if (report_type == "monthly")
     {
-        var details = 'CIS Graduated - Male Report generated'; 
-        window.open("cis-report-graduated-male");
+        var year = $('[name="year"]').val(); // get selected year
+        var month = $('[name="month"]').val(); // get selected month
+
+        if (trans_report_type == "trans-all")
+        {
+            window.open("transactions-report-monthly/ALL/" + year + "/" + month); //  if transaction status is set to 'ALL'  
+        }
+        else if (trans_report_type == "trans-cleared")
+        {
+            window.open("transactions-report-monthly/CLEARED/" + year + "/" + month);
+        }
+        else if (trans_report_type == "trans-cancelled")
+        {
+            window.open("transactions-report-monthly/CANCELLED/" + year + "/" + month);
+        }
+        else if (trans_report_type == "trans-refunded")
+        {
+            window.open("transactions-report-monthly/REFUNDED/" + year + "/" + month);
+        }
     }
-    else if (report_type == "cis-graduated-female")
+    else // for custom range dates
     {
-        var details = 'CIS Graduated - Female Report generated';
-        window.open("cis-report-graduated-female");
-    }
-    else
-    {
-        // window.open("inventory-report/print-report-borrow");   
+        var date_from = $('[name="date_from"]').val(); // get selected year
+        var date_to = $('[name="date_to"]').val(); // get selected month
+
+        if (date_from == '' || date_to == '')
+        {
+            bootbox.dialog({
+                title  : "Select Date From and Date To",
+                message  : "Invalid date input"
+            });
+        }
+        else
+        {
+            if (trans_report_type == "trans-all")
+            {
+                window.open("transactions-report-custom/ALL/" + date_from + "/" + date_to); //  if transaction status is set to 'ALL'  
+            }
+            else if (trans_report_type == "trans-cleared")
+            {
+                window.open("transactions-report-custom/CLEARED/" + date_from + "/" + date_to);
+            }
+            else if (trans_report_type == "trans-cancelled")
+            {
+                window.open("transactions-report-custom/CANCELLED/" + date_from + "/" + date_to);
+            }
+            else if (trans_report_type == "trans-refunded")
+            {
+                window.open("transactions-report-custom/REFUNDED/" + date_from + "/" + date_to);
+            }
+        }
     }
 
     set_system_log(log_type, details);
 }
 
-// set / generate report based on selected type - Monthly Checkup
-function set_report_monthly()
+// set / generate report based on selected type --------------------------------------------- MENU ITEMS
+function set_report_menu_items()
 {
-
-    // fetch report type value
-    var report_type_monthly = $('[name="report_type_monthly"]').val();
-    var month_selection = $('[name="month_selection"]').val();
-    var year_selection = $('[name="year_selection"]').val();
-
+    var report_type = $('[name="report_type"]').val();
+    var menu_items_report_type = $('[name="menu_items_report_type"]').val();
     // setting report logs
     var log_type = 'Report';
+    var details = 'Menu Items Report Generated';
 
-    if (report_type_monthly == "monthly-male")
-    {
-        var details = 'Monthly Monitoring - Male Report generated'; 
-        window.open("monthly-report-male/" + month_selection + "/" + year_selection);
+    if (report_type == "alltime")
+    { 
+        if (menu_items_report_type == "menu-all")
+        {
+            window.open("menu-items-report"); //  if transaction status is set to 'ALL'  
+        }
+        else if (menu_items_report_type == "menu-products")
+        {
+            window.open("products-report");
+        }
+        else if (menu_items_report_type == "menu-packages")
+        {
+            window.open("packages-report");
+        }
+        else if (menu_items_report_type == "menu-top-selling")
+        {
+            window.open("menu-top-selling-report");
+        }
     }
-    else if (report_type_monthly == "monthly-female")
+    else if (report_type == "annual")
     {
-        var details = 'Monthly Monitoring - Female Report generated'; 
-        window.open("monthly-report-female/" + month_selection + "/" + year_selection);
+        var year = $('[name="year"]').val(); // get selected year
+
+        if (menu_items_report_type == "menu-all")
+        {
+            window.open("menu-items-report-annual/" + year); //  if transaction status is set to 'ALL'  
+        }
+        else if (menu_items_report_type == "menu-products")
+        {
+            window.open("products-report-annual/" + year);
+        }
+        else if (menu_items_report_type == "menu-packages")
+        {
+            window.open("packages-report-annual/" + year);
+        }
+        else if (menu_items_report_type == "menu-top-selling")
+        {
+            window.open("menu-top-selling-report-annual/" + year);
+        }
+    }
+    else if (report_type == "monthly")
+    {
+        var year = $('[name="year"]').val(); // get selected year
+        var month = $('[name="month"]').val(); // get selected month
+
+        if (menu_items_report_type == "menu-all")
+        {
+            window.open("menu-items-report-monthly/" + year + "/" + month); //  if transaction status is set to 'ALL'  
+        }
+        else if (menu_items_report_type == "menu-products")
+        {
+            window.open("products-report-monthly/" + year + "/" + month);
+        }
+        else if (menu_items_report_type == "menu-packages")
+        {
+            window.open("packages-report-monthly/" + year + "/" + month);
+        }
+        else if (menu_items_report_type == "menu-top-selling")
+        {
+            window.open("menu-top-selling-report-monthly/" + year + "/" + month);
+        }
+    }
+    else // for custom range dates
+    {
+        var date_from = $('[name="date_from"]').val(); // get selected year
+        var date_to = $('[name="date_to"]').val(); // get selected month
+
+        if (date_from == '' || date_to == '')
+        {
+            bootbox.dialog({
+                title  : "Select Date From and Date To",
+                message  : "Invalid date input"
+            });
+        }
+        else
+        {
+            if (menu_items_report_type == "menu-all")
+            {
+                window.open("menu-items-report-custom/" + date_from + "/" + date_to); //  if transaction status is set to 'ALL'  
+            }
+            else if (menu_items_report_type == "menu-products")
+            {
+                window.open("products-report-custom/" + date_from + "/" + date_to);
+            }
+            else if (menu_items_report_type == "menu-packages")
+            {
+                window.open("packages-report-custom/" + date_from + "/" + date_to);
+            }
+            else if (menu_items_report_type == "menu-top-selling")
+            {
+                window.open("menu-top-selling-report-custom/" + date_from + "/" + date_to);
+            }
+        }
+    }
+
+    set_system_log(log_type, details);
+}
+
+// set / generate report based on selected type --------------------------------------------- USERS
+function set_report_users()
+{
+    var report_type = $('[name="report_type"]').val();
+    var users_report_type = $('[name="users_report_type"]').val();
+    // setting report logs
+    var log_type = 'Report';
+    var details = 'Users Report Generated';
+
+    if (report_type == "alltime")
+    { 
+        if (users_report_type == "users-all")
+        {
+            window.open("users-report"); //  if transaction status is set to 'ALL'  
+        }
+        else if (users_report_type == "users-admin")
+        {
+            window.open("users-report-type/administrator");
+        }
+        else if (users_report_type == "users-cashier")
+        {
+            window.open("users-report-type/cashier");
+        }
+        else if (users_report_type == "users-staff")
+        {
+            window.open("users-report-type/staff");
+        }
+    }
+    else if (report_type == "annual")
+    {
+        var year = $('[name="year"]').val(); // get selected year
+
+        if (users_report_type == "users-all")
+        {
+            window.open("users-report-annual/" + year); //  if transaction status is set to 'ALL'  
+        }
+        else if (users_report_type == "users-admin")
+        {
+            window.open("users-report-type-annual/administrator/" + year);
+        }
+        else if (users_report_type == "users-cashier")
+        {
+            window.open("users-report-type-annual/cashier/" + year);
+        }
+        else if (users_report_type == "users-staff")
+        {
+            window.open("users-report-type-annual/staff/" + year);
+        }
+    }
+    else if (report_type == "monthly")
+    {
+        var year = $('[name="year"]').val(); // get selected year
+        var month = $('[name="month"]').val(); // get selected month
+
+        if (users_report_type == "users-all")
+        {
+            window.open("users-report-monthly/" + year + "/" + month); //  if transaction status is set to 'ALL'  
+        }
+        else if (users_report_type == "users-admin")
+        {
+            window.open("users-report-type-monthly/administrator/" + year + "/" + month);
+        }
+        else if (users_report_type == "users-cashier")
+        {
+            window.open("users-report-type-monthly/cashier/" + year + "/" + month);
+        }
+        else if (users_report_type == "users-staff")
+        {
+            window.open("users-report-type-monthly/staff/" + year + "/" + month);
+        }
+    }
+    else // for custom range dates
+    {
+        var date_from = $('[name="date_from"]').val(); // get selected year
+        var date_to = $('[name="date_to"]').val(); // get selected month
+
+        if (date_from == '' || date_to == '')
+        {
+            bootbox.dialog({
+                title  : "Select Date From and Date To",
+                message  : "Invalid date input"
+            });
+        }
+        else
+        {
+            if (users_report_type == "users-all")
+            {
+                window.open("users-report-custom/" + date_from + "/" + date_to); //  if transaction status is set to 'ALL'  
+            }
+            else if (users_report_type == "users-admin")
+            {
+                window.open("users-report-type-custom/administrator/" + date_from + "/" + date_to);
+            }
+            else if (users_report_type == "users-cashier")
+            {
+                window.open("users-report-type-custom/cashier/" + date_from + "/" + date_to);
+            }
+            else if (users_report_type == "users-staff")
+            {
+                window.open("users-report-type-custom/staff/" + date_from + "/" + date_to);
+            }
+        }
     }
 
     set_system_log(log_type, details);

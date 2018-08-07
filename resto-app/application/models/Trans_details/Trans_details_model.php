@@ -377,17 +377,75 @@ class Trans_details_model extends CI_Model {
         $row = $query->row();
         return $row->sold; 
     }
- 
-    // public function get_by_id($trans_id, $prod_id)
-    // {
-    //     $this->db->from($this->table);
-    //     $this->db->where('trans_id',$trans_id);
-    //     $this->db->where('prod_id',$prod_id);
 
-    //     $query = $this->db->get();
- 
-    //     return $query->row();
-    // }
+    public function count_all_sold_status_by_prod_type_annual($prod_type, $status, $year) // count all times qty of product/packages
+    {
+        $this->db->from($this->table);
+
+        $this->db->select('SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
+        $this->db->where('transactions.status', $status);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+        return $row->sold; 
+    }
+
+    public function count_all_sold_status_by_prod_type_monthly($prod_type, $status, $year, $month) // count all times qty of product/packages
+    {
+        $this->db->from($this->table);
+
+        $this->db->select('SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
+        $this->db->where('transactions.status', $status);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+        return $row->sold; 
+    }
+
+    public function count_all_sold_status_by_prod_type_custom($prod_type, $status, $date_from, $date_to) // count all times qty of product/packages
+    {
+        $this->db->from($this->table);
+
+        $this->db->select('SUM(trans_details.qty) as sold');
+         
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
+        $this->db->where('trans_details.prod_type', $prod_type); // no package-product included
+        $this->db->where('transactions.status', $status);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $query = $this->db->get();
+
+        $row = $query->row();
+        return $row->sold; 
+    }
  
     public function save($data)
     {

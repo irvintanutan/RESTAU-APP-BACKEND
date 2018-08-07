@@ -120,6 +120,66 @@ class Trans_logs_model extends CI_Model {
         return $query->row()->total + 0;
     }
 
+    public function get_total_void_by_user_annual($username, $year)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Void');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_void_by_user_monthly($username, $year, $month)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Void');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_void_by_user_custom($username, $date_from, $date_to)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Void');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
     public function get_total_cancelled_by_user($username)
     {
         $this->db->select('COUNT(log_id) AS total');    
@@ -134,11 +194,131 @@ class Trans_logs_model extends CI_Model {
         return $query->row()->total + 0;
     }
 
+    public function get_total_cancelled_by_user_annual($username, $year)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Cancel');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_cancelled_by_user_monthly($username, $year, $month)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Cancel');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_cancelled_by_user_custom($username, $date_from, $date_to)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Cancel');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
     public function get_total_refunded_by_user($username)
     {
         $this->db->select('COUNT(log_id) AS total');    
         
         $this->db->from($this->table);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Refund');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_refunded_by_user_annual($username, $year)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Refund');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_refunded_by_user_monthly($username, $year, $month)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+
+        $this->db->where('user_fullname', $username);
+        $this->db->where('log_type', 'Refund');
+
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_refunded_by_user_custom($username, $date_from, $date_to)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
 
         $this->db->where('user_fullname', $username);
         $this->db->where('log_type', 'Refund');
@@ -174,6 +354,63 @@ class Trans_logs_model extends CI_Model {
         $this->db->from($this->table);
 
         $this->db->where('log_type', 'Void');
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_void_annual($year)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('log_type', 'Void');
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_void_monthly($year, $month)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('log_type', 'Void');
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total + 0;
+    }
+
+    public function get_total_void_custom($date_from, $date_to)
+    {
+        $this->db->select('COUNT(log_id) AS total');    
+        
+        $this->db->from($this->table);
+
+        $this->db->where('log_type', 'Void');
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('date_time >=', $date_from);
+        $this->db->where('date_time <=', $date_to);
         
         $query = $this->db->get();
 

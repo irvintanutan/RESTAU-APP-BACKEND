@@ -220,6 +220,63 @@ class Trans_details_model extends CI_Model {
         return $row->sales;
     }
 
+    function get_total_menu_sales_annual($prod_type, $year)
+    {
+        $this->db->select('SUM(total) as sales');
+        $this->db->from($this->table);
+        $this->db->where('prod_type',$prod_type);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales;
+    }
+
+    function get_total_menu_sales_monthly($prod_type, $year, $month)
+    {
+        $this->db->select('SUM(total) as sales');
+        $this->db->from($this->table);
+        $this->db->where('prod_type',$prod_type);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales;
+    }
+
+    function get_total_menu_sales_custom($prod_type, $date_from, $date_to)
+    {
+        $this->db->select('SUM(total) as sales');
+        $this->db->from($this->table);
+        $this->db->where('prod_type',$prod_type);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->sales;
+    }
+
     function get_total_prod_sales($prod_id)
     {
         $this->db->select('SUM(total) as sales');

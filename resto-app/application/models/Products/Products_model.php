@@ -224,10 +224,115 @@ class Products_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    function get_cat_prod_count_annual($cat_id, $year)
+    {
+        $this->db->select('prod_id');
+        $this->db->from($this->table);
+        $this->db->where('cat_id',$cat_id);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+
+        $this->db->where('encoded <=', $date_from);
+
+        $this->db->where('removed', '0');
+        
+        return $this->db->count_all_results();
+    }
+
+    function get_cat_prod_count_monthly($cat_id, $year, $month)
+    {
+        $this->db->select('prod_id');
+        $this->db->from($this->table);
+        $this->db->where('cat_id',$cat_id);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+
+        $this->db->where('encoded <=', $date_from);
+
+        $this->db->where('removed', '0');
+        
+        return $this->db->count_all_results();
+    }
+
+    function get_cat_prod_count_custom($cat_id, $date_from)
+    {
+        $this->db->select('prod_id');
+        $this->db->from($this->table);
+        $this->db->where('cat_id',$cat_id);
+
+        $date_from = $date_from . ' 00:00:00';
+
+        $this->db->where('encoded <=', $date_from);
+
+        $this->db->where('removed', '0');
+        
+        return $this->db->count_all_results();
+    }
+
     function get_total_prod_sold()
     {
         $this->db->select('SUM(sold) as total_sold');
         $this->db->from($this->table);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_total_prod_sold_annual($year)
+    {
+        $this->db->select('SUM(sold) as total_sold');
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_total_prod_sold_monthly($year, $month)
+    {
+        $this->db->select('SUM(sold) as total_sold');
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_total_prod_sold_custom($date_from, $date_to)
+    {
+        $this->db->select('SUM(sold) as total_sold');
+        $this->db->from($this->table);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
 
         $this->db->where('removed', '0');
         
@@ -251,6 +356,66 @@ class Products_model extends CI_Model {
 
         return $row->total_sold;
     }
+
+    function get_total_pack_prod_sold_annual($year) // get total sold of package products
+    {
+        $this->db->select('SUM(sold_pack) as total_sold');
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_total_pack_prod_sold_monthly($year, $month) // get total sold of package products
+    {
+        $this->db->select('SUM(sold_pack) as total_sold');
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_total_pack_prod_sold_custom($date_from, $date_to) // get total sold of package products
+    {
+        $this->db->select('SUM(sold_pack) as total_sold');
+        $this->db->from($this->table);
+
+        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('transactions.datetime >=', $date_from);
+        $this->db->where('transactions.datetime <=', $date_to);
+
+        $this->db->where('removed', '0');
+        
+        $query = $this->db->get();
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
  
     function count_filtered()
     {
@@ -265,6 +430,45 @@ class Products_model extends CI_Model {
     public function count_all()
     {
         $this->db->from($this->table);
+
+        // get only records that are not currently removed
+        $this->db->where('removed', '0');
+        return $this->db->count_all_results();
+    }
+
+    public function count_all_annual($year)
+    {
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . '01' . '-01 00:00:00';
+
+        $this->db->where('encoded <=', $date_from);
+
+        // get only records that are not currently removed
+        $this->db->where('removed', '0');
+        return $this->db->count_all_results();
+    }
+
+    public function count_all_monthly($year, $month)
+    {
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+
+        $this->db->where('encoded <=', $date_from);
+
+        // get only records that are not currently removed
+        $this->db->where('removed', '0');
+        return $this->db->count_all_results();
+    }
+
+    public function count_all_custom($date_from)
+    {
+        $this->db->from($this->table);
+
+        $date_from = $date_from . ' 00:00:00';
+
+        $this->db->where('encoded <=', $date_from);
 
         // get only records that are not currently removed
         $this->db->where('removed', '0');

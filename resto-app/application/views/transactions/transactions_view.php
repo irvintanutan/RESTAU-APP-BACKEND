@@ -56,8 +56,18 @@
                                         <th>Discount</th>
                                         <th>TotalDue</th>
                                         
-                                        <th>PaymentMethod</th>
-                                        <th>Staff</th>
+                                        <?php 
+                                            if ($trans_status == 'ONGOING')
+                                            {
+                                                echo '<th>TableOccupied</th>';
+                                                echo '<th>Staff</th>';
+                                            }
+                                            else
+                                            {
+                                                echo '<th>PaymentMethod</th>';
+                                                echo '<th>Cashier</th>';   
+                                            }
+                                        ?>
 
                                         <th style="width:30px;">Action</th>
                                     </tr>

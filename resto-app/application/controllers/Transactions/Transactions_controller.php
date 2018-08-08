@@ -156,9 +156,61 @@ class Transactions_controller extends CI_Controller {
             // $row[] = $transactions->disc_type;
             $row[] = '<b>' . number_format($total_due, 2) . '</b>';
             
-            $row[] = $transactions->method;
+            if ($trans_status == 0) // if transaction is ONGOING - select TableOccupied and Staff instead of PaymentMethod and Cashier
+            {
+                $tables = $this->table_groups->get_table_group_tables($transactions->trans_id);
 
-            $row[] = $this->users->get_username($transactions->user_id);
+                if ($tables->num_rows() != 0)
+                {
+                    $tables_data = array();
+
+                    foreach ($tables->result() as $tables_list) 
+                    {
+                        if ($tables_list->tbl_id == 0)
+                        {
+                            $tables_data[] = 'No Table';
+                        }
+                        else
+                        {
+                            $tables_data[] = $this->tables->get_table_name($tables_list->tbl_id);
+                        }
+                    }
+
+                    $table_str = implode(', ', $tables_data);
+                }
+                else
+                {
+                    $table_str = 'n/a';
+                }
+
+                $row[] = $table_str;
+
+                $staff_id = $transactions->user_id;
+
+                if ($staff_id != 0)
+                {
+                    $row[] = $this->users->get_username($staff_id);
+                }
+                else
+                {
+                    $row[] = 'n/a';
+                }
+            }
+            else // not ONGOING
+            {
+                $row[] = $transactions->method;
+
+                $cashier_id = $transactions->cashier_id;
+
+                if ($cashier_id != 0)
+                {
+                    $row[] = $this->users->get_username($cashier_id);
+                }
+                else
+                {
+                    $row[] = 'n/a';
+                }
+            }
             // $row[] = $transactions->cash_amt;
             // $row[] = $transactions->change_amt;
 

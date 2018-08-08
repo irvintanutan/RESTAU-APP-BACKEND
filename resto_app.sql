@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 03, 2018 at 09:59 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: localhost
+-- Generation Time: Aug 08, 2018 at 05:51 PM
+-- Server version: 5.7.23-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -1185,7 +1183,34 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (1001056, 'um_developer', 'Report', 'X-Reading%20printed%20successfully', '2018-08-03 21:30:31'),
 (1001057, 'um_developer', 'Report', 'S-Reading%20printed%20successfully', '2018-08-03 21:36:39'),
 (1001058, 'um_developer', 'Report', 'X-Reading%20printed%20successfully', '2018-08-03 21:40:46'),
-(1001059, 'um_developer', 'Add', 'New%20transaction%20payment%20added:%20S143', '2018-08-03 21:41:28');
+(1001059, 'um_developer', 'Add', 'New%20transaction%20payment%20added:%20S143', '2018-08-03 21:41:28'),
+(1001060, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-06 09:11:20'),
+(1001061, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-06 09:32:31'),
+(1001062, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-06 13:24:08'),
+(1001063, 'um_developer', 'Report', 'Users%20Report%20Generated', '2018-08-06 16:15:53'),
+(1001064, 'um_developer', 'Report', 'Users%20Report%20Generated', '2018-08-06 16:18:04'),
+(1001065, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-07 09:04:05'),
+(1001066, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-07 09:05:46'),
+(1001067, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-07 09:27:31'),
+(1001068, 'um_developer', 'Report', 'Users%20Report%20Generated', '2018-08-07 10:14:08'),
+(1001069, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-07 10:15:11'),
+(1001070, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:07:26'),
+(1001071, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:07:34'),
+(1001072, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:07:54'),
+(1001073, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:07:59'),
+(1001074, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:08:47'),
+(1001075, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:08:53'),
+(1001076, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:08:59'),
+(1001077, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:09:20'),
+(1001078, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:09:27'),
+(1001079, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:09:33'),
+(1001080, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:09:39'),
+(1001081, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:09:47'),
+(1001082, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:09:51'),
+(1001083, 'um_developer', 'Report', 'Transactions%20Report%20Generated', '2018-08-07 13:09:59'),
+(1001084, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-08 09:24:24'),
+(1001085, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-08 15:09:17'),
+(1001086, 'TORRES, JIK', 'Login', 'System user login as Administrator', '2018-08-08 16:34:25');
 
 -- --------------------------------------------------------
 
@@ -1308,10 +1333,10 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
 (1, 'Coca Cola', 'CokeInCan', 'Coke in Can', 1, '50.00', '1_1_.jpg', 131, 35, '2018-05-24 18:22:34', 0),
 (2, 'Iced Tea Pitcher', 'IceTeaPitchr', 'Soda', 1, '45.00', '2_1_.jpg', 16, 112, '2018-05-28 14:37:40', 0),
-(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 272, 0, '2018-05-29 13:51:47', 0),
+(3, 'Cheese Burger', 'CheeseBurger', 'Regular size cheese burger', 3, '100.00', '3_1_.jpg', 274, 0, '2018-05-29 13:51:47', 0),
 (4, 'Sprite in Can', 'SpriteInCan', 'Green can soda in can', 1, '50.00', '4_1_.jpg', 6, 0, '2018-05-29 13:55:32', 0),
-(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 18, 0, '2018-05-29 13:56:42', 0),
-(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 29, 0, '2018-05-29 13:57:27', 0),
+(5, 'Cheesy Fries', 'CheesyFries', 'French fries cheese flavor', 3, '80.00', '5_2_.jpg', 20, 0, '2018-05-29 13:56:42', 0),
+(6, 'Barbecue Fries', 'BBQFries', 'French fries BBQ flavor', 3, '80.00', '6_1_.jpg', 30, 0, '2018-05-29 13:57:27', 0),
 (7, 'Double Cheese Burger', 'DblCheeseBgr', 'Heavy cheese burger X 2', 3, '180.00', '7_1_.jpg', 8, 42, '2018-05-29 13:58:22', 0),
 (8, 'Mix Fries', 'MixFries', '2 flavored french fries', 3, '100.00', '8_1_.jpg', 1, 0, '2018-05-29 14:56:29', 0),
 (9, 'Extra Large Fries', 'FrnchFriesXL', 'Triple size french fries', 3, '150.00', '9_1_.jpg', 7, 168, '2018-05-29 14:58:13', 0),
@@ -1528,7 +1553,9 @@ CREATE TABLE `table_groups` (
 
 INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
 (1, 123, 3),
-(2, 123, 4);
+(2, 123, 4),
+(3, 145, 0),
+(8, 147, 0);
 
 -- --------------------------------------------------------
 
@@ -1702,7 +1729,10 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (141, '2018-08-03 21:04:40', '100.00', 2, 'CLEARED', 'TAKE-OUT', '1000.00', '100.00', 'Cash', 'n/a', 'n/a', '87887', 109, 108, 0, 1, 2000037),
 (142, '2018-08-03 21:30:04', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '-100.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 111, 0, 0, 2000032),
 (143, '2018-08-03 21:35:59', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '450.00', 'Cash', 'n/a', 'n/a', 'n/a', 109, 108, 0, 0, 2000036),
-(144, '2018-08-03 21:49:54', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 109, 0, 0, 0, 1000000);
+(144, '2018-08-03 21:49:54', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 109, 0, 0, 0, 1000000),
+(145, '2018-08-08 15:52:39', '0.00', 0, 'CLEARED', 'DINE-IN', '1000.00', '750.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000038),
+(146, '2018-08-08 15:56:14', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 1000000),
+(147, '2018-08-08 16:46:03', '0.00', 0, 'CLEARED', 'DINE-IN', '1000.00', '820.00', 'Cash', 'n/a', 'n/a', 'n/a', 103, 108, 0, 0, 2000039);
 
 -- --------------------------------------------------------
 
@@ -2429,7 +2459,17 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (143, 9, 0, 2, '0.00', 1, '0.00', 1),
 (143, 10, 0, 2, '0.00', 4, '0.00', 1),
 (143, 0, 4, 1, '1100.00', 1, '1100.00', 0),
-(144, 3, 0, 0, '100.00', 1, '100.00', 0);
+(144, 3, 0, 0, '100.00', 1, '100.00', 0),
+(145, 6, 0, 0, '70.00', 1, '70.00', 0),
+(145, 3, 0, 0, '100.00', 1, '100.00', 0),
+(145, 5, 0, 0, '80.00', 1, '80.00', 0),
+(146, 10, 0, 0, '70.00', 1, '70.00', 0),
+(146, 0, 2, 1, '1000.00', 1, '1000.00', 0),
+(146, 1, 0, 2, '0.00', 5, '0.00', 2),
+(146, 10, 0, 2, '0.00', 5, '0.00', 2),
+(146, 9, 0, 2, '0.00', 2, '0.00', 2),
+(147, 3, 0, 0, '100.00', 1, '100.00', 0),
+(147, 5, 0, 0, '80.00', 1, '80.00', 0);
 
 -- --------------------------------------------------------
 
@@ -2499,7 +2539,8 @@ INSERT INTO `trans_logs` (`log_id`, `user_fullname`, `log_type`, `details`, `dat
 (1000047, 'um_developer', 'Void', 'Item void S144 by U108 - Package: G3', '2018-08-03 21:51:26'),
 (1000048, 'um_developer', 'Cancel', 'Transaction cancelled S144 by U108', '2018-08-03 21:52:32'),
 (1000049, 'um_developer', 'Discount', 'Transaction discounted S141 by U108', '2018-08-03 21:53:39'),
-(1000050, 'um_developer', 'Payment', 'Transaction payment S141 RCPT#: 2000037', '2018-08-03 21:54:39');
+(1000050, 'um_developer', 'Payment', 'Transaction payment S141 RCPT#: 2000037', '2018-08-03 21:54:39'),
+(1000051, 'um_developer', 'Cancel', 'Transaction cancelled S146 by U108', '2018-08-08 16:29:04');
 
 -- --------------------------------------------------------
 
@@ -2719,7 +2760,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001060;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001087;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2764,17 +2805,17 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 --
 -- AUTO_INCREMENT for table `trans_logs`
 --
 ALTER TABLE `trans_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000051;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000052;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -2784,8 +2825,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `x_readings`
 --
 ALTER TABLE `x_readings`
-  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;COMMIT;
-
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

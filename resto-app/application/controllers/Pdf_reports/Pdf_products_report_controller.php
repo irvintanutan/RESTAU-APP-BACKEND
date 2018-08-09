@@ -386,22 +386,24 @@ class Pdf_products_report_controller extends CI_Controller {
 	}
 
 	// Load table data from file
-	public function LoadData_annual() 
+	public function LoadData_annual($year) 
 	{
 		// get best selling list -------------------------------------------------
 
 		$min_price = $this->store->get_store_bs_price(1);
 
-		$best_selling = $this->products->get_best_selling($min_price);
+		$best_selling = $this->products->get_best_selling_annual($min_price, $year);
 		$best_selling_array = array();
+		$best_selling_sold_array = array();
 
 		foreach ($best_selling as $bp_products) 
 		{
 		    $best_selling_array[] = $bp_products->prod_id;
+		    $best_selling_sold_array[] = $bp_products->sold;
 		}
 		//------------------------------------------------------------------------
 
-		$list = $this->products->get_products();
+		$list = $this->products->get_products_annual($year);
 		$data = array();
 
 		foreach ($list as $products) {
@@ -418,13 +420,120 @@ class Pdf_products_report_controller extends CI_Controller {
 		    $row[] = $products->price;
 		
 
-		    if (in_array($products->prod_id, $best_selling_array))
+		    if (in_array($products->prod_id, $best_selling_array)) // if part of top selling
 		    {
-		        $item_sold = '( R: ' . (array_search($products->prod_id, $best_selling_array) + 1) . " ) " . $products->sold;    
+		    	$prod_index = array_search($products->prod_id, $best_selling_array); // get index of the product
+		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
 		    }
 		    else
 		    {
-		        $item_sold = $products->sold;
+		        $item_sold = $this->products->get_prod_sold_by_id_annual($prod_id, $year);
+		    }
+
+		    $row[] = $item_sold;
+		
+		    $data[] = $row;
+		}
+
+		return $data;
+	}
+
+	// Load table data from file
+	public function LoadData_monthly($year, $month) 
+	{
+		// get best selling list -------------------------------------------------
+
+		$min_price = $this->store->get_store_bs_price(1);
+
+		$best_selling = $this->products->get_best_selling_monthly($min_price, $year, $month);
+		$best_selling_array = array();
+		$best_selling_sold_array = array();
+
+		foreach ($best_selling as $bp_products) 
+		{
+		    $best_selling_array[] = $bp_products->prod_id;
+		    $best_selling_sold_array[] = $bp_products->sold;
+		}
+		//------------------------------------------------------------------------
+
+		$list = $this->products->get_products_monthly($year, $month);
+		$data = array();
+
+		foreach ($list as $products) {
+		    
+		    $row = array();
+		    $row[] = 'P' . $products->prod_id;
+
+		    $row[] = $products->name;
+		    $row[] = $products->short_name; // 12 char short name
+		    // $row[] = $products->descr;
+
+		    $row[] = $this->categories->get_category_name($products->cat_id); // get name instead of id
+
+		    $row[] = $products->price;
+		
+
+		    if (in_array($products->prod_id, $best_selling_array)) // if part of top selling
+		    {
+		    	$prod_index = array_search($products->prod_id, $best_selling_array); // get index of the product
+		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		    }
+		    else
+		    {
+		        $item_sold = $this->products->get_prod_sold_by_id_monthly($prod_id, $year, $month);
+		    }
+
+		    $row[] = $item_sold;
+		
+		    $data[] = $row;
+		}
+
+		return $data;
+	}
+
+	// Load table data from file
+	public function LoadData_custom($date_from, $date_to) 
+	{
+		// get best selling list -------------------------------------------------
+
+		$min_price = $this->store->get_store_bs_price(1);
+
+		$best_selling = $this->products->get_best_selling_custom($min_price, $date_from, $date_to);
+		$best_selling_array = array();
+		$best_selling_sold_array = array();
+
+		foreach ($best_selling as $bp_products) 
+		{
+		    $best_selling_array[] = $bp_products->prod_id;
+		    $best_selling_sold_array[] = $bp_products->sold;
+		}
+		//------------------------------------------------------------------------
+
+		$list = $this->products->get_products_custom($date_from, $date_to);
+		$data = array();
+
+		foreach ($list as $products) {
+		    
+		    $row = array();
+		    $row[] = 'P' . $products->prod_id;
+
+		    $row[] = $products->name;
+		    $row[] = $products->short_name; // 12 char short name
+		    // $row[] = $products->descr;
+
+		    $row[] = $this->categories->get_category_name($products->cat_id); // get name instead of id
+
+		    $row[] = $products->price;
+		
+
+		    if (in_array($products->prod_id, $best_selling_array)) // if part of top selling
+		    {
+		    	$prod_index = array_search($products->prod_id, $best_selling_array); // get index of the product
+		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		    }
+		    else
+		    {
+		        $item_sold = $this->products->get_prod_sold_by_id_custom($prod_id, $date_from, $date_to);
 		    }
 
 		    $row[] = $item_sold;

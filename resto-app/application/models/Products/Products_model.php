@@ -367,33 +367,6 @@ class Products_model extends CI_Model {
         return $row->total_sold;
     }
 
-    function get_prod_sold_by_id_annual($prod_id, $year)
-    {
-        $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-01-01 00:00:00' and transactions.datetime <= '" . $year . "-12-31 23:59:59'");
-
-        $row = $query->row();
-
-        return $row->total_sold;
-    }
-
-    function get_prod_sold_by_id_monthly($prod_id, $year, $month)
-    {
-        $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-" . $month . "-01 00:00:00' and transactions.datetime <= '" . $year . "-" . $month . "-31 23:59:59'");
-
-        $row = $query->row();
-
-        return $row->total_sold;
-    }
-
-    function get_prod_sold_by_id_custom($prod_id, $date_from, $date_to)
-    {
-        $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $date_from . "' and transactions.datetime <= '" . $date_to . "'");
-
-        $row = $query->row();
-
-        return $row->total_sold;
-    }
-
     function get_total_prod_sold_annual($year)
     {
         $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-01-01 00:00:00' and transactions.datetime <= '" . $year . "-12-31 23:59:59'");
@@ -415,6 +388,33 @@ class Products_model extends CI_Model {
     function get_total_prod_sold_custom($date_from, $date_to)
     {
         $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $date_from . "' and transactions.datetime <= '" . $date_to . "'");
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_prod_sold_by_id_annual($prod_id, $year)
+    {
+        $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and trans_details.prod_id = '" . $prod_id . "' and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-01-01 00:00:00' and transactions.datetime <= '" . $year . "-12-31 23:59:59'");
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_prod_sold_by_id_monthly($prod_id, $year, $month)
+    {
+        $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and trans_details.prod_id = '" . $prod_id . "' and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-" . $month . "-01 00:00:00' and transactions.datetime <= '" . $year . "-" . $month . "-31 23:59:59'");
+
+        $row = $query->row();
+
+        return $row->total_sold;
+    }
+
+    function get_prod_sold_by_id_custom($prod_id, $date_from, $date_to)
+    {
+        $query = $this->db->query("select SUM(trans_details.qty) as total_sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and trans_details.prod_type = 0 and trans_details.prod_id = '" . $prod_id . "' and transactions.status = 'CLEARED' and transactions.datetime >= '" . $date_from . "' and transactions.datetime <= '" . $date_to . "'");
 
         $row = $query->row();
 

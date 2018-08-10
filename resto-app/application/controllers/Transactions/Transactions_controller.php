@@ -600,7 +600,7 @@ class Transactions_controller extends CI_Controller {
 
             $gross_total = $this->trans_details->get_trans_gross($trans_id);
 
-            $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
+            //$this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
 
             // add transaction to trans_logs record --------------------------------------------------------
@@ -797,7 +797,7 @@ class Transactions_controller extends CI_Controller {
             $table_str = 'n/a';
         }
 
-        $this->print_refund_receipt($line_items, $trans_id, $staff_username, $cashier_username, $cash_amt, $receipt_no);
+        //$this->print_refund_receipt($line_items, $trans_id, $staff_username, $cashier_username, $cash_amt, $receipt_no);
 
         // add transaction to trans_logs record --------------------------------------------------------
 

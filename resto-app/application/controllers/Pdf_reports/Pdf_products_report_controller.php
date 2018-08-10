@@ -427,7 +427,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $this->products->get_prod_sold_by_id_annual($prod_id, $year);
+		        $item_sold = $this->products->get_prod_sold_by_id_annual($products->prod_id, $year);
 		    }
 
 		    $row[] = $item_sold;
@@ -480,7 +480,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $this->products->get_prod_sold_by_id_monthly($prod_id, $year, $month);
+		        $item_sold = $this->products->get_prod_sold_by_id_monthly($products->prod_id, $year, $month);
 		    }
 
 		    $row[] = $item_sold;

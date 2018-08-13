@@ -145,7 +145,6 @@
                                         <label class="control-label col-md-3">Select Report Type :</label>
                                         <div class="col-md-9">
                                             <select name="menu_items_report_type" id="report_type" class="form-control" style="font-size: 15px;">
-                                                <option value="menu-all">All Menu Items</option>
                                                 <option value="menu-products">Menu Products</option>
                                                 <option value="menu-packages">Menu Packages</option>
                                                 <option value="menu-top-selling">Top Selling</option>

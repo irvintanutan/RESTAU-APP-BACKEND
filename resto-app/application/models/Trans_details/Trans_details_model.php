@@ -229,6 +229,8 @@ class Trans_details_model extends CI_Model {
         $date_from = $year . '-' . '01' . '-01 00:00:00';
         $date_to = $year . '-' . '12' . '-31 23:59:59';
 
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
         $this->db->where('transactions.datetime >=', $date_from);
         $this->db->where('transactions.datetime <=', $date_to);
         
@@ -248,6 +250,8 @@ class Trans_details_model extends CI_Model {
         $date_from = $year . '-' . $month . '-01 00:00:00';
         $date_to = $year . '-' . $month . '-31 23:59:59';
 
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
+
         $this->db->where('transactions.datetime >=', $date_from);
         $this->db->where('transactions.datetime <=', $date_to);
         
@@ -266,6 +270,8 @@ class Trans_details_model extends CI_Model {
 
         $date_from = $date_from . ' 00:00:00';
         $date_to = $date_to . ' 23:59:59';
+
+        $this->db->join('transactions', 'transactions.trans_id = trans_details.trans_id');
 
         $this->db->where('transactions.datetime >=', $date_from);
         $this->db->where('transactions.datetime <=', $date_to);

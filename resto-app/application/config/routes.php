@@ -393,49 +393,32 @@ $route['products-report'] = 'Pdf_reports/Pdf_products_report_controller/index';
 
 $route['packages-report'] = 'Pdf_reports/Pdf_packages_report_controller/index';
 
-$route['menu-items-report'] = 'Pdf_reports/Pdf_packages_report_controller/index';
-
-$route['menu-top-selling-report'] = 'Pdf_reports/Pdf_packages_report_controller/index';
+$route['menu-top-selling-report'] = 'Pdf_reports/Pdf_products_report_controller/index_bs';
 
 
-$route['products-report-annual/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index/$1';
+$route['products-report-annual/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index_annual/$1';
 
-$route['packages-report-annual/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1';
+$route['packages-report-annual/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index_annual/$1';
 
-$route['menu-items-report-annual/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1';
-
-$route['menu-top-selling-report-annual/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1';
+$route['menu-top-selling-report-annual/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index_annual_bs/$1';
 
 
-$route['products-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index/$1/$2';
+$route['products-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index_monthly/$1/$2';
 
-$route['packages-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1/$2';
+$route['packages-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index_monthly/$1/$2';
 
-$route['menu-items-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1/$2';
-
-$route['menu-top-selling-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1/$2';
+$route['menu-top-selling-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index_monthly_bs/$1/$2';
 
 
-$route['products-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index/$1/$2';
+$route['products-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index_custom/$1/$2';
 
-$route['packages-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1/$2';
+$route['packages-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index_custom/$1/$2';
 
-$route['menu-items-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1/$2';
-
-$route['menu-top-selling-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_packages_report_controller/index/$1/$2';
+$route['menu-top-selling-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_products_report_controller/index_custom_bs/$1/$2';
 
 
 
 // users ----------------------------------------------
-// $route['users-report'] = 'Pdf_reports/Pdf_users_report_controller/index';
-
-// $route['users-report-annual/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index_annual/$1';
-
-// $route['users-report-monthly/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2';
-
-// $route['users-report-custom/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1/$2';
-
-
 $route['users-report-type/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index/$1';
 
 $route['users-report-type-annual/(:any)/(:any)'] = 'Pdf_reports/Pdf_users_report_controller/index_annual/$1/$2';

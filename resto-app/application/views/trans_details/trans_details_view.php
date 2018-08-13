@@ -248,7 +248,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Card Number :</label>
                                             <div class="col-md-9">
-                                                <input id="card_number" name="card_number" placeholder="Card Number" class="form-control" type="text" style="font-size: 15px;" disabled>
+                                                <input id="card_number" name="card_number" placeholder="Card Number" class="form-control" type="text" style="font-size: 15px;">
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>
@@ -256,7 +256,16 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Customer Name (Optional) :</label>
                                             <div class="col-md-9">
-                                                <input id="cust_name" name="cust_name" placeholder="Customer Full Name" class="form-control" value=<?php echo "'" . $transaction->cust_name . "'"; ?> type="text" style="font-size: 15px;" disabled>
+                                                <input id="cust_name" name="cust_name" placeholder="Customer Full Name" class="form-control" value=<?php if ($transaction->cust_name != 'n/a')
+                                                {
+                                                    echo "'" . $transaction->cust_name . "'";
+                                                }
+                                                else
+                                                {
+                                                    echo "''";
+                                                }
+
+                                                 ?> stype="text" style="font-size: 15px;">
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>

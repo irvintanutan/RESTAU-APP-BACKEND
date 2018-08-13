@@ -4050,11 +4050,7 @@ function set_report_menu_items()
 
     if (report_type == "alltime")
     { 
-        if (menu_items_report_type == "menu-all")
-        {
-            window.open("menu-items-report"); //  if transaction status is set to 'ALL'  
-        }
-        else if (menu_items_report_type == "menu-products")
+        if (menu_items_report_type == "menu-products")
         {
             window.open("products-report");
         }
@@ -4071,11 +4067,7 @@ function set_report_menu_items()
     {
         var year = $('[name="year"]').val(); // get selected year
 
-        if (menu_items_report_type == "menu-all")
-        {
-            window.open("menu-items-report-annual/" + year); //  if transaction status is set to 'ALL'  
-        }
-        else if (menu_items_report_type == "menu-products")
+        if (menu_items_report_type == "menu-products")
         {
             window.open("products-report-annual/" + year);
         }
@@ -4093,11 +4085,7 @@ function set_report_menu_items()
         var year = $('[name="year"]').val(); // get selected year
         var month = $('[name="month"]').val(); // get selected month
 
-        if (menu_items_report_type == "menu-all")
-        {
-            window.open("menu-items-report-monthly/" + year + "/" + month); //  if transaction status is set to 'ALL'  
-        }
-        else if (menu_items_report_type == "menu-products")
+        if (menu_items_report_type == "menu-products")
         {
             window.open("products-report-monthly/" + year + "/" + month);
         }
@@ -4124,11 +4112,7 @@ function set_report_menu_items()
         }
         else
         {
-            if (menu_items_report_type == "menu-all")
-            {
-                window.open("menu-items-report-custom/" + date_from + "/" + date_to); //  if transaction status is set to 'ALL'  
-            }
-            else if (menu_items_report_type == "menu-products")
+            if (menu_items_report_type == "menu-products")
             {
                 window.open("products-report-custom/" + date_from + "/" + date_to);
             }

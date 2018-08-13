@@ -95,7 +95,7 @@ class Products_model extends CI_Model {
     function get_best_selling_annual($min_price, $year)
     {        
         $query = $this->db->query("select * from ((select products.prod_id, null as pack_id, SUM(trans_details.qty) as sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and products.price >= " . $min_price . " and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-01-01 00:00:00' and transactions.datetime <= '" . $year . "-12-31 23:59:59' group by trans_details.prod_id) 
-               union (select null as prod_id, packages.pack_id, packages.sold as sold from packages inner join trans_details on packages.pack_id = trans_details.pack_id inner join transactions on trans_details.trans_id = transactions.trans_id where packages.removed = 0 and packages.price >= " . $min_price . " and trans_details.prod_type = 1 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-01-01 00:00:00' and transactions.datetime <= '" . $year . "-12-31 23:59:59' group by trans_details.pack_id)) 
+               union (select null as prod_id, packages.pack_id, SUM(trans_details.qty) as sold from packages inner join trans_details on packages.pack_id = trans_details.pack_id inner join transactions on trans_details.trans_id = transactions.trans_id where packages.removed = 0 and packages.price >= " . $min_price . " and trans_details.prod_type = 1 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-01-01 00:00:00' and transactions.datetime <= '" . $year . "-12-31 23:59:59' group by trans_details.pack_id)) 
                results order by sold desc LIMIT 10;");
         return $query->result();
     }
@@ -103,7 +103,7 @@ class Products_model extends CI_Model {
     function get_best_selling_monthly($min_price, $year, $month)
     {        
         $query = $this->db->query("select * from ((select products.prod_id, null as pack_id, SUM(trans_details.qty) as sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and products.price >= " . $min_price . " and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-" . $month . "-01 00:00:00' and transactions.datetime <= '" . $year . "-" . $month . "-31 23:59:59' group by trans_details.prod_id) 
-               union (select null as prod_id, packages.pack_id, packages.sold as sold from packages inner join trans_details on packages.pack_id = trans_details.pack_id inner join transactions on trans_details.trans_id = transactions.trans_id where packages.removed = 0 and packages.price >= " . $min_price . " and trans_details.prod_type = 1 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-" . $month . "-01 00:00:00' and transactions.datetime <= '" . $year . "-" . $month . "-31 23:59:59' group by trans_details.pack_id)) 
+               union (select null as prod_id, packages.pack_id, SUM(trans_details.qty) as sold from packages inner join trans_details on packages.pack_id = trans_details.pack_id inner join transactions on trans_details.trans_id = transactions.trans_id where packages.removed = 0 and packages.price >= " . $min_price . " and trans_details.prod_type = 1 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $year . "-" . $month . "-01 00:00:00' and transactions.datetime <= '" . $year . "-" . $month . "-31 23:59:59' group by trans_details.pack_id)) 
                results order by sold desc LIMIT 10;");
         return $query->result();
     }
@@ -111,7 +111,7 @@ class Products_model extends CI_Model {
     function get_best_selling_custom($min_price, $date_from, $date_to)
     {        
         $query = $this->db->query("select * from ((select products.prod_id, null as pack_id, SUM(trans_details.qty) as sold from products inner join trans_details on products.prod_id = trans_details.prod_id inner join transactions on trans_details.trans_id = transactions.trans_id where products.removed = 0 and products.price >= " . $min_price . " and trans_details.prod_type = 0 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $date_from . "' and transactions.datetime <= '" . $date_to . "' group by trans_details.prod_id) 
-               union (select null as prod_id, packages.pack_id, packages.sold as sold from packages inner join trans_details on packages.pack_id = trans_details.pack_id inner join transactions on trans_details.trans_id = transactions.trans_id where packages.removed = 0 and packages.price >= " . $min_price . " and trans_details.prod_type = 1 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $date_from . "' and transactions.datetime <= '" . $date_to . "' group by trans_details.pack_id)) 
+               union (select null as prod_id, packages.pack_id, SUM(trans_details.qty) as sold from packages inner join trans_details on packages.pack_id = trans_details.pack_id inner join transactions on trans_details.trans_id = transactions.trans_id where packages.removed = 0 and packages.price >= " . $min_price . " and trans_details.prod_type = 1 and transactions.status = 'CLEARED' and transactions.datetime >= '" . $date_from . "' and transactions.datetime <= '" . $date_to . "' group by trans_details.pack_id)) 
                results order by sold desc LIMIT 10;");
         return $query->result();
     }
@@ -157,9 +157,9 @@ class Products_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
 
@@ -175,9 +175,9 @@ class Products_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
 
@@ -189,13 +189,13 @@ class Products_model extends CI_Model {
     }
 
     // get both id and names
-    function get_products_custom($date_from)
+    function get_products_custom($date_to)
     {
         $this->db->from($this->table);
 
-        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
 
@@ -314,9 +314,9 @@ class Products_model extends CI_Model {
         $this->db->from($this->table);
         $this->db->where('cat_id',$cat_id);
 
-        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
         
@@ -329,24 +329,24 @@ class Products_model extends CI_Model {
         $this->db->from($this->table);
         $this->db->where('cat_id',$cat_id);
 
-        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
         
         return $this->db->count_all_results();
     }
 
-    function get_cat_prod_count_custom($cat_id, $date_from)
+    function get_cat_prod_count_custom($cat_id, $date_to)
     {
         $this->db->select('prod_id');
         $this->db->from($this->table);
         $this->db->where('cat_id',$cat_id);
 
-        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
         
@@ -485,9 +485,9 @@ class Products_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         // get only records that are not currently removed
         $this->db->where('removed', '0');
@@ -498,22 +498,22 @@ class Products_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         // get only records that are not currently removed
         $this->db->where('removed', '0');
         return $this->db->count_all_results();
     }
 
-    public function count_all_custom($date_from)
+    public function count_all_custom($date_to)
     {
         $this->db->from($this->table);
 
-        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         // get only records that are not currently removed
         $this->db->where('removed', '0');

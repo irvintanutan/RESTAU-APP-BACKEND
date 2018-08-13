@@ -83,9 +83,9 @@ class Users_model extends CI_Model {
 
 	    $this->db->where('removed', '0');
 
-	    $date_from = $year . '-' . '01' . '-01 00:00:00';
+	    $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 	    
 	    $query = $this->db->get();
 	    return $query->result();
@@ -97,23 +97,23 @@ class Users_model extends CI_Model {
 
 	    $this->db->where('removed', '0');
 	    
-	    $date_from = $year . '-' . $month . '-01 00:00:00';
+	    $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 	    
 	    $query = $this->db->get();
 	    return $query->result();
 	}
 
-	function get_api_datatables_custom($date_from)
+	function get_api_datatables_custom($date_to)
 	{        
 	    $this->db->from($this->table);
 
 	    $this->db->where('removed', '0');
 	    
-	    $date_from = $date_from . ' 00:00:00';
+	    $date_to = $date_to . ' 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 	    
 	    $query = $this->db->get();
 	    return $query->result();
@@ -193,9 +193,9 @@ class Users_model extends CI_Model {
         $this->db->where($user_type, 1);
         $this->db->where('removed', 0);
 
-        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 
         return $this->db->count_all_results();
     }
@@ -207,23 +207,23 @@ class Users_model extends CI_Model {
         $this->db->where($user_type, 1);
         $this->db->where('removed', 0);
 
-        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 
         return $this->db->count_all_results();
     }
 
-    function get_user_type_count_custom($user_type, $date_from) // get count based on user_type
+    function get_user_type_count_custom($user_type, $date_to) // get count based on user_type
     {        
         $this->db->from($this->table);
 
         $this->db->where($user_type, 1);
         $this->db->where('removed', 0);
 
-        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 
         return $this->db->count_all_results();
     }
@@ -254,9 +254,9 @@ class Users_model extends CI_Model {
 		// get only records that are not currently removed
         $this->db->where('removed', '0');
 
-        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 
 		return $this->db->count_all_results();
 	}
@@ -268,23 +268,23 @@ class Users_model extends CI_Model {
 		// get only records that are not currently removed
         $this->db->where('removed', '0');
 
-        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 
 		return $this->db->count_all_results();
 	}
 
-	public function count_all_custom($date_from)
+	public function count_all_custom($date_to)
 	{
 		$this->db->from($this->table);
 
 		// get only records that are not currently removed
         $this->db->where('removed', '0');
 
-        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
 
-        $this->db->where('date_registered <=', $date_from);
+        $this->db->where('date_registered <=', $date_to);
 
 		return $this->db->count_all_results();
 	}

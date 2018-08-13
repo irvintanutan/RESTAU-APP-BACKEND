@@ -121,27 +121,9 @@ class Packages_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
-
-        $this->db->where('removed', '0');
-
-        $this->db->order_by("name", "asc");
-
-        $query = $this->db->get();
-
-        return $query->result();
-    }
-
-    // get both id and names
-    function get_packages_monthyly($year, $month)
-    {
-        $this->db->from($this->table);
-
-        $date_from = $year . '-' . $month . '-01 00:00:00';
-
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
 
@@ -153,13 +135,31 @@ class Packages_model extends CI_Model {
     }
 
     // get both id and names
-    function get_packages_custom($date_from)
+    function get_packages_monthly($year, $month)
     {
         $this->db->from($this->table);
 
-        $date_from = $date_from . ' 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
+
+        $this->db->where('removed', '0');
+
+        $this->db->order_by("name", "asc");
+
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    // get both id and names
+    function get_packages_custom($date_to)
+    {
+        $this->db->from($this->table);
+
+        $date_to = $date_to . ' 23:59:59';
+
+        $this->db->where('encoded <=', $date_to);
 
         $this->db->where('removed', '0');
 
@@ -328,9 +328,9 @@ class Packages_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $date_from = $year . '-' . '01' . '-01 00:00:00';
+        $date_to = $year . '-' . '12' . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         // get only records that are not currently removed
         $this->db->where('removed', '0');
@@ -341,22 +341,22 @@ class Packages_model extends CI_Model {
     {
         $this->db->from($this->table);
 
-        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         // get only records that are not currently removed
         $this->db->where('removed', '0');
         return $this->db->count_all_results();
     }
 
-    public function count_all_custom($date_from)
+    public function count_all_custom($date_to)
     {
         $this->db->from($this->table);
 
-        $date_from = $date_from . ' 00:00:00';
+        $date_to = $date_to . ' 23:59:59';
 
-        $this->db->where('encoded <=', $date_from);
+        $this->db->where('encoded <=', $date_to);
 
         // get only records that are not currently removed
         $this->db->where('removed', '0');

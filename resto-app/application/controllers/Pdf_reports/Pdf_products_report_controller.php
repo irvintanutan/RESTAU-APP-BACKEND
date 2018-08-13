@@ -148,7 +148,7 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData_annual(); // load and fetch data
+		$data['data'] = $this->LoadData_annual($year); // load and fetch data
 		
 		$data['title'] = 'Annual ( ' . $year . ' ) Products List';
 
@@ -229,7 +229,7 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData_monthly(); // load and fetch data
+		$data['data'] = $this->LoadData_monthly($year, $month); // load and fetch data
 		
 		$data['title'] = 'Monthly ( ' . $monthName . ' ' . $year . ' ) Products List';
 
@@ -271,7 +271,7 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		// get products data -------------------------------------------------------------------------------------------------------------
 
-        $total_products = $this->products->count_all_custom($date_from, $date_to);
+        $total_products = $this->products->count_all_custom($date_to);
 
 		$categories = $this->categories->get_categories();
 
@@ -283,7 +283,7 @@ class Pdf_products_report_controller extends CI_Controller {
             {
             	$cat_id = $categories_list->cat_id;
             	$cat_name = $categories_list->name;
-            	$cat_prod_count = $this->products->get_cat_prod_count_custom($cat_id, $date_from);
+            	$cat_prod_count = $this->products->get_cat_prod_count_custom($cat_id, $date_to);
                 $categories_data[] = $cat_name . ' [' . $cat_prod_count . ']';
             }
 
@@ -307,7 +307,7 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData_custom(); // load and fetch data
+		$data['data'] = $this->LoadData_custom($date_from, $date_to); // load and fetch data
 		
 		$data['title'] = 'Custom ( ' . $date_from . ' - ' . $date_to . ' ) Products List';
 
@@ -423,7 +423,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		    if (in_array($products->prod_id, $best_selling_array)) // if part of top selling
 		    {
 		    	$prod_index = array_search($products->prod_id, $best_selling_array); // get index of the product
-		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		        $item_sold = '( R: ' . ($prod_index + 1) . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
 		    }
 		    else
 		    {
@@ -476,7 +476,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		    if (in_array($products->prod_id, $best_selling_array)) // if part of top selling
 		    {
 		    	$prod_index = array_search($products->prod_id, $best_selling_array); // get index of the product
-		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		        $item_sold = '( R: ' . ($prod_index + 1) . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
 		    }
 		    else
 		    {
@@ -509,7 +509,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		}
 		//------------------------------------------------------------------------
 
-		$list = $this->products->get_products_custom($date_from, $date_to);
+		$list = $this->products->get_products_custom($date_to);
 		$data = array();
 
 		foreach ($list as $products) {
@@ -589,6 +589,10 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		$total_products_sold = $this->products->get_total_prod_sold();
 
+		$total_packages = $this->packages->count_all();
+
+		$total_packages_sold = $this->packages->get_total_pack_sold();
+
 		$total_pack_prod_sold = $this->products->get_total_pack_prod_sold();
 
 		$total_menu_sales = $this->trans_details->get_total_menu_sales(0); // total sales of package type menu
@@ -619,9 +623,14 @@ class Pdf_products_report_controller extends CI_Controller {
 
 
 		$data['total_products'] = $total_products;
-		$data['categories_str'] = $categories_str;
+		$data['categories_str'] = null;
 
 		$data['total_products_sold'] = $total_products_sold;
+
+		$data['total_packages'] = $total_packages;
+
+		$data['total_packages_sold'] = $total_packages_sold;
+
 		$data['total_pack_prod_sold'] = $total_pack_prod_sold;
 
 		$data['total_menu_sales'] = 'Php ' . number_format($total_menu_sales, 2);
@@ -669,6 +678,10 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		$total_products_sold = $this->products->get_total_prod_sold_annual($year);
 
+		$total_packages = $this->packages->count_all_annual($year);
+
+		$total_packages_sold = $this->packages->get_total_pack_sold_annual($year);
+
 		$total_pack_prod_sold = $this->products->get_total_pack_prod_sold_annual($year);
 
 		$total_menu_sales = $this->trans_details->get_total_menu_sales_annual(0, $year); // total sales of product type menu
@@ -699,9 +712,14 @@ class Pdf_products_report_controller extends CI_Controller {
 
 
 		$data['total_products'] = $total_products;
-		$data['categories_str'] = $categories_str;
+		$data['categories_str'] = null;
 
 		$data['total_products_sold'] = $total_products_sold;
+
+		$data['total_packages'] = $total_packages;
+
+		$data['total_packages_sold'] = $total_packages_sold;
+
 		$data['total_pack_prod_sold'] = $total_pack_prod_sold;
 
 		$data['total_menu_sales'] = 'Php ' . number_format($total_menu_sales, 2);
@@ -749,6 +767,10 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		$total_products_sold = $this->products->get_total_prod_sold_monthly($year, $month);
 
+		$total_packages = $this->packages->count_all_monthly($year, $month);
+
+		$total_packages_sold = $this->packages->get_total_pack_sold_monthly($year, $month);
+
 		$total_pack_prod_sold = $this->products->get_total_pack_prod_sold_monthly($year, $month);
 
 		$total_menu_sales = $this->trans_details->get_total_menu_sales_monthly(0, $year, $month); // total sales of product type menu
@@ -780,9 +802,14 @@ class Pdf_products_report_controller extends CI_Controller {
 
 
 		$data['total_products'] = $total_products;
-		$data['categories_str'] = $categories_str;
+		$data['categories_str'] = null;
 
 		$data['total_products_sold'] = $total_products_sold;
+
+		$data['total_packages'] = $total_packages;
+
+		$data['total_packages_sold'] = $total_packages_sold;
+
 		$data['total_pack_prod_sold'] = $total_pack_prod_sold;
 
 		$data['total_menu_sales'] = 'Php ' . number_format($total_menu_sales, 2);
@@ -805,7 +832,7 @@ class Pdf_products_report_controller extends CI_Controller {
 
 		// get products data -------------------------------------------------------------------------------------------------------------
 
-        $total_products = $this->products->count_all_custom($date_from, $date_to);
+        $total_products = $this->products->count_all_custom($date_to);
 
 		$categories = $this->categories->get_categories();
 
@@ -829,6 +856,10 @@ class Pdf_products_report_controller extends CI_Controller {
         }
 
 		$total_products_sold = $this->products->get_total_prod_sold_custom($date_from, $date_to);
+
+		$total_packages = $this->packages->count_all_custom($date_to);
+
+		$total_packages_sold = $this->packages->get_total_pack_sold_custom($date_from, $date_to);
 
 		$total_pack_prod_sold = $this->products->get_total_pack_prod_sold_custom($date_from, $date_to);
 
@@ -858,9 +889,14 @@ class Pdf_products_report_controller extends CI_Controller {
 
 
 		$data['total_products'] = $total_products;
-		$data['categories_str'] = $categories_str;
+		$data['categories_str'] = null;
 
 		$data['total_products_sold'] = $total_products_sold;
+
+		$data['total_packages'] = $total_packages;
+
+		$data['total_packages_sold'] = $total_packages_sold;
+
 		$data['total_pack_prod_sold'] = $total_pack_prod_sold;
 
 		$data['total_menu_sales'] = 'Php ' . number_format($total_menu_sales, 2);

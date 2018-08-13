@@ -253,13 +253,13 @@ class Pdf_users_report_controller extends CI_Controller {
 
 		// users count  ----------------------------------------------------------------------------------------------------
 
-		$admin_users = $this->users->get_user_type_count_custom('administrator', $date_from, $date_to);
-		$cashier_users = $this->users->get_user_type_count_custom('cashier', $date_from, $date_to);
-		$staff_users = $this->users->get_user_type_count_custom('staff', $date_from, $date_to);
+		$admin_users = $this->users->get_user_type_count_custom('administrator', $date_to);
+		$cashier_users = $this->users->get_user_type_count_custom('cashier', $date_to);
+		$staff_users = $this->users->get_user_type_count_custom('staff', $date_to);
 
 		$total_user_privileges = $admin_users + $cashier_users + $staff_users;
 
-		$total_users = $this->users->count_all_custom($date_from, $date_to);
+		$total_users = $this->users->count_all_custom($date_to);
 
 		// -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -584,7 +584,7 @@ class Pdf_users_report_controller extends CI_Controller {
 	// Load table data from file
 	public function LoadData_custom($user_type, $date_from, $date_to) 
 	{
-		$list = $this->users->get_api_datatables_custom($date_from, $date_to);
+		$list = $this->users->get_api_datatables_custom($date_to);
 		$data = array();
 
 		foreach ($list as $users) {

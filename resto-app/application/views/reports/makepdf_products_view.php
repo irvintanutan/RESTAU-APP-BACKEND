@@ -79,15 +79,29 @@ $pdf->AddPage();
 // $pdf->Cell(130, 10, $today_net_sales_str . ' ( ' . $percent_net_sales_str . ' )', 0, false, 'R', 0, '', 0, false, 'T', 'M'); 
 
 // $pdf->Cell(120, 20, '', 0, false, 'L', 0, '', 0, false, 'T', 'M');
+if ($categories_str != null)
+{
+	$text = '<h3 align="center">Report Summary</h3>
+	<p align="left">1. Total Products: <b color="#006600">' . $total_products . '</b>
+	<p align="left">2. Categories List: <b color="#006600">' . $categories_str . '</b>
+	<p align="left">3. Total Products Sold: <b color="#006600">' . $total_products_sold . '</b>
+	<p align="left">4. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b>
+	<p align="left">5. Total Product Sales: <b color="#006600">' . $total_menu_sales . '</b>
+	<hr>'
+	;	
+}
+else
+{
+	$text = '<h3 align="center">Report Summary</h3>
+	<p align="left">1. Total Products: <b color="#006600">' . $total_products . '</b>
+	<p align="left">2. Total Products Sold: <b color="#006600">' . $total_products_sold . '</b>
+	<p align="left">3. Total Packages: <b color="#006600">' . $total_packages . '</b>
+	<p align="left">4. Total Packages Sold: <b color="#006600">' . $total_packages_sold . '</b>
+	<p align="left">5. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b>
+	<hr>'
+	;
+}
 
-$text = '<h3 align="center">Report Summary</h3>
-<p align="left">1. Total Products: <b color="#006600">' . $total_products . '</b>
-<p align="left">2. Categories List: <b color="#006600">' . $categories_str . '</b>
-<p align="left">3. Total Products Sold: <b color="#006600">' . $total_products_sold . '</b>
-<p align="left">4. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b>
-<p align="left">5. Total Product Sales: <b color="#006600">' . $total_menu_sales . '</b>
-<hr>'
-;
 $pdf->writeHTML($text, true, 0, true, 0);
 // data loading
 // $data = $pdf->LoadData();

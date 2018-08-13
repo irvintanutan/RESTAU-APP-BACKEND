@@ -105,7 +105,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData(); // load and fetch data
+		$data['data'] = $this->LoadData_annual($year); // load and fetch data
 		
 		$data['title'] = 'Annual ( ' . $year . ' ) Packages List';
 
@@ -154,7 +154,8 @@ class Pdf_packages_report_controller extends CI_Controller {
 
 		$total_menu_sales = $this->trans_details->get_total_menu_sales_monthly(1, $year, $month); // total sales of package type menu
 
-
+		$dateObj   = DateTime::createFromFormat('!m', $month);
+		$monthName = $dateObj->format('F'); // March
 
 		// ==================================== REPORT ESSENTIALS ========================================================
 
@@ -163,7 +164,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData(); // load and fetch data
+		$data['data'] = $this->LoadData_monthly($year, $month); // load and fetch data
 		
 		$data['title'] = 'Monthly ( ' . $monthName . ' ' . $year . ' ) Packages List';
 
@@ -204,7 +205,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 
 		// get packages data -------------------------------------------------------------------------------------------------------------
 
-        $total_packages = $this->packages->count_all_custom($date_from, $date_to);
+        $total_packages = $this->packages->count_all_custom($date_to);
 
 		$total_packages_sold = $this->packages->get_total_pack_sold_custom($date_from, $date_to);
 
@@ -221,7 +222,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 
 		$data['comp_name'] = $this->store->get_store_config_name(1);
 
-		$data['data'] = $this->LoadData(); // load and fetch data
+		$data['data'] = $this->LoadData_custom($date_from, $date_to); // load and fetch data
 		
 		$data['title'] = 'Custom ( ' . $date_from . ' - ' . $date_to . ' ) Packages List';
 
@@ -333,7 +334,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		    if (in_array($packages->pack_id, $best_selling_array))
 		    {
 		        $prod_index = array_search($packages->pack_id, $best_selling_array); // get index of the product
-		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		        $item_sold = '( R: ' . ($prod_index + 1) . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
 		    }
 		    else
 		    {
@@ -385,7 +386,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		    if (in_array($packages->pack_id, $best_selling_array))
 		    {
 		        $prod_index = array_search($packages->pack_id, $best_selling_array); // get index of the product
-		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		        $item_sold = '( R: ' . ($prod_index + 1) . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
 		    }
 		    else
 		    {
@@ -419,7 +420,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		}
 		//------------------------------------------------------------------------
 
-		$list = $this->packages->get_packages_custom($date_from, $date_to);
+		$list = $this->packages->get_packages_custom($date_to);
 		$data = array();
 
 		foreach ($list as $packages) {
@@ -437,7 +438,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		    if (in_array($packages->pack_id, $best_selling_array))
 		    {
 		        $prod_index = array_search($packages->pack_id, $best_selling_array); // get index of the product
-		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		        $item_sold = '( R: ' . ($prod_index + 1) . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
 		    }
 		    else
 		    {

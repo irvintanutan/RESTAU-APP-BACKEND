@@ -138,7 +138,18 @@ class Dashboard_controller extends CI_Controller {
         
 
         $discounts_rendered_today_str = '₱ ' . number_format($discounts_rendered_today, 2);
-        $discounts_gross_percentage_str = '[ ' . number_format($discounts_gross_percentage, 1) . ' % ]  of the Total Gross Sales [ ₱ ' . number_format($gross_total_today, 2) . ' ]';
+        $discounts_gross_percentage_str = '[ ' . number_format($discounts_gross_percentage, 1) . ' % ]  of Total Gross Sales [ ₱ ' . number_format($gross_total_today, 2) . ' ]';
+
+        // -------------------------------------------------------------------------------------------------------------------------------------
+
+
+        // get cancelled transactions today --------------------------------------------------------------------------------------------------
+
+        $cancelled_trans_today = $this->transactions->get_daily_sales_by_status($today, 'CANCELLED');
+        $voided_menu_items_today = $this->trans_logs->get_total_void_today($today);
+        
+
+        $voided_menu_items_today_str = 'Voided Menu Items [ ' . $voided_menu_items_today . ' ]';
 
 
 
@@ -157,6 +168,9 @@ class Dashboard_controller extends CI_Controller {
 
         $data['discounts_rendered_today_str'] = $discounts_rendered_today_str;
         $data['discounts_gross_percentage_str'] = $discounts_gross_percentage_str;
+
+        $data['cancelled_trans_today'] = $cancelled_trans_today;
+        $data['voided_menu_items_today_str'] = $voided_menu_items_today_str;
 
         $data['title'] = '<i class="fa fa-tachometer"></i> Dashboard';	
         $this->load->view('template/dashboard_header',$data);

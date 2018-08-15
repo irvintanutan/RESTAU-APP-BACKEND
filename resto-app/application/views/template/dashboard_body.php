@@ -73,7 +73,7 @@
 
                                 <!--Large tile (New orders)-->
                                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                <div class="col-sm-6 col-md-3">
+                                <div class="col-sm-6 col-md-2">
                                     <div class="panel panel-danger panel-colorful">
                                         <div class="panel-body text-center">
                                             <p class="text-uppercase mar-btm text-md">Total Transactions Today</p>
@@ -89,14 +89,14 @@
 
                                 <!--Large tile (Comments)-->
                                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                <div class="col-sm-6 col-md-3">
+                                <div class="col-sm-6 col-md-2">
                                     <div class="panel panel-warning panel-colorful">
                                         <div class="panel-body text-center">
-                                            <p class="text-uppercase mar-btm text-md">Total Menu Items Sold Today</p>
+                                            <p class="text-uppercase mar-btm text-md">Menu Items Sold Today</p>
                                             <i class="fa fa-cutlery fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo $total_menu_items_sold_today; ?> </p>
-                                            <small><span class="text-bold" style="font-size: 12px;">Individual Products: [ <?php echo $individual_products_sold_today; ?> ] | Packages: [ <?php echo $packages_sold_today; ?> ]</small>
+                                            <small><span class="text-bold" style="font-size: 12px;">Products: [ <?php echo $individual_products_sold_today; ?> ] | Packages: [ <?php echo $packages_sold_today; ?> ]</small>
                                         </div>
                                     </div>
                                 </div>
@@ -108,11 +108,27 @@
                                 <div class="col-sm-6 col-md-3">
                                     <div class="panel panel-success panel-colorful">
                                         <div class="panel-body text-center">
-                                            <p class="text-uppercase mar-btm text-md">Total Discounts Rendered Today</p>
+                                            <p class="text-uppercase mar-btm text-md">Discounts Rendered Today</p>
                                             <i class="fa fa-percent fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo $discounts_rendered_today_str; ?></p>
                                             <small><span class="text-semibold" style="font-size: 12px;"><?php echo $discounts_gross_percentage_str; ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                                <!--End Large tile (New orders)-->
+
+                                <!--Large tile (New orders)-->
+                                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                                <div class="col-sm-6 col-md-2">
+                                    <div class="panel panel-mint panel-colorful">
+                                        <div class="panel-body text-center">
+                                            <p class="text-uppercase mar-btm text-md">Cancelled Trans Today</p>
+                                            <i class="fa fa-window-close-o fa-5x"></i>
+                                            <hr>
+                                            <p class="h1 text-thin"><?php echo $cancelled_trans_today; ?></p>
+                                            <small><span class="text-semibold" style="font-size: 12px;"><?php echo $voided_menu_items_today_str; ?></small>
                                         </div>
                                     </div>
                                 </div>

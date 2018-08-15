@@ -13,6 +13,8 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 	  $this->load->model('Trans_details/Trans_details_model','trans_details');
 
 	  $this->load->model('Transactions/Transactions_model','transactions');
+
+	  $this->load->model('Logs/Trans_logs_model','trans_logs');
 	}
 
 	public function index()
@@ -126,6 +128,18 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 		$discounts_rendered_today_str = 'Php ' . number_format($discounts_rendered_today, 2);
 		$discounts_gross_percentage_str = '[ ' . number_format($discounts_gross_percentage, 1) . ' % ]  of the Total Gross Sales [ Php ' . number_format($gross_total_today, 2) . ' ]';
 
+		// -------------------------------------------------------------------------------------------------------------------------------------
+
+
+        // get cancelled transactions today --------------------------------------------------------------------------------------------------
+
+        $cancelled_trans_today = $this->transactions->get_daily_sales_by_status($today, 'CANCELLED');
+        $voided_menu_items_today = $this->trans_logs->get_total_void_today($today);
+        
+
+        $voided_menu_items_today_str = 'Voided Menu Items [ ' . $voided_menu_items_today . ' ]';
+
+
 
 		// ==================================== REPORT ESSENTIALS ========================================================
 
@@ -165,6 +179,9 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 
 		$data['discounts_rendered_today_str'] = $discounts_rendered_today_str;
 		$data['discounts_gross_percentage_str'] = $discounts_gross_percentage_str;
+
+		$data['cancelled_trans_today'] = $cancelled_trans_today;
+        $data['voided_menu_items_today_str'] = $voided_menu_items_today_str;
 
 		$this->load->library('MYPDF');
 		$this->load->view('reports/makepdf_dashboard_view', $data);

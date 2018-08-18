@@ -133,7 +133,7 @@ class Pdf_dashboard_report_controller extends CI_Controller {
 
         // get cancelled transactions today --------------------------------------------------------------------------------------------------
 
-        $cancelled_trans_today = $this->transactions->get_daily_sales_by_status($today, 'CANCELLED');
+        $cancelled_trans_today = $this->transactions->get_count_trans_today_status($today, 'CANCELLED');
         $voided_menu_items_today = $this->trans_logs->get_total_void_today($today);
         
 

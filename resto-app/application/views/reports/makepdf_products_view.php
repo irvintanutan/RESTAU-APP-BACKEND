@@ -82,22 +82,22 @@ $pdf->AddPage();
 if ($categories_str != null)
 {
 	$text = '<h3 align="center">Report Summary</h3>
-	<p align="left">1. Total Products: <b color="#006600">' . $total_products . '</b>
-	<p align="left">2. Categories List: <b color="#006600">' . $categories_str . '</b>
-	<p align="left">3. Total Products Sold: <b color="#006600">' . $total_products_sold . '</b>
-	<p align="left">4. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b>
-	<p align="left">5. Total Product Sales: <b color="#006600">' . $total_menu_sales . '</b>
+	<p align="left">1. Total Products: <b color="#006600">' . $total_products . '</b></p>
+	<p align="left">2. Categories List: <b color="#006600">' . $categories_str . '</b></p>
+	<p align="left">3. Total Products Sold: <b color="#006600">' . $total_products_sold . '</b></p>
+	<p align="left">4. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b></p>
+	<p align="left">5. Total Product Sales: <b color="#006600">' . $total_menu_sales . '</b></p>
 	<hr>'
 	;	
 }
 else
 {
 	$text = '<h3 align="center">Report Summary</h3>
-	<p align="left">1. Total Products: <b color="#006600">' . $total_products . '</b>
-	<p align="left">2. Total Products Sold: <b color="#006600">' . $total_products_sold . '</b>
-	<p align="left">3. Total Packages: <b color="#006600">' . $total_packages . '</b>
-	<p align="left">4. Total Packages Sold: <b color="#006600">' . $total_packages_sold . '</b>
-	<p align="left">5. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b>
+	<p align="left">1. Total Products: <b color="#006600">' . $total_products . '</b></p>
+	<p align="left">2. Total Products Sold: <b color="#006600">' . $total_products_sold . '</b></p>
+	<p align="left">3. Total Packages: <b color="#006600">' . $total_packages . '</b></p>
+	<p align="left">4. Total Packages Sold: <b color="#006600">' . $total_packages_sold . '</b></p>
+	<p align="left">5. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b></p>
 	<hr>'
 	;
 }

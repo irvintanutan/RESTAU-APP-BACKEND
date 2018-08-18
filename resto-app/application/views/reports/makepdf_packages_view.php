@@ -81,10 +81,10 @@ $pdf->AddPage();
 // $pdf->Cell(120, 20, '', 0, false, 'L', 0, '', 0, false, 'T', 'M');
 
 $text = '<h3 align="center">Report Summary</h3>
-<p align="left">1. Total Packages: <b color="#006600">' . $total_packages . '</b>
-<p align="left">2. Total Packages Sold: <b color="#006600">' . $total_packages_sold . '</b>
-<p align="left">3. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b>
-<p align="left">4. Total Package Sales: <b color="#006600">' . $total_menu_sales . '</b>
+<p align="left">1. Total Packages: <b color="#006600">' . $total_packages . '</b></p>
+<p align="left">2. Total Packages Sold: <b color="#006600">' . $total_packages_sold . '</b></p>
+<p align="left">3. Total Products Sold via Package: <b color="#006600">' . $total_pack_prod_sold . '</b></p>
+<p align="left">4. Total Package Sales: <b color="#006600">' . $total_menu_sales . '</b></p>
 <hr>'
 ;
 $pdf->writeHTML($text, true, 0, true, 0);

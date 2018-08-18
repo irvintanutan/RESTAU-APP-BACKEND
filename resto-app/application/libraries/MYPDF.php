@@ -282,18 +282,7 @@ class MYPDF extends TCPDF
             $this->Cell($w[1], 6, $row[1], 'LR', 0, 'L', $fill);
             $this->Cell($w[2], 6, $row[2], 'LR', 0, 'C', $fill);
             $this->Cell($w[3], 6, $row[3], 'LR', 0, 'R', $fill);
-
-            if (strlen($row[4]) > 6)
-            {
-                $this->SetTextColor(0);
-                $this->SetFillColor(0,255,200);   
-            }
-
-            $this->Cell($w[4], 6, $row[4], 'LR', 0, 'R', 1);
-
-            $this->SetTextColor(0);
-            $this->SetFillColor(224, 255, 255);
-
+            $this->Cell($w[4], 6, $row[4], 'LR', 0, 'R', $fill);
             $this->Cell($w[5], 6, $row[5], 'LR', 0, 'R', $fill);
 
             $this->Ln();
@@ -411,17 +400,7 @@ class MYPDF extends TCPDF
             $this->Cell($w[2], 6, $row[2], 'LR', 0, 'L', $fill);
             $this->Cell($w[3], 6, $row[3], 'LR', 0, 'C', $fill);
             $this->Cell($w[4], 6, $row[4], 'LR', 0, 'R', $fill);
-
-            if (strlen($row[5]) > 6)
-            {
-                $this->SetTextColor(0);
-                $this->SetFillColor(0,255,200);   
-            }
-
-            $this->Cell($w[5], 6, $row[5], 'LR', 0, 'R', 1);
-
-            $this->SetTextColor(0);
-            $this->SetFillColor(224, 255, 255);
+            $this->Cell($w[5], 6, $row[5], 'LR', 0, 'R', $fill);
 
             $this->Ln();
             $fill=!$fill;
@@ -457,17 +436,7 @@ class MYPDF extends TCPDF
             $this->Cell($w[2], 6, $row[2], 'LR', 0, 'L', $fill);
             $this->Cell($w[3], 6, $row[3], 'LR', 0, 'L', $fill);
             $this->Cell($w[4], 6, $row[4], 'LR', 0, 'R', $fill);
-
-            if (strlen($row[5]) > 6)
-            {
-                $this->SetTextColor(0);
-                $this->SetFillColor(0,255,200);   
-            }
-
-            $this->Cell($w[5], 6, $row[5], 'LR', 0, 'R', 1);
-
-            $this->SetTextColor(0);
-            $this->SetFillColor(224, 255, 255);
+            $this->Cell($w[5], 6, $row[5], 'LR', 0, 'R', $fill);
 
             $this->Ln();
             $fill=!$fill;

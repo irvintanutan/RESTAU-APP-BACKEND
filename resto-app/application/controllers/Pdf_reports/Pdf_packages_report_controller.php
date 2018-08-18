@@ -286,7 +286,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $packages->sold;
+		        $item_sold = ($packages->sold + 0);
 		    }
 
 		    $row[] = $item_sold;
@@ -338,7 +338,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $this->packages->get_pack_sold_by_id_annual($packages->pack_id, $year);
+		        $item_sold = ($this->packages->get_pack_sold_by_id_annual($packages->pack_id, $year) + 0);
 		    }
 
 		    $row[] = $item_sold;
@@ -390,7 +390,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $this->packages->get_pack_sold_by_id_monthly($packages->pack_id, $year, $month);
+		        $item_sold = ($this->packages->get_pack_sold_by_id_monthly($packages->pack_id, $year, $month) + 0);
 		    }
 
 		    $row[] = $item_sold;
@@ -442,7 +442,7 @@ class Pdf_packages_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $this->packages->get_pack_sold_by_id_custom($packages->pack_id, $date_from, $date_to);
+		        $item_sold = ($this->packages->get_pack_sold_by_id_custom($packages->pack_id, $date_from, $date_to) + 0);
 		    }
 
 		    $row[] = $item_sold;

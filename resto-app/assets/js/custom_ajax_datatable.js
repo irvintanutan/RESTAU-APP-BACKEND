@@ -1623,7 +1623,21 @@ function back_up_db()
 
       if (result == true)
       {
-        window.location.href='myphp-backup.php';
+          // ajax delete data to database
+          $.ajax({
+              url : "back-up-db",
+              type: "POST",
+              dataType: "JSON",
+              success: function(data)
+              {
+                  // refresh transaction details page
+                  reload_page();
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+                  alert('Error deleting data');
+              }
+          });
       }
 
     });

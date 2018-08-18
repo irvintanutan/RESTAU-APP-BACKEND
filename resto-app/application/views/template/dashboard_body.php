@@ -76,7 +76,7 @@
                                 <div class="col-sm-6 col-md-2">
                                     <div class="panel panel-danger panel-colorful">
                                         <div class="panel-body text-center">
-                                            <p class="text-uppercase mar-btm text-md">Total Transactions Today</p>
+                                            <p class="text-uppercase mar-btm text-md">Transactions Today</p>
                                             <i class="fa fa-qrcode fa-5x"></i>
                                             <hr>
                                             <p class="h1 text-thin"><?php echo $total_trans_count_today; ?> </p>

@@ -66,9 +66,9 @@
 						<?php echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';?>
 						<div class="row">
 							<div class="col-xs-8 text-left checkbox">
-								<label class="form-checkbox form-icon">
+								<!-- <label class="form-checkbox form-icon">
 								<input type="checkbox"> Remember me
-								</label>
+								</label> -->
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group text-right">

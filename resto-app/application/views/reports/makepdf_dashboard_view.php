@@ -85,6 +85,7 @@ $text = '<h3 align="center">Report Summary</h3>
 <p align="left">2. Total Transactions: <b color="#006600">' . $total_trans_count_today . ' </b> | Dine-In [ ' . $dine_in_today . ' ] | Take-Out [ ' . $dine_in_today . ' ] </p>
 <p align="left">3. Total Menu Items Sold: <b color="#006600">' . $total_menu_items_sold_today . ' </b> | Individual Products [ ' . $individual_products_sold_today . ' ] | Packages [ ' . $packages_sold_today . ' ] </p>
 <p align="left">4. Total Discounts Rendered: <b color="#006600">' . $discounts_rendered_today_str . ' </b> | ' . $discounts_gross_percentage_str . '</p>
+<p align="left">5. Total Cancelled Transactions: <b color="#006600">' . $cancelled_trans_today . ' </b> | ' . $voided_menu_items_today_str . '</p>
 <hr>'
 ;
 $pdf->writeHTML($text, true, 0, true, 0);

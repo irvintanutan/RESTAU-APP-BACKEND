@@ -374,7 +374,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $products->sold;
+		        $item_sold = ($products->sold + 0);
 		    }
 
 		    $row[] = $item_sold;
@@ -427,7 +427,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $this->products->get_prod_sold_by_id_annual($products->prod_id, $year);
+		        $item_sold = ($this->products->get_prod_sold_by_id_annual($products->prod_id, $year) + 0);
 		    }
 
 		    $row[] = $item_sold;
@@ -480,7 +480,7 @@ class Pdf_products_report_controller extends CI_Controller {
 		    }
 		    else
 		    {
-		        $item_sold = $this->products->get_prod_sold_by_id_monthly($products->prod_id, $year, $month);
+		        $item_sold = ($this->products->get_prod_sold_by_id_monthly($products->prod_id, $year, $month) + 0);
 		    }
 
 		    $row[] = $item_sold;
@@ -529,11 +529,11 @@ class Pdf_products_report_controller extends CI_Controller {
 		    if (in_array($products->prod_id, $best_selling_array)) // if part of top selling
 		    {
 		    	$prod_index = array_search($products->prod_id, $best_selling_array); // get index of the product
-		        $item_sold = '( R: ' . $prod_index + 1 . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
+		        $item_sold = '( R: ' . ($prod_index + 1) . " ) " . $best_selling_sold_array[$prod_index]; // insert rank by adding index by 1. get sold value using index
 		    }
 		    else
 		    {
-		        $item_sold = $this->products->get_prod_sold_by_id_custom($prod_id, $date_from, $date_to);
+		        $item_sold = ($this->products->get_prod_sold_by_id_custom($products->prod_id, $date_from, $date_to) + 0);
 		    }
 
 		    $row[] = $item_sold;

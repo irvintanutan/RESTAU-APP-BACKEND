@@ -34,19 +34,19 @@
                     <?php 
                         if ($transaction->status == 'ONGOING'){
                     ?>
-                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_ongoing_trans()"><i class="fa fa-reply"></i> &nbsp;ONGOING TRANSACTIONS</button>
+                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_ongoing_trans()"><i class="fa fa-reply"></i> &nbsp;ONGOING TRANS</button>
                     <?php
                         } else if ($transaction->status == 'CLEARED'){
                     ?>
-                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_cleared_trans()"><i class="fa fa-reply"></i> &nbsp;CLEARED TRANSACTIONS</button>
+                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_cleared_trans()"><i class="fa fa-reply"></i> &nbsp;CLEARED TRANS</button>
                     <?php
                         } else if ($transaction->status == 'CANCELLED'){
                     ?>
-                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_cancelled_trans()"><i class="fa fa-reply"></i> &nbsp;CANCELLED TRANSACTIONS</button>
+                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_cancelled_trans()"><i class="fa fa-reply"></i> &nbsp;CANCELLED TRANS</button>
                     <?php
                         } else if ($transaction->status == 'REFUNDED'){
                     ?>
-                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_refunded_trans()"><i class="fa fa-reply"></i> &nbsp;REFUNDED TRANSACTIONS</button>
+                    <button class="btn btn-default col-md-11" align="right" onclick="go_to_refunded_trans()"><i class="fa fa-reply"></i> &nbsp;REFUNDED TRANS</button>
                     <?php
                         }
                     ?>
@@ -86,7 +86,7 @@
                                 ?>
 
                                 <label class="control-label col-md-2" style="text-align: right;">GROSS TOTAL <h4><?php echo number_format($gross_total, 2); ?></h4></label>
-                                <label class="control-label col-md-1" style="text-align: right;">DISCOUNT <h4>( <?php echo number_format($discount, 2); ?> )</h4></label>
+                                <label class="control-label col-md-1" style="text-align: right;">DISCOUNT <h4 style="color: brown;"><?php echo number_format($discount, 2); ?></h4></label>
 
                                 <label class="control-label col-md-2" style="text-align: right;">NET TOTAL <h4 style="color: darkblue;"><?php echo number_format($net_total, 2); ?></h4></label>
                                 
@@ -125,7 +125,7 @@
                             <?php 
                                 if ($transaction->status == 'ONGOING'){
                             ?>
-                                <button class="btn btn-default col-md-1" onclick="reload_page()"><i class="fa fa-refresh"></i> &nbsp;REFRESH</button>
+                                <button class="btn btn-default col-md-1" onclick="reload_page()"><i class="fa fa-refresh"></i> &nbsp;RELOAD</button>
 
                                 <button class="btn btn-success col-md-2" onclick="set_payment()"><i class="fa fa-plus-square"></i> &nbsp;SET PAYMENT</button>
 

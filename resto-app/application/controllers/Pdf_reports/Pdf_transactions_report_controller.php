@@ -456,7 +456,15 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row[] = number_format($total_due, 2);
 		    
 		    $row[] = $this->users->get_username($transactions->user_id);
-		    $row[] = $transactions->receipt_no;
+		    
+		    if ($transactions->receipt_no == 1000000)
+		    {
+		    	$row[] = 'n/a';
+		    }
+		    else
+		    {
+		    	$row[] = $transactions->receipt_no;
+		    }
 
 		    $data[] = $row;
 		}
@@ -489,7 +497,15 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row[] = number_format($total_due, 2);
 		    
 		    $row[] = $this->users->get_username($transactions->user_id);
-		    $row[] = $transactions->receipt_no;
+		    
+		    if ($transactions->receipt_no == 1000000)
+		    {
+		    	$row[] = 'n/a';
+		    }
+		    else
+		    {
+		    	$row[] = $transactions->receipt_no;
+		    }
 
 		    $data[] = $row;
 		}
@@ -522,7 +538,15 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row[] = number_format($total_due, 2);
 		    
 		    $row[] = $this->users->get_username($transactions->user_id);
-		    $row[] = $transactions->receipt_no;
+		    
+		    if ($transactions->receipt_no == 1000000)
+		    {
+		    	$row[] = 'n/a';
+		    }
+		    else
+		    {
+		    	$row[] = $transactions->receipt_no;
+		    }
 
 		    $data[] = $row;
 		}
@@ -555,7 +579,15 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    $row[] = number_format($total_due, 2);
 		    
 		    $row[] = $this->users->get_username($transactions->user_id);
-		    $row[] = $transactions->receipt_no;
+		    
+		    if ($transactions->receipt_no == 1000000)
+		    {
+		    	$row[] = 'n/a';
+		    }
+		    else
+		    {
+		    	$row[] = $transactions->receipt_no;
+		    }
 
 		    $data[] = $row;
 		}

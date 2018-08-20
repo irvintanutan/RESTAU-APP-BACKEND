@@ -33,7 +33,7 @@ class Trans_details_controller extends CI_Controller {
 
     public function index($trans_id)						
     {
-        if($this->session->userdata('user_id') == '')
+        if($this->session->userdata('user_id') == '' || ($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0"))
         {
             redirect('error500');
         }

@@ -1630,12 +1630,17 @@ function back_up_db()
               dataType: "JSON",
               success: function(data)
               {
-                  // refresh transaction details page
-                  reload_page();
+                  bootbox.alert({
+                      title: "Database Backup Done",
+                      message: "Backup Processed Successfully",
+                      callback: function () {
+                          
+                      }
+                  });
               },
               error: function (jqXHR, textStatus, errorThrown)
               {
-                  alert('Error deleting data');
+                  alert('Error backing up data');
               }
           });
       }

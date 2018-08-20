@@ -299,7 +299,7 @@
                                     
                                     <?php if($this->session->userdata('administrator') == '1' || $this->session->userdata('cashier') == '1'): ?>
 
-                                        <?php if($this->uri->segment(1) == 'transactions-page' || $this->uri->segment(1) == 'transactions-page-cleared' || $this->uri->segment(1) == 'transactions-page-cancelled'){ ?>
+                                        <?php if($this->uri->segment(1) == 'transactions-page' || $this->uri->segment(1) == 'transactions-page-cleared' || $this->uri->segment(1) == 'transactions-page-cancelled' || $this->uri->segment(1) == 'transactions-page-refunded'){ ?>
 
                                             <li class="active-link">
                                                 <a href="#">

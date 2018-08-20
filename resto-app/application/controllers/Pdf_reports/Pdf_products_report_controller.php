@@ -19,7 +19,7 @@ class Pdf_products_report_controller extends CI_Controller {
 	public function index()
 	{
 		// check if logged in and admin
-		if($this->session->userdata('user_id') == '' || $this->session->userdata('administrator') == "0")
+		if($this->session->userdata('user_id') == '' || ($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0"))
 		{
           redirect('error500');
         }

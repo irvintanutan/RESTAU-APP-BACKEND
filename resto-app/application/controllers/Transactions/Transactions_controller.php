@@ -32,7 +32,7 @@ class Transactions_controller extends CI_Controller {
 
     public function index() // index of ongoing transactions
     {
-        if($this->session->userdata('cashier') == '0')
+        if($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0")
         {
             redirect('error500');
         }
@@ -58,7 +58,7 @@ class Transactions_controller extends CI_Controller {
 
     public function index_cleared() // index of cleared transactions                     
     {
-        if($this->session->userdata('cashier') == '0')
+        if($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0")
         {
             redirect('error500');
         }
@@ -84,7 +84,7 @@ class Transactions_controller extends CI_Controller {
 
     public function index_cancelled() // index of cancelled transactions
     {
-        if($this->session->userdata('cashier') == '0')
+        if($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0")
         {
             redirect('error500');
         }
@@ -110,7 +110,7 @@ class Transactions_controller extends CI_Controller {
 
     public function index_refunded() // index of cancelled transactions
     {
-        if($this->session->userdata('cashier') == '0')
+        if($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0")
         {
             redirect('error500');
         }

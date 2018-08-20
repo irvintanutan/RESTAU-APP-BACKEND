@@ -12,7 +12,7 @@ class Tables_controller extends CI_Controller {
 
     public function index()						
     {
-        if($this->session->userdata('cashier') == '0')
+        if($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0")
         {
             redirect('error500');
         }

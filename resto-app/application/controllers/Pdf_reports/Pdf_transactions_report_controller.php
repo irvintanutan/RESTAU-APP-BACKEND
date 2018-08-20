@@ -20,7 +20,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 	public function index($status)
 	{
 		// check if logged in and admin
-		if($this->session->userdata('user_id') == '' || $this->session->userdata('administrator') == "0")
+		if($this->session->userdata('user_id') == '' || ($this->session->userdata('administrator') == "0" && $this->session->userdata('cashier') == "0"))
 		{
           redirect('error500');
         }
@@ -457,7 +457,7 @@ class Pdf_transactions_report_controller extends CI_Controller {
 		    
 		    $row[] = $this->users->get_username($transactions->user_id);
 		    
-		    if ($transactions->receipt_no == 1000000)
+		    if ($transactions->receipt_no == 10000000)
 		    {
 		    	$row[] = 'n/a';
 		    }

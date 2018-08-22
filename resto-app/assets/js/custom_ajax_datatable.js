@@ -1208,7 +1208,7 @@ function clear_cash_input()
     set_change_amt();
 }
 
-$( "form" ).submit(function( event ) { // -------------------------------- EXPIREMENTAL FUNCTION (Fixes dismissed modal when add_cash_input buttons are clicked)
+$("#form_set_payment").submit(function( event ) { // -------------------------------- EXPIREMENTAL FUNCTION (Fixes dismissed modal when add_cash_input buttons are clicked)
   event.preventDefault();
 });
 

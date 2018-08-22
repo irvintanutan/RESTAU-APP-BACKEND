@@ -983,6 +983,8 @@ class Transactions_controller extends CI_Controller {
         $request = json_decode($stream_clean);
         // $ready = $request->ready;
         $array = json_decode(json_encode($request), true);
+
+        $line_items = array();
         
         foreach ($array as $transaction) 
         {
@@ -1017,10 +1019,27 @@ class Transactions_controller extends CI_Controller {
             foreach ($transaction['products'] as $products)
             {
                 $prod_id = $products['prod_id'];
+                $prod_name = $this->products->get_product_short_name($prod_id);
                 $prod_price = $this->products->get_product_price($prod_id);
                 $prod_qty = $products['qty'];
 
                 $prod_total = ($prod_price * $prod_qty);
+
+
+                // check if product is discounted
+                $check_discount = $this->prod_discounts->get_by_prod_id($prod_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $prod_price = $new_price;
+
+                    $prod_name = $prod_name . "*"; // discounted product indicator
+                }
+
+                $prod_total = ($prod_price * $prod_qty);
+
 
                 // insert new product to trans_details ---------------------------------------------
 
@@ -1036,6 +1055,9 @@ class Transactions_controller extends CI_Controller {
                     'total' => $prod_total
                 );
                 $this->trans_details->save($data_products);
+
+                // add line item to line_items array
+                $line_items[] = new item($prod_qty . " " . $prod_name . " @" . $prod_price, number_format($prod_total, 2));
             }
 
             // get each package for trans_details  ------------------------------------------------
@@ -1043,8 +1065,23 @@ class Transactions_controller extends CI_Controller {
             foreach ($transaction['packages'] as $packages)
             {
                 $pack_id = $packages['pack_id'];
+                $pack_name = $this->packages->get_package_short_name($pack_id);
                 $pack_price = $this->packages->get_package_price($pack_id);
                 $pack_qty = $packages['qty'];
+
+                $pack_total = ($pack_price * $pack_qty);
+
+                // check if product is discounted
+                $check_discount = $this->pack_discounts->get_by_pack_id($pack_id);
+
+                if ($check_discount != null)
+                {
+                    $new_price = $check_discount->new_price;
+
+                    $pack_price = $new_price;
+
+                    $pack_name = $pack_name . "*"; // discounted product indicator
+                }
 
                 $pack_total = ($pack_price * $pack_qty);
 
@@ -1063,6 +1100,9 @@ class Transactions_controller extends CI_Controller {
                 );
                 $this->trans_details->save($data_packages);
 
+                // add line item to line_items array
+                $line_items[] = new item($pack_qty . " " . $pack_name . " @" . $pack_price, number_format($pack_total, 2));
+
                 // get package product list ---------------------------------------------------------
 
                 $pack_products = $this->pack_details->get_pack_detail_products($pack_id);
@@ -1072,6 +1112,7 @@ class Transactions_controller extends CI_Controller {
                 foreach ($pack_products as $pack_products_list)
                 {
                     $pack_prod_id = $pack_products_list->prod_id;
+                    $pack_prod_name = $this->products->get_product_short_name($pack_prod_id);
                     $pack_prod_qty = ($pack_products_list->qty * $pack_qty); // multiply package product qty by pack_qty
 
                     // insert new product to trans_details (from package products) ------------------------
@@ -1089,6 +1130,9 @@ class Transactions_controller extends CI_Controller {
                         'part_of' => $pack_id 
                     );
                     $this->trans_details->save($data_pack_products);
+
+                    // add line item to line_items array
+                    $line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
                 }
             }
 
@@ -1111,6 +1155,20 @@ class Transactions_controller extends CI_Controller {
             }
 
         }
+
+        if (sizeof($line_tables) != 0)
+        {
+            $table_str = implode(', ', $line_tables);
+        }
+        else
+        {
+            $table_str = 'n/a';
+        }
+
+
+        $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+        //$this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
         // add transaction to trans_logs record --------------------------------------------------------
 

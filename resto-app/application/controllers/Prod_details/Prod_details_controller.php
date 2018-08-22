@@ -118,14 +118,21 @@ class Prod_details_controller extends CI_Controller {
 
         $version = 0;
 
-        try
+        // try
+        // {
+        //     $img_name = $this->products->get_product_img($prod_id);
+
+        //     $version = explode("_", $img_name)[1]; // get index 1 of the exploded img_name to increment
+        // }
+        // catch (Exception $e) {
+        //     // json_encode 'Caught exception: ',  $e->getMessage(), "\n";
+        // }
+
+        if ($this->products->get_product_img($prod_id) != '')
         {
             $img_name = $this->products->get_product_img($prod_id);
 
             $version = explode("_", $img_name)[1]; // get index 1 of the exploded img_name to increment
-        }
-        catch (Exception $e) {
-            // json_encode 'Caught exception: ',  $e->getMessage(), "\n";
         }
 
         $new_version = ($version + 1);
@@ -143,7 +150,7 @@ class Prod_details_controller extends CI_Controller {
             
          if ( ! $this->upload->do_upload('userfile1')) // upload fail
          {
-            $error = array('error' => $this->upload->display_errors()); 
+            $error = array('error' => $this->upload->display_errors() . '<a href="javascript:history.back()">Back to Product</a>'); 
             $this->load->view('upload_form', $error);
             // echo '<script type="text/javascript">alert("' . $error.toString() . '"); </script>';
          }

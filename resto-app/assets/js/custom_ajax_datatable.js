@@ -1709,11 +1709,24 @@ function print_x_reading()
             dataType: "JSON",
             success: function(data)
             {
-                var log_type = 'Report';
+                // ajax delete data to database
+                $.ajax({
+                    url : "back-up-db",
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        var log_type = 'Report';
 
-                var details = 'X-Reading printed successfully'; 
+                        var details = 'X-Reading printed successfully'; 
 
-                set_system_log(log_type, details);
+                        set_system_log(log_type, details);    
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert('Error backing up data');
+                    }
+                });
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -4385,6 +4398,9 @@ if (document.getElementById("container-products-category"))
         title: {
             text: 'Product categories sales data ( Total: ₱ ' + cat_total_sales.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' )'
         },
+        subtitle: {
+            text: '( Transaction discounts are not deducted )'
+        },
         tooltip: {
             pointFormat: '{series.name} Percentage: <b>{point.percentage:.1f}%</b><br>{point.details}'
         },
@@ -4457,7 +4473,9 @@ if (document.getElementById("container-top-selling-menu-items"))
         title: {
             text: 'Total menu items sold of top selling products/packages ( Total: ' + menu_total_sold + ' )'
         },
-
+        subtitle: {
+            text: 'Top 10 best selling items'
+        },
         xAxis: {
             categories: menu_name
         },
@@ -4657,6 +4675,9 @@ if (document.getElementById("container-users-cashier"))
             verticalAlign: 'middle',
             y: 40
         },
+        subtitle: {
+            text: 'Employee performance stats by percentage'
+        },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.details}'
         },
@@ -4727,6 +4748,9 @@ if (document.getElementById("container-users-staff"))
             align: 'center',
             verticalAlign: 'middle',
             y: 40
+        },
+        subtitle: {
+            text: 'Employee performance stats by percentage'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.details}'

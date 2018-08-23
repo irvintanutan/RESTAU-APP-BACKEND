@@ -549,6 +549,31 @@ class Trans_details_controller extends CI_Controller {
                 $data['inputerror'][] = 'card_number';
                 $data['error_string'][] = 'Card number is required';
                 $data['status'] = FALSE;
+            }
+            else if(strpos($this->input->post('card_number'), '\'') !== false)
+            {
+                $data['inputerror'][] = 'card_number';
+                $data['error_string'][] = 'Invalid character input: ( \' )';
+                $data['status'] = FALSE;
+            }
+            else if(strpos($this->input->post('card_number'), '"') !== false)
+            {
+                $data['inputerror'][] = 'card_number';
+                $data['error_string'][] = 'Invalid character input: ( " )';
+                $data['status'] = FALSE;
+            }
+
+            if(strpos($this->input->post('cust_name'), '\'') !== false)
+            {
+                $data['inputerror'][] = 'cust_name';
+                $data['error_string'][] = 'Invalid character input: ( \' )';
+                $data['status'] = FALSE;
+            }
+            else if(strpos($this->input->post('cust_name'), '"') !== false)
+            {
+                $data['inputerror'][] = 'cust_name';
+                $data['error_string'][] = 'Invalid character input: ( " )';
+                $data['status'] = FALSE;
             }  
         }
 
@@ -598,6 +623,31 @@ class Trans_details_controller extends CI_Controller {
             {
                 $data['inputerror'][] = 'cust_disc_id';
                 $data['error_string'][] = 'Customer ID number is required';
+                $data['status'] = FALSE;
+            }
+            else if(strpos($this->input->post('cust_disc_id'), '\'') !== false)
+            {
+                $data['inputerror'][] = 'cust_disc_id';
+                $data['error_string'][] = 'Invalid character input: ( \' )';
+                $data['status'] = FALSE;
+            }
+            else if(strpos($this->input->post('cust_disc_id'), '"') !== false)
+            {
+                $data['inputerror'][] = 'cust_disc_id';
+                $data['error_string'][] = 'Invalid character input: ( " )';
+                $data['status'] = FALSE;
+            }
+
+            if(strpos($this->input->post('cust_name'), '\'') !== false)
+            {
+                $data['inputerror'][] = 'cust_name';
+                $data['error_string'][] = 'Invalid character input: ( \' )';
+                $data['status'] = FALSE;
+            }
+            else if(strpos($this->input->post('cust_name'), '"') !== false)
+            {
+                $data['inputerror'][] = 'cust_name';
+                $data['error_string'][] = 'Invalid character input: ( " )';
                 $data['status'] = FALSE;
             }
         }

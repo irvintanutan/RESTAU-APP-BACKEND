@@ -5,7 +5,7 @@
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div id="page-title">
-                    <h1 class="page-header text-overflow"><?php echo $title; ?> : <?php if ($transaction->receipt_no != 1000000){ echo ' [ S' . $transaction->trans_id . ' ] [ RCPT#POS-' . $transaction->receipt_no . ' ]'; } else { echo ' [ S' . $transaction->trans_id . ' ]';} ?> </h1>
+                    <h1 class="page-header text-overflow"><?php echo $title; ?> : <?php if ($transaction->receipt_no != 10000000){ echo ' [ S' . $transaction->trans_id . ' ] [ RCPT#POS-' . $transaction->receipt_no . ' ]'; } else { echo ' [ S' . $transaction->trans_id . ' ]';} ?> </h1>
 
                     <!--Searchbox-->
                     <!-- <div class="searchbox">
@@ -238,7 +238,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Change :</label>
                                             <div class="col-md-9">
-                                                <input id="change_amt" name="change_amt" placeholder="Change Amount" class="form-control" type="text" value="0.00" style="font-size: 15px; color: brown; font-weight: bold" readonly>
+                                                <input id="change_amt" name="change_amt" placeholder="Change Amount" class="form-control" type="text" value="0.00" style="font-size: 18px; color: brown; font-weight: bold" readonly>
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>

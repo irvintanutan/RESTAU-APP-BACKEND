@@ -24,6 +24,10 @@ $route['showlist-sold-today'] = 'Dashboard_controller/ajax_list';
 $route['print-s-reading'] = 'Dashboard_controller/set_s_reading';
 $route['print-x-reading'] = 'Dashboard_controller/set_x_reading';
 
+//======================================== API SECTION =================================================================
+
+$route['showlist-pos-api'] = 'Dashboard_controller/ajax_api_pos_list';
+
 
 //************************************ ITEMS ROUTES ****************************************************************
 //******************************************************************************************************************

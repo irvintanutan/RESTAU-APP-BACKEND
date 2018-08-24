@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 23, 2018 at 06:02 PM
+-- Generation Time: Aug 24, 2018 at 07:06 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -171,7 +171,10 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (59, 'Doe, Jane', 'Login', 'System user login as Staff', '2018-08-23 15:57:09'),
 (60, 'Doe, Jane', 'Logout', 'System user logout as Staff', '2018-08-23 16:00:36'),
 (61, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-23 16:00:41'),
-(62, 'admin', 'Update', 'Product%20discount%20updated%20P2', '2018-08-23 16:01:49');
+(62, 'admin', 'Update', 'Product%20discount%20updated%20P2', '2018-08-23 16:01:49'),
+(63, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-24 18:55:16'),
+(64, 'Adminlast, Adminfirst', 'Logout', 'System user logout as Administrator', '2018-08-24 18:56:29'),
+(65, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-24 18:59:52');
 
 -- --------------------------------------------------------
 
@@ -253,7 +256,10 @@ INSERT INTO `pack_discounts` (`pd_id`, `pack_id`, `remarks`, `date_start`, `date
 CREATE TABLE `pos` (
   `pos_id` int(11) NOT NULL,
   `pos_name` varchar(100) NOT NULL,
+  `hardware_id` varchar(45) NOT NULL,
+  `software_id` varchar(45) NOT NULL,
   `receipt_count` int(11) NOT NULL,
+  `activated` int(1) NOT NULL DEFAULT '0',
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -757,7 +763,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT for table `packages`
 --

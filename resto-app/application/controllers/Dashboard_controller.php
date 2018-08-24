@@ -22,6 +22,7 @@ class Dashboard_controller extends CI_Controller {
         $this->load->model('Readings/X_readings_model','x_readings');
 
         $this->load->model('Logs/Trans_logs_model','trans_logs');
+        $this->load->model('Pos/Pos_model','pos');
 
     }
 
@@ -555,6 +556,31 @@ class Dashboard_controller extends CI_Controller {
         $printer -> pulse();
 
         $printer -> close();
+    }
+
+    // ================================================ API GET REQUEST METHOD ============================================
+
+
+    public function ajax_api_pos_list()
+    {
+        $list = $this->pos->get_api_datatables();
+        $data = array();
+        
+        foreach ($list as $pos) {
+            
+            $row = array();
+            $row['pos_id'] = $pos->pos_id;
+            $row['pos_name'] = $pos->pos_name;
+            $row['hardware_id'] = $pos->hardware_id;
+            $row['software_id'] = $pos->software_id;
+            $row['receipt_count'] = $pos->receipt_count;
+            $row['activated'] = $pos->activated;
+ 
+            $data[] = $row;
+        }
+ 
+        //output to json format
+        echo json_encode($data);
     }
 }
 

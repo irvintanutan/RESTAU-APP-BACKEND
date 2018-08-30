@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 24, 2018 at 07:06 PM
+-- Generation Time: Aug 30, 2018 at 02:29 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -174,7 +174,12 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (62, 'admin', 'Update', 'Product%20discount%20updated%20P2', '2018-08-23 16:01:49'),
 (63, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-24 18:55:16'),
 (64, 'Adminlast, Adminfirst', 'Logout', 'System user logout as Administrator', '2018-08-24 18:56:29'),
-(65, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-24 18:59:52');
+(65, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-24 18:59:52'),
+(66, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-28 09:25:57'),
+(67, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-28 17:56:42'),
+(68, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-29 09:35:35'),
+(69, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-30 09:10:07'),
+(70, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-08-30 12:48:03');
 
 -- --------------------------------------------------------
 
@@ -250,6 +255,21 @@ INSERT INTO `pack_discounts` (`pd_id`, `pack_id`, `remarks`, `date_start`, `date
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `po`
+--
+
+CREATE TABLE `po` (
+  `po_id` int(11) NOT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date` varchar(10) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pos`
 --
 
@@ -262,6 +282,13 @@ CREATE TABLE `pos` (
   `activated` int(1) NOT NULL DEFAULT '0',
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pos`
+--
+
+INSERT INTO `pos` (`pos_id`, `pos_name`, `hardware_id`, `software_id`, `receipt_count`, `activated`, `encoded`) VALUES
+(1, 'WOA_1', '95483d5d09788ff1', 'apk00001', 0, 1, '2018-08-29 14:08:58');
 
 -- --------------------------------------------------------
 
@@ -367,6 +394,21 @@ CREATE TABLE `store_config` (
 
 INSERT INTO `store_config` (`conf_id`, `branch_id`, `name`, `address`, `city`, `telephone`, `mobile`, `tin`, `vat`, `bs_price`, `img`, `password`) VALUES
 (1, 1, 'Lolo Ernings Lechon - Obrero', 'Sample St., Bo. Obrero', 'Davao City', '(082) 234-8398', '+63 9228 031 290', 'TIN:008-351-499-012', 0, '45.00', 'complogo_1_.png', 'jiktorres');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `supplier_id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `contact` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -675,6 +717,12 @@ ALTER TABLE `pack_discounts`
   ADD PRIMARY KEY (`pd_id`);
 
 --
+-- Indexes for table `po`
+--
+ALTER TABLE `po`
+  ADD PRIMARY KEY (`po_id`);
+
+--
 -- Indexes for table `pos`
 --
 ALTER TABLE `pos`
@@ -697,6 +745,12 @@ ALTER TABLE `prod_discounts`
 --
 ALTER TABLE `store_config`
   ADD PRIMARY KEY (`conf_id`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`supplier_id`);
 
 --
 -- Indexes for table `s_readings`
@@ -763,7 +817,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -775,10 +829,15 @@ ALTER TABLE `packages`
 ALTER TABLE `pack_discounts`
   MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `po`
+--
+ALTER TABLE `po`
+  MODIFY `po_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `pos`
 --
 ALTER TABLE `pos`
-  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `products`
 --
@@ -795,6 +854,11 @@ ALTER TABLE `prod_discounts`
 ALTER TABLE `store_config`
   MODIFY `conf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `s_readings`
 --
 ALTER TABLE `s_readings`
@@ -808,7 +872,7 @@ ALTER TABLE `tables`
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `transactions`
 --

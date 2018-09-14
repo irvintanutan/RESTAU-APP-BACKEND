@@ -150,11 +150,7 @@ $(document).ready(function()
                   var row_count = data[9], best_selling = data[6],
                       $node = this.api().row(row).nodes().to$();
 
-                  if (row_count == 0) 
-                  {
-                    $node.css('background-color', '#ccccff');
-                  }
-                  else if (best_selling.length > 20) // if there are words such as rank, star symbol, etc. (more than 14 chars automatically)
+                  if (best_selling.length > 20) // if there are words such as rank, star symbol, etc. (more than 14 chars automatically)
                   {
                     function isOdd(num) { return num % 2;}
                     
@@ -165,7 +161,11 @@ $(document).ready(function()
                     else
                     {
                       $node.css('background-color', '#ccffcc');
-                    } 
+                    }
+                  }
+                  else if (row_count == 0) 
+                  {
+                     $node.css('background-color', '#ccccff');
                   }
                 }
             });

@@ -1355,7 +1355,7 @@ class Trans_details_controller extends CI_Controller {
         // printing payment type receipts
         if ($print_type == "payment")
         {
-            //$this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_no);
+            $this->print_payment_receipt($line_items, $order_type, $trans_id, $staff_username, $cashier_username, $table_str, $gross_total, $discount, $disc_type_name, $cash_amt, $change_amt, $receipt_no);
         }
         else // billout receipts
         {
@@ -1364,7 +1364,7 @@ class Trans_details_controller extends CI_Controller {
                 );
             $this->transactions->update(array('trans_id' => $trans_id), $data);
 
-            //$this->print_bill_out_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $discount, $disc_type_name);
+            $this->print_bill_out_receipt($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $discount, $disc_type_name);
         }
         
     }

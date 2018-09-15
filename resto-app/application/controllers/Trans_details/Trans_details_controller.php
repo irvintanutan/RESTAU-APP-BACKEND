@@ -1448,7 +1448,7 @@ class Trans_details_controller extends CI_Controller {
         $printer -> text(new item('Staff: ' . $staff_username, ''));
         $printer -> text(new item('Cashier: ' . $cashier_username, ''));
 
-        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("", 33, '=', STR_PAD_BOTH) . "\n");
 
         /* Items */
         $printer -> setEmphasis(true);
@@ -1458,7 +1458,7 @@ class Trans_details_controller extends CI_Controller {
             $printer -> text($item);
         }
 
-        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("", 33, '=', STR_PAD_BOTH) . "\n");
 
         $printer -> setEmphasis(true);
         $printer -> text($total_sales_str);
@@ -1474,7 +1474,7 @@ class Trans_details_controller extends CI_Controller {
         $printer -> setEmphasis(false);
 
         $printer -> setEmphasis(true);
-        $printer -> text(new item('', '=========='));
+        $printer -> text(new item('', '========='));
         
         $printer -> text($amount_due_str);
 
@@ -1495,7 +1495,7 @@ class Trans_details_controller extends CI_Controller {
         $printer -> feed();
         $printer -> text("Innotech Solutions\n");
         $printer -> text("Thank You Come Again\n");
-        $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("", 33, '_', STR_PAD_BOTH) . "\n");
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
@@ -1561,7 +1561,7 @@ class Trans_details_controller extends CI_Controller {
         $printer -> text(new item('Staff: ' . $staff_username, ''));
         // $printer -> text(new item('Cashier: ' . $cashier_username, ''));
 
-        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("", 33, '=', STR_PAD_BOTH) . "\n");
 
         /* Items */
         $printer -> setEmphasis(true);
@@ -1571,7 +1571,7 @@ class Trans_details_controller extends CI_Controller {
             $printer -> text($item);
         }
 
-        $printer -> text(str_pad("", 35, '=', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("", 33, '=', STR_PAD_BOTH) . "\n");
 
         $printer -> setEmphasis(true);
         $printer -> text($total_sales_str);
@@ -1587,7 +1587,7 @@ class Trans_details_controller extends CI_Controller {
         $printer -> setEmphasis(false);
 
         $printer -> setEmphasis(true);
-        $printer -> text(new item('', '=========='));
+        $printer -> text(new item('', '========='));
         
         $printer -> text($amount_due_str);
 
@@ -1600,7 +1600,7 @@ class Trans_details_controller extends CI_Controller {
         /* Footer */
         $printer -> feed();
 
-        $printer -> text(str_pad("", 35, '_', STR_PAD_BOTH) . "\n");
+        $printer -> text(str_pad("", 33, '_', STR_PAD_BOTH) . "\n");
         
         /* Cut the receipt and open the cash drawer */
         $printer -> cut();
@@ -1640,8 +1640,8 @@ class Trans_details_controller extends CI_Controller {
 
      public function __toString()
      {
-         $rightCols = 10;
-         $leftCols = 25;
+         $rightCols = 9;
+         $leftCols = 24;
          if ($this -> dollarSign) {
              $leftCols = $leftCols / 2 - $rightCols / 2;
          }

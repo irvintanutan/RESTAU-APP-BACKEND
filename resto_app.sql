@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2018 at 10:53 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Sep 16, 2018 at 11:01 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -190,7 +190,29 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (76, 'admin', 'Report', 'X-Reading%20printed%20successfully', '2018-09-15 21:38:58'),
 (77, 'admin', 'Report', 'S-Reading%20printed%20successfully', '2018-09-15 22:13:15'),
 (78, 'admin', 'Report', 'X-Reading%20printed%20successfully', '2018-09-15 22:17:28'),
-(79, 'admin', 'Report', 'S-Reading%20printed%20successfully', '2018-09-15 22:26:53');
+(79, 'admin', 'Report', 'S-Reading%20printed%20successfully', '2018-09-15 22:26:53'),
+(80, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-09-16 00:47:59'),
+(81, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-09-16 01:07:13'),
+(82, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2010-01-01 00:04:26'),
+(83, ', ', 'Logout', 'System user logout as Staff', '2018-09-16 08:29:41'),
+(84, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-09-16 08:29:49'),
+(85, 'admin', 'Add', 'New%20product%20added:%20sampl', '2018-09-16 08:31:49'),
+(86, 'admin', 'Report', 'S-Reading%20printed%20successfully', '2018-09-16 09:51:13'),
+(87, 'admin', 'Report', 'X-Reading%20printed%20successfully', '2018-09-16 09:53:09'),
+(88, 'Adminlast, Adminfirst', 'Logout', 'System user logout as Administrator', '2018-09-16 10:28:28'),
+(89, 'Doe, Jane', 'Login', 'System user login as Staff', '2018-09-16 10:28:38'),
+(90, 'janedoe', 'Report', 'S-Reading%20printed%20successfully', '2018-09-16 10:40:58'),
+(91, 'janedoe', 'Report', 'Dashboard%20Daily%20Report%20Generated', '2018-09-16 10:46:02'),
+(92, 'janedoe', 'Report', 'X-Reading%20printed%20successfully', '2018-09-16 10:49:32'),
+(93, 'Doe, Jane', 'Logout', 'System user logout as Staff', '2018-09-16 10:54:45'),
+(94, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-09-16 10:54:54'),
+(95, 'admin', 'Report', 'S-Reading%20printed%20successfully', '2018-09-16 10:54:58'),
+(96, 'admin', 'Report', 'S-Reading%20printed%20successfully', '2018-09-16 10:58:27'),
+(97, 'admin', 'Report', 'X-Reading%20printed%20successfully', '2018-09-16 10:58:54'),
+(98, 'Adminlast, Adminfirst', 'Logout', 'System user logout as Administrator', '2018-09-16 10:59:04'),
+(99, 'Doe, Jane', 'Login', 'System user login as Staff', '2018-09-16 11:00:04'),
+(100, 'janedoe', 'Report', 'S-Reading%20printed%20successfully', '2018-09-16 11:00:09'),
+(101, 'Doe, Jane', 'Logout', 'System user logout as Staff', '2018-09-16 11:01:13');
 
 -- --------------------------------------------------------
 
@@ -300,7 +322,8 @@ CREATE TABLE `pos` (
 
 INSERT INTO `pos` (`pos_id`, `pos_name`, `hardware_id`, `software_id`, `receipt_count`, `activated`, `encoded`) VALUES
 (2, 'WOA_1', '95483d5d09788ff1', 'apk00001', 0, 1, '2018-08-29 14:08:58'),
-(3, 'WOA_2', 'f993ca9079aad6e5', 'apk00002', 0, 1, '2018-09-15 20:37:49');
+(3, 'WOA_2', 'f993ca9079aad6e5', 'apk00002', 0, 1, '2018-09-15 20:37:49'),
+(4, 'WOA_3', '6863deef41ab80e5', 'apk00003', 0, 1, '2018-09-16 08:53:10');
 
 -- --------------------------------------------------------
 
@@ -327,9 +350,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `price`, `img`, `sold`, `sold_pack`, `encoded`, `removed`) VALUES
-(1, 'Coke in Can', 'CokeInCan', 'Coca cola softdrink in can', 1, '40.00', '1_1_.jpg', 6, 246, '2018-08-22 10:14:36', 0),
-(2, 'Chicken Rice Meal', 'ChcknRceMeal', 'Fried chicken cut w/ rice', 2, '50.00', '2_1_.jpg', 58, 246, '2018-08-22 10:15:50', 0),
-(3, 'Cup of Rice', 'CupOfRice', 'Cup of rice tonner', 3, '30.00', '3_1_.jpg', 3, 0, '2018-08-22 10:18:14', 0);
+(1, 'Coke in Can', 'CokeInCan', 'Coca cola softdrink in can', 1, '40.00', '1_1_.jpg', 9, 246, '2018-08-22 10:14:36', 0),
+(2, 'Chicken Rice Meal', 'ChcknRceMeal', 'Fried chicken cut w/ rice', 2, '50.00', '2_1_.jpg', 61, 246, '2018-08-22 10:15:50', 0),
+(3, 'Cup of Rice', 'CupOfRice', 'Cup of rice tonner', 3, '30.00', '3_1_.jpg', 9, 0, '2018-08-22 10:18:14', 0),
+(4, 'sampl', 'sampl', 'sampl', 2, '1000.00', '4_1_.jpg', 23, 0, '2018-09-16 08:31:49', 0);
 
 -- --------------------------------------------------------
 
@@ -465,7 +489,12 @@ INSERT INTO `s_readings` (`reading_no`, `pos_no`, `cashier_username`, `date`, `t
 (2, 1, 'admin', '2018-09-15', 1, 5, 6, 6, 0, 0, 0, '10995.00', '0.00', '0.00', '0.00', '0.00', '10995.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000012, '2018-09-15 21:10:34'),
 (3, 1, 'admin', '2018-09-15', 1, 5, 6, 6, 0, 0, 0, '10995.00', '0.00', '0.00', '0.00', '0.00', '10995.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000012, '2018-09-15 21:38:17'),
 (4, 1, 'admin', '2018-09-15', 2, 5, 7, 7, 0, 0, 0, '11395.00', '0.00', '105.00', '0.00', '105.00', '11500.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000013, '2018-09-15 22:13:15'),
-(5, 1, 'admin', '2018-09-15', 3, 5, 8, 8, 0, 0, 0, '28795.00', '0.00', '4455.00', '0.00', '4455.00', '33250.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000014, '2018-09-15 22:26:53');
+(5, 1, 'admin', '2018-09-15', 3, 5, 8, 8, 0, 0, 0, '28795.00', '0.00', '4455.00', '0.00', '4455.00', '33250.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000014, '2018-09-15 22:26:53'),
+(6, 1, 'admin', '2018-09-16', 1, 1, 2, 1, 1, 0, 1, '1115.00', '0.00', '0.00', '0.00', '0.00', '1115.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000000, 10000015, '2018-09-16 09:51:13'),
+(7, 1, 'janedoe', '2018-09-16', 1, 3, 4, 3, 0, 1, 0, '17856.00', '4247.00', '217.00', '0.00', '4464.00', '22320.00', '0.00', '-85.00', '0.00', '0.00', '0.00', 10000015, 10000018, '2018-09-16 10:40:58'),
+(8, 1, 'admin', '2018-09-16', 1, 1, 2, 1, 1, 0, 1, '1115.00', '0.00', '0.00', '0.00', '0.00', '1115.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000000, 10000015, '2018-09-16 10:54:58'),
+(9, 1, 'admin', '2018-09-16', 1, 1, 2, 1, 1, 0, 1, '1115.00', '0.00', '0.00', '0.00', '0.00', '1115.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000015, 10000015, '2018-09-16 10:58:26'),
+(10, 1, 'janedoe', '2018-09-16', 1, 3, 4, 3, 0, 1, 0, '17856.00', '4247.00', '217.00', '0.00', '4464.00', '22320.00', '0.00', '-85.00', '0.00', '0.00', '0.00', 10000016, 10000018, '2018-09-16 11:00:09');
 
 -- --------------------------------------------------------
 
@@ -548,7 +577,13 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 (12, '2018-09-15 20:49:59', '0.00', 0, 'CLEARED', 'TAKE-OUT', '7800.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 113, 112, 0, 0, 10000011),
 (13, '2018-09-15 20:50:42', '0.00', 0, 'CLEARED', 'DINE-IN', '2000.00', '50.00', 'Cash', 'n/a', 'n/a', 'n/a', 113, 112, 0, 0, 10000010),
 (14, '2018-09-15 21:42:44', '105.00', 2, 'CLEARED', 'DINE-IN', '1000.00', '600.00', 'Cash', 'n/a', 'Apollo', '8898989889', 113, 112, 0, 1, 10000013),
-(15, '2018-09-15 22:22:26', '4350.00', 2, 'CLEARED', 'DINE-IN', '20000.00', '2600.00', 'Cash', 'n/a', 'Apollo Apollo', '878787878', 113, 112, 0, 1, 10000014);
+(15, '2018-09-15 22:22:26', '4350.00', 2, 'CLEARED', 'DINE-IN', '20000.00', '2600.00', 'Cash', 'n/a', 'Apollo Apollo', '878787878', 113, 112, 0, 1, 10000014),
+(16, '2018-09-16 09:19:45', '0.00', 0, 'CANCELLED', 'DINE-IN', '0.00', '0.00', 'n/a', 'n/a', 'n/a', 'n/a', 113, 112, 0, 0, 10000000),
+(17, '2018-09-16 09:43:42', '0.00', 0, 'CLEARED', 'TAKE-OUT', '1500.00', '385.00', 'Cash', 'n/a', 'n/a', 'n/a', 113, 112, 0, 1, 10000015),
+(18, '2018-09-16 09:50:41', '0.00', 0, 'REFUNDED', 'TAKE-OUT', '-85.00', '0.00', 'Cash', 'n/a', 'n/a', 'n/a', 113, 114, 0, 0, 10000015),
+(19, '2018-09-16 10:27:36', '4024.00', 1, 'CLEARED', 'DINE-IN', '20000.00', '3904.00', 'Cash', 'n/a', 'n/a', '1515151', 113, 114, 0, 1, 10000016),
+(20, '2018-09-16 10:30:58', '223.00', 1, 'CLEARED', 'TAKE-OUT', '892.00', '0.00', 'Cash', 'n/a', 'innotech', '55555555', 113, 114, 0, 1, 10000018),
+(21, '2018-09-16 10:31:30', '217.00', 2, 'CLEARED', 'TAKE-OUT', '1000.00', '132.00', 'Cash', 'n/a', 'mike', '1111111111', 113, 114, 0, 1, 10000017);
 
 -- --------------------------------------------------------
 
@@ -616,7 +651,29 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 (15, 2, 0, 0, '45.00', 50, '2250.00', 0),
 (15, 0, 1, 1, '390.00', 50, '19500.00', 0),
 (15, 2, 0, 2, '0.00', 150, '0.00', 1),
-(15, 1, 0, 2, '0.00', 150, '0.00', 1);
+(15, 1, 0, 2, '0.00', 150, '0.00', 1),
+(16, 2, 0, 0, '45.00', 1, '45.00', 0),
+(16, 1, 0, 0, '40.00', 1, '40.00', 0),
+(16, 3, 0, 0, '30.00', 1, '30.00', 0),
+(16, 4, 0, 0, '1000.00', 1, '1000.00', 0),
+(16, 0, 1, 1, '390.00', 1, '390.00', 0),
+(16, 2, 0, 2, '0.00', 3, '0.00', 1),
+(16, 1, 0, 2, '0.00', 3, '0.00', 1),
+(17, 2, 0, 0, '45.00', 1, '45.00', 0),
+(17, 1, 0, 0, '40.00', 1, '40.00', 0),
+(17, 3, 0, 0, '30.00', 1, '30.00', 0),
+(17, 4, 0, 0, '1000.00', 1, '1000.00', 0),
+(18, 2, 0, 0, '45.00', 1, '-45.00', 0),
+(18, 1, 0, 0, '40.00', 1, '-40.00', 0),
+(20, 2, 0, 0, '45.00', 1, '45.00', 0),
+(20, 1, 0, 0, '40.00', 1, '40.00', 0),
+(20, 3, 0, 0, '30.00', 1, '30.00', 0),
+(20, 4, 0, 0, '1000.00', 1, '1000.00', 0),
+(21, 2, 0, 0, '45.00', 1, '45.00', 0),
+(21, 4, 0, 0, '1000.00', 1, '1000.00', 0),
+(21, 1, 0, 0, '40.00', 1, '40.00', 0),
+(19, 4, 0, 0, '1000.00', 20, '20000.00', 0),
+(19, 3, 0, 0, '30.00', 4, '120.00', 0);
 
 -- --------------------------------------------------------
 
@@ -692,7 +749,22 @@ INSERT INTO `trans_logs` (`log_id`, `user_fullname`, `log_type`, `details`, `dat
 (53, 'admin', 'Payment', 'Transaction payment S14 RCPT#: 10000013', '2018-09-15 22:10:02'),
 (54, 'xanderford', 'SetOrder', 'New transaction added S15 by U113', '2018-09-15 22:22:27'),
 (55, 'admin', 'Discount', 'Transaction discounted S15 by U112', '2018-09-15 22:24:32'),
-(56, 'admin', 'Payment', 'Transaction payment S15 RCPT#: 10000014', '2018-09-15 22:24:50');
+(56, 'admin', 'Payment', 'Transaction payment S15 RCPT#: 10000014', '2018-09-15 22:24:50'),
+(57, 'admin', 'Cancel', 'Transaction cancelled S16 by U112', '2018-09-16 09:42:20'),
+(58, 'xanderford', 'UpdateOrder', 'Transaction updated S17 by U113', '2018-09-16 09:44:52'),
+(59, 'admin', 'Void', 'Item void S17 by U112 - Package: G1', '2018-09-16 09:46:42'),
+(60, 'admin', 'Payment', 'Transaction payment S17 RCPT#: 10000015', '2018-09-16 09:48:02'),
+(61, 'janedoe', 'Refund', 'Transaction refunded S18 RCPT#: 10000015', '2018-09-16 09:50:41'),
+(62, 'xanderford', 'SetOrder', 'New transaction added S19 by U113', '2018-09-16 10:27:37'),
+(63, 'xanderford', 'SetOrder', 'New transaction added S20 by U113', '2018-09-16 10:30:58'),
+(64, 'xanderford', 'SetOrder', 'New transaction added S21 by U113', '2018-09-16 10:31:30'),
+(65, 'xanderford', 'UpdateOrder', 'Transaction updated S19 by U113', '2018-09-16 10:33:20'),
+(66, 'janedoe', 'Discount', 'Transaction discounted S19 by U114', '2018-09-16 10:35:18'),
+(67, 'janedoe', 'Payment', 'Transaction payment S19 RCPT#: 10000016', '2018-09-16 10:35:48'),
+(68, 'janedoe', 'Discount', 'Transaction discounted S21 by U114', '2018-09-16 10:38:10'),
+(69, 'janedoe', 'Payment', 'Transaction payment S21 RCPT#: 10000017', '2018-09-16 10:38:23'),
+(70, 'janedoe', 'Discount', 'Transaction discounted S20 by U114', '2018-09-16 10:40:25'),
+(71, 'janedoe', 'Payment', 'Transaction payment S20 RCPT#: 10000018', '2018-09-16 10:40:31');
 
 -- --------------------------------------------------------
 
@@ -767,7 +839,10 @@ CREATE TABLE `x_readings` (
 
 INSERT INTO `x_readings` (`reading_no`, `pos_no`, `cashier_username`, `date`, `trans_count_dine_in`, `trans_count_take_out`, `trans_count_total`, `trans_count_cleared`, `trans_count_cancelled`, `trans_count_refunded`, `void_items_count`, `net_sales`, `discounts_rendered_sc`, `discounts_rendered_pwd`, `discounts_rendered_promo`, `discounts_rendered_total`, `gross_sales`, `cancelled_sales`, `refunded_sales`, `vat_sales`, `vat_amount`, `vat_exempt`, `start_rcpt_no`, `end_rcpt_no`, `encoded`) VALUES
 (1, 1, 'admin', '2018-09-15', 1, 5, 6, 6, 0, 0, 0, '10995.00', '0.00', '0.00', '0.00', '0.00', '10995.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000012, '2018-09-15 21:38:53'),
-(2, 1, 'admin', '2018-09-15', 2, 5, 7, 7, 0, 0, 0, '11395.00', '0.00', '105.00', '0.00', '105.00', '11500.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000013, '2018-09-15 22:17:27');
+(2, 1, 'admin', '2018-09-15', 2, 5, 7, 7, 0, 0, 0, '11395.00', '0.00', '105.00', '0.00', '105.00', '11500.00', '0.00', '0.00', '0.00', '0.00', '0.00', 10000007, 10000013, '2018-09-15 22:17:27'),
+(3, 1, 'admin', '2018-09-16', 1, 2, 3, 1, 1, 1, 1, '1030.00', '0.00', '0.00', '0.00', '0.00', '1030.00', '0.00', '-85.00', '0.00', '0.00', '0.00', 10000000, 10000015, '2018-09-16 09:53:08'),
+(4, 1, 'janedoe', '2018-09-16', 2, 4, 6, 4, 1, 1, 1, '18886.00', '4247.00', '217.00', '0.00', '4464.00', '23350.00', '0.00', '-85.00', '0.00', '0.00', '0.00', 10000000, 10000018, '2018-09-16 10:49:32'),
+(5, 1, 'admin', '2018-09-16', 2, 4, 6, 4, 1, 1, 1, '18886.00', '4247.00', '217.00', '0.00', '4464.00', '23350.00', '0.00', '-85.00', '0.00', '0.00', '0.00', 10000015, 10000018, '2018-09-16 10:58:53');
 
 --
 -- Indexes for dumped tables
@@ -896,96 +971,115 @@ ALTER TABLE `x_readings`
 --
 ALTER TABLE `categories`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
   MODIFY `disc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
   MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
   MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `pack_discounts`
 --
 ALTER TABLE `pack_discounts`
   MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `po`
 --
 ALTER TABLE `po`
   MODIFY `po_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `pos`
 --
 ALTER TABLE `pos`
-  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `prod_discounts`
 --
 ALTER TABLE `prod_discounts`
   MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `store_config`
 --
 ALTER TABLE `store_config`
   MODIFY `conf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `s_readings`
 --
 ALTER TABLE `s_readings`
-  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
   MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
-  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- AUTO_INCREMENT for table `trans_logs`
 --
 ALTER TABLE `trans_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+
 --
 -- AUTO_INCREMENT for table `x_readings`
 --
 ALTER TABLE `x_readings`
-  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
+  MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

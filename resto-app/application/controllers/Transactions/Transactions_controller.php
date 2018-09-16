@@ -1143,8 +1143,6 @@ class Transactions_controller extends CI_Controller {
 
             // get each table for table_groups -------------------------------------------------------------
 
-            // get each table for table_groups -------------------------------------------------------------
-
             $line_tables = array();
 
             foreach ($transaction['tables'] as $tables)

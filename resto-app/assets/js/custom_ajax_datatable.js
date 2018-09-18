@@ -34,6 +34,170 @@ $(document).ready(function()
                       "targets": 4,
                       "className": "text-right",
                 },
+                {
+                      "targets": 5,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 6,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 7,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 8,
+                      "className": "text-right",
+                },
+                ],
+                "scrollX": true
+            });
+    }
+    else if(tableID == "units-table")
+    {
+    //datatables
+            table = $('#units-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-units",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 4,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-center",
+                },
+                ],
+                "scrollX": true
+            });
+    }
+    else if(tableID == "suppliers-table")
+    {
+    //datatables
+            table = $('#suppliers-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-suppliers",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 6,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 7,
+                      "className": "text-center",
+                },
+                ],
+                "scrollX": true
+            });
+    }
+    else if(tableID == "purhcase-order-table")
+    {
+    //datatables
+            table = $('#purhcase-order-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-po",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 4,
+                      "className": "text-center",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 6,
+                      "className": "text-center",
+                },
+                ],
+                "scrollX": true
+            });
+    }
+    else if(tableID == "po-temp-table")
+    {
+    //datatables
+            table = $('#po-temp-table').DataTable({ 
+         
+                "processing": true, //Feature control the processing indicator.
+                "serverSide": true, //Feature control DataTables' server-side processing mode.
+                "order": [], //Initial no order.
+         
+                // Load data for the table's content from an Ajax source
+                "ajax": {
+                    "url": "showlist-po-temp",
+                    "type": "POST",
+                },
+         
+                //Set column definition initialisation properties.
+                "columnDefs": [
+                { 
+                    "targets": [ -1 ], //last column
+                    "orderable": false, //set not orderable
+                },
+                {
+                      "targets": 3,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 5,
+                      "className": "text-right",
+                },
+                {
+                      "targets": 6,
+                      "className": "text-center",
+                },
                 ],
                 "scrollX": true
             });
@@ -1893,6 +2057,54 @@ function add_item() // ---> calling for the Add Modal form
     $('.modal-title').text(text); // Set Title to Bootstrap modal title
 }
 
+function add_unit() // ---> calling for the Add Modal form
+{
+    save_method = 'add-unit';
+    text = 'Add Unit';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
+function add_supplier() // ---> calling for the Add Modal form
+{
+    save_method = 'add-supplier';
+    text = 'Add Supplier';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
+function add_po() // ---> calling for the Add Modal form
+{
+    save_method = 'add-po';
+    text = 'Add Purchase Order';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
+function add_po_temp() // ---> calling for the Add Modal form
+{
+    save_method = 'add-po-temp';
+    text = 'Add Purchase Order Item';
+    
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#modal_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text(text); // Set Title to Bootstrap modal title
+}
+
 function add_product() // ---> calling for the Add Modal form
 {
     save_method = 'add-product';
@@ -2153,6 +2365,132 @@ function edit_item(id)
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Item'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_unit(id)
+{
+    save_method = 'update-unit';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-unit/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="unit_id"]').val(data.unit_id);
+            $('[name="name"]').val(data.name);
+            $('[name="descr"]').val(data.descr);
+            $('[name="pcs"]').val(data.pcs);
+            
+            $('[name="current_name"]').val(data.name);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Unit'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_supplier(id)
+{
+    save_method = 'update-supplier';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-supplier/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="supplier_id"]').val(data.supplier_id);
+            $('[name="name"]').val(data.name);
+            $('[name="address"]').val(data.address);
+            $('[name="city"]').val(data.city);
+            $('[name="contact"]').val(data.contact);
+            $('[name="email"]').val(data.email);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Supplier'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_po(id)
+{
+    save_method = 'update-po';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-po/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="po_id"]').val(data.po_id);
+            $('[name="supplier_id"]').val(data.supplier_id);
+            $('[name="user_id"]').val(data.user_id);
+            $('[name="date"]').val(data.date);
+            $('[name="status"]').val(data.status);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Purchase Order'); // Set title to Bootstrap modal title
+ 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function edit_po_temp(id)
+{
+    save_method = 'update-po';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+ 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "edit-po-temp/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="num"]').val(data.num);
+            $('[name="item_id"]').val(data.item_id);
+            $('[name="unit_id"]').val(data.unit_id);
+            $('[name="unit_qty"]').val(data.unit_qty);
+            $('[name="pcs_qty"]').val(data.pcs_qty);
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Purchase Order Item'); // Set title to Bootstrap modal title
  
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -2516,215 +2854,6 @@ function edit_pack_detail_qty(idone, idtwo)
 
 
 
-
-function edit_client(id)
-{
-    save_method = 'update-client';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
- 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "clients/clients_controller/ajax_edit/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="client_id"]').val(data.client_id);
-            $('[name="lname"]').val(data.lname);
-            $('[name="fname"]').val(data.fname);
-
-            $('[name="sex"]').val(data.sex).prop('selected', true);
-            $('[name="contact"]').val(data.contact);
-            $('[name="address"]').val(data.address);
-            
-            $('[name="comp_id"]').val(data.comp_id).prop('selected', true);
-            $('[name="job"]').val(data.job);
-            $('[name="salary"]').val(data.salary);
-
-            $('[name="atm_id"]').val(data.atm_id).prop('selected', true);
-            $('[name="atm_type"]').val(data.atm_type).prop('selected', true);
-            $('[name="pin"]').val(data.pin)
-
-            $('[name="remarks"]').val(data.remarks);
-            $('[name="current_name"]').val(data.lname + data.fname);
-
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Client'); // Set title to Bootstrap modal title
- 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-function edit_loan(id)
-{
-    save_method = 'update-loan';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
- 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "../profiles/profiles_controller/ajax_edit/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="loan_id"]').val(data.loan_id);
-            
-            $('[name="amount"]').val(data.amount);
-            $('[name="interest"]').val(data.interest);
-            $('[name="total"]').val(data.total);
-
-            $('[name="date_start"]').val(data.date_start);
-            $('[name="date_end"]').val(data.date_end);
-            
-            $('[name="remarks"]').val(data.remarks);
-            
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Loan'); // Set title to Bootstrap modal title
- 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-function edit_loan_date_remarks(id)
-{
-    save_method = 'update-loan-date-remarks';
-    $('#form_edit_date_remarks')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
- 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "../profiles/profiles_controller/ajax_edit/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="loan_id"]').val(data.loan_id);
-
-            $('[name="date_start"]').val(data.date_start);
-            $('[name="remarks"]').val(data.remarks);
-            
-            $('#modal_form_edit_date_remarks').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Loan Date/Remarks'); // Set title to Bootstrap modal title
- 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-function edit_trans_date_remarks(id)
-{
-    save_method = 'update-trans-date-remarks';
-    $('#form_edit_date_remarks')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
- 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "../../../transactions/transactions_controller/ajax_edit/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="trans_id"]').val(data.trans_id);
-            $('[name="total"]').val(data.total);
-            $('[name="date"]').val(data.date);
-            $('[name="remarks"]').val(data.remarks);
-
-            $('#modal_form_edit_date_remarks').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Transaction Date/Remarks'); // Set title to Bootstrap modal title
- 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-function edit_capital_date_remarks(id)
-{
-    save_method = 'update-capital-date-remarks';
-    $('#form_edit_date_remarks')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
- 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "capital/capital_controller/ajax_edit/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="capital_id"]').val(data.capital_id);
-
-            $('[name="date"]').val(data.date);
-            $('[name="remarks"]').val(data.remarks);
-
-            $('#modal_form_edit_date_remarks').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Capital Adjustment Date/Remarks'); // Set title to Bootstrap modal title
- 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-function edit_schedule(id)
-{
-    save_method = 'update-schedule';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
- 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "Schedules/Schedules_controller/ajax_edit/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="sched_id"]').val(data.sched_id);
-            $('[name="title"]').val(data.title);
-            $('[name="date"]').val(data.date);
-            $('[name="time"]').val(data.time);
-            $('[name="remarks"]').val(data.remarks);
-
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Appointment Schedule'); // Set title to Bootstrap modal title
- 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-// function edit_cis_view(child_id)
-// {
-//     window.location.href='edit-cis-page/' + child_id;
-// }
-
-
-
 function reload_table()
 {
     table.ajax.reload(null,false); //reload datatable ajax
@@ -2761,6 +2890,38 @@ function save()
     else if(save_method == 'update-item') 
     {
         url = "update-item";
+    }
+    else if(save_method == 'add-unit') 
+    {
+        url = "add-unit";
+    }
+    else if(save_method == 'update-unit') 
+    {
+        url = "update-unit";
+    }
+    else if(save_method == 'add-supplier') 
+    {
+        url = "add-supplier";
+    }
+    else if(save_method == 'update-supplier') 
+    {
+        url = "update-supplier";
+    }
+    else if(save_method == 'add-po') 
+    {
+        url = "add-po";
+    }
+    else if(save_method == 'update-po') 
+    {
+        url = "update-po";
+    }
+    else if(save_method == 'add-po-temp') 
+    {
+        url = "add-po-temp";
+    }
+    else if(save_method == 'update-po-temp') 
+    {
+        url = "update-po-temp";
     }
     else if(save_method == 'add-product') 
     {
@@ -2970,6 +3131,72 @@ function save()
 
                     set_system_log(log_type, details);
                 }
+                else if(save_method == 'add-unit') 
+                {
+                    log_type = 'Add';
+
+                    details = 'New unit added: ' + $('[name="name"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'update-unit') 
+                {
+                    log_type = 'Update';
+
+                    details = 'Unit updated UN' + $('[name="unit_id"]').val() 
+                    + ': ' + $('[name="current_name"]').val() + ' to ' + $('[name="name"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'add-supplier') 
+                {
+                    log_type = 'Add';
+
+                    details = 'New supplier added: ' + $('[name="name"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'update-supplier') 
+                {
+                    log_type = 'Update';
+
+                    details = 'Supplier updated SU' + $('[name="supplier_id"]').val() 
+                    + ': ' + $('[name="current_name"]').val() + ' to ' + $('[name="name"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'add-po') 
+                {
+                    log_type = 'Add';
+
+                    details = 'New purchase order added: PO' + $('[name="po_id"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                else if(save_method == 'update-po') 
+                {
+                    log_type = 'Update';
+
+                    details = 'Purchase order updated PO' + $('[name="po_id"]').val();
+
+                    set_system_log(log_type, details);
+                }
+                // else if(save_method == 'add-po-temp') 
+                // {
+                //     log_type = 'Add';
+
+                //     details = 'New purchase order item added: PO' + $('[name="po_id"]').val();
+
+                //     set_system_log(log_type, details);
+                // }
+                // else if(save_method == 'update-po-temp') 
+                // {
+                //     log_type = 'Update';
+
+                //     details = 'Purchase order updated PO' + $('[name="po_id"]').val();
+
+                //     set_system_log(log_type, details);
+                // }
                 else if(save_method == 'add-product')
                 {
                     log_type = 'Add';
@@ -3424,6 +3651,93 @@ function delete_item(id, name)
                 var details = 'Item deleted I' + id; 
 
                 set_system_log(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_unit(id, name)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "delete-unit/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Unit deleted UN' + id; 
+
+                set_system_log(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_supplier(id, name)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "delete-supplier/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                var log_type = 'Delete';
+
+                var details = 'Supplier deleted SU' + id; 
+
+                set_system_log(log_type, details);
+
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+ 
+    }
+}
+function delete_po_temp(id, name)
+{
+    if(confirm('Are you sure to delete this data?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "delete-po-temp/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                // var log_type = 'Delete';
+
+                // var details = 'Purchase odeleted SU' + id; 
+
+                // set_system_log(log_type, details);
 
                 //if success reload ajax table
                 $('#modal_form').modal('hide');

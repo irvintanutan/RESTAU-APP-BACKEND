@@ -49,6 +49,86 @@ $route['delete-item/(:num)'] = 'Items/Items_controller/ajax_delete/$1';
 $route['showlist-items-api'] = 'Items/Items_controller/ajax_api_list';
 
 
+//************************************ UNITS ROUTES ****************************************************************
+//******************************************************************************************************************
+
+$route['units-page'] = 'Units/Units_controller';
+
+$route['showlist-units'] = 'Units/Units_controller/ajax_list';
+
+$route['add-unit'] = 'Units/Units_controller/ajax_add';
+
+$route['edit-unit/(:num)'] = 'Units/Units_controller/ajax_edit/$1';
+
+$route['update-unit'] = 'Units/Units_controller/ajax_update';
+
+$route['delete-unit/(:num)'] = 'Units/Units_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-units-api'] = 'Units/Units_controller/ajax_api_list';
+
+
+//************************************ SUPPLIERS ROUTES ****************************************************************
+//******************************************************************************************************************
+
+$route['suppliers-page'] = 'Suppliers/Suppliers_controller';
+
+$route['showlist-suppliers'] = 'Suppliers/Suppliers_controller/ajax_list';
+
+$route['add-supplier'] = 'Suppliers/Suppliers_controller/ajax_add';
+
+$route['edit-supplier/(:num)'] = 'Suppliers/Suppliers_controller/ajax_edit/$1';
+
+$route['update-supplier'] = 'Suppliers/Suppliers_controller/ajax_update';
+
+$route['delete-supplier/(:num)'] = 'Suppliers/Suppliers_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-items-api'] = 'Suppliers/Suppliers_controller/ajax_api_list';
+
+
+//************************************ PURCHASE ORDERS ROUTES ****************************************************************
+//******************************************************************************************************************
+
+$route['po-page'] = 'PO/PO_controller';
+
+$route['showlist-po'] = 'PO/PO_controller/ajax_list';
+
+$route['add-po'] = 'PO/PO_controller/ajax_add';
+
+$route['edit-po/(:num)'] = 'PO/PO_controller/ajax_edit/$1';
+
+$route['update-po'] = 'PO/PO_controller/ajax_update';
+
+$route['delete-po/(:num)'] = 'PO/PO_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-po-api'] = 'PO/PO_controller/ajax_api_list';
+
+
+//************************************ PURCHASE ORDERS TEMP ROUTES ****************************************************************
+//******************************************************************************************************************
+
+$route['po-temp-page'] = 'PO_temp/PO_temp_controller';
+
+$route['showlist-po-temp'] = 'PO_temp/PO_temp_controller/ajax_list';
+
+$route['add-po-temp'] = 'PO_temp/PO_temp_controller/ajax_add';
+
+$route['edit-po-temp/(:num)'] = 'PO_temp/PO_temp_controller/ajax_edit/$1';
+
+$route['update-po-temp'] = 'PO_temp/PO_temp_controller/ajax_update';
+
+$route['delete-po-temp/(:num)'] = 'PO_temp/PO_temp_controller/ajax_delete/$1';
+
+//======================================== API SECTION =================================================================
+
+$route['showlist-po-api'] = 'PO_temp/PO_temp_controller/ajax_api_list';
+
+
 //************************************ PRODUCTS ROUTES ****************************************************************
 //******************************************************************************************************************
 

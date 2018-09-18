@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 17, 2018 at 11:27 AM
+-- Generation Time: Sep 18, 2018 at 04:10 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -203,7 +203,10 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 (89, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-09-17 10:29:08'),
 (90, 'admin', 'Add', 'New%20product%20added:%20asd', '2018-09-17 10:29:25'),
 (91, 'um_developer', 'Add', 'New%20product%20added:%20rtrtrt', '2018-09-17 10:35:31'),
-(92, 'admin', 'Add', 'New%20product%20added:%20asdgg', '2018-09-17 10:41:06');
+(92, 'admin', 'Add', 'New%20product%20added:%20asdgg', '2018-09-17 10:41:06'),
+(93, 'um_developer', 'Add', 'New%20product%20added:%20aa', '2018-09-17 12:02:26'),
+(94, 'um_developer', 'Add', 'New%20product%20added:%20p', '2018-09-17 12:14:51'),
+(95, 'Adminlast, Adminfirst', 'Login', 'System user login as Administrator', '2018-09-18 16:00:54');
 
 -- --------------------------------------------------------
 
@@ -374,7 +377,9 @@ INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `pri
 (3, 'Cup of Rice', 'CupOfRice', 'Cup of rice tonner', 3, '30.00', '3_1_.jpg', 1, 0, '2018-08-22 10:18:14', 0),
 (4, 'asd', 'asd', 'asd', 1, '11.00', '4_1_.jpg', 0, 0, '2018-09-17 10:29:25', 0),
 (5, 'rtrtrt', 'rtrtr', 'rtrtr', 2, '1000.00', '5_1_.jpg', 0, 0, '2018-09-17 10:35:31', 0),
-(6, 'asdgg', 'gggg', 'gggg', 2, '22.00', '6_1_.jpg', 0, 0, '2018-09-17 10:41:06', 0);
+(6, 'asdgg', 'gggg', 'gggg', 2, '22.00', '6_1_.jpg', 0, 0, '2018-09-17 10:41:06', 0),
+(7, 'aa', 'aa', 'aa', 2, '12.00', '7_1_.jpg', 0, 0, '2018-09-17 12:02:26', 0),
+(8, 'p', 'p', 'p', 3, '15.00', '8_1_.jpg', 0, 0, '2018-09-17 12:14:51', 0);
 
 -- --------------------------------------------------------
 
@@ -930,7 +935,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -950,7 +955,7 @@ ALTER TABLE `po`
 -- AUTO_INCREMENT for table `pos`
 --
 ALTER TABLE `pos`
-  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `po_temp`
 --
@@ -960,7 +965,7 @@ ALTER TABLE `po_temp`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `prod_discounts`
 --

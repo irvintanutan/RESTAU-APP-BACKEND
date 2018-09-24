@@ -43,6 +43,20 @@ class Discounts_controller extends CI_Controller {
 
             $row[] = $discounts->encoded;
 
+            if ($discounts->disc_id == 1 || $discounts->disc_id == 2)
+            {
+                //add html for action
+                $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_discount('."'".$discounts->disc_id."'".')" disabled><i class="fa fa-pencil-square-o"></i></a>
+                          
+                          <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_discount('."'".$discounts->disc_id."'".', '."'".$discounts->name."'".')" disabled><i class="fa fa-trash"></i></a>';
+            }
+            else
+            {
+                //add html for action
+                $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_discount('."'".$discounts->disc_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
+                          
+                          <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_discount('."'".$discounts->disc_id."'".', '."'".$discounts->name."'".')"><i class="fa fa-trash"></i></a>';
+            }
             //add html for action
             $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_discount('."'".$discounts->disc_id."'".')"><i class="fa fa-pencil-square-o"></i></a>
                       

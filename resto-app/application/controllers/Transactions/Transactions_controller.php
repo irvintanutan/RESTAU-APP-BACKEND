@@ -911,6 +911,8 @@ class Transactions_controller extends CI_Controller {
         $amount_due_str = new item('Amount Due       Php', number_format($cash_amt, 2));
         $cash_amt_str = new item('CASH             Php', number_format($cash_amt, 2));
 
+        $printer -> pulse();
+
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
         // $printer -> graphics($logo);
@@ -1181,6 +1183,8 @@ class Transactions_controller extends CI_Controller {
 
 
         $gross_total = $this->trans_details->get_trans_gross($trans_id);
+
+        $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
         $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 

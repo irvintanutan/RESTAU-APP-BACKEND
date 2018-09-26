@@ -826,7 +826,7 @@ class Transactions_controller extends CI_Controller {
 
 
         /* Information for the receipt */
-        $store_name = wordwrap("KITCHEN", 15, "\n");
+        $title = wordwrap("KITCHEN", 15, "\n");
         
         $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
         $vat = ($store->vat / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
@@ -839,7 +839,7 @@ class Transactions_controller extends CI_Controller {
 
         /* Name of shop */
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-        $printer -> text($store_name . "\n");
+        $printer -> text($title . "\n");
         $printer -> selectPrintMode();
 
         $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
@@ -858,9 +858,6 @@ class Transactions_controller extends CI_Controller {
         $printer -> text(str_pad("", 33, '=', STR_PAD_BOTH) . "\n");
 
         /* Items */
-        $printer -> setEmphasis(true);
-        $printer -> text(new item('', 'Php'));
-        $printer -> setEmphasis(false);
         foreach ($items as $item) {
             $printer -> text($item);
         }
@@ -868,7 +865,78 @@ class Transactions_controller extends CI_Controller {
         $printer -> text(str_pad("", 33, '=', STR_PAD_BOTH) . "\n");
         
         /* Footer */
-        $printer -> feed();
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $printer -> text($date . "\n");
+
+        $printer -> text(str_pad("", 33, '_', STR_PAD_BOTH) . "\n");
+        
+        /* Cut the receipt and open the cash drawer */
+        $printer -> cut();
+
+        $printer -> close();
+
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function print_receipt_cook_updated($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $added_line_items, $voided_line_items)
+    {
+        /* Open the printer; this will change depending on how it is connected */
+        $connector = new WindowsPrintConnector("epsontmu");
+        $printer = new Printer($connector);
+
+        // $logo = EscposImage::load("cafe.png", false);
+
+
+        // fetch config data
+        $store = $this->store->get_by_id(1); // set 1 as ID since there is only 1 config entry
+
+
+        /* Information for the receipt */
+        $title = wordwrap("KITCHEN UPDATE DETAILS", 30, "\n");
+        
+        $date = date('D, j F Y h:i A'); // format: Wed, 4 July 2018 11:20 AM
+        $vat = ($store->vat / 100); // ------------------------------------------------------------------------- SAMPLE VAT AMOUNT
+
+        $items = $line_items;
+        $added_items = $added_line_items;
+        $voided_items = $voided_line_items;
+
+        /* Print top logo */
+        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        // $printer -> graphics($logo);
+
+        /* Name of shop */
+        $printer -> selectPrintMode();
+        $printer -> text($title . "\n");
+
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+        $printer -> text($table_str . "\n");
+        $printer -> text(str_pad("", 30, '*', STR_PAD_BOTH) . "\n");
+
+        /* Title of receipt */
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($order_type . "\n");
+        $printer -> selectPrintMode();
+
+        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer -> text(new item('Transaction#: ' . $trans_id, ''));
+        $printer -> text(new item('Staff: ' . $staff_username, ''));
+
+        $printer -> text(str_pad("ADDED", 33, '=', STR_PAD_BOTH) . "\n");
+
+        /* Items */
+        foreach ($added_items as $item) {
+            $printer -> text($item);
+        }
+
+        $printer -> text(str_pad("VOIDED", 33, '=', STR_PAD_BOTH) . "\n");
+
+        /* Items */
+        foreach ($voided_items as $item) {
+            $printer -> text($item);
+        }
+        
+        /* Footer */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
         $printer -> text($date . "\n");
 
@@ -988,6 +1056,8 @@ class Transactions_controller extends CI_Controller {
         $array = json_decode(json_encode($request), true);
 
         $line_items = array();
+        $added_line_items = array();
+        $voided_line_items = array();
         
         foreach ($array as $transaction) 
         {
@@ -996,10 +1066,11 @@ class Transactions_controller extends CI_Controller {
                 // insert new transaction ------------------------------------------------
                 $user_id = $details['user_id'];
                 $staff_username = $this->users->get_username($user_id);
+                $order_type = $details['order_type'];
 
                 $data = array(
 
-                        'order_type' => $details['order_type'], // DINE-IN, TAKE-OUT
+                        'order_type' => $order_type, // DINE-IN, TAKE-OUT
 
                         'status' => $details['status'], // ONGOING, CANCELLED
 
@@ -1011,8 +1082,33 @@ class Transactions_controller extends CI_Controller {
             
             // end insert new transaction ------------------------------------------------
 
-            // delete trans_details items for the specified trans_id ------------------------------
+            // store trans details to array for comparisson --------------------------------------------------
+            $trans_details_prod_id_arr = array();
+            $trans_details_prod_qty_arr = array();
+            $trans_details_prod_touch_arr = array();
 
+            $trans_details_pack_id_arr = array();
+            $trans_details_pack_qty_arr = array();
+            $trans_details_pack_touch_arr = array();
+
+            foreach ($this->trans_details->get_trans_detail_items($trans_id) as $curr_trans_details)
+            {
+                if ($curr_trans_details['prod_type'] == 0) // products
+                {
+                    $trans_details_prod_id_arr[] = $curr_trans_details['prod_id'];
+                    $trans_details_prod_qty_arr[] = $curr_trans_details['qty'];
+                    $trans_details_prod_touch_arr[] = 0;   
+                }
+                else if ($curr_trans_details['prod_type'] == 1) // packages
+                {
+                    $trans_details_pack_id_arr[] = $curr_trans_details['pack_id'];
+                    $trans_details_pack_qty_arr[] = $curr_trans_details['qty'];
+                    $trans_details_pack_touch_arr[] = 0;
+                }
+                             
+            }
+
+            // delete trans_details items for the specified trans_id ------------------------------
             $this->trans_details->delete_by_id_trans($trans_id);
 
             // ------------------------------------------------------------------------------------
@@ -1027,7 +1123,6 @@ class Transactions_controller extends CI_Controller {
                 $prod_qty = $products['qty'];
 
                 $prod_total = ($prod_price * $prod_qty);
-
 
                 // check if product is discounted
                 $check_discount = $this->prod_discounts->get_by_prod_id($prod_id);
@@ -1044,8 +1139,34 @@ class Transactions_controller extends CI_Controller {
                 $prod_total = ($prod_price * $prod_qty);
 
 
-                // insert new product to trans_details ---------------------------------------------
+                // compare if exist on current order list -----------------------------------------------------------------------
+                if (false !== $key = array_search($prod_id, $trans_details_prod_id_arr)) 
+                {
+                    if ($prod_qty < $trans_details_prod_qty_arr[$key])
+                    {
+                        $voided_prod_qty = ($prod_qty - $trans_details_prod_qty_arr[$key]);
+                        // add line item to line_items array
+                        $voided_line_items[] = new item($voided_prod_qty . " " . $prod_name, number_format($prod_total, 2));
 
+                        $trans_details_prod_touch_arr[$key] = 1; // item is now touched
+                    }
+                    else if ($prod_qty > $trans_details_prod_qty_arr[$key])
+                    {
+                        $added_prod_qty = ($prod_qty - $trans_details_prod_qty_arr[$key]);
+                        // add line item to line_items array
+                        $added_line_items[] = new item("+" . $added_prod_qty . " " . $prod_name, number_format($prod_total, 2));
+
+                        $trans_details_prod_touch_arr[$key] = 1; // item is now touched
+                    }
+                } 
+                else 
+                {
+                    // add line item to line_items array
+                    $added_line_items[] = new item("+" . $prod_qty . " " . $prod_name, number_format($prod_total, 2));
+                }
+
+
+                // insert new product to trans_details ---------------------------------------------
                 $data_products = array(
                     'trans_id' => $trans_id,
                     'prod_id' => $prod_id,
@@ -1061,6 +1182,24 @@ class Transactions_controller extends CI_Controller {
 
                 // add line item to line_items array
                 $line_items[] = new item($prod_qty . " " . $prod_name . " @" . $prod_price, number_format($prod_total, 2));
+            }
+
+            // check touched line items for update details list --------------------------------------------------------------
+            $i = 0;
+            foreach ($trans_details_prod_id_arr as $touched)
+            {
+                if ($trans_details_prod_touch_arr[$i] == 0)
+                {
+                    $prod_name = $this->products->get_product_short_name($trans_details_prod_id_arr[$i]);
+                    $prod_price = $this->products->get_product_price($trans_details_prod_id_arr[$i]);
+                    $prod_qty = $trans_details_prod_qty_arr[$i];
+
+                    $prod_total = ($prod_price * $prod_qty);
+
+                    $voided_line_items[] = new item("-" . $prod_qty . " " . $prod_name, number_format($prod_total, 2));
+                }
+
+                $i++;    
             }
 
             // get each package for trans_details  ------------------------------------------------
@@ -1089,7 +1228,6 @@ class Transactions_controller extends CI_Controller {
                 $pack_total = ($pack_price * $pack_qty);
 
                 // insert new package to trans_details ---------------------------------------------
-
                 $data_packages = array(
                     'trans_id' => $trans_id,
                     'pack_id' => $pack_id,
@@ -1107,11 +1245,9 @@ class Transactions_controller extends CI_Controller {
                 $line_items[] = new item($pack_qty . " " . $pack_name . " @" . $pack_price, number_format($pack_total, 2));
 
                 // get package product list ---------------------------------------------------------
-
                 $pack_products = $this->pack_details->get_pack_detail_products($pack_id);
 
                 // get each product of the package -----------------------------------------------------              
-                
                 foreach ($pack_products as $pack_products_list)
                 {
                     $pack_prod_id = $pack_products_list->prod_id;
@@ -1137,6 +1273,86 @@ class Transactions_controller extends CI_Controller {
                     // add line item to line_items array
                     $line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
                 }
+
+                // compare if exist on current order list -----------------------------------------------------------------------
+                if (false !== $key = array_search($pack_id, $trans_details_pack_id_arr)) 
+                {
+                    if ($pack_qty < $trans_details_pack_qty_arr[$key])
+                    {
+                        $voided_pack_qty = ($pack_qty - $trans_details_pack_qty_arr[$key]);
+                        // add line item to line_items array
+                        $voided_line_items[] = new item($voided_pack_qty . " " . $pack_name, number_format($pack_total, 2));
+
+                        $trans_details_pack_touch_arr[$key] = 1; // item is now touched
+
+                        // get each product of the package -----------------------------------------------------              
+                        foreach ($pack_products as $pack_products_list)
+                        {
+                            $pack_prod_id = $pack_products_list->prod_id;
+                            $pack_prod_name = $this->products->get_product_short_name($pack_prod_id);
+                            $pack_prod_qty = ($pack_products_list->qty * $voided_pack_qty); // multiply package product qty by pack_qty
+
+                            // add line item to line_items array
+                            $voided_line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
+                        }
+                    }
+                    else if ($pack_qty > $trans_details_pack_qty_arr[$key])
+                    {
+                        $added_pack_qty = ($pack_qty - $trans_details_pack_qty_arr[$key]);
+                        // add line item to line_items array
+                        $added_line_items[] = new item("+" . $added_pack_qty . " " . $pack_name, number_format($pack_total, 2));
+
+                        $trans_details_pack_touch_arr[$key] = 1; // item is now touched
+
+                        // get each product of the package -----------------------------------------------------              
+                        foreach ($pack_products as $pack_products_list)
+                        {
+                            $pack_prod_id = $pack_products_list->prod_id;
+                            $pack_prod_name = $this->products->get_product_short_name($pack_prod_id);
+                            $pack_prod_qty = ($pack_products_list->qty * $added_pack_qty); // multiply package product qty by pack_qty
+                            
+                            // add line item to line_items array
+                            $added_line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
+                        }
+                    }
+                } 
+                else 
+                {
+                    // add line item to line_items array
+                    $added_line_items[] = new item("+" . $pack_qty . " " . $pack_name, number_format($pack_total, 2));
+                }
+            }
+
+            // check touched line items for update details list --------------------------------------------------------------
+            $i = 0;
+            foreach ($trans_details_pack_id_arr as $touched)
+            {
+                if ($trans_details_pack_touch_arr[$i] == 0)
+                {
+                    $pack_name = $this->packages->get_package_short_name($trans_details_pack_id_arr[$i]);
+                    $pack_price = $this->packages->get_package_price($trans_details_pack_id_arr[$i]);
+                    $pack_qty = $trans_details_pack_qty_arr[$i];
+
+                    $pack_total = ($pack_price * $pack_qty);
+
+                    $voided_line_items[] = new item("-" . $pack_qty . " " . $pack_name, number_format($pack_total, 2));
+
+                    // get package product list ---------------------------------------------------------
+                    $pack_products = $this->pack_details->get_pack_detail_products($trans_details_pack_id_arr[$i]);
+
+                    // get each product of the package -----------------------------------------------------              
+                    foreach ($pack_products as $pack_products_list)
+                    {
+                        $pack_prod_id = $pack_products_list->prod_id;
+                        $pack_prod_name = $this->products->get_product_short_name($pack_prod_id);
+                        $pack_prod_qty = ($pack_products_list->qty * $pack_qty); // multiply package product qty by pack_qty
+                        
+                        // add line item to line_items array
+                        $added_line_items[] = new item("   " . $pack_prod_qty . " " . $pack_prod_name, "");
+                    }
+                }
+
+                $i++;    
             }
 
             // delete table_groups tables for the specified trans_id ------------------------------
@@ -1186,7 +1402,7 @@ class Transactions_controller extends CI_Controller {
 
         $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
-        $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
+        $this->print_receipt_cook_updated($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $added_line_items, $voided_line_items);
 
         // add transaction to trans_logs record --------------------------------------------------------
 

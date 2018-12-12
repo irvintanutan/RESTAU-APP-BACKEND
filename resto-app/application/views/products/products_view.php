@@ -71,7 +71,7 @@
                     <!--===================================================-->
                     <!-- End Striped Table -->
                     <div class="col-md-8">
-                        <span>Legend: [ &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i> - No assigned items &nbsp; | &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
+                        <span>Legend: [ &nbsp; <i style = "color: #ccccff;" class="fa fa-square"></i><i style = "color: #e6e6ff;" class="fa fa-square"></i> - No assigned items &nbsp; | &nbsp; <i style = "color: #ccff99;" class="fa fa-square"></i><i style = "color: #ccffcc;" class="fa fa-square"></i> - Best selling &nbsp; ]</span>
                     </div>
                     <?php
                         if ($this->session->userdata('administrator') == '1')

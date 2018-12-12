@@ -91,12 +91,31 @@
                     <div class="col-md-12">
                         <div id="page-content" class="panel panel-light panel-colorful col-md-12">
                         
+                            <?php 
+                                if ($prev_prev_year_total != 0)
+                                {
+                            ?>
+                                    <div id="container-prev-prev-net-sales" style="width: 80%; height: 100%; margin: 0 auto"></div>
+
+                                    <hr style="background-color: #ccccff; height: 5px;">
+                            <?php 
+                                }
+                            ?>        
+
+                            <?php 
+                                if ($prev_year_total != 0)
+                                {
+                            ?>
+                                    <div id="container-prev-net-sales" style="width: 80%; height: 100%; margin: 0 auto"></div>
+
+                                    <hr style="background-color: #ccccff; height: 5px;">
+                            <?php 
+                                }
+                            ?>
                             <div class="panel-heading">
                                 <h3 class="panel-title col-md-9">Net Sales ( Results as of <?php echo date('l, F j, Y', strtotime(date('Y-m-d'))); ?> )</h3>
-                                <h3 class="panel-title col-md-3">Net Sales ( Results as of <?php echo date('l, F j, Y', strtotime(date('Y-m-d'))); ?> )</h3>
                             </div>
                             <br>
-
                             <div id="container-current-net-sales" style="width: 80%; height: 100%; margin: 0 auto"></div>
 
                             <!-- Hidden input files to be fetched by charts (MONTHLY REGISTRATION LINE CHART)-->
@@ -119,6 +138,50 @@
                             <input type="hidden" value=<?php echo "'" . $dec . "'"; ?> name="dec"/>
 
                             <input type="hidden" value=<?php echo "'" . $year_total . "'"; ?> name="year_total"/>
+
+
+
+
+                            <input type="hidden" value=<?php echo "'" . $prev_year . "'"; ?> name="prev_year"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_jan . "'"; ?> name="prev_jan"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_feb . "'"; ?> name="prev_feb"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_mar . "'"; ?> name="prev_mar"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_apr . "'"; ?> name="prev_apr"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_may . "'"; ?> name="prev_may"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_jun . "'"; ?> name="prev_jun"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_jul . "'"; ?> name="prev_jul"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_aug . "'"; ?> name="prev_aug"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_sep . "'"; ?> name="prev_sep"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_oct . "'"; ?> name="prev_oct"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_nov . "'"; ?> name="prev_nov"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_dec . "'"; ?> name="prev_dec"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_year_total . "'"; ?> name="prev_year_total"/>
+
+
+
+
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_year . "'"; ?> name="prev_prev_year"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_jan . "'"; ?> name="prev_prev_jan"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_feb . "'"; ?> name="prev_prev_feb"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_mar . "'"; ?> name="prev_prev_mar"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_apr . "'"; ?> name="prev_prev_apr"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_may . "'"; ?> name="prev_prev_may"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_jun . "'"; ?> name="prev_prev_jun"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_jul . "'"; ?> name="prev_prev_jul"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_aug . "'"; ?> name="prev_prev_aug"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_sep . "'"; ?> name="prev_prev_sep"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_oct . "'"; ?> name="prev_prev_oct"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_nov . "'"; ?> name="prev_prev_nov"/>
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_dec . "'"; ?> name="prev_prev_dec"/>
+
+                            <input type="hidden" value=<?php echo "'" . $prev_prev_year_total . "'"; ?> name="prev_prev_year_total"/>
                             
                         </div>
                     </div>

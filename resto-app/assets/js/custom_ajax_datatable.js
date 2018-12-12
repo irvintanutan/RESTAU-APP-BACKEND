@@ -329,7 +329,16 @@ $(document).ready(function()
                   }
                   else if (row_count == 0) 
                   {
-                     $node.css('background-color', '#ccccff');
+                    function isOdd(num) { return num % 2;}
+
+                    if (isOdd(index) == 1) // to have different color when changed color is in sequence
+                    {
+                      $node.css('background-color', '#ccccff');
+                    }
+                    else
+                    {
+                      $node.css('background-color', '#e6e6ff');
+                    }
                   }
                 }
             });
@@ -4847,7 +4856,7 @@ if (document.getElementById("container-current-net-sales"))
             type: 'line'
         },
         title: {
-            text: 'Monthly Total Net Sales for Year ( ' + current_year + ' ): ₱ ' + year_total
+            text: 'Monthly Total Net Sales for Year ( <b>' + current_year + '</b> ): ₱ ' + year_total
         },
         subtitle: {
             text: 'January to December ' + current_year
@@ -4882,7 +4891,7 @@ if (document.getElementById("container-current-net-sales"))
 }
 
 // check if div exist (execute if in dashboard page only) // chart for registration count
-if (document.getElementById("container-interests-prev")) 
+if (document.getElementById("container-prev-net-sales")) 
 {
     // fetch registrations data
     var prev_year = $('[name="prev_year"]').val();
@@ -4904,12 +4913,12 @@ if (document.getElementById("container-interests-prev"))
 
     var prev_year_total = $('[name="prev_year_total"]').val();
 
-        Highcharts.chart('container-interests-prev', {
+        Highcharts.chart('container-prev-net-sales', {
         chart: {
             type: 'line'
         },
         title: {
-            text: 'Monthly Total Loan Interests / Net Profit for Year ( ' + prev_year + ' ): ₱ ' + prev_year_total
+            text: 'Monthly Total Net Sales for Year ( <b>' + prev_year + '</b> ): ₱ ' + prev_year_total
         },
         subtitle: {
             text: 'January to December ' + prev_year
@@ -4919,7 +4928,7 @@ if (document.getElementById("container-interests-prev"))
         },
         yAxis: {
             title: {
-                text: 'Interest Values in Php Amount'
+                text: 'Net Sales Value in Php Amount'
             }
         },
         plotOptions: {
@@ -4937,9 +4946,70 @@ if (document.getElementById("container-interests-prev"))
             }
         },
         series: [{
-            name: 'Monthly Total Interest',
-            data: [prev_jan, prev_feb, prev_mar, prev_apr, prev_may, prev_jun, 
-            prev_jul, prev_aug, prev_sep, prev_oct, prev_nov, prev_dec]
+            name: 'Monthly Total Net Sales',
+            data: [prev_jan, prev_feb, prev_mar, prev_apr, prev_may, prev_jun, prev_jul, prev_aug, prev_sep, prev_oct, prev_nov, prev_dec]
+        }]
+    });
+}
+
+// check if div exist (execute if in dashboard page only) // chart for registration count
+if (document.getElementById("container-prev-prev-net-sales")) 
+{
+    // fetch registrations data
+    var prev_prev_year = $('[name="prev_prev_year"]').val();
+
+    var prev_prev_jan = parseFloat($('[name="prev_prev_jan"]').val());
+    var prev_prev_feb = parseFloat($('[name="prev_prev_feb"]').val());
+    var prev_prev_mar = parseFloat($('[name="prev_prev_mar"]').val());
+    var prev_prev_apr = parseFloat($('[name="prev_prev_apr"]').val());
+
+    var prev_prev_may = parseFloat($('[name="prev_prev_may"]').val());
+    var prev_prev_jun = parseFloat($('[name="prev_prev_jun"]').val());
+    var prev_prev_jul = parseFloat($('[name="prev_prev_jul"]').val());
+    var prev_prev_aug = parseFloat($('[name="prev_prev_aug"]').val());
+
+    var prev_prev_sep = parseFloat($('[name="prev_prev_sep"]').val());
+    var prev_prev_oct = parseFloat($('[name="prev_prev_oct"]').val());
+    var prev_prev_nov = parseFloat($('[name="prev_prev_nov"]').val());
+    var prev_prev_dec = parseFloat($('[name="prev_prev_dec"]').val());
+
+    var prev_prev_year_total = $('[name="prev_prev_year_total"]').val();
+
+        Highcharts.chart('container-prev-prev-net-sales', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Monthly Total Net Sales for Year ( <b>' + prev_prev_year + '</b> ): ₱ ' + prev_prev_year_total
+        },
+        subtitle: {
+            text: 'January to December ' + prev_prev_year
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Net Sales Value in Php Amount'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true,
+                    formatter: function () {
+                            return Highcharts.numberFormat(this.y,2);
+                        }    
+                },
+                enableMouseTracking: true,
+                tooltip: {
+                    pointFormat: '<b style="color:#66cccc;">●</b> {series.name}: <b>₱ {point.y}.00</b>'
+                }
+            }
+        },
+        series: [{
+            name: 'Monthly Total Net Sales',
+            data: [prev_prev_jan, prev_prev_feb, prev_prev_mar, prev_prev_apr, prev_prev_may, prev_prev_jun, prev_prev_jul, prev_prev_aug, prev_prev_sep, prev_prev_oct, prev_prev_nov, prev_prev_dec]
         }]
     });
 }

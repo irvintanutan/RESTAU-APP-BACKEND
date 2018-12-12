@@ -153,27 +153,68 @@ class Statistics_controller extends CI_Controller {
 
         $current_year = date('Y');
 
-        $jan = $this->transactions->get_monthly_net_sales('01', $current_year);
-        $feb = $this->transactions->get_monthly_net_sales('02', $current_year);
-        $mar = $this->transactions->get_monthly_net_sales('03', $current_year);
-        $apr = $this->transactions->get_monthly_net_sales('04', $current_year);
+        $jan = $this->transactions->get_monthly_net_sales_stats('01', $current_year);
+        $feb = $this->transactions->get_monthly_net_sales_stats('02', $current_year);
+        $mar = $this->transactions->get_monthly_net_sales_stats('03', $current_year);
+        $apr = $this->transactions->get_monthly_net_sales_stats('04', $current_year);
 
-        $may = $this->transactions->get_monthly_net_sales('05', $current_year);
-        $jun = $this->transactions->get_monthly_net_sales('06', $current_year);
-        $jul = $this->transactions->get_monthly_net_sales('07', $current_year);
-        $aug = $this->transactions->get_monthly_net_sales('08', $current_year);
+        $may = $this->transactions->get_monthly_net_sales_stats('05', $current_year);
+        $jun = $this->transactions->get_monthly_net_sales_stats('06', $current_year);
+        $jul = $this->transactions->get_monthly_net_sales_stats('07', $current_year);
+        $aug = $this->transactions->get_monthly_net_sales_stats('08', $current_year);
 
-        $sep = $this->transactions->get_monthly_net_sales('09', $current_year);
-        $oct = $this->transactions->get_monthly_net_sales('10', $current_year);
-        $nov = $this->transactions->get_monthly_net_sales('11', $current_year);
-        $dec = $this->transactions->get_monthly_net_sales('12', $current_year);
+        $sep = $this->transactions->get_monthly_net_sales_stats('09', $current_year);
+        $oct = $this->transactions->get_monthly_net_sales_stats('10', $current_year);
+        $nov = $this->transactions->get_monthly_net_sales_stats('11', $current_year);
+        $dec = $this->transactions->get_monthly_net_sales_stats('12', $current_year);
 
         $year_total = ($jan + $feb + $mar + $apr + $may + $jun + $jul + $aug + $sep + $oct + $nov + $dec);
 
 
 
-        $data['current_year'] = $current_year;
+        $prev_year = $current_year - 1;
 
+        $prev_jan = $this->transactions->get_monthly_net_sales_stats('01', $prev_year);
+        $prev_feb = $this->transactions->get_monthly_net_sales_stats('02', $prev_year);
+        $prev_mar = $this->transactions->get_monthly_net_sales_stats('03', $prev_year);
+        $prev_apr = $this->transactions->get_monthly_net_sales_stats('04', $prev_year);
+
+        $prev_may = $this->transactions->get_monthly_net_sales_stats('05', $prev_year);
+        $prev_jun = $this->transactions->get_monthly_net_sales_stats('06', $prev_year);
+        $prev_jul = $this->transactions->get_monthly_net_sales_stats('07', $prev_year);
+        $prev_aug = $this->transactions->get_monthly_net_sales_stats('08', $prev_year);
+
+        $prev_sep = $this->transactions->get_monthly_net_sales_stats('09', $prev_year);
+        $prev_oct = $this->transactions->get_monthly_net_sales_stats('10', $prev_year);
+        $prev_nov = $this->transactions->get_monthly_net_sales_stats('11', $prev_year);
+        $prev_dec = $this->transactions->get_monthly_net_sales_stats('12', $prev_year);
+
+        $prev_year_total = ($prev_jan + $prev_feb + $prev_mar + $prev_apr + $prev_may + $prev_jun + $prev_jul + $prev_aug + $prev_sep + $prev_oct + $prev_nov + $prev_dec);
+
+
+
+        $prev_prev_year = $current_year - 2;
+
+        $prev_prev_jan = $this->transactions->get_monthly_net_sales_stats('01', $prev_prev_year);
+        $prev_prev_feb = $this->transactions->get_monthly_net_sales_stats('02', $prev_prev_year);
+        $prev_prev_mar = $this->transactions->get_monthly_net_sales_stats('03', $prev_prev_year);
+        $prev_prev_apr = $this->transactions->get_monthly_net_sales_stats('04', $prev_prev_year);
+
+        $prev_prev_may = $this->transactions->get_monthly_net_sales_stats('05', $prev_prev_year);
+        $prev_prev_jun = $this->transactions->get_monthly_net_sales_stats('06', $prev_prev_year);
+        $prev_prev_jul = $this->transactions->get_monthly_net_sales_stats('07', $prev_prev_year);
+        $prev_prev_aug = $this->transactions->get_monthly_net_sales_stats('08', $prev_prev_year);
+
+        $prev_prev_sep = $this->transactions->get_monthly_net_sales_stats('09', $prev_prev_year);
+        $prev_prev_oct = $this->transactions->get_monthly_net_sales_stats('10', $prev_prev_year);
+        $prev_prev_nov = $this->transactions->get_monthly_net_sales_stats('11', $prev_prev_year);
+        $prev_prev_dec = $this->transactions->get_monthly_net_sales_stats('12', $prev_prev_year);
+
+        $prev_prev_year_total = ($prev_prev_jan + $prev_prev_feb + $prev_prev_mar + $prev_prev_apr + $prev_prev_may + $prev_prev_jun + $prev_prev_jul + $prev_prev_aug + $prev_prev_sep + $prev_prev_oct + $prev_prev_nov + $prev_prev_dec);
+
+
+        $data['current_year'] = $current_year;
+        
         $data['jan'] = $jan;
         $data['feb'] = $feb;
         $data['mar'] = $mar;
@@ -190,6 +231,48 @@ class Statistics_controller extends CI_Controller {
         $data['dec'] = $dec;
 
         $data['year_total'] = number_format($year_total, 2, '.', ',');
+
+        
+
+        $data['prev_year'] = $prev_year;
+        
+        $data['prev_jan'] = $prev_jan;
+        $data['prev_feb'] = $prev_feb;
+        $data['prev_mar'] = $prev_mar;
+        $data['prev_apr'] = $prev_apr;
+
+        $data['prev_may'] = $prev_may;
+        $data['prev_jun'] = $prev_jun;
+        $data['prev_jul'] = $prev_jul;
+        $data['prev_aug'] = $prev_aug;
+
+        $data['prev_sep'] = $prev_sep;
+        $data['prev_oct'] = $prev_oct;
+        $data['prev_nov'] = $prev_nov;
+        $data['prev_dec'] = $prev_dec;
+
+        $data['prev_year_total'] = number_format($prev_year_total, 2, '.', ',');
+
+
+
+        $data['prev_prev_year'] = $prev_prev_year;
+        
+        $data['prev_prev_jan'] = $prev_prev_jan;
+        $data['prev_prev_feb'] = $prev_prev_feb;
+        $data['prev_prev_mar'] = $prev_prev_mar;
+        $data['prev_prev_apr'] = $prev_prev_apr;
+
+        $data['prev_prev_may'] = $prev_prev_may;
+        $data['prev_prev_jun'] = $prev_prev_jun;
+        $data['prev_prev_jul'] = $prev_prev_jul;
+        $data['prev_prev_aug'] = $prev_prev_aug;
+
+        $data['prev_prev_sep'] = $prev_prev_sep;
+        $data['prev_prev_oct'] = $prev_prev_oct;
+        $data['prev_prev_nov'] = $prev_prev_nov;
+        $data['prev_prev_dec'] = $prev_prev_dec;
+
+        $data['prev_prev_year_total'] = number_format($prev_prev_year_total, 2, '.', ',');
 
         $data['title'] = '<i class="fa fa-pie-chart"></i> <i class="fa fa-area-chart"></i> <i class="fa fa-bar-chart"></i> Statistics / Charts';
         $this->load->view('template/dashboard_header',$data);

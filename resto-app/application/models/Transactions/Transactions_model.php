@@ -310,6 +310,27 @@ class Transactions_model extends CI_Model {
         return $query->row()->total + 0;
     }
 
+    // get monthly net sales specified by month and year
+    public function get_monthly_net_sales_stats($month, $year)
+    {
+        $this->db->select('SUM(cash_amt - change_amt) AS total');    
+        
+        $this->db->from($this->table);
+
+        $date_from = $year . '-' . $month . '-01 00:00:00';
+        $date_to = $year . '-' . $month . '-31 23:59:59';
+
+        $status = array('CLEARED', 'REFUNDED');
+        $this->db->where_in('status', $status);
+
+        $this->db->where('datetime >=', $date_from);
+        $this->db->where('datetime <=', $date_to);
+        
+        $query = $this->db->get();
+
+        return $query->row()->total;
+    }
+
     // get daily net sales
     public function get_daily_net_sales($date)
     {

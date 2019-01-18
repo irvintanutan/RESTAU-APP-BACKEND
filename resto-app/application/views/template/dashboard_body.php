@@ -6,14 +6,14 @@
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div id="page-title">
                     <div class="col-md-2">
-                        <img src=<?php echo "'assets/img/" . $store->img . "'"; ?> style="width: 100%; margin-top: 0%; margin-right: 3%;">
+                        <img src=<?php echo "'assets/img/" . $store->img . "'"; ?> style="width: 85%; margin-top: 0%; margin-right: 3%;">
                     </div>
                     <div class="col-md-7">
-                        <h1 class="page-header text-overflow"><br><br><b><?php echo $store->name; ?></b><br><span style="font-size: 16px;">R e s t o A p p | Restaurant Point of Sales App by InnoTech Solutions</span></h1>
+                        <h1 class="page-header text-overflow"><br><br><b><?php echo $store->name; ?></b><br><span style="font-size: 16px;">Restau App | Restaurant Point of Sales App by TaTo Software Technology Services</span></h1>
                     </div>
 
-                    <div class="col-md-3"><br><br><br><br>
-                        <h1 class="page-header text-overflow" align="center">[ <?php echo $title; ?> ]</h1>
+                    <div class="col-md-3">
+                        <img src=<?php echo "assets/img/tatotechlogo.png"; ?> style="width: 50%; margin-bottom: -1%; margin-left: 0%;"><br>
                     </div>
 
                     <!-- For alert and notifications assets/js/demo/nifty-demo.js-->

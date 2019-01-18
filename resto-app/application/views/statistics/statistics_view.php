@@ -32,6 +32,8 @@
                 <!--Page content-->
                 <!--===================================================-->
 
+                <div id="page-content">
+
                 <div class="col-md-12">
                     <div class="col-md-5">
                         <div id="page-content" class="panel panel-light panel-colorful col-md-12">
@@ -239,6 +241,7 @@
                             
                         </div>
                     </div>
+                    <div class="col-md-12"><hr></div>
                 </div>
 
                 
@@ -246,8 +249,7 @@
                         
 
 
-                    
-
+                
 
 
 

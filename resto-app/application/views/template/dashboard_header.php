@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resto App | Restaurant Point of Sale
+    <title>Restau App | Restaurant Point of Sale
     </title>
     <!--STYLESHEET-->
     <!--=================================================-->
@@ -78,9 +78,9 @@ Detailed information and more samples can be found in the document.
             <!--================================-->
             <div class="navbar-header">
               <a href="<?php echo base_url();?>dashboard" class="navbar-brand">
-                <img src="<?php echo base_url();?>assets/img/logo.png" alt="InnoTechSolutions" class="brand-icon">
+                <img src="<?php echo base_url();?>assets/img/logo.png" alt="TaToTech" class="brand-icon">
                 <div class="brand-title">
-                  <span class="brand-text" style="margin-left: 2px;">InnoTechSolutions
+                  <span class="brand-text" style="margin-left: 2px;">&nbsp;&nbsp;&nbsp; TaToTech
                   </span>
 
                 </div>

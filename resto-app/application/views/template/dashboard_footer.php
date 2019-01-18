@@ -1,13 +1,12 @@
 		<!-- FOOTER -->
 		<!--===================================================-->
 		<footer id="footer">
-			<!-- Visible when footer positions are static -->
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-			<!-- Remove the class name "show-fixed" and "hide-fixed" to make the content always appears. -->
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+			<div class="col-md-12">
+				<div class="col-md-4 pull-right">
+					<span style="text-align: right">Restau App v 1.2.0 by TaToTech (TaTo Software Technology Services) © 2018</span>
+				</div>
+			</div>
+			
 		</footer>
 		<!--===================================================-->
 		<!-- END FOOTER -->

@@ -1095,7 +1095,7 @@ class Transactions_controller extends CI_Controller {
         $printer -> text($date . "\n");
 
         $printer -> feed();
-        $printer -> text("Innotech Solutions\n");
+        $printer -> text("TaTo Software Tech Services\n");
         $printer -> text("Thank You Come Again\n");
         $printer -> text(str_pad("", 33, '_', STR_PAD_BOTH) . "\n");
         
@@ -1471,7 +1471,9 @@ class Transactions_controller extends CI_Controller {
 
         $gross_total = $this->trans_details->get_trans_gross($trans_id);
 
-        $this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
+        // UPDATED AS OF JAN 18 2019, AS PER REQUEST TO LESSEN LOLO ERNINGS RECEIPT PAPER EXPENSES (REMOVED MASTER LIST)
+
+        //$this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
         $this->print_receipt_cook_updated_1($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $added_line_items, $voided_line_items);
 

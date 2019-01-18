@@ -1493,7 +1493,7 @@ class Trans_details_controller extends CI_Controller {
         $printer -> text($date . "\n");
 
         $printer -> feed();
-        $printer -> text("Innotech Solutions\n");
+        $printer -> text("TaTo Software Tech Services\n");
         $printer -> text("Thank You Come Again\n");
         $printer -> text(str_pad("", 33, '_', STR_PAD_BOTH) . "\n");
         

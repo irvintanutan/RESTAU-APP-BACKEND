@@ -1475,7 +1475,7 @@ class Transactions_controller extends CI_Controller {
 
         //$this->print_receipt_cook($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total);
 
-        $this->print_receipt_cook_updated_1($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $added_line_items, $voided_line_items);
+        //$this->print_receipt_cook_updated_1($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $added_line_items, $voided_line_items);
 
         $this->print_receipt_cook_updated_2($line_items, $order_type, $trans_id, $staff_username, $table_str, $gross_total, $added_line_items, $voided_line_items);
 

@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Dec 16, 2019 at 07:21 PM
--- Server version: 5.7.28-0ubuntu0.18.04.4
--- PHP Version: 7.2.24-0ubuntu0.18.04.1
+-- Host: 127.0.0.1
+-- Generation Time: Jun 11, 2019 at 02:10 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,10 +30,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categories` (
   `cat_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `descr` varchar(200) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `descr` varchar(200) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -59,12 +61,12 @@ INSERT INTO `categories` (`cat_id`, `name`, `descr`, `encoded`, `removed`) VALUE
 
 CREATE TABLE `discounts` (
   `disc_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `descr` varchar(200) DEFAULT NULL,
-  `less_p` int(11) DEFAULT NULL COMMENT 'less by percentage',
-  `less_c` decimal(10,2) DEFAULT NULL COMMENT 'less by cash',
+  `name` varchar(45) NOT NULL,
+  `descr` varchar(200) NOT NULL,
+  `less_p` int(11) NOT NULL COMMENT 'less by percentage',
+  `less_c` decimal(10,2) NOT NULL COMMENT 'less by cash',
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -83,13 +85,13 @@ INSERT INTO `discounts` (`disc_id`, `name`, `descr`, `less_p`, `less_c`, `encode
 
 CREATE TABLE `items` (
   `item_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `descr` varchar(200) DEFAULT NULL,
-  `type` varchar(20) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `descr` varchar(200) NOT NULL,
+  `type` varchar(20) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL,
-  `stock_in` int(11) DEFAULT NULL,
-  `stock_out` int(11) DEFAULT NULL
+  `removed` int(1) NOT NULL,
+  `stock_in` int(11) NOT NULL,
+  `stock_out` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -109,9 +111,9 @@ INSERT INTO `items` (`item_id`, `name`, `descr`, `type`, `encoded`, `removed`, `
 
 CREATE TABLE `logs` (
   `log_id` int(11) NOT NULL,
-  `user_fullname` varchar(45) DEFAULT NULL,
-  `log_type` varchar(45) DEFAULT NULL,
-  `details` varchar(250) DEFAULT NULL,
+  `user_fullname` varchar(45) NOT NULL,
+  `log_type` varchar(45) NOT NULL,
+  `details` varchar(250) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1089,14 +1091,14 @@ INSERT INTO `logs` (`log_id`, `user_fullname`, `log_type`, `details`, `date_time
 
 CREATE TABLE `packages` (
   `pack_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `short_name` varchar(12) DEFAULT NULL,
-  `descr` varchar(200) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `img` varchar(20) DEFAULT NULL,
-  `sold` int(11) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `short_name` varchar(12) NOT NULL,
+  `descr` varchar(200) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `img` varchar(20) NOT NULL,
+  `sold` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1106,9 +1108,9 @@ CREATE TABLE `packages` (
 --
 
 CREATE TABLE `pack_details` (
-  `pack_id` int(11) DEFAULT NULL,
-  `prod_id` int(11) DEFAULT NULL,
-  `qty` int(11) DEFAULT NULL,
+  `pack_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1120,14 +1122,14 @@ CREATE TABLE `pack_details` (
 
 CREATE TABLE `pack_discounts` (
   `pd_id` int(11) NOT NULL,
-  `pack_id` int(11) DEFAULT NULL,
-  `remarks` varchar(200) DEFAULT NULL,
-  `date_start` varchar(20) DEFAULT NULL,
-  `date_end` varchar(20) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL,
-  `new_price` decimal(10,2) DEFAULT NULL,
+  `pack_id` int(11) NOT NULL,
+  `remarks` varchar(200) NOT NULL,
+  `date_start` varchar(20) NOT NULL,
+  `date_end` varchar(20) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `new_price` decimal(10,2) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1138,10 +1140,10 @@ CREATE TABLE `pack_discounts` (
 
 CREATE TABLE `po` (
   `po_id` int(11) NOT NULL,
-  `supplier_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `date` varchar(10) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date` varchar(10) NOT NULL,
+  `status` varchar(20) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1153,10 +1155,10 @@ CREATE TABLE `po` (
 
 CREATE TABLE `pos` (
   `pos_id` int(11) NOT NULL,
-  `pos_name` varchar(100) DEFAULT NULL,
-  `hardware_id` varchar(45) DEFAULT NULL,
-  `software_id` varchar(45) DEFAULT NULL,
-  `receipt_count` int(11) DEFAULT NULL,
+  `pos_name` varchar(100) NOT NULL,
+  `hardware_id` varchar(45) NOT NULL,
+  `software_id` varchar(45) NOT NULL,
+  `receipt_count` int(11) NOT NULL,
   `activated` int(1) NOT NULL DEFAULT '0',
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1179,12 +1181,12 @@ INSERT INTO `pos` (`pos_id`, `pos_name`, `hardware_id`, `software_id`, `receipt_
 --
 
 CREATE TABLE `po_details` (
-  `po_id` int(11) DEFAULT NULL,
-  `num` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `unit_id` int(11) DEFAULT NULL,
-  `unit_qty` int(11) DEFAULT NULL,
-  `pcs_qty` int(11) DEFAULT NULL
+  `po_id` int(11) NOT NULL,
+  `num` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `unit_qty` int(11) NOT NULL,
+  `pcs_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1195,10 +1197,10 @@ CREATE TABLE `po_details` (
 
 CREATE TABLE `po_temp` (
   `num` int(11) NOT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `unit_id` int(11) DEFAULT NULL,
-  `unit_qty` int(11) DEFAULT NULL,
-  `pcs_qty` int(11) DEFAULT NULL
+  `item_id` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `unit_qty` int(11) NOT NULL,
+  `pcs_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1209,16 +1211,16 @@ CREATE TABLE `po_temp` (
 
 CREATE TABLE `products` (
   `prod_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `short_name` varchar(12) DEFAULT NULL,
-  `descr` varchar(200) DEFAULT NULL,
-  `cat_id` int(11) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `img` varchar(20) DEFAULT NULL,
-  `sold` int(11) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `short_name` varchar(12) NOT NULL,
+  `descr` varchar(200) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `img` varchar(20) NOT NULL,
+  `sold` int(11) NOT NULL,
   `sold_pack` int(11) NOT NULL DEFAULT '0',
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1319,9 +1321,9 @@ INSERT INTO `products` (`prod_id`, `name`, `short_name`, `descr`, `cat_id`, `pri
 --
 
 CREATE TABLE `prod_details` (
-  `prod_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `qty` int(11) DEFAULT NULL,
+  `prod_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1333,14 +1335,14 @@ CREATE TABLE `prod_details` (
 
 CREATE TABLE `prod_discounts` (
   `pd_id` int(11) NOT NULL,
-  `prod_id` int(11) DEFAULT NULL,
-  `remarks` varchar(200) DEFAULT NULL,
-  `date_start` varchar(20) DEFAULT NULL,
-  `date_end` varchar(20) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL,
-  `new_price` decimal(10,2) DEFAULT NULL,
+  `prod_id` int(11) NOT NULL,
+  `remarks` varchar(200) NOT NULL,
+  `date_start` varchar(20) NOT NULL,
+  `date_end` varchar(20) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `new_price` decimal(10,2) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1351,17 +1353,17 @@ CREATE TABLE `prod_discounts` (
 
 CREATE TABLE `store_config` (
   `conf_id` int(11) NOT NULL,
-  `branch_id` int(4) DEFAULT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `city` varchar(45) DEFAULT NULL,
-  `telephone` varchar(45) DEFAULT NULL,
-  `mobile` varchar(45) DEFAULT NULL,
-  `tin` varchar(45) DEFAULT NULL,
-  `vat` int(11) DEFAULT NULL,
-  `bs_price` decimal(10,2) DEFAULT NULL,
-  `img` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL
+  `branch_id` int(4) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `telephone` varchar(45) NOT NULL,
+  `mobile` varchar(45) NOT NULL,
+  `tin` varchar(45) NOT NULL,
+  `vat` int(11) NOT NULL,
+  `bs_price` decimal(10,2) NOT NULL,
+  `img` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1379,13 +1381,13 @@ INSERT INTO `store_config` (`conf_id`, `branch_id`, `name`, `address`, `city`, `
 
 CREATE TABLE `suppliers` (
   `supplier_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `address` varchar(200) DEFAULT NULL,
-  `city` varchar(45) DEFAULT NULL,
-  `contact` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `contact` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1396,29 +1398,29 @@ CREATE TABLE `suppliers` (
 
 CREATE TABLE `s_readings` (
   `reading_no` int(11) NOT NULL,
-  `pos_no` int(11) DEFAULT NULL,
-  `cashier_username` varchar(45) DEFAULT NULL,
-  `date` varchar(20) DEFAULT NULL,
-  `trans_count_dine_in` int(11) DEFAULT NULL,
-  `trans_count_take_out` int(11) DEFAULT NULL,
-  `trans_count_total` int(11) DEFAULT NULL,
-  `trans_count_cleared` int(11) DEFAULT NULL,
-  `trans_count_cancelled` int(11) DEFAULT NULL,
-  `trans_count_refunded` int(11) DEFAULT NULL,
-  `void_items_count` int(11) DEFAULT NULL,
-  `net_sales` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_sc` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_pwd` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_promo` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_total` decimal(10,2) DEFAULT NULL,
-  `gross_sales` decimal(10,2) DEFAULT NULL,
-  `cancelled_sales` decimal(10,2) DEFAULT NULL,
-  `refunded_sales` decimal(10,2) DEFAULT NULL,
-  `vat_sales` decimal(10,2) DEFAULT NULL,
-  `vat_amount` decimal(10,2) DEFAULT NULL,
-  `vat_exempt` decimal(10,2) DEFAULT NULL,
-  `start_rcpt_no` int(11) DEFAULT NULL,
-  `end_rcpt_no` int(11) DEFAULT NULL,
+  `pos_no` int(11) NOT NULL,
+  `cashier_username` varchar(45) NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `trans_count_dine_in` int(11) NOT NULL,
+  `trans_count_take_out` int(11) NOT NULL,
+  `trans_count_total` int(11) NOT NULL,
+  `trans_count_cleared` int(11) NOT NULL,
+  `trans_count_cancelled` int(11) NOT NULL,
+  `trans_count_refunded` int(11) NOT NULL,
+  `void_items_count` int(11) NOT NULL,
+  `net_sales` decimal(10,2) NOT NULL,
+  `discounts_rendered_sc` decimal(10,2) NOT NULL,
+  `discounts_rendered_pwd` decimal(10,2) NOT NULL,
+  `discounts_rendered_promo` decimal(10,2) NOT NULL,
+  `discounts_rendered_total` decimal(10,2) NOT NULL,
+  `gross_sales` decimal(10,2) NOT NULL,
+  `cancelled_sales` decimal(10,2) NOT NULL,
+  `refunded_sales` decimal(10,2) NOT NULL,
+  `vat_sales` decimal(10,2) NOT NULL,
+  `vat_amount` decimal(10,2) NOT NULL,
+  `vat_exempt` decimal(10,2) NOT NULL,
+  `start_rcpt_no` int(11) NOT NULL,
+  `end_rcpt_no` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1658,10 +1660,10 @@ INSERT INTO `s_readings` (`reading_no`, `pos_no`, `cashier_username`, `date`, `t
 
 CREATE TABLE `tables` (
   `tbl_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `status` int(1) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `status` int(1) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1692,8 +1694,8 @@ INSERT INTO `tables` (`tbl_id`, `name`, `status`, `encoded`, `removed`) VALUES
 
 CREATE TABLE `table_groups` (
   `tbl_grp_id` int(11) NOT NULL,
-  `trans_id` int(11) DEFAULT NULL,
-  `tbl_id` int(11) DEFAULT NULL
+  `trans_id` int(11) NOT NULL,
+  `tbl_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1712,18 +1714,18 @@ INSERT INTO `table_groups` (`tbl_grp_id`, `trans_id`, `tbl_id`) VALUES
 CREATE TABLE `transactions` (
   `trans_id` int(11) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `discount` decimal(10,2) DEFAULT NULL,
-  `disc_type` int(11) DEFAULT NULL COMMENT 'disc_id',
-  `status` varchar(20) DEFAULT NULL,
-  `order_type` varchar(20) DEFAULT NULL,
-  `cash_amt` decimal(10,2) DEFAULT NULL,
-  `change_amt` decimal(10,2) DEFAULT NULL,
+  `discount` decimal(10,2) NOT NULL,
+  `disc_type` int(11) NOT NULL COMMENT 'disc_id',
+  `status` varchar(20) NOT NULL,
+  `order_type` varchar(20) NOT NULL,
+  `cash_amt` decimal(10,2) NOT NULL,
+  `change_amt` decimal(10,2) NOT NULL,
   `method` varchar(20) NOT NULL DEFAULT 'n/a',
   `card_number` varchar(45) NOT NULL DEFAULT 'n/a',
   `cust_name` varchar(45) NOT NULL DEFAULT 'n/a',
   `cust_disc_id` varchar(45) NOT NULL DEFAULT 'n/a',
-  `user_id` int(11) DEFAULT NULL COMMENT 'staff/waiter id',
-  `cashier_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'staff/waiter id',
+  `cashier_id` int(11) NOT NULL,
   `is_updated` int(1) NOT NULL DEFAULT '0',
   `is_billout_printed` int(1) NOT NULL DEFAULT '0',
   `receipt_no` int(7) NOT NULL DEFAULT '10000000'
@@ -5340,14 +5342,14 @@ INSERT INTO `transactions` (`trans_id`, `datetime`, `discount`, `disc_type`, `st
 --
 
 CREATE TABLE `trans_details` (
-  `trans_id` int(11) DEFAULT NULL,
-  `prod_id` int(11) DEFAULT NULL,
-  `pack_id` int(11) DEFAULT NULL,
-  `prod_type` int(1) DEFAULT NULL COMMENT '0-individual, 1-package, 2-prod-of-package',
-  `price` decimal(10,2) DEFAULT NULL,
-  `qty` int(11) DEFAULT NULL,
-  `total` decimal(10,2) DEFAULT NULL,
-  `part_of` int(11) DEFAULT NULL COMMENT 'products associated with the pack_id'
+  `trans_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `pack_id` int(11) NOT NULL,
+  `prod_type` int(1) NOT NULL COMMENT '0-individual, 1-package, 2-prod-of-package',
+  `price` decimal(10,2) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `part_of` int(11) NOT NULL COMMENT 'products associated with the pack_id'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -19433,9 +19435,9 @@ INSERT INTO `trans_details` (`trans_id`, `prod_id`, `pack_id`, `prod_type`, `pri
 
 CREATE TABLE `trans_logs` (
   `log_id` int(11) NOT NULL,
-  `user_fullname` varchar(45) DEFAULT NULL,
-  `log_type` varchar(45) DEFAULT NULL,
-  `details` varchar(250) DEFAULT NULL,
+  `user_fullname` varchar(45) NOT NULL,
+  `log_type` varchar(45) NOT NULL,
+  `details` varchar(250) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -29834,11 +29836,11 @@ INSERT INTO `trans_logs` (`log_id`, `user_fullname`, `log_type`, `details`, `dat
 
 CREATE TABLE `units` (
   `unit_id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `descr` varchar(100) DEFAULT NULL,
-  `pcs` int(11) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `descr` varchar(100) NOT NULL,
+  `pcs` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `removed` int(1) DEFAULT NULL
+  `removed` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -29856,15 +29858,15 @@ INSERT INTO `units` (`unit_id`, `name`, `descr`, `pcs`, `encoded`, `removed`) VA
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `lastname` varchar(45) DEFAULT NULL,
-  `firstname` varchar(45) DEFAULT NULL,
-  `middlename` varchar(45) DEFAULT NULL,
-  `contact` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `address` varchar(250) DEFAULT NULL,
-  `date_registered` varchar(20) DEFAULT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `firstname` varchar(45) NOT NULL,
+  `middlename` varchar(45) NOT NULL,
+  `contact` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `address` varchar(250) NOT NULL,
+  `date_registered` varchar(20) NOT NULL,
   `administrator` int(1) NOT NULL DEFAULT '0',
   `cashier` int(1) NOT NULL DEFAULT '0',
   `staff` int(1) NOT NULL DEFAULT '0',
@@ -29896,29 +29898,29 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `lastname`, `firstname`,
 
 CREATE TABLE `x_readings` (
   `reading_no` int(11) NOT NULL,
-  `pos_no` int(11) DEFAULT NULL,
-  `cashier_username` varchar(45) DEFAULT NULL,
-  `date` varchar(20) DEFAULT NULL,
-  `trans_count_dine_in` int(11) DEFAULT NULL,
-  `trans_count_take_out` int(11) DEFAULT NULL,
-  `trans_count_total` int(11) DEFAULT NULL,
-  `trans_count_cleared` int(11) DEFAULT NULL,
-  `trans_count_cancelled` int(11) DEFAULT NULL,
-  `trans_count_refunded` int(11) DEFAULT NULL,
-  `void_items_count` int(11) DEFAULT NULL,
-  `net_sales` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_sc` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_pwd` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_promo` decimal(10,2) DEFAULT NULL,
-  `discounts_rendered_total` decimal(10,2) DEFAULT NULL,
-  `gross_sales` decimal(10,2) DEFAULT NULL,
-  `cancelled_sales` decimal(10,2) DEFAULT NULL,
-  `refunded_sales` decimal(10,2) DEFAULT NULL,
-  `vat_sales` decimal(10,2) DEFAULT NULL,
-  `vat_amount` decimal(10,2) DEFAULT NULL,
-  `vat_exempt` decimal(10,2) DEFAULT NULL,
-  `start_rcpt_no` int(11) DEFAULT NULL,
-  `end_rcpt_no` int(11) DEFAULT NULL,
+  `pos_no` int(11) NOT NULL,
+  `cashier_username` varchar(45) NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `trans_count_dine_in` int(11) NOT NULL,
+  `trans_count_take_out` int(11) NOT NULL,
+  `trans_count_total` int(11) NOT NULL,
+  `trans_count_cleared` int(11) NOT NULL,
+  `trans_count_cancelled` int(11) NOT NULL,
+  `trans_count_refunded` int(11) NOT NULL,
+  `void_items_count` int(11) NOT NULL,
+  `net_sales` decimal(10,2) NOT NULL,
+  `discounts_rendered_sc` decimal(10,2) NOT NULL,
+  `discounts_rendered_pwd` decimal(10,2) NOT NULL,
+  `discounts_rendered_promo` decimal(10,2) NOT NULL,
+  `discounts_rendered_total` decimal(10,2) NOT NULL,
+  `gross_sales` decimal(10,2) NOT NULL,
+  `cancelled_sales` decimal(10,2) NOT NULL,
+  `refunded_sales` decimal(10,2) NOT NULL,
+  `vat_sales` decimal(10,2) NOT NULL,
+  `vat_amount` decimal(10,2) NOT NULL,
+  `vat_exempt` decimal(10,2) NOT NULL,
+  `start_rcpt_no` int(11) NOT NULL,
+  `end_rcpt_no` int(11) NOT NULL,
   `encoded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -30183,106 +30185,128 @@ ALTER TABLE `x_readings`
 --
 ALTER TABLE `categories`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
   MODIFY `disc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
   MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
   MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=960;
+
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
   MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `pack_discounts`
 --
 ALTER TABLE `pack_discounts`
   MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `po`
 --
 ALTER TABLE `po`
   MODIFY `po_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `pos`
 --
 ALTER TABLE `pos`
   MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `po_temp`
 --
 ALTER TABLE `po_temp`
   MODIFY `num` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
 --
 -- AUTO_INCREMENT for table `prod_discounts`
 --
 ALTER TABLE `prod_discounts`
   MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `store_config`
 --
 ALTER TABLE `store_config`
   MODIFY `conf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `s_readings`
 --
 ALTER TABLE `s_readings`
   MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+
 --
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
   MODIFY `tbl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `table_groups`
 --
 ALTER TABLE `table_groups`
   MODIFY `tbl_grp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
   MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3590;
+
 --
 -- AUTO_INCREMENT for table `trans_logs`
 --
 ALTER TABLE `trans_logs`
   MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10364;
+
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
   MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+
 --
 -- AUTO_INCREMENT for table `x_readings`
 --
 ALTER TABLE `x_readings`
   MODIFY `reading_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
